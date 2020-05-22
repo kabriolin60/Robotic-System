@@ -152,6 +152,15 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
+
+	//Send the revision of this board firmware
+	static char str[70];
+	sprintf(str, "IA release= %s.%s; %s; %s\n",
+			MAJOR_RELEASE,
+			MINOR_RELEASE,
+			__DATE__,
+			__TIME__);
+	_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);
 }
 
 
@@ -272,4 +281,28 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enu
 			stringlength = strlen(str);
 		}
 	}
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Communication_Boards_Status
+ **
+ ** Descriptions:		Request for sub boards status
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Communication_Boards_Status(void* pvParameters)
+{
+	Task_Delay(100);
+	_2_Comm_Send_PONG(RS485_port);
+	for(int i = 0; i < 4; i++)
+	{
+		Task_Delay(2);
+		_2_Comm_Send_PING(i+1, RS485_port);
+	}
+
+	Task_Delay(10);
+	Task_Delete_Current;
 }

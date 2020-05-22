@@ -17,6 +17,8 @@
 #include "2_Echange_Datas_Reception.h"
 
 
+#include "0_Deplacements.h"
+
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 traceString MyChannel_Debug_pins;
 traceString MyChannel_Debug_texte;
@@ -103,4 +105,6 @@ void Init_Carte_IA(void)
 	/* Init de la communication de Reception Niveau 2 */
 	_2_Communication_RX_Init();
 
+	/* Demande de presence des cartes */
+	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
 }

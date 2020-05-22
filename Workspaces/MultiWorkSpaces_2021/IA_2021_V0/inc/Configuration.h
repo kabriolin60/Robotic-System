@@ -18,6 +18,9 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#define MAJOR_RELEASE "4"
+#define MINOR_RELEASE "0d"
+
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
 

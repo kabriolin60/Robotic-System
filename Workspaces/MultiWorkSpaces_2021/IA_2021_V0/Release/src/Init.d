@@ -78,7 +78,8 @@ src/Init.o src/Init.d: ../src/Init.c \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/semphr.h \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas.h \
- D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas_Reception.h
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas_Reception.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Deplacement/0_Deplacements.h
 
 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h:
 
@@ -239,3 +240,5 @@ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\
 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas.h:
 
 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas_Reception.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Deplacement/0_Deplacements.h:

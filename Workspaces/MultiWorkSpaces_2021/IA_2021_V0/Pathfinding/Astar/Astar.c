@@ -246,12 +246,6 @@ int8_t Astar_Find_Best_Node_To_Compute(struct Astar_Map* map, short * best_index
 		{
 			checked_node = &map->Nodes[x][y];
 
-			//If we are at the End node
-			/*if(checked_node->Astar_Node_Access == End_Node)
-			{
-				return 1;
-			}*/
-
 			//If the node is opended
 			if(checked_node->Astar_Node_State == Open)
 			{
@@ -528,11 +522,8 @@ struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vecto
 	}
 
 	//2 case: We've found the longuest vector possible OR the next point == the closest node
-	//if(tested_node->Parent_Node_index_X != Astar_Node_Nb_X + 1 && tested_node->Parent_Node_index_Y != Astar_Node_Nb_Y + 1)
-	{
-		//The next possible node is the closest one
-		return tested_vector.End_Point;
-	}
+	//The next possible node is the closest one
+	return tested_vector.End_Point;
 }
 
 

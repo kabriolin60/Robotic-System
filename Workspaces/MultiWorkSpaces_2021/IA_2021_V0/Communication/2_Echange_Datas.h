@@ -34,4 +34,6 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 
 void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enum_canal_communication canal);
 
+void _2_Communication_Boards_Status(void* pvParameters);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */
