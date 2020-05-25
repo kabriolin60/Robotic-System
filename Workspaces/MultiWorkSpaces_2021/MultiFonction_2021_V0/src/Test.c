@@ -36,7 +36,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = -0.0027F;	//-0.0018
 	newparameters.Coef_Multiplicateur_Periode_asserv = 9;	//(9+1)*1 = 10ms
-	newparameters.SIMULATION = 1;
+	newparameters.SIMULATION = 0;
 	_1_Odometrie_Set_Parameters(&newparameters);
 
 	//Position initiale du Robot
@@ -225,8 +225,8 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	_2_Asservissement_Set_Distance_Speed_Accel(20, 1, 1);
 	_2_Asservissement_Set_Rotation_Speed_Accel(20, 2, 2);
 
-	//xTaskCreate(TEST_init_parametres_task2, (char *) "TEST2", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
-	//xTaskCreate(TEST_init_parametres_task, (char *) "TEST", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_init_parametres_task2, (char *) "TEST2", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_init_parametres_task, (char *) "TEST", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_AX12, (char *) "TEST AX12", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(Test_Calibration_Odometrie, (char *) "Odometrie Calib", 250, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
@@ -382,7 +382,7 @@ void Do_Rotation_Calibration(int nb_tours)
 
 	static char str[70];
 
-	sprintf(str, "Old coef Otation = %f\n", _1_Odometrie_Get_Parameters()->COEF_ROT);
+	sprintf(str, "Old coef Rotation = %f\n", _1_Odometrie_Get_Parameters()->COEF_ROT);
 	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
 
 	float delta_angle = _1_Odometrie_GetRobot_Position().Angle_rad;
@@ -558,8 +558,8 @@ void TEST_init_parametres_task(void *pvParameters)
 	Init_Timing_Tache;
 
 	//Réglages des vitesses et acceleration
-	_2_Asservissement_Set_Distance_Speed_Accel(20, 1, 1);
-	_2_Asservissement_Set_Rotation_Speed_Accel(20, 2, 2);
+	_2_Asservissement_Set_Distance_Speed_Accel(10, 1, 1);
+	_2_Asservissement_Set_Rotation_Speed_Accel(10, 2, 2);
 
 	//Réglages des parametres d'asservissement
 

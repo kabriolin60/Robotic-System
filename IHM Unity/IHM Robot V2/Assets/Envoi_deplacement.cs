@@ -132,7 +132,7 @@ public class Envoi_deplacement : MonoBehaviour
 
         st_Parametre_Deplacement parametres = new st_Parametre_Deplacement();
         parametres.Distance_Detection_Fin_Trajectoire = 3 * 100;
-        parametres.Angle_Avant_Debut_Avance = (byte)(0.1F * 100);
+        parametres.Angle_Avant_Debut_Avance = (byte)(1.0F * 100);
         parametres.Angle_Detection_Fin_Trajectoire = (byte)(0.05F * 100);
 
         coord.ptrParameters = parametres;

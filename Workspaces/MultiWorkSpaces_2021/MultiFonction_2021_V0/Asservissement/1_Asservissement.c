@@ -209,7 +209,7 @@ void _1_Asserv_Niveau_1(void *pvParameter)
 /*****************************************************************************
  ** Function name:		_1_Asserv_Vitesse_Independantes
  **
- ** Descriptions:		Realiser un asservissement en vitesse à droite et à gauche, de façn indépendante
+ ** Descriptions:		Realiser un asservissement en vitesse à droite et à gauche, de façon indépendante
  **
  ** parameters:			None
  ** Returned value:		None
@@ -279,7 +279,7 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 		_0_Set_Motor_PWM_Value(LPC_TIMER2, 1, fabsf(consigne_perc_moteur_Droit));
 
 		//Applique le sens de rotation aux moteurs
-		_0_Set_Motor_Direction(consigne_perc_moteur_Gauche >= 0 ? true : false, consigne_perc_moteur_Droit >= 0 ? false : true);
+		_0_Set_Motor_Direction(consigne_perc_moteur_Gauche >= 0 ? false : true, consigne_perc_moteur_Droit >= 0 ? true : false);
 	}else
 	{
 		//Mise à jour des codeurs virtuels pour la simulation
@@ -328,17 +328,12 @@ void _1_Asserv_Boucle_Asserv_Vitesse_Polaire(void *pvParameters)
 	//Execute le PID d'asserv en vitesse ROTATION
 	pid_do_filter(&PID_Vitesse_Rotation);
 
-	//Calcul les consignes de chaque moteur
-	consigne_perc_moteur_Droit = PID_Vitesse_Position.Commande - PID_Vitesse_Rotation.Commande;
-	consigne_perc_moteur_Gauche = PID_Vitesse_Position.Commande + PID_Vitesse_Rotation.Commande;
-
-
 	//Envoie les consignes vers les PWM pour les moteurs
 	if(!_1_Omodetrie_Get_Simulation())
 	{
 		//Calcul les consignes de chaque moteur
-		consigne_perc_moteur_Droit = PID_Vitesse_Position.Commande - PID_Vitesse_Rotation.Commande;
-		consigne_perc_moteur_Gauche = PID_Vitesse_Position.Commande + PID_Vitesse_Rotation.Commande;
+		consigne_perc_moteur_Droit = PID_Vitesse_Position.Commande + PID_Vitesse_Rotation.Commande;
+		consigne_perc_moteur_Gauche = PID_Vitesse_Position.Commande - PID_Vitesse_Rotation.Commande;
 
 		//Evite le depassement de 100% de PWM
 		if(consigne_perc_moteur_Droit > 100)
@@ -360,7 +355,6 @@ void _1_Asserv_Boucle_Asserv_Vitesse_Polaire(void *pvParameters)
 		{
 			consigne_perc_moteur_Gauche = -100;
 		}
-
 
 		//Moteur Gauche
 		_0_Set_Motor_PWM_Value(LPC_TIMER2, 0, fabsf(consigne_perc_moteur_Gauche));

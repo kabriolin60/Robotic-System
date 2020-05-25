@@ -470,12 +470,15 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 
 		//Calcule les coef sur les rampes de vitesses
 
+		float Angle_Avant_Debut_Avance = Param_Depla->Angle_Avant_Debut_Avance;
+		Angle_Avant_Debut_Avance /= 100;
+
 		//ajustage de la vitesse d'avance en fonction de l'erreur en orientation
-		if(fabsf(Erreur_Angle) < ((float)(Param_Depla->Angle_Avant_Debut_Avance))/100)
+		if(fabsf(Erreur_Angle) <= Angle_Avant_Debut_Avance)
 		{
-			//Si l'erreur en angle est inférieur au seul, le robot est considéré comme aligné avec sa cible, il peut alors avancer
-			Deplacement_Distance.Coef = (((float)(Param_Depla->Angle_Avant_Debut_Avance))/100 - Erreur_Angle)/(((float)(Param_Depla->Angle_Avant_Debut_Avance))/100);
-			Deplacement_Rotation.Coef = Erreur_Angle / (((float)(Param_Depla->Angle_Avant_Debut_Avance))/100);
+			//Si l'erreur en angle est inférieur au seuil, le robot est considéré comme aligné avec sa cible, il peut alors avancer
+			Deplacement_Distance.Coef = (Angle_Avant_Debut_Avance - fabsf(Erreur_Angle)) / Angle_Avant_Debut_Avance;
+			Deplacement_Rotation.Coef = Erreur_Angle / Angle_Avant_Debut_Avance;
 
 			if(Deplacement_Distance.Coef < 0) Deplacement_Distance.Coef = -Deplacement_Distance.Coef;
 			if(Deplacement_Rotation.Coef < 0) Deplacement_Rotation.Coef = -Deplacement_Rotation.Coef;
@@ -672,5 +675,8 @@ float Calcul_Angle_2_points_Simple(float X0, float Y0, float X1, float Y1)
 
 float minf(float a, float b)
 {
-	a < b ? return a : return b;
+	if(a < b)
+		return a;
+
+	return b;
 }

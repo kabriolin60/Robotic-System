@@ -117,27 +117,20 @@ void TEST_envoi_Ping(void *pvParameters)
 	Init_Timing_Tache;
 	vTraceEnable( TRC_START );
 
-	while (1)
+	while(Nb_Ping_Envoyes < 50000)
 	{
-		/*_2_Comm_Send_Demande_Info(1, RS485_port);
-		Task_Delay_Until(2.0F);
+		Set_Debug_Pin_0_High();
+
+		_2_Comm_Send_Demande_Info(1, RS485_port);
+		Nb_Ping_Envoyes++;
+
+		Task_Delay_Until(20.0F);
 	}
-	{*/
-		while(Nb_Ping_Envoyes < 50000)
-		{
-			Set_Debug_Pin_0_High();
 
-			_2_Comm_Send_Demande_Info(1, RS485_port);
-			Nb_Ping_Envoyes++;
+	Task_Delay_Until(20);
 
-			Task_Delay_Until(20.0F);
-		}
-
-		Task_Delay_Until(20);
-
-		if(Nb_PONG_recus == Nb_Ping_Envoyes)
-		{
-			Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
-		}
+	if(Nb_PONG_recus == Nb_Ping_Envoyes)
+	{
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
 	}
 }
