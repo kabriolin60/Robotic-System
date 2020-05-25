@@ -185,7 +185,7 @@ void _1_Asserv_Niveau_1(void *pvParameter)
 		switch(_1_Odometrie_Get_Parameters()->_1_Odometrie_Type_Asserv)
 		{
 		case Polaire_Tourne_Avance_point_unique:
-			//Dans le cas d'un asserv polaire (vitesse distant, vitesse, angle, distance, angle)
+			//Dans le cas d'un asserv polaire (vitesse distance, vitesse angle, distance, angle)
 			_1_Asserv_Boucle_Asserv_Vitesse_Polaire(pvParameter);
 			Task_Delay_Until(PERIODE_PID_VITESSE);
 			break;
