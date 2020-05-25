@@ -246,21 +246,18 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 			//Si on est arrivé, lecture du prochain point de destination
 			if(Arrive || Current_Destination.Type_Deplacement == aucun_mouvement)
 			{
+				//On est arrivée ou alors aucun mouvement n'est demandé, alors on s'arrete
+				
 				//Mise à jour des consignes en distance et en angle
 				_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
 				_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
 
 				Deplacement_Distance.Coef = 0;
-				Deplacement_Rotation.Coef = 0;
-
-				//Gestion des accelerations et freinages
-				Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), true);
-				Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), true);
+				Deplacement_Rotation.Coef = 0;			
 
 				//Gestion des accelerations et freinages
 				Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), depla_AVEC_freinage);
 				Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), depla_AVEC_freinage);
-
 
 				//Effectue le calcul des PID
 				pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
@@ -363,9 +360,9 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 	if(Erreur_Angle > PI ) Erreur_Angle -= 2*PI;
 	else if( Erreur_Angle < - PI) Erreur_Angle += 2*PI;
 
-	//Si marche avant
 	switch(destination->Type_Deplacement)
 	{
+	//Si marche arriere
 	case xy_tour_av_arriere:
 		//Modifie l'erreur pour faire faire demi-tour au robot
 		if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
@@ -441,7 +438,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 			//Modifie l'erreur pour ne pas faire faire demi-tour au robot
 			if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
 			{
-				//Le point se trouve derrière nous
+				//Le point se trouve devant nous
 				Erreur_Distance = -Erreur_Distance;
 
 				Erreur_Angle += PI;
@@ -675,8 +672,5 @@ float Calcul_Angle_2_points_Simple(float X0, float Y0, float X1, float Y1)
 
 float minf(float a, float b)
 {
-	if(a<b)
-		return a;
-
-	return b;
+	a < b ? return a : return b;
 }
