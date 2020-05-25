@@ -149,7 +149,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 	struct st_COORDONNEES coord = { 0 };
 
 
-	//Check if the new dest is != to the previous sended
+	//Check if the new dest is != to the previous sent
 	if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != X || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != Y)
 	{
 		coord.X = X;
@@ -259,6 +259,8 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 		//vTaskDelete(Astar_Task_Handler);
 	}
 
+	//true: we arrived at destination
+	//false: destination is not reachable
 	return result;
 }
 
@@ -298,12 +300,10 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	_0_Deplacement_Get_ptr_Current_Destination()->coord.X = -1;
 	_0_Deplacement_Get_ptr_Current_Destination()->coord.Y = -1;
 
-
 	//While we didn't reach the destination point
 	while(Distance_To_Destination(_0_Get_Ptr_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
 		Set_Debug_Pin_0_High();
-
 
 		/*
 		 * Step 1: Init the Map
@@ -410,8 +410,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		 * Step 5: Debug, display Pathfinding Map
 		 */
 		//Astar_Debug_Display_Map(Astar_Get_Map());
-
-
 
 		Set_Debug_Pin_0_Low();
 		/*
