@@ -69,7 +69,7 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 {
 	EventBits_t uxBits;
 
-	while(Distance_To_Destination(_0_Get_Ptr_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire)
+	while(Distance_To_Destination(_0_Get_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
 		//Check if the "no path found" flag hab been rised
 		//If no Pathfinding is used, Flag will keep low
@@ -301,14 +301,14 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	_0_Deplacement_Get_ptr_Current_Destination()->coord.Y = -1;
 
 	//While we didn't reach the destination point
-	while(Distance_To_Destination(_0_Get_Ptr_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
+	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
 		Set_Debug_Pin_0_High();
 
 		/*
 		 * Step 1: Init the Map
 		 */
-		Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Ptr_Robot_Position().Position_X, _0_Get_Ptr_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
+		Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
 
 		/*
 		 * Step 2: Create obstacles according to the function passed
@@ -340,8 +340,8 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 				 *Check if the previous sent destination is still an available path
 				 */
 				struct Astar_Vector tested_vector;
-				tested_vector.Start_Point.x = _0_Get_Ptr_Robot_Position().Position_X;
-				tested_vector.Start_Point.y = _0_Get_Ptr_Robot_Position().Position_Y;
+				tested_vector.Start_Point.x = _0_Get_Robot_Position().Position_X;
+				tested_vector.Start_Point.y = _0_Get_Robot_Position().Position_Y;
 
 				tested_vector.End_Point.x = _0_Deplacement_Get_ptr_Current_Destination()->coord.X;
 				tested_vector.End_Point.y = _0_Deplacement_Get_ptr_Current_Destination()->coord.Y;
@@ -399,8 +399,8 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 			static char str[70];
 			sprintf(str, "No path found, X= %d, Y= %d; to X= %d, Y= %d \n",
-					(short)_0_Get_Ptr_Robot_Position().Position_X,
-					(short)_0_Get_Ptr_Robot_Position().Position_Y,
+					(short)_0_Get_Robot_Position().Position_X,
+					(short)_0_Get_Robot_Position().Position_Y,
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
 			_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
