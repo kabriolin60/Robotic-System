@@ -306,3 +306,33 @@ void _2_Communication_Boards_Status(void* pvParameters)
 	Task_Delay(10);
 	Task_Delete_Current;
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Servos_Destinations
+ **
+ ** Descriptions:		Fonction d'envoie d'une demande de deplacement d'un ou plusieurs servos
+ **
+ ** parameters:			Destination,
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination, enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = DESTINATION_SERVOS_AND_AX12;
+	trame_echange.Slave_Adresse = ALL_CARDS;
+
+	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
