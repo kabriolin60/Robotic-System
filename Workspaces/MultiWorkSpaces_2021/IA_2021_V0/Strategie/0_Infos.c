@@ -62,13 +62,13 @@ struct Com_Reponse_Info* _0_Get_Ptr_Card(byte number)
 /*****************************************************************************
  ** Function name:		_0_Get_Robot_Position
  **
- ** Descriptions:		Get a ptr to a Robot Position (on Card @1)
+ ** Descriptions:		Get the Robot Position (on Card @1)
  **
  ** parameters:			None
- ** Returned value:		pointer to the Robot Position
+ ** Returned value:		Robot Position
  **
  *****************************************************************************/
-struct st_POSITION_ROBOT _0_Get_Ptr_Robot_Position(void)
+struct st_POSITION_ROBOT _0_Get_Robot_Position(void)
 {
 	struct st_POSITION_ROBOT position;
 
@@ -81,4 +81,35 @@ struct st_POSITION_ROBOT _0_Get_Ptr_Robot_Position(void)
 	position.Angle_rad /= 100;
 
 	return position;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Get_Servo_Position
+ **
+ ** Descriptions:		Get servo Values (position / torque if AX12)
+ **
+ ** parameters:			Servo Global ID
+ ** Returned value:		Servos Values
+ **
+ *****************************************************************************/
+struct servo_destination _0_Get_Servo_Position(byte ID)
+{
+	struct servo_destination values;
+
+	//Servo or AX12?
+	if(ID % 10 <= 5)
+	{
+		//servo
+		values.ID = ID;
+		values.Destination = Infos_Cartes[ID / 10 - 1].Position_Servos.Position[ID % 10];
+	}else
+	{
+		//AX12	
+		values.ID = ID;
+		values.Destination = Infos_Cartes[ID / 10 - 1].Position_AX12.Position[ID % 10];
+		values.Torque = Infos_Cartes[ID / 10 - 1].Position_AX12.Torque[ID % 10];
+	}
+
+	return values;
 }
