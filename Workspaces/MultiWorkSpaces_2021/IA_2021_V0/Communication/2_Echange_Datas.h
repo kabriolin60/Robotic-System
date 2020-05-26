@@ -36,4 +36,6 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enu
 
 void _2_Communication_Boards_Status(void* pvParameters);
 
+void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */
