@@ -25,6 +25,20 @@ void _1_Servos_Init(void)
 
 
 /**************************************************
+Fonction de calcul et de mise à jour d'une nouvelle consigne pour un servo
+Input: Servo ID
+		Nouvelle destination
+		Temps de deplacement souhaité
+Output: None
+ **************************************************/
+void _1_Servos_Set_Destination(byte id, unsigned short desti, unsigned short time)
+{
+	Tableau_Servo[id].Destination = desti;
+	_1_Servos_Calcul_Ramp(&Tableau_Servo[id], time);
+}
+
+
+/**************************************************
 Fonction de calcul des rampes pour l'evolution de la position des servo
 Input: Pointeur sur la Structure du Servo à Mettre à jour
        Temps de déplacement souhaité du servo
@@ -90,7 +104,6 @@ void _1_Servos_Update_Servo(void *pvParameters)
 		for(id = 0; id<6; id++)
 			_1_Servos_MAJ_Consigne_Servo(&Tableau_Servo.Servo[id]);
 
-		//MAJ des registres des servo
 		//MAJ des registres des servo
 		LPC_PWM1->MR1 = (unsigned short)(Tableau_Servo.Servo[5].Position);  //Servo 5
 		LPC_PWM1->MR2 = (unsigned short)(Tableau_Servo.Servo[4].Position);  //Servo 4
