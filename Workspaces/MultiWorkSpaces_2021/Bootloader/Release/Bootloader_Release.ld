@@ -6,11 +6,11 @@
  * Generated linker script file for LPC1769
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.1.1 [Build 3241] [2020-03-02] on 26 mai 2020 20:38:31
+ * MCUXpresso IDE v11.1.1 [Build 3241] [2020-03-02] on 26 mai 2020 20:38:30
  */
 
-INCLUDE "IA_2021_V0_Release_library.ld"
-INCLUDE "IA_2021_V0_Release_memory.ld"
+INCLUDE "Bootloader_Release_library.ld"
+INCLUDE "Bootloader_Release_memory.ld"
 
 ENTRY(ResetISR)
 
@@ -32,17 +32,12 @@ SECTIONS
         LONG(LOADADDR(.data_RAM2));
         LONG(    ADDR(.data_RAM2));
         LONG(  SIZEOF(.data_RAM2));
-        LONG(LOADADDR(.data_RAM3));
-        LONG(    ADDR(.data_RAM3));
-        LONG(  SIZEOF(.data_RAM3));
         __data_section_table_end = .;
         __bss_section_table = .;
         LONG(    ADDR(.bss));
         LONG(  SIZEOF(.bss));
         LONG(    ADDR(.bss_RAM2));
         LONG(  SIZEOF(.bss_RAM2));
-        LONG(    ADDR(.bss_RAM3));
-        LONG(  SIZEOF(.bss_RAM3));
         __bss_section_table_end = .;
         __section_table_end = . ;
         /* End of Global Section Table */
@@ -100,24 +95,6 @@ SECTIONS
         PROVIDE(__end_data_RamAHB32 = .) ;
      } > RamAHB32 AT>MFlash512
 
-    /* DATA section for RAM3 */
-
-    .data_RAM3 : ALIGN(4)
-    {
-        FILL(0xff)
-        PROVIDE(__start_data_RAM3 = .) ;
-        PROVIDE(__start_data_RAM3 = .) ;
-        *(.ramfunc.$RAM3)
-        *(.ramfunc.$RAM3)
-        *(.data.$RAM3)
-        *(.data.$RAM3)
-        *(.data.$RAM3.*)
-        *(.data.$RAM3.*)
-        . = ALIGN(4) ;
-        PROVIDE(__end_data_RAM3 = .) ;
-        PROVIDE(__end_data_RAM3 = .) ;
-     } > RAM3 AT>MFlash512
-
     /* MAIN DATA SECTION */
     .uninit_RESERVED (NOLOAD) : ALIGN(4)
     {
@@ -160,20 +137,6 @@ SECTIONS
        PROVIDE(__end_bss_RamAHB32 = .) ;
     } > RamAHB32 AT> RamAHB32
 
-    /* BSS section for RAM3 */
-    .bss_RAM3 : ALIGN(4)
-    {
-       PROVIDE(__start_bss_RAM3 = .) ;
-       PROVIDE(__start_bss_RAM3 = .) ;
-       *(.bss.$RAM3)
-       *(.bss.$RAM3)
-       *(.bss.$RAM3.*)
-       *(.bss.$RAM3.*)
-       . = ALIGN (. != 0 ? 4 : 1) ; /* avoid empty segment */
-       PROVIDE(__end_bss_RAM3 = .) ;
-       PROVIDE(__end_bss_RAM3 = .) ;
-    } > RAM3 AT> RAM3
-
     /* MAIN BSS SECTION */
     .bss : ALIGN(4)
     {
@@ -202,20 +165,6 @@ SECTIONS
        PROVIDE(__end_noinit_RAM2 = .) ;
        PROVIDE(__end_noinit_RamAHB32 = .) ;
     } > RamAHB32 AT> RamAHB32
-
-    /* NOINIT section for RAM3 */
-    .noinit_RAM3 (NOLOAD) : ALIGN(4)
-    {
-       PROVIDE(__start_noinit_RAM3 = .) ;
-       PROVIDE(__start_noinit_RAM3 = .) ;
-       *(.noinit.$RAM3)
-       *(.noinit.$RAM3)
-       *(.noinit.$RAM3.*)
-       *(.noinit.$RAM3.*)
-       . = ALIGN(4) ;
-       PROVIDE(__end_noinit_RAM3 = .) ;
-       PROVIDE(__end_noinit_RAM3 = .) ;
-    } > RAM3 AT> RAM3
 
     /* DEFAULT NOINIT SECTION */
     .noinit (NOLOAD): ALIGN(4)
