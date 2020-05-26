@@ -41,7 +41,13 @@ void _1_AX12_Interpretation_RX(void *pvParameters);
 
 void _1_AX12_Recomposition_Rx(void *pvParameters);
 
+void _1_AX12_MOVE_WITH_TIME(byte ID, unsigned short desti, unsigned short torque, unsigned short time);
+
+
+
 void _1_AX12_WAIT_FOR_ACK(struct st_AX_12_Trame *trame, bool wait);
+
+__attribute__((optimize("O0"))) void AX_12_SET_POSITION_SPEED_TORQUE(unsigned char ID, unsigned short position, unsigned short speed, unsigned short torque);
 
 
 __attribute__((optimize("O0"))) void AX_12_SET_POSITION(unsigned char ID, unsigned int position, unsigned char Attente_Synchro);
