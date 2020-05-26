@@ -19,6 +19,8 @@ void _0_Update_Card_Datas(struct Com_Reponse_Info* infos);
 
 struct Com_Reponse_Info* _0_Get_Ptr_Card(byte number);
 
-struct st_POSITION_ROBOT _0_Get_Ptr_Robot_Position(void);
+struct st_POSITION_ROBOT _0_Get_Robot_Position(void);
+
+struct servo_destination _0_Get_Servo_Position(byte ID);
 
 #endif /* 0_INFOS_H_ */
