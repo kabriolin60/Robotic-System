@@ -47,9 +47,9 @@ void _1_Init_AX12(void)
 
 
 /*****************************************************************************
- ** Function name:		_1_AX12_Recomposition_Rx
+ ** Function name:		_1_AX12_Interpretation_RX
  **
- ** Descriptions:		Tache de recomposition des messages reçus depuis les AX-12
+ ** Descriptions:		Tache d'interpretation des messages reçus depuis les AX-12
  **
  ** parameters:			Pointeur vers la Queue qui doit recevoir le message termine
  ** Returned value:		None
@@ -131,6 +131,44 @@ void _1_AX12_Recomposition_Rx(void *pvParameters)
 
 
 /*****************************************************************************
+ ** Function name:		_1_AX12_MOVE_WITH_TIME
+ **
+ ** Descriptions:		Fonction de deplacement d'un AX12 en un temps donné avec mise à jour du torque
+ **
+ ** parameters:			Id de l'AX12 (local ID)
+ 						destination
+						torque
+						temps de deplacement (ms)
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _1_AX12_MOVE_WITH_TIME(byte ID, unsigned short desti, unsigned short torque, unsigned short time)
+{	
+	//Convert local ID to AX-12 bus ID
+	//LocID @6 = bus @1
+	ID -= 5;
+	
+	//Calcule la nouvelle speed à appliquer a l'ax12
+	//Get it's current position
+	unsigned short current_pos;
+	current_pos = AX_12_READ_Position(ID);
+	
+	//error in steps
+	float error_pos = (float)(desti - current_pos);
+	//error in °
+	error_pos *= 0.29F;
+	
+	float new_speed = error_pos / time;
+	new_speed /= 1000; //Vitesse de deplacement en °/sec
+	new_speed /= 0.666F; //Vitesse de deplacement en pas/sec (issu du 1 step = 0.111 tr/min)
+	
+	AX_12_SET_POSITION_SPEED_TORQUE(ID, desti, new_speed, torque);
+}
+
+
+
+
+/*****************************************************************************
  ** Function name:		_1_AX12_WAIT_FOR_ACK
  **
  ** Descriptions:		Fonction d'attente de reception d'un ACK par les AX-12
@@ -169,6 +207,50 @@ void _1_AX12_WAIT_FOR_ACK(struct st_AX_12_Trame *trame, bool wait)
 
 	}
 }
+
+
+/**************************************************
+Fonction de pilotage en position/torque/speed d'un AX-12
+Input: ID de l'ax12
+		Consigne en position
+		Consigne en vitesse
+		consigne en torque
+Output: None
+ **************************************************/
+__attribute__((optimize("O0"))) void AX_12_SET_POSITION_SPEED_TORQUE(unsigned char ID, unsigned short position, unsigned short speed, unsigned short torque)
+{
+	struct st_AX_12_Trame AX_12;
+	unsigned int Pos_H = (position >> 8);
+	unsigned int Pos_L = (position & 0xFF);
+	
+	unsigned int Speed_H = (speed >> 8);
+	unsigned int Speed_L = (speed & 0xFF);
+	
+	unsigned int Torque_H = (torque >> 8);
+	unsigned int Torque_L = (torque & 0xFF);
+
+	AX_12.ID = ID;
+	AX_12.Length = 9;
+	if(Attente_Synchro)
+	{
+		AX_12.Instruction = AX_12_REG_WRITE;
+	}else
+	{
+		AX_12.Instruction = AX_12_WRITE_DATA;
+	}
+	AX_12.Data[0] = AX_12_Goal_Position_L;
+	AX_12.Data[1] = Pos_L;
+	AX_12.Data[2] = Pos_H;
+	AX_12.Data[3] = Speed_L;
+	AX_12.Data[4] = Speed_H;
+	AX_12.Data[5] = Torque_L;
+	AX_12.Data[6] = Torque_H;
+
+	(void)memset(&AX_12_TRAME, 0, sizeof(struct st_AX_12_Trame));
+
+	_1_AX12_WAIT_FOR_ACK(&AX_12, true);
+}
+
 
 
 /**************************************************
