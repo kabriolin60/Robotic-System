@@ -18,4 +18,6 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas);
 
 void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas);
 
+void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_RECEPTION_H_ */
