@@ -29,6 +29,9 @@ public class Communication
 		REPONDE_POSITION_MOTEURS_AUX,
 		RECALAGE_MOTEUR_AUX,
 
+		DESTINATION_SERVOS_AND_AX12 = 20,
+		
+		/*
 		//Servo
 		DESTINATION_SERVO = 20,
 		DEMANDE_POSITION_SERVO,
@@ -37,7 +40,7 @@ public class Communication
 		//AX_12
 		DESTINATION_AX_12 = 24,
 		DEMANDE_POSITION_AX_12,
-		REPONSE_POSITION_AX_12,
+		REPONSE_POSITION_AX_12,		
 
 		//Mesures analogiques
 		DEMANDE_MESURES_ANALOGIQUES = 28,
@@ -47,6 +50,7 @@ public class Communication
 		DEMANDE_MESURES_DIGITALES = 31,
 		REPONSE_MESURES_DIGITALES,
 		SET_SORTIES_DIGITALES,
+		*/
 
 		//Info sur la carte
 		DEMANDE_INFO = 35,
