@@ -76,6 +76,12 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 				_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
 #endif
 				break;
+					
+				case DESTINATION_SERVOS_AND_AX12:
+#ifdef TYPE_CARTE_MULTIFCT
+				_2_Comm_RX_Destination_Servos(&received_trame);
+#endif
+				break;
 
 			case DEMANDE_INFO:
 				//Mise en pile des infos à envoyer
@@ -91,6 +97,8 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 			case PING:
 				//A la demande d'une carte, on répond par un PONG
 				_2_Comm_Send_PONG(RS485_port);
+				break;	
+					
 			default:
 				break;
 			}
@@ -221,7 +229,45 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 	default:
 		break;
 	}
+}
 
 
-
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Destination_Servos
+ **
+ ** Descriptions:		Receive a set a servos destination
+ **						No matters, which board or servo ID						
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas)
+{
+	struct st_Destination_Servos destinations;	
+	COPYDATA2(datas->Data, destinations);
+	
+	//For each servos asked
+	for(int i = 0; i < destinations.Nombre_servos_to_move; i++)
+	{
+		//IDs x0 to x5 = servos
+		//IDs x6 to x9 = AX12
+		//ID = @carte*10 + Local_servo_id
+		//Local_ID = global_ID % 10
+		
+		//Check if this servo is associated to this board
+		if(destinations.servo[i].ID / 10 == ADRESSE_CARTE)
+		{
+			//Servo or AX12
+			if(destinations.servo[i].ID % 10 <= 5)
+			{
+				//Servo
+				_1_Servos_Set_Destination(destinations.servo[i].ID % 10, destinations.servo[i].Destination, destinations.Time_to_move);
+			}else
+			{
+				//AX12
+				_1_AX12_MOVE_WITH_TIME(destinations.servo[i].ID % 10, destinations.servo[i].Destination, destinations.servo[i].Torque, destinations.Time_to_move)
+			}
+		}
+	}
 }
