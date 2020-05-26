@@ -19,6 +19,7 @@ Communication/RS485 \
 Communication/USB/src \
 Pathfinding/Astar \
 Strategie \
+Strategie/Actionneurs \
 Strategie/Deplacement \
 freertos/FreeRTOS_Trace \
 freertos/src \

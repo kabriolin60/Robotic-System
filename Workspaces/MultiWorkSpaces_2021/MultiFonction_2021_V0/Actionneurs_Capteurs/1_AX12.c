@@ -231,13 +231,9 @@ __attribute__((optimize("O0"))) void AX_12_SET_POSITION_SPEED_TORQUE(unsigned ch
 
 	AX_12.ID = ID;
 	AX_12.Length = 9;
-	if(Attente_Synchro)
-	{
-		AX_12.Instruction = AX_12_REG_WRITE;
-	}else
-	{
-		AX_12.Instruction = AX_12_WRITE_DATA;
-	}
+
+	AX_12.Instruction = AX_12_WRITE_DATA;
+
 	AX_12.Data[0] = AX_12_Goal_Position_L;
 	AX_12.Data[1] = Pos_L;
 	AX_12.Data[2] = Pos_H;

@@ -12,6 +12,7 @@ RM := rm -rf
 -include freertos/src/subdir.mk
 -include freertos/FreeRTOS_Trace/subdir.mk
 -include Strategie/Deplacement/subdir.mk
+-include Strategie/Actionneurs/subdir.mk
 -include Strategie/subdir.mk
 -include Pathfinding/Astar/subdir.mk
 -include Communication/USB/src/subdir.mk

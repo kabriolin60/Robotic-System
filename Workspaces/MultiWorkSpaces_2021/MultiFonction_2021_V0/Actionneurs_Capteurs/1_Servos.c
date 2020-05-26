@@ -5,7 +5,7 @@
  *      Author: kabri
  */
 
-#include "0_Servos.h"
+
 #include "1_Servos.h"
 
 static struct st_Tableau_Servo Tableau_Servo;
@@ -33,8 +33,8 @@ Output: None
  **************************************************/
 void _1_Servos_Set_Destination(byte id, unsigned short desti, unsigned short time)
 {
-	Tableau_Servo[id].Destination = desti;
-	_1_Servos_Calcul_Ramp(&Tableau_Servo[id], time);
+	Tableau_Servo.Servo[id].Destination = desti;
+	_1_Servos_Calcul_Ramp(&Tableau_Servo.Servo[id], time);
 }
 
 

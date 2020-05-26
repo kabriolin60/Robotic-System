@@ -57,7 +57,7 @@ bool _0_Actionneurs_Move_1_Servo(byte ID, unsigned short desti, short torque,
     struct servo_destination position;
     
     position = _0_Get_Servo_Position(ID);
-    if(position >= desti - 10 && position <= desti + 10)
+    if(position.Destination >= desti - 10 && position.Destination <= desti + 10)
     {
         //servo 1 is arrived
         return true;
@@ -121,11 +121,11 @@ bool _0_Actionneurs_Move_2_Servo(byte ID, unsigned short desti, short torque,
     struct servo_destination position;
     
     position = _0_Get_Servo_Position(ID);
-    if(position >= desti - 10 && position <= desti + 10)
+    if(position.Destination >= desti - 10 && position.Destination <= desti + 10)
     {
         //servo 1 is arrived
         position = _0_Get_Servo_Position(ID_2);
-        if(position >= desti_2 - 10 && position <= desti_2 + 10)
+        if(position.Destination >= desti_2 - 10 && position.Destination <= desti_2 + 10)
         {    
             //servo 2 is arrived
             return true;
@@ -198,15 +198,15 @@ bool _0_Actionneurs_Move_3_Servo(byte ID, unsigned short desti, short torque,
     struct servo_destination position;
     
     position = _0_Get_Servo_Position(ID);
-    if(position >= desti - 10 && position <= desti + 10)
+    if(position.Destination >= desti - 10 && position.Destination <= desti + 10)
     {
         //servo 1 is arrived
         position = _0_Get_Servo_Position(ID_2);
-        if(position >= desti_2 - 10 && position <= desti_2 + 10)
+        if(position.Destination >= desti_2 - 10 && position.Destination <= desti_2 + 10)
         {       
             //servo 2 is arrived
             position = _0_Get_Servo_Position(ID_3);
-            if(position >= desti_3 - 10 && position <= desti_3 + 10)
+            if(position.Destination >= desti_3 - 10 && position.Destination <= desti_3 + 10)
             {       
                 //servo 3 is arrived
                 return true;
@@ -289,19 +289,19 @@ bool _0_Actionneurs_Move_4_Servo(byte ID, unsigned short desti, short torque,
     struct servo_destination position;
     
     position = _0_Get_Servo_Position(ID);
-    if(position >= desti - 10 && position <= desti + 10)
+    if(position.Destination >= desti - 10 && position.Destination <= desti + 10)
     {
         //servo 1 is arrived
         position = _0_Get_Servo_Position(ID_2);
-        if(position >= desti_2 - 10 && position <= desti_2 + 10)
+        if(position.Destination >= desti_2 - 10 && position.Destination <= desti_2 + 10)
         {       
             //servo 2 is arrived
             position = _0_Get_Servo_Position(ID_3);
-            if(position >= desti_3 - 10 && position <= desti_3 + 10)
+            if(position.Destination >= desti_3 - 10 && position.Destination <= desti_3 + 10)
             {       
                 //servo 3 is arrived
                 position = _0_Get_Servo_Position(ID_4);
-                if(position >= desti_4 - 10 && position <= desti_4 + 10)
+                if(position.Destination >= desti_4 - 10 && position.Destination <= desti_4 + 10)
                 {       
                     //servo 4 is arrived
                     return true;

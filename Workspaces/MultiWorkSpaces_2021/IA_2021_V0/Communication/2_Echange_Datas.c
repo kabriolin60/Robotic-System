@@ -58,8 +58,8 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 
 	static char str[70];
 	sprintf(str, "Send Desti, From X= %d, Y= %d; to X= %d, Y= %d\n",
-			(short)_0_Get_Ptr_Robot_Position().Position_X,
-			(short)_0_Get_Ptr_Robot_Position().Position_Y,
+			(short)_0_Get_Robot_Position().Position_X,
+			(short)_0_Get_Robot_Position().Position_Y,
 			(short)destination->coord.X,
 			(short)destination->coord.Y);
 	_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);

@@ -8,6 +8,8 @@
 #ifndef _1_SERVOS_H_
 #define _1_SERVOS_H_
 
+#include "0_Servos.h"
+
 void _1_Servos_Init(void);
 
 void _1_Servos_Set_Destination(byte id, unsigned short desti, unsigned short time);

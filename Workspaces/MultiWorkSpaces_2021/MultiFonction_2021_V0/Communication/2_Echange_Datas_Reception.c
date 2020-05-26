@@ -19,6 +19,9 @@
 #include "2_Asservissement.h"
 #include "1_PID.h"
 
+#include "1_Servos.h"
+#include "1_AX12.h"
+
 extern QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 static long Nb_Messages_Interpretes = 0;
 
@@ -266,7 +269,7 @@ void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas)
 			}else
 			{
 				//AX12
-				_1_AX12_MOVE_WITH_TIME(destinations.servo[i].ID % 10, destinations.servo[i].Destination, destinations.servo[i].Torque, destinations.Time_to_move)
+				_1_AX12_MOVE_WITH_TIME(destinations.servo[i].ID % 10, destinations.servo[i].Destination, destinations.servo[i].Torque, destinations.Time_to_move);
 			}
 		}
 	}
