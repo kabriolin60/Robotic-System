@@ -44,7 +44,7 @@ all: MultiFonction_2021_V0.axf
 MultiFonction_2021_V0.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release" -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs" -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release" -Xlinker -Map="MultiFonction_2021_V0.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "MultiFonction_2021_V0_Multiple_configurations.ld" -u _printf_float -o "MultiFonction_2021_V0.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release" -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs" -L"C:\Robot\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release" -Xlinker -Map="MultiFonction_2021_V0.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "MultiFonction_2021_V0_Release.ld" -u _printf_float -o "MultiFonction_2021_V0.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
@@ -56,7 +56,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "MultiFonction_2021_V0.axf"; # arm-none-eabi-objcopy -v -O binary "MultiFonction_2021_V0.axf" "MultiFonction_2021_V0.bin" ; # checksum -p LPC1769 -d "MultiFonction_2021_V0.bin";
+	-arm-none-eabi-size "MultiFonction_2021_V0.axf" ; arm-none-eabi-objcopy -v -O binary "MultiFonction_2021_V0.axf" "MultiFonction_2021_V0.bin" ; arm-none-eabi-objcopy -I binary "MultiFonction_2021_V0.bin" -O ihex "MultiFonction_2021_V0.hex" ; # checksum -p LPC1769 -d "MultiFonction_2021_V0.bin"
 	-@echo ' '
 
 .PHONY: all clean dependents post-build
