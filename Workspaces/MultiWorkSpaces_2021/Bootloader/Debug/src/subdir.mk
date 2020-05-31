@@ -4,18 +4,24 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/Bootloader.c \
+../src/Flash_iap.c \
 ../src/cr_startup_lpc175x_6x.c \
 ../src/crp.c \
 ../src/main.c \
 ../src/sysinit.c 
 
 OBJS += \
+./src/Bootloader.o \
+./src/Flash_iap.o \
 ./src/cr_startup_lpc175x_6x.o \
 ./src/crp.o \
 ./src/main.o \
 ./src/sysinit.o 
 
 C_DEPS += \
+./src/Bootloader.d \
+./src/Flash_iap.d \
 ./src/cr_startup_lpc175x_6x.d \
 ./src/crp.d \
 ./src/main.d \

@@ -56,7 +56,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "MultiFonction_2021_V0.axf" ; arm-none-eabi-objcopy -v -O binary "MultiFonction_2021_V0.axf" "MultiFonction_2021_V0.bin" ; arm-none-eabi-objcopy -I binary "MultiFonction_2021_V0.bin" -O ihex "MultiFonction_2021_V0.hex" ; # checksum -p LPC1769 -d "MultiFonction_2021_V0.bin"
+	-arm-none-eabi-size "MultiFonction_2021_V0.axf" ; arm-none-eabi-objcopy -O ihex  "MultiFonction_2021_V0.axf"  "MultiFonction_2021_V0.hex" ; # checksum -p LPC1769 -d "MultiFonction_2021_V0.bin"
 	-@echo ' '
 
 .PHONY: all clean dependents post-build

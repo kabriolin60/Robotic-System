@@ -1,0 +1,10 @@
+<info flash_driver='LPC175x_6x_512.cfx'>
+ <chip>
+  <memory id='Flash' type='Flash' is_ro='true' can_program='true'></memory>
+  <memory id='RAM' type='RAM'></memory>
+   <memoryInstance id='MFlash512' derived_from='Flash' location='0x10000' size='0x70000'   edited='true'  />
+   <memoryInstance id='RamLoc32' derived_from='RAM' location='0x10000000' size='0x8000'     />
+   <memoryInstance id='RamAHB32' derived_from='RAM' location='0x2007c000' size='0x800'   edited='true'  />
+   <memoryInstance id='RAM3' derived_from='RAM' location='0x2007c800' size='0x7800'   edited='true'  />
+ </chip>
+</info>
