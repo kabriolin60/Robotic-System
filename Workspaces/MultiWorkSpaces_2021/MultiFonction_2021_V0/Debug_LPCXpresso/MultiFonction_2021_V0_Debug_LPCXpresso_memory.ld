@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1769
  * Created from memory.ldt by FMCreateLinkMemory
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.1.1 [Build 3241] [2020-03-02] on 31 mai 2020 16:21:48
+ * MCUXpresso IDE v11.1.1 [Build 3241] [2020-03-02] on 1 juin 2020 15:07:55
  */
 
 MEMORY
@@ -14,7 +14,8 @@ MEMORY
   /* Define each memory region */
   MFlash512 (rx) : ORIGIN = 0x10000, LENGTH = 0x70000 /* 448K bytes (alias Flash) */  
   RamLoc32 (rwx) : ORIGIN = 0x10000000, LENGTH = 0x8000 /* 32K bytes (alias RAM) */  
-  RamAHB32 (rwx) : ORIGIN = 0x2007c000, LENGTH = 0x8000 /* 32K bytes (alias RAM2) */  
+  RamAHB32 (rwx) : ORIGIN = 0x2007c000, LENGTH = 0x800 /* 2K bytes (alias RAM2) */  
+  RAM3 (rwx) : ORIGIN = 0x2007c800, LENGTH = 0x7800 /* 30K bytes (alias RAM3) */  
 }
 
   /* Define a symbol for the top of each memory region */
@@ -28,5 +29,9 @@ MEMORY
   __top_RAM = 0x10000000 + 0x8000 ; /* 32K bytes */  
   __base_RamAHB32 = 0x2007c000  ; /* RamAHB32 */  
   __base_RAM2 = 0x2007c000 ; /* RAM2 */  
-  __top_RamAHB32 = 0x2007c000 + 0x8000 ; /* 32K bytes */  
-  __top_RAM2 = 0x2007c000 + 0x8000 ; /* 32K bytes */  
+  __top_RamAHB32 = 0x2007c000 + 0x800 ; /* 2K bytes */  
+  __top_RAM2 = 0x2007c000 + 0x800 ; /* 2K bytes */  
+  __base_RAM3 = 0x2007c800  ; /* RAM3 */  
+  __base_RAM3 = 0x2007c800 ; /* RAM3 */  
+  __top_RAM3 = 0x2007c800 + 0x7800 ; /* 30K bytes */  
+  __top_RAM3 = 0x2007c800 + 0x7800 ; /* 30K bytes */  

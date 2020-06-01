@@ -12,7 +12,7 @@
 #include "board.h"
 #include "Bootloader.h"
 
-const unsigned sector_start_map[MAX_FLASH_SECTOR] = {SECTOR_0_START,             \
+unsigned sector_start_map[MAX_FLASH_SECTOR] = {SECTOR_0_START,             \
 SECTOR_1_START,SECTOR_2_START,SECTOR_3_START,SECTOR_4_START,SECTOR_5_START,      \
 SECTOR_6_START,SECTOR_7_START,SECTOR_8_START,SECTOR_9_START,SECTOR_10_START,     \
 SECTOR_11_START,SECTOR_12_START,SECTOR_13_START,SECTOR_14_START,SECTOR_15_START, \
@@ -20,7 +20,7 @@ SECTOR_16_START,SECTOR_17_START,SECTOR_18_START,SECTOR_19_START,SECTOR_20_START,
 SECTOR_21_START,SECTOR_22_START,SECTOR_23_START,SECTOR_24_START,SECTOR_25_START, \
 SECTOR_26_START,SECTOR_27_START,SECTOR_28_START,SECTOR_29_START};
 
-const unsigned sector_end_map[MAX_FLASH_SECTOR] = {SECTOR_0_END,SECTOR_1_END,    \
+unsigned sector_end_map[MAX_FLASH_SECTOR] = {SECTOR_0_END,SECTOR_1_END,    \
 SECTOR_2_END,SECTOR_3_END,SECTOR_4_END,SECTOR_5_END,SECTOR_6_END,SECTOR_7_END,   \
 SECTOR_8_END,SECTOR_9_END,SECTOR_10_END,SECTOR_11_END,SECTOR_12_END,             \
 SECTOR_13_END,SECTOR_14_END,SECTOR_15_END,SECTOR_16_END,SECTOR_17_END,           \
@@ -49,6 +49,7 @@ void execute_user_code(void)
     // Disable interrupts and turn off all peripherals so the user code doesn't
     // accidentally jump back to the old vector table
     __disable_irq();
+    vTaskEndScheduler();
 
     LPC_SYSCTL->PCONP = 0x001817BE;
 
@@ -69,12 +70,22 @@ void execute_user_code(void)
 
     user_code_entry = (void *) *p;
 
-    __enable_irq();
+    //__enable_irq();
 
     // Jump to user application
 
+
+
     user_code_entry();
 
+}
+
+void bootjump(uint32_t adress)
+{
+	__asm volatile (
+	"LDR SP, [R0] \n"
+	"LDR PC, [R0, #4] \n"
+	 );
 }
 
 

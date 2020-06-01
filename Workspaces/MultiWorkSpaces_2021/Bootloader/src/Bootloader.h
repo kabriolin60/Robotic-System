@@ -207,4 +207,8 @@ REINVOKE_ISP                =57
 #define IAP_ADDRESS 0x1FFF1FF1
 
 
+void execute_user_code(void);
+void bootjump(uint32_t adress);
+
+
 #endif /* BOOTLOADER_H_ */

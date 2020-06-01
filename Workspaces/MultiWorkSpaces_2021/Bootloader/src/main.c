@@ -8,12 +8,9 @@
 ===============================================================================
  */
 
+
 #if defined (__USE_LPCOPEN)
-#if defined(NO_BOARD_LIB)
 #include "chip.h"
-#else
-#include "board.h"
-#endif
 #endif
 
 #include "board.h"
@@ -22,22 +19,12 @@
 #include "cdc_usb_main.h"
 #include "cdc_vcom.h"
 
+#include "Configuration.h"
+#include "Bootloader.h"
+
 
 #include <cr_section_macros.h>
 
-/*****************************************************************************
- * Private types/enumerations/variables
- ****************************************************************************/
-static uint8_t g_rxBuff[64];
-static uint16_t data_rx_number = 0;
-
-/*****************************************************************************
- * Public types/enumerations/variables
- ****************************************************************************/
-
-/*****************************************************************************
- * Private functions
- ****************************************************************************/
 
 /* Sets up system hardware */
 static void prvSetupHardware(void)
@@ -52,65 +39,53 @@ static void prvSetupHardware(void)
 
 	SystemCoreClockUpdate();
 	Board_Init();
-
-	/* Initial LED0 state is off */
-	Board_LED_Set(0, false);
-
-	/* Initial USB uart */
-	usb_main();
 }
 
 /* LED1 toggle thread */
-static void vLEDTask1(void *pvParameters) {
+static void vTask_HartBeat(void *pvParameters) {
 	bool LedState = false;
 
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, true); //Led as Output
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true); //Led as Output
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, true); //Led as Output
+
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, false);
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, false);
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, false);
+
 	while (1) {
-		Board_LED_Set(0, LedState);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
 		LedState = (bool) !LedState;
 
-		/* About a 3Hz on/off toggle rate */
-		vTaskDelay(configTICK_RATE_HZ / 6);
+		/* About a 5Hz on/off toggle rate */
+		vTaskDelay(configTICK_RATE_HZ / 5);
 	}
 }
 
-/* LED2 toggle thread */
-static void vLEDTask2(void *pvParameters) {
-	uint32_t rdCnt = 0;
 
-	vTaskDelay(1000);
+
+static void vTask_LunchUser_Application(void *pvParameters) {
+	//Wait 5 seconds
+	vTaskDelay(5000);
+
+	execute_user_code();
+	bool LedState = false;
+
 
 	while (1) {
-		/* Check if host has connected and opened the VCOM port */
-		/*if ((vcom_connected() != 0) && (prompt == 0)) {
-			vcom_write("Hello World!!\r\n", 15);
-			prompt = 1;
-		}*/
-		/* If VCOM port is opened echo whatever we receive back to host. */
-		if (vcom_connected())
-		{
-			rdCnt = vcom_bread(&g_rxBuff[0], 64);
-			if (rdCnt)
-			{
-				vcom_write(&g_rxBuff[0], rdCnt);
-			}
-		}
-		Task_Delay(1);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
+		LedState = (bool) !LedState;
+
+		/* About a 10Hz on/off toggle rate */
+		//ERROR
+		vTaskDelay(configTICK_RATE_HZ / 20);
 	}
 }
 
-
-/* UART (or output) thread */
-static void vUARTTask(void *pvParameters) {
-	int tickCnt = 0;
-
-	while (1) {
-		DEBUGOUT("Tick: %d\r\n", tickCnt);
-		tickCnt++;
-
-		/* About a 1s delay here */
-		vTaskDelay(configTICK_RATE_HZ);
-	}
-}
 
 /*****************************************************************************
  * Public functions
@@ -125,19 +100,9 @@ int main(void)
 	prvSetupHardware();
 
 	/* LED1 toggle thread */
-	xTaskCreate(vLEDTask1, (signed char *) "vTaskLed1",
-			configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-			(xTaskHandle *) NULL);
+	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
-	/* LED2 toggle thread */
-	xTaskCreate(vLEDTask2, (signed char *) "vTaskLed2",
-			configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-			(xTaskHandle *) NULL);
-
-	/* UART output thread, simply counts seconds */
-	xTaskCreate(vUARTTask, (signed char *) "vTaskUart",
-			configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-			(xTaskHandle *) NULL);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

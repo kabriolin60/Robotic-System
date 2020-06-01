@@ -22,10 +22,10 @@
 #define MINOR_RELEASE "0d"
 
 
-//#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
+#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
 
 #ifdef CARTE_LPCXPRESSO
-#define USE_USB
+//#define USE_USB
 #else
 #ifdef TYPECARTE
 //#define USE_USB

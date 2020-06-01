@@ -101,27 +101,6 @@ static void vTask_HartBeat(void *pvParameters) {
 
 
 
-
-/* LED2 toggle thread */
-/*static void vTask_USB_Repeat(void *pvParameters) {
-	uint32_t rdCnt = 0;
-
-	vTaskDelay(10000);
-
-	while (1) {
-		// If VCOM port is opened echo whatever we receive back to host.
-		if (vcom_connected())
-		{
-			rdCnt = vcom_bread(&g_rxBuff[0], 64);
-			if (rdCnt)
-			{
-				vcom_write(&g_rxBuff[0], rdCnt);
-			}
-		}
-		Task_Delay(1);
-	}
-}*/
-
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
@@ -136,7 +115,7 @@ int main(void)
 	vTraceEnable( TRC_INIT );
 
 #ifdef TYPE_CARTE_MULTIFCT
-	Init_Carte_MultiFonctions();
+	//Init_Carte_MultiFonctions();
 #endif
 
 #ifdef USE_USB

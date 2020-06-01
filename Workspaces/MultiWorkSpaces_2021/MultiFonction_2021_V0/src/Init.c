@@ -91,7 +91,6 @@ void Init_Carte_MultiFonctions(void)
 	MyChannel_Debug_texte = xTraceRegisterString("Debug_Texte");
 #endif
 
-
 	/* Init Debug Output pins */
 	Chip_IOCON_PinMux(LPC_IOCON, DEBUG_0_PORT, DEBUG_0_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
 	Chip_IOCON_PinMux(LPC_IOCON, DEBUG_1_PORT, DEBUG_1_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
