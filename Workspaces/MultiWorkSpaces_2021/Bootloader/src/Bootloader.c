@@ -49,6 +49,7 @@ void execute_user_code(void)
     // Disable interrupts and turn off all peripherals so the user code doesn't
     // accidentally jump back to the old vector table
     __disable_irq();
+    Chip_Clock_SetMainClockSource(SYSCTL_MAINCLKSRC_IRC); //switch to IRC
     vTaskEndScheduler();
 
     LPC_SYSCTL->PCONP = 0x001817BE;
