@@ -128,6 +128,8 @@ int main(void)
 	//TEST
 	TEST_init_parametres();
 
+	__enable_irq();
+
 	/* Start the scheduler */
 	vTaskStartScheduler();
 

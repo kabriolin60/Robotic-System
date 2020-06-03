@@ -60,7 +60,7 @@ static void vTask_HartBeat(void *pvParameters) {
 		LedState = (bool) !LedState;
 
 		/* About a 5Hz on/off toggle rate */
-		vTaskDelay(configTICK_RATE_HZ / 5);
+		vTaskDelay(configTICK_RATE_HZ / 10);
 	}
 }
 
@@ -101,7 +101,7 @@ int main(void)
 
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 1000, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, (xTaskHandle *) NULL);
 
 
 	/* Start the scheduler */

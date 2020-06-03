@@ -264,6 +264,8 @@ __attribute__ ((section(".after_vectors")))
 void
 ResetISR(void) {
 
+	__asm volatile ("cpsid i" : : : "memory");//__disable_irq();
+
 	//
 	// Copy the data sections from flash to SRAM.
 	//
