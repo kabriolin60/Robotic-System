@@ -57,7 +57,9 @@ void execute_user_code(void)
     /* Change the Vector Table to the USER_FLASH_START
        in case the user application uses interrupts */
     SCB->VTOR = (USER_FLASH_START & 0x1FFFFF80);
-
+	
+    /*Set stack pointer to given address*/
+    __set_MSP(*p);
 
     // The very top of the user flash should contain the interrupt handler
     // vector. The first word should be the initial stack pointer. The second
@@ -71,12 +73,11 @@ void execute_user_code(void)
 
     user_code_entry = (void *) *p;
 
-    //__enable_irq();
-
+    __enable_irq();
+	
+    __set_CONTROL(0); // Change from PSP to MSP
+	
     // Jump to user application
-
-
-
     user_code_entry();
 
 }
