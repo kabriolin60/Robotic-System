@@ -60,10 +60,10 @@ namespace SimpleGraph
                 }
             }
 
-            if (Sine) Sine.FillData(Sines.ToArray());
-            if (Cosine) Cosine.FillData(Cosines.ToArray());
-            if (Tanh) Tanh.FillData(Tanhs.ToArray());
-            if (Noise) Noise.FillData(Noises.ToArray());
+            if (Sine) Sine.FillData(Sines.ToArray(), 0);
+            if (Cosine) Cosine.FillData(Cosines.ToArray(), 0);
+            if (Tanh) Tanh.FillData(Tanhs.ToArray(), 0);
+            if (Noise) Noise.FillData(Noises.ToArray(), 0);
         }
 
         #endregion

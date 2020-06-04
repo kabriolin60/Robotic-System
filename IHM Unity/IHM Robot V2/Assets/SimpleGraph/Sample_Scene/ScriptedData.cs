@@ -8,7 +8,7 @@ public class ScriptedData : MonoBehaviour {
     public SimpleGraph.Grapher graph; //yo
 
 	void Start () {
-        graph.FillData(getData());
+        graph.FillData(getData(), 0);
 	}
 
     private Vector2[] getData()

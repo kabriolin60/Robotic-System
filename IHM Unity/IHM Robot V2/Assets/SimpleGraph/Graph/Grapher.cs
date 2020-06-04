@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,22 +16,23 @@ namespace SimpleGraph
 
         public int Resolution;
         public bool ThickLine = true;
-        public Color LineColor = new Color(1, 0, 0, 0);
+        public Color[] LineColor = { new Color(1, 0, 0, 0), new Color(1, 0, 0, 0) };
 
         public int FontSize = 9;
 
         [Header("Initialization Values.")]
-        public Vector2[] StartingPoints = new Vector2[] { Vector2.zero, Vector2.one };
-        public bool UseStartingPoints = false;
+        [SerializeField]
+        public List<Vector2[]> StartingPoints = new List<Vector2[]>();// { Vector2.zero, Vector2.one };
+        //public bool UseStartingPoints = false;
 
-        private void Start()
+        /*private void Start()
         {
             if (UseStartingPoints)
             { 
                 FillData(StartingPoints);
                 //Init();
             }
-        }
+        }*/
 
         [Header("Inner Data")]
         [SerializeField]
@@ -80,7 +82,7 @@ namespace SimpleGraph
 
         private float FindYFromX(float xpoint)
         {
-            int i;
+            /*int i;
             for (i = 0; i < StartingPoints.Length - 1; i++)
             {
                 if ((StartingPoints[i].x < xpoint || Mathf.Approximately(StartingPoints[i].x, xpoint)) &&
@@ -92,7 +94,8 @@ namespace SimpleGraph
 
             var p = (1 / (StartingPoints[i + 1].x - StartingPoints[i].x)) * (xpoint - StartingPoints[i].x);
 
-            return Mathf.Lerp(StartingPoints[i].y, StartingPoints[i + 1].y, p);
+            return Mathf.Lerp(StartingPoints[i].y, StartingPoints[i + 1].y, p);*/
+            return 0;
         }
 
 
@@ -104,10 +107,10 @@ namespace SimpleGraph
         /// X is the horizontal axis.
         /// Y is the vertical axis.
         /// </param>
-        public void FillData(Vector2[] points)
+        public void FillData(Vector2[] points, int channel)
         {
-            StartingPoints = (Vector2[])points.Clone();
-            Init();
+            StartingPoints[channel] = (Vector2[])points.Clone();
+            Redraw_Graph();
 
 
             X_Data_Text.fontSize = FontSize;
@@ -120,6 +123,58 @@ namespace SimpleGraph
             {
                 YTags[t].fontSize = FontSize; //styling
             }
+        }
+
+        public void FillData(Vector2 points, int channel)
+        {
+            if (channel + 1 > StartingPoints.Count)
+                StartingPoints.Add(new Vector2[] { Vector2.zero, Vector2.one });
+
+
+            Vector2[] initial_data = StartingPoints[channel];
+            Array.Resize(ref initial_data, initial_data.Length + 1);
+            initial_data[initial_data.Length - 1] = points;
+            StartingPoints[channel] = initial_data;
+
+            Redraw_Graph();
+
+
+            X_Data_Text.fontSize = FontSize;
+            Y_Data_Text.fontSize = FontSize;
+            for (int t = 0; t < XTags.Length; t++)
+            {
+                XTags[t].fontSize = FontSize; //styling
+            }
+            for (int t = 0; t < YTags.Length; t++)
+            {
+                YTags[t].fontSize = FontSize; //styling
+            }
+        }
+
+        public void RemoveData(int channel, int count)
+        {
+            Vector2[] numbers = StartingPoints[channel];
+
+            for(int i = 0; i < count; i++)
+                RemoveAt<Vector2>(ref numbers, 0);
+
+            StartingPoints[channel] = numbers;
+
+            Redraw_Graph();
+        }
+
+        private static void RemoveAt<T>(ref T[] arr, int index)
+        {
+            if (arr.Length < 1)
+                return;
+
+            for (int a = index; a < arr.Length - 1; a++)
+            {
+                // moving elements downwards, to fill the gap at [index]
+                arr[a] = arr[a + 1];
+            }
+            // finally, let's decrement Array's size by one
+            Array.Resize(ref arr, arr.Length - 1);
         }
 
 
@@ -153,27 +208,49 @@ namespace SimpleGraph
 
         float x_zero = 0;
         float x_size = 1;
-        void Init()
+        void Redraw_Graph()
         {
             Y_Data_Text.text = InterleaveWithSpace(YUnitDataText);
             X_Data_Text.text = InterleaveWithSpace(XUnitDataText);
 
             Title.text = TitleText;
 
-            var ymin = (StartingPoints[0].y);
-            var ymax = (StartingPoints[0].y);
 
-            var xmin = (StartingPoints[0].x);
-            var xmax = (StartingPoints[0].x);
-            for (int i = 1; i < StartingPoints.Length; i++)
+            var ymin = (StartingPoints[0][0].y);
+            var ymax = (StartingPoints[0][0].y);
+
+            var xmin = (StartingPoints[0][0].x);
+            var xmax = (StartingPoints[0][0].x);
+            int i;
+            foreach (Vector2[] channel in StartingPoints)
             {
-                ymin = Mathf.Min(ymin, (StartingPoints[i].y));
-                ymax = Mathf.Max(ymax, (StartingPoints[i].y));
+                for (i = 0; i < channel.Length; i++)
+                {
+                    ymin = Mathf.Min(ymin, (channel[i].y));
+                    ymax = Mathf.Max(ymax, (channel[i].y));
 
-                xmin = Mathf.Min(xmin, (StartingPoints[i].x));
-                xmax = Mathf.Max(xmax, (StartingPoints[i].x));
+                    xmin = Mathf.Min(xmin, (channel[i].x));
+                    xmax = Mathf.Max(xmax, (channel[i].x));
+                }
             }
 
+
+            ResetBitmap();
+            //display of channels
+
+            i = 0;
+            foreach (Vector2[] channel in StartingPoints)
+            {
+                Display_channel(channel, LineColor[i++], xmin, ymin, xmax, ymax);
+            }
+
+            FinishBitmap();
+        }
+
+
+        private void Display_channel(Vector2[] datas, Color color, float xmin, float ymin, float xmax, float ymax)
+        {
+            
             float y_zero = 0;
             float y_size = 1;
 
@@ -244,34 +321,38 @@ namespace SimpleGraph
             var XGraphSize = x_size;
             #endregion
 
-            PointsGraph = new Vector2[StartingPoints.Length];
-            for (int i = 0; i < StartingPoints.Length; i++)
+            PointsGraph = new Vector2[datas.Length];
+            for (int i = 0; i < datas.Length; i++)
             {
                 //PointsGraph[i].x = ((Points[i].x * (Resolution / XGraphSize)) /** Resolution*/); //fixed X starts from 0, not working after trnasformation to dynamic
-                PointsGraph[i].x = ((StartingPoints[i].x - x_zero) * (Resolution / XGraphSize));
-                PointsGraph[i].y = ((StartingPoints[i].y - y_zero) * (Resolution / YGraphSize));
+                PointsGraph[i].x = ((datas[i].x - x_zero) * (Resolution / XGraphSize));
+                PointsGraph[i].y = ((datas[i].y - y_zero) * (Resolution / YGraphSize));
             }
 
-            ResetBitmap();
-            for (int i = 0; i < StartingPoints.Length - 1; i++)
+           
+            for (int i = 0; i < datas.Length - 1; i++)
             {
-                DrawLine(PointsGraph[i], PointsGraph[i + 1]);
+                DrawLine(PointsGraph[i], PointsGraph[i + 1], color);
 
                 if (ThickLine)
                 {
-                    DrawLine(PointsGraph[i] + new Vector2(1, 0), PointsGraph[i + 1] + new Vector2(1, 0));
-                    DrawLine(PointsGraph[i] + new Vector2(-1, 0), PointsGraph[i + 1] + new Vector2(-1, 0));
-                    DrawLine(PointsGraph[i] + new Vector2(0, 1), PointsGraph[i + 1] + new Vector2(0, 1));
-                    DrawLine(PointsGraph[i] + new Vector2(0, -1), PointsGraph[i + 1] + new Vector2(0, -1));
+                    DrawLine(PointsGraph[i] + new Vector2(1, 0), PointsGraph[i + 1] + new Vector2(1, 0), color);
+                    DrawLine(PointsGraph[i] + new Vector2(-1, 0), PointsGraph[i + 1] + new Vector2(-1, 0), color);
+                    DrawLine(PointsGraph[i] + new Vector2(0, 1), PointsGraph[i + 1] + new Vector2(0, 1), color);
+                    DrawLine(PointsGraph[i] + new Vector2(0, -1), PointsGraph[i + 1] + new Vector2(0, -1), color);
 
-                    DrawLine(PointsGraph[i] + new Vector2(-1, -1), PointsGraph[i + 1] + new Vector2(-1, -1));
-                    DrawLine(PointsGraph[i] + new Vector2(-1, 1), PointsGraph[i + 1] + new Vector2(-1, 1));
-                    DrawLine(PointsGraph[i] + new Vector2(1, 1), PointsGraph[i + 1] + new Vector2(1, 1));
-                    DrawLine(PointsGraph[i] + new Vector2(1, -1), PointsGraph[i + 1] + new Vector2(1, -1));
+                    DrawLine(PointsGraph[i] + new Vector2(-1, -1), PointsGraph[i + 1] + new Vector2(-1, -1), color);
+                    DrawLine(PointsGraph[i] + new Vector2(-1, 1), PointsGraph[i + 1] + new Vector2(-1, 1), color);
+                    DrawLine(PointsGraph[i] + new Vector2(1, 1), PointsGraph[i + 1] + new Vector2(1, 1), color);
+                    DrawLine(PointsGraph[i] + new Vector2(1, -1), PointsGraph[i + 1] + new Vector2(1, -1), color);
                 }
             }
-            FinishBitmap();
         }
+
+
+
+
+
 
         void ResetBitmap()
         {
@@ -281,18 +362,18 @@ namespace SimpleGraph
             Texture = new Texture2D(Resolution, Resolution, TextureFormat.ARGB32, true, true);
 
             var col = LineColor;
-            LineColor.a = 0;
+            LineColor[0].a = 0;
             for (int x = 0; x < Resolution; x++)
             {
                 for (int y = 0; y < Resolution; y++)
                 {
-                    Texture.SetPixel(x, y, col);
+                    Texture.SetPixel(x, y, col[0]);
                 }
             }
         }
         #region helper
 
-        void DrawLine(Vector2 from, Vector2 to)
+        void DrawLine(Vector2 from, Vector2 to, Color color)
         {
             float x0 = from.x, y0 = from.y,
                         x1 = to.x, y1 = to.y;
@@ -322,13 +403,13 @@ namespace SimpleGraph
 
             if (steep)
             {
-                _plot(yPixel1, xPixel1, _rfpart(yEnd) * xGap);
-                _plot(yPixel1 + 1, xPixel1, _fpart(yEnd) * xGap);
+                _plot(yPixel1, xPixel1, _rfpart(yEnd) * xGap, color);
+                _plot(yPixel1 + 1, xPixel1, _fpart(yEnd) * xGap, color);
             }
             else
             {
-                _plot(xPixel1, yPixel1, _rfpart(yEnd) * xGap);
-                _plot(xPixel1, yPixel1 + 1, _fpart(yEnd) * xGap);
+                _plot(xPixel1, yPixel1, _rfpart(yEnd) * xGap, color);
+                _plot(xPixel1, yPixel1 + 1, _fpart(yEnd) * xGap, color);
             }
             float intery = yEnd + gradient;
 
@@ -339,21 +420,21 @@ namespace SimpleGraph
             float yPixel2 = _ipart(yEnd);
             if (steep)
             {
-                _plot(yPixel2, xPixel2, _rfpart(yEnd) * xGap);
-                _plot(yPixel2 + 1, xPixel2, _fpart(yEnd) * xGap);
+                _plot(yPixel2, xPixel2, _rfpart(yEnd) * xGap, color);
+                _plot(yPixel2 + 1, xPixel2, _fpart(yEnd) * xGap, color);
             }
             else
             {
-                _plot(xPixel2, yPixel2, _rfpart(yEnd) * xGap);
-                _plot(xPixel2, yPixel2 + 1, _fpart(yEnd) * xGap);
+                _plot(xPixel2, yPixel2, _rfpart(yEnd) * xGap, color);
+                _plot(xPixel2, yPixel2 + 1, _fpart(yEnd) * xGap, color);
             }
 
             if (steep)
             {
                 for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                 {
-                    _plot(_ipart(intery), x, _rfpart(intery));
-                    _plot(_ipart(intery) + 1, x, _fpart(intery));
+                    _plot(_ipart(intery), x, _rfpart(intery), color);
+                    _plot(_ipart(intery) + 1, x, _fpart(intery), color);
                     intery += gradient;
                 }
             }
@@ -361,8 +442,8 @@ namespace SimpleGraph
             {
                 for (int x = (int)(xPixel1 + 1); x <= xPixel2 - 1; x++)
                 {
-                    _plot(x, _ipart(intery), _rfpart(intery));
-                    _plot(x, _ipart(intery) + 1, _fpart(intery));
+                    _plot(x, _ipart(intery), _rfpart(intery), color);
+                    _plot(x, _ipart(intery) + 1, _fpart(intery), color);
                     intery += gradient;
                 }
             }
@@ -380,7 +461,7 @@ namespace SimpleGraph
         }
         float _rfpart(float x)
         { return 1 - _fpart(x); }
-        private void _plot(float x, float y, float c)
+        private void _plot(float x, float y, float c, Color color)
         {
             int alpha = (int)(c * 255);
             if (alpha > 255) alpha = 255;
@@ -390,7 +471,7 @@ namespace SimpleGraph
 
             if (_checkIfInside((int)x, (int)y))
             {
-                Color color = LineColor;
+                //Color color = LineColor;
                 color.a = Mathf.Max(alpha / 255f, Texture.GetPixel((int)x, (int)y).a);
                 Texture.SetPixel((int)x, (int)y, color);
             }
