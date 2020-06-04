@@ -127,8 +127,11 @@ namespace SimpleGraph
 
         public void FillData(Vector2 points, int channel)
         {
-            if (channel + 1 > StartingPoints.Count)
+            while (channel + 1 > StartingPoints.Count)
+            {
                 StartingPoints.Add(new Vector2[] { Vector2.zero, Vector2.one });
+                RemoveData(StartingPoints.Count - 1, 2); //Remove the two dummies datas at the beginning
+            }
 
 
             Vector2[] initial_data = StartingPoints[channel];
@@ -153,13 +156,24 @@ namespace SimpleGraph
 
         public void RemoveData(int channel, int count)
         {
+            if (StartingPoints[channel].Length == 0)
+                return; 
+
             Vector2[] numbers = StartingPoints[channel];
 
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
+            {
+                if (numbers.Length == 0)
+                {
+                    StartingPoints[channel] = numbers;
+                    Redraw_Graph();
+                    return;
+                }
+
                 RemoveAt<Vector2>(ref numbers, 0);
+            }
 
             StartingPoints[channel] = numbers;
-
             Redraw_Graph();
         }
 
@@ -216,21 +230,24 @@ namespace SimpleGraph
             Title.text = TitleText;
 
 
-            var ymin = (StartingPoints[0][0].y);
-            var ymax = (StartingPoints[0][0].y);
+            float ymin = 0;// = (StartingPoints[0][0].y);
+            float ymax = 0;// = (StartingPoints[0][0].y);
 
-            var xmin = (StartingPoints[0][0].x);
-            var xmax = (StartingPoints[0][0].x);
+            float xmin = 0;// = (StartingPoints[0][0].x);
+            float xmax = 0;// = (StartingPoints[0][0].x);
             int i;
             foreach (Vector2[] channel in StartingPoints)
             {
-                for (i = 0; i < channel.Length; i++)
+                if (channel.Length != 0)
                 {
-                    ymin = Mathf.Min(ymin, (channel[i].y));
-                    ymax = Mathf.Max(ymax, (channel[i].y));
+                    for (i = 0; i < channel.Length; i++)
+                    {
+                        ymin = Mathf.Min(ymin, (channel[i].y));
+                        ymax = Mathf.Max(ymax, (channel[i].y));
 
-                    xmin = Mathf.Min(xmin, (channel[i].x));
-                    xmax = Mathf.Max(xmax, (channel[i].x));
+                        xmin = Mathf.Min(xmin, (channel[i].x));
+                        xmax = Mathf.Max(xmax, (channel[i].x));
+                    }
                 }
             }
 
