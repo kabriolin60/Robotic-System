@@ -241,3 +241,35 @@ void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communic
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
 }
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Graph
+ **
+ ** Descriptions:		Fonction d'envoi de datas pour Graphiques
+ **
+ ** parameters:			Pointeur vers les datas à envoyer
+ ** 					Queue à la quelle ajouter le message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Graph(struct st_Graph_Datas* Datas, enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = GRAPHIQUES_ADD_DATA;
+	trame_echange.Slave_Adresse = PC;
+
+	trame_echange.Length = COPYDATA(*Datas, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleGraph;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +31,11 @@ public class Interpretation_Rx_Com : MonoBehaviour
     //Conteneur des panneaux des cartes multi FCT
     public GameObject Carte_MultiFct_Tabs_Conteneur_PR;
     public GameObject Carte_MultiFct_Tabs_Conteneur_GR;
+
+
+    //Graphique
+    public Grapher Graph1;
+
 
 
     // Start is called before the first frame update
@@ -89,6 +95,14 @@ public class Interpretation_Rx_Com : MonoBehaviour
                 Decodage_Logger(input_trame);
                 break;
 
+            case Com_Instruction.GRAPHIQUES_ADD_DATA:
+                Decodage_Graphique(input_trame);
+                break;
+
+            case Com_Instruction.GRAPHIQUES_CLEAR:
+                Graph1.Clear();
+                break;
+
             default:
                 break;
         }
@@ -107,8 +121,7 @@ public class Interpretation_Rx_Com : MonoBehaviour
         }
     }
 
-
-
+    
 
 
     #region Position du Robot
@@ -186,8 +199,6 @@ public class Interpretation_Rx_Com : MonoBehaviour
     }
     #endregion
 
-
-
     #region Decodage Logger
 
     public const int Max_Log_Message_Number = 300;
@@ -251,4 +262,19 @@ public class Interpretation_Rx_Com : MonoBehaviour
         LogMessages.Add(newLogMessage);
     }
     #endregion
+
+    #region Graphique
+    private void Decodage_Graphique(Communication_Trame input_trame)
+    {
+        Graphiques Datas = new Graphiques();
+        //Transforme la trame en Message utile
+        Graphiques.Com_Graphique_Datas received_message = Datas.Trame_To_Data(input_trame);
+
+        for (int data_in = 0; data_in < received_message.nb_datas_to_send; data_in++)
+        {
+            Graph1.Add_Data(received_message.Datas[data_in].Data, received_message.Datas[data_in].Channel);
+        }
+    }
+    #endregion
+
 }

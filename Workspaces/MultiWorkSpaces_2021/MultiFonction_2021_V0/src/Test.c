@@ -836,3 +836,35 @@ void TEST_AX12(void *pvParameters)
 
 	Task_Delete_Current;
 }
+
+
+
+void Test_Task_Graphique(void* pvParameter)
+{
+	Task_Delay(1000);
+	Init_Timing_Tache;
+
+	struct st_Graph_Datas Datas_To_Plot;
+
+
+	for (;;)
+	{
+		Task_Delay_Until(20);
+
+		Datas_To_Plot.nb_datas_to_send = 4;
+
+		Datas_To_Plot.Datas[0].Channel = 0;
+		Datas_To_Plot.Datas[0].Data = _2_Asserv_GetPtr_PID_Pos().Consigne;
+
+		Datas_To_Plot.Datas[1].Channel = 1;
+		Datas_To_Plot.Datas[1].Data = _2_Asserv_GetPtr_PID_Pos().Current_Value;
+
+		Datas_To_Plot.Datas[2].Channel = 2;
+		Datas_To_Plot.Datas[2].Data = _2_Asserv_GetPtr_PID_Rot().Consigne;
+
+		Datas_To_Plot.Datas[3].Channel = 3;
+		Datas_To_Plot.Datas[3].Data = _2_Asserv_GetPtr_PID_Rot().Current_Value;
+
+		_2_Comm_Send_Graph(&Datas_To_Plot, RS485_port);
+	}
+}

@@ -51,7 +51,7 @@ namespace SimpleGraph
 
         public GameObject toggleholder;
         public GameObject toggle_prefab;
-        private List<Toggle> Enabled_Channels = new List<Toggle>();
+        private List<GameObject> Enabled_Channels = new List<GameObject>();
 
         void Update()
         {
@@ -217,7 +217,7 @@ namespace SimpleGraph
                 Vector3 toggle_pos = new Vector3(15, 120 - this.Enabled_Channels.Count * 10, 0);
 
                 GameObject newtoggle = Instantiate(toggle_prefab, toggle_pos, new Quaternion(0, 0, 0, 0), this.toggleholder.transform);
-                this.Enabled_Channels.Add(newtoggle.GetComponent<Toggle>());
+                this.Enabled_Channels.Add(newtoggle/*.GetComponent<Toggle>()*/);
 
                 newtoggle.GetComponentInChildren<Text>().text = "Channel " + (this.Enabled_Channels.Count - 1).ToString();
             }
@@ -283,6 +283,15 @@ namespace SimpleGraph
         }
 
 
+        public void Clear()
+        {
+            StartingPoints.Clear();
+            foreach (GameObject go in Enabled_Channels)
+                Destroy(go);
+            Enabled_Channels.Clear();            
+        }
+
+
         private float[] PossibleSteps = new float[] { //possible improvement -> could be done programatically
         0.01f, 0.02f, 0.03f, 0.05f,
         0.1f, 0.2f, 0.3f, 0.5f,
@@ -340,7 +349,7 @@ namespace SimpleGraph
                     for (i = 0; i < channel.Length; i++)
                     {
                         //check if this channel is enabled
-                        if (this.Enabled_Channels[channel_number].isOn)
+                        if (this.Enabled_Channels[channel_number].GetComponent<Toggle>().isOn)
                         {
                             ymin = Mathf.Min(ymin, (channel[i].y));
                             ymax = Mathf.Max(ymax, (channel[i].y));
@@ -364,7 +373,7 @@ namespace SimpleGraph
                 //check if this channel is enabled
                 if (this.Enabled_Channels.Count > channel_number)
                 {
-                    if (this.Enabled_Channels[channel_number].isOn)
+                    if (this.Enabled_Channels[channel_number].GetComponent<Toggle>().isOn)
                     {
                         Display_channel(channel, LineColor[channel_number], xmin, ymin, xmax, ymax);
                     }

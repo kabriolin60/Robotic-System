@@ -32,4 +32,6 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enu
 
 void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communication canal);
 
+void _2_Comm_Send_Graph(struct st_Graph_Datas* Datas, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */

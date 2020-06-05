@@ -26,4 +26,6 @@ void TEST_AX12(void *pvParameters);
 
 void vAFunction( void );
 
+void Test_Task_Graphique(void* pvParameter);
+
 #endif /* TEST_H_ */

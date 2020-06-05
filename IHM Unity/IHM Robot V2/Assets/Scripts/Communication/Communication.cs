@@ -533,3 +533,41 @@ public class Echange_Data
 		return Com_Demande_Position_Robot.Request_Robot_Position();
 	}
 }
+
+
+public class Graphiques
+{
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Com_Graphique_data
+	{
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Channel;
+
+		[MarshalAs(UnmanagedType.R4)]
+		public float Data;
+	}
+
+	/**************************************************
+	Declaration de la definition de la Structure de reception des données pour graphique
+	**************************************************/
+	[StructLayout(LayoutKind.Sequential)]
+	public class Com_Graphique_Datas
+	{
+		[MarshalAs(UnmanagedType.U1)]
+		public byte nb_datas_to_send;
+
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
+		public Com_Graphique_data[] Datas;
+	}
+
+
+	public Com_Graphique_Datas Trame_To_Data(Communication.Communication_Trame input_trame)
+	{
+		Com_Graphique_Datas output = new Com_Graphique_Datas();
+
+		output.Datas = new Com_Graphique_data[12];
+
+		output = (Com_Graphique_Datas)Communication.GetStructFromArray<Com_Graphique_Datas>(input_trame.Data);
+		return output;
+	}
+}

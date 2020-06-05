@@ -449,5 +449,20 @@ struct reglage_pid
 };
 
 
+/**************************************************
+Declaration de la definition de la Structure contenant les valeurs à afficher dans le graphique
+ **************************************************/
+struct st_Graph_Data
+{
+	byte Channel;
+	float Data;
+};
+
+struct st_Graph_Datas
+{
+	byte nb_datas_to_send;
+	struct st_Graph_Data Datas[12];
+};
+
 
 #endif /* COMMUNICATION_TYPEDEF_H_ */
