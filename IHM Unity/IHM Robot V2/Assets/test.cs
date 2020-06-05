@@ -39,6 +39,7 @@ public class test : MonoBehaviour
         for (int i = 0; i < 200; i++)
         {
             Graph1.Add_Data(i + 10, 0);
+            Graph1.Add_Data(i + 20, 5);
             yield return new WaitForSeconds(0.1F);
         }
 

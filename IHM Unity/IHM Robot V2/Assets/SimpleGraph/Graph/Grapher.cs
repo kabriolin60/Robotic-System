@@ -49,6 +49,9 @@ namespace SimpleGraph
         [SerializeField]
         private Text[] YTags;
 
+        public GameObject toggle_prefab;
+        private List<Toggle> Enabled_Channels = new List<Toggle>();
+
         void Update()
         {
             {
@@ -189,8 +192,18 @@ namespace SimpleGraph
         {
             while (channel + 1 > StartingPoints.Count)
             {
+                //Add a new channel
                 StartingPoints.Add(new Vector2[] { Vector2.zero, Vector2.one });
                 RemoveData(StartingPoints.Count - 1, 2); //Remove the two dummies datas at the beginning
+
+                //Add a new toogle checkbox for this channel
+
+                Vector3 toggle_pos = new Vector3(this.transform.localPosition.x - 130, this.transform.localPosition.y + 60 - this.Enabled_Channels.Count * 10, 0);
+
+                GameObject newtoggle = Instantiate(toggle_prefab, toggle_pos, new Quaternion(0, 0, 0, 0), this.transform);
+                this.Enabled_Channels.Add(newtoggle.GetComponent<Toggle>());
+
+                newtoggle.GetComponentInChildren<Text>().text = "Channel " + (this.Enabled_Channels.Count - 1).ToString();
             }
         }
 
@@ -288,6 +301,9 @@ namespace SimpleGraph
         float x_size = 1;
         void Redraw_Graph()
         {
+            if (this.Enabled_Channels.Count == 0)
+                return;
+
             Y_Data_Text.text = InterleaveWithSpace(YUnitDataText);
             X_Data_Text.text = InterleaveWithSpace(XUnitDataText);
 
@@ -300,19 +316,25 @@ namespace SimpleGraph
             float xmin = 100000;
             float xmax = 0;
             int i;
+            int channel_number = 0;
             foreach (Vector2[] channel in StartingPoints)
             {
                 if (channel.Length != 0)
                 {
                     for (i = 0; i < channel.Length; i++)
                     {
-                        ymin = Mathf.Min(ymin, (channel[i].y));
-                        ymax = Mathf.Max(ymax, (channel[i].y));
+                        //check if this channel is enabled
+                        if (this.Enabled_Channels[channel_number].isOn)
+                        {
+                            ymin = Mathf.Min(ymin, (channel[i].y));
+                            ymax = Mathf.Max(ymax, (channel[i].y));
 
-                        xmin = Mathf.Min(xmin, (channel[i].x));
-                        xmax = Mathf.Max(xmax, (channel[i].x));
+                            xmin = Mathf.Min(xmin, (channel[i].x));
+                            xmax = Mathf.Max(xmax, (channel[i].x));
+                        }
                     }
                 }
+                channel_number++;
             }
 
 
@@ -320,10 +342,18 @@ namespace SimpleGraph
 
             //display of all channels
 
-            i = 0;
+            channel_number = 0;
             foreach (Vector2[] channel in StartingPoints)
             {
-                Display_channel(channel, LineColor[i++], xmin, ymin, xmax, ymax);
+                //check if this channel is enabled
+                if (this.Enabled_Channels.Count > channel_number)
+                {
+                    if (this.Enabled_Channels[channel_number].isOn)
+                    {
+                        Display_channel(channel, LineColor[channel_number], xmin, ymin, xmax, ymax);
+                    }
+                }
+                channel_number++;
             }
 
             FinishBitmap();
