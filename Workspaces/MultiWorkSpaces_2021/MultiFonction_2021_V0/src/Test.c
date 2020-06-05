@@ -36,7 +36,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = -0.0027F;	//-0.0018
 	newparameters.Coef_Multiplicateur_Periode_asserv = 9;	//(9+1)*1 = 10ms
-	newparameters.SIMULATION = 0;
+	newparameters.SIMULATION = 1;
 	_1_Odometrie_Set_Parameters(&newparameters);
 
 	//Position initiale du Robot
@@ -228,6 +228,8 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	xTaskCreate(TEST_init_parametres_task2, (char *) "TEST2", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	xTaskCreate(TEST_init_parametres_task, (char *) "TEST", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+
 	//xTaskCreate(TEST_AX12, (char *) "TEST AX12", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(Test_Calibration_Odometrie, (char *) "Odometrie Calib", 250, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -244,7 +246,7 @@ void TEST_init_parametres_task2(void *pvParameters)
 		_2_Comm_Send_Infos((struct Com_Reponse_Info *)Get_ptr_Reponse_info(), RS485_port);
 
 		//_2_Comm_Send_Log_Message("Toto est ici en rouge RS485\n\r", Color_Red, RS485_port);
-		Task_Delay_Until(50);
+		Task_Delay_Until(100);
 	}
 }
 
@@ -854,16 +856,16 @@ void Test_Task_Graphique(void* pvParameter)
 		Datas_To_Plot.nb_datas_to_send = 4;
 
 		Datas_To_Plot.Datas[0].Channel = 0;
-		Datas_To_Plot.Datas[0].Data = _2_Asserv_GetPtr_PID_Pos().Consigne;
+		Datas_To_Plot.Datas[0].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
 
 		Datas_To_Plot.Datas[1].Channel = 1;
-		Datas_To_Plot.Datas[1].Data = _2_Asserv_GetPtr_PID_Pos().Current_Value;
+		Datas_To_Plot.Datas[1].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value;
 
 		Datas_To_Plot.Datas[2].Channel = 2;
-		Datas_To_Plot.Datas[2].Data = _2_Asserv_GetPtr_PID_Rot().Consigne;
+		Datas_To_Plot.Datas[2].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne;
 
 		Datas_To_Plot.Datas[3].Channel = 3;
-		Datas_To_Plot.Datas[3].Data = _2_Asserv_GetPtr_PID_Rot().Current_Value;
+		Datas_To_Plot.Datas[3].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value;
 
 		_2_Comm_Send_Graph(&Datas_To_Plot, RS485_port);
 	}

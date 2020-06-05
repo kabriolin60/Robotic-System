@@ -115,7 +115,7 @@ int main(void)
 	vTraceEnable( TRC_INIT );
 
 #ifdef TYPE_CARTE_MULTIFCT
-	//Init_Carte_MultiFonctions();
+	Init_Carte_MultiFonctions();
 #endif
 
 #ifdef USE_USB
