@@ -49,6 +49,7 @@ namespace SimpleGraph
         [SerializeField]
         private Text[] YTags;
 
+        public GameObject toggleholder;
         public GameObject toggle_prefab;
         private List<Toggle> Enabled_Channels = new List<Toggle>();
 
@@ -61,18 +62,37 @@ namespace SimpleGraph
 
                     //var xpoint = Scroll.value * 10;
                     var xpoint = (x_size * Scroll.value + x_zero);
-                    var ypoint = FindYFromX(xpoint);
+                    //var ypoint = FindYFromX(xpoint);
 
                     SlideValueX.text = "x: " + xpoint.ToString("0.0");
-                    SlideValueY.text = "y: " + ypoint.ToString("0.00");
+                    //SlideValueY.text = "y: " + ypoint.ToString("0.00");
                 }
                 catch
                 {
                     SlideValueX.text = "x: ";
-                    SlideValueY.text = "y: ";
+                    //SlideValueY.text = "y: ";
                 }
             }
+
+            //Redraw_Graph();
         }
+
+        private void Start()
+        {
+            StartCoroutine("Redraw");
+        }
+
+
+        IEnumerator Redraw()
+        {
+            for(; ;)
+            {
+                Redraw_Graph();
+                yield return new WaitForSeconds(0.2F);
+            }
+        }
+
+
 
         private float FindYFromX(float xpoint)
         {
@@ -104,9 +124,9 @@ namespace SimpleGraph
         public void FillData(Vector2[] points, int channel)
         {
             StartingPoints[channel] = (Vector2[])points.Clone();
-            Redraw_Graph();
+            //Redraw_Graph();
 
-
+            /*
             X_Data_Text.fontSize = FontSize;
             Y_Data_Text.fontSize = FontSize;
             for (int t = 0; t < XTags.Length; t++)
@@ -116,7 +136,7 @@ namespace SimpleGraph
             for (int t = 0; t < YTags.Length; t++)
             {
                 YTags[t].fontSize = FontSize; //styling
-            }
+            }*/
         }
 
 
@@ -133,18 +153,14 @@ namespace SimpleGraph
         {
             Check_Channel_Number(channel);
 
-
             Vector2[] initial_data = StartingPoints[channel];
             Array.Resize(ref initial_data, initial_data.Length + 1);
             initial_data[initial_data.Length - 1] = points;
             StartingPoints[channel] = initial_data;
 
             Check_Channel_DATAS_Number(channel);
-
-            Redraw_Graph();
-
-
-            X_Data_Text.fontSize = FontSize;
+           
+            /*X_Data_Text.fontSize = FontSize;
             Y_Data_Text.fontSize = FontSize;
             for (int t = 0; t < XTags.Length; t++)
             {
@@ -153,7 +169,7 @@ namespace SimpleGraph
             for (int t = 0; t < YTags.Length; t++)
             {
                 YTags[t].fontSize = FontSize; //styling
-            }
+            }*/
         }
 
         /// <summary>
@@ -198,9 +214,9 @@ namespace SimpleGraph
 
                 //Add a new toogle checkbox for this channel
 
-                Vector3 toggle_pos = new Vector3(this.transform.localPosition.x - 130, this.transform.localPosition.y + 60 - this.Enabled_Channels.Count * 10, 0);
+                Vector3 toggle_pos = new Vector3(15, 120 - this.Enabled_Channels.Count * 10, 0);
 
-                GameObject newtoggle = Instantiate(toggle_prefab, toggle_pos, new Quaternion(0, 0, 0, 0), this.transform);
+                GameObject newtoggle = Instantiate(toggle_prefab, toggle_pos, new Quaternion(0, 0, 0, 0), this.toggleholder.transform);
                 this.Enabled_Channels.Add(newtoggle.GetComponent<Toggle>());
 
                 newtoggle.GetComponentInChildren<Text>().text = "Channel " + (this.Enabled_Channels.Count - 1).ToString();
@@ -241,7 +257,7 @@ namespace SimpleGraph
                 if (numbers.Length == 0)
                 {
                     StartingPoints[channel] = numbers;
-                    Redraw_Graph();
+                    //Redraw_Graph();
                     return;
                 }
 
@@ -249,7 +265,7 @@ namespace SimpleGraph
             }
 
             StartingPoints[channel] = numbers;
-            Redraw_Graph();
+            //Redraw_Graph();
         }
 
         private static void RemoveAt<T>(ref T[] arr, int index)
