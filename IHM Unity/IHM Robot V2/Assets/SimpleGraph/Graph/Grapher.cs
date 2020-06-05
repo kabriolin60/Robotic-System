@@ -77,11 +77,18 @@ namespace SimpleGraph
             //Redraw_Graph();
         }
 
-        private void Start()
+
+       
+        private void OnEnable()
         {
             StartCoroutine("Redraw");
         }
 
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
 
         IEnumerator Redraw()
         {
