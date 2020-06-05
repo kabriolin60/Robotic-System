@@ -15,6 +15,7 @@ namespace SimpleGraph
         public string XUnitDataText = "XUNITS";
 
         public int Resolution;
+        public int Maxi_Number_Datas;
         public bool ThickLine = true;
         public Color[] LineColor = { new Color(1, 0, 0, 0), new Color(1, 0, 0, 0) };
 
@@ -22,17 +23,7 @@ namespace SimpleGraph
 
         [Header("Initialization Values.")]
         [SerializeField]
-        public List<Vector2[]> StartingPoints = new List<Vector2[]>();// { Vector2.zero, Vector2.one };
-        //public bool UseStartingPoints = false;
-
-        /*private void Start()
-        {
-            if (UseStartingPoints)
-            { 
-                FillData(StartingPoints);
-                //Init();
-            }
-        }*/
+        public List<Vector2[]> StartingPoints = new List<Vector2[]>();
 
         [Header("Inner Data")]
         [SerializeField]
@@ -125,19 +116,27 @@ namespace SimpleGraph
             }
         }
 
+
+        /// <summary>
+        /// Add one data at X, Y to one channel.
+        /// </summary>
+        /// <param name="points">
+        /// X is the horizontal axis.
+        /// Y is the vertical axis.
+        /// /// <param name="channel">
+        /// Channel to add this data
+        /// </param>
         public void FillData(Vector2 points, int channel)
         {
-            while (channel + 1 > StartingPoints.Count)
-            {
-                StartingPoints.Add(new Vector2[] { Vector2.zero, Vector2.one });
-                RemoveData(StartingPoints.Count - 1, 2); //Remove the two dummies datas at the beginning
-            }
+            Check_Channel_Number(channel);
 
 
             Vector2[] initial_data = StartingPoints[channel];
             Array.Resize(ref initial_data, initial_data.Length + 1);
             initial_data[initial_data.Length - 1] = points;
             StartingPoints[channel] = initial_data;
+
+            Check_Channel_DATAS_Number(channel);
 
             Redraw_Graph();
 
@@ -154,6 +153,69 @@ namespace SimpleGraph
             }
         }
 
+        /// <summary>
+        /// Add one data to the channel.
+        /// </summary>
+        /// <param name="value">
+        /// Y value to add
+        /// X will be incremented automatically
+        /// <param name="channel">
+        /// channel to be incremented
+        /// </param>
+        public void Add_Data(float value, int channel)
+        {
+            Check_Channel_Number(channel);
+
+            if (StartingPoints[channel].Length == 0)
+            {
+                Vector2 newdata = new Vector2(0, value);
+                FillData(newdata, channel);
+            }
+            else
+            {
+                Vector2 newdata = new Vector2(StartingPoints[channel][StartingPoints[channel].Length - 1].x + 1, value);
+                FillData(newdata, channel);
+            }
+        }
+
+
+        /// <summary>
+        /// check is this channel does already exist, or add it.
+        /// </summary>
+        /// <param name="channel">
+        /// channel number to check
+        /// </param>
+        private void Check_Channel_Number(int channel)
+        {
+            while (channel + 1 > StartingPoints.Count)
+            {
+                StartingPoints.Add(new Vector2[] { Vector2.zero, Vector2.one });
+                RemoveData(StartingPoints.Count - 1, 2); //Remove the two dummies datas at the beginning
+            }
+        }
+
+
+        /// <summary>
+        /// check is this channel does not exeed the maximum number of datas
+        /// </summary>
+        /// <param name="channel">
+        /// channel number to check
+        /// </param>
+        private void Check_Channel_DATAS_Number(int channel)
+        {    
+            if(StartingPoints[channel].Length > Maxi_Number_Datas)
+                RemoveData(channel, StartingPoints[channel].Length - Maxi_Number_Datas); //Remove            
+        }
+
+
+        /// <summary>
+        /// Remove datas at the begining of a channel.
+        /// </summary>
+        /// <param name="channel">
+        /// channel number to reduce
+        /// /// <param name="count">
+        /// number of value to delete
+        /// </param>
         public void RemoveData(int channel, int count)
         {
             if (StartingPoints[channel].Length == 0)
@@ -220,6 +282,8 @@ namespace SimpleGraph
             return ret;
         }
 
+
+
         float x_zero = 0;
         float x_size = 1;
         void Redraw_Graph()
@@ -230,11 +294,11 @@ namespace SimpleGraph
             Title.text = TitleText;
 
 
-            float ymin = 0;// = (StartingPoints[0][0].y);
-            float ymax = 0;// = (StartingPoints[0][0].y);
+            float ymin = 100000;
+            float ymax = 0;
 
-            float xmin = 0;// = (StartingPoints[0][0].x);
-            float xmax = 0;// = (StartingPoints[0][0].x);
+            float xmin = 100000;
+            float xmax = 0;
             int i;
             foreach (Vector2[] channel in StartingPoints)
             {
@@ -253,7 +317,8 @@ namespace SimpleGraph
 
 
             ResetBitmap();
-            //display of channels
+
+            //display of all channels
 
             i = 0;
             foreach (Vector2[] channel in StartingPoints)
