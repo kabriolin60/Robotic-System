@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ADC : MonoBehaviour
 {
     public GameObject ADC_Prefab;
-    public Text Tension_Batterie;
+    public GameObject Tension_Batterie;
 
     List<ADC_elementaire> ADC_values = new List<ADC_elementaire>();
 
@@ -43,7 +44,7 @@ public class ADC : MonoBehaviour
 
     public void Update_VBat(string tension)
     {
-        Tension_Batterie.text = tension;
+        Tension_Batterie.GetComponent<TMPro.TextMeshProUGUI>().text = tension;
     }
 
 }
