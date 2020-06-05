@@ -20,6 +20,7 @@ public class Virtual_Com_Port : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		
 		try
 		{
 			OpenPort();
@@ -27,6 +28,7 @@ public class Virtual_Com_Port : MonoBehaviour
 		catch
 		{
 		}
+
 
 		StartCoroutine("Coroutine_Receive");
 	}
@@ -175,23 +177,18 @@ public class Virtual_Com_Port : MonoBehaviour
 			{
 				if (serial.IsOpen)
 				{
-					//Receptions des datas				
-					try
-					{
-						while (serial.BytesToRead > 0)
-						{
-							InputBuffer.Add((byte)serial.ReadByte());
-						}
-					}
-					catch
-					{
-
-					}
+					//Receptions des datas	
+					int intBuffer;
+					intBuffer = serial.BytesToRead;
+					byte[] byteBuffer = new byte[intBuffer];
+					serial.Read(byteBuffer, 0, intBuffer);
+					InputBuffer.AddRange(byteBuffer);
 				}
 			}
-			yield return new WaitForSeconds(0.01F);
+			yield return new WaitForSeconds(0.05F);
 		}
 	}
+
 
 
 	void Update()
@@ -212,23 +209,7 @@ public class Virtual_Com_Port : MonoBehaviour
 
 			if (serial.IsOpen)
 			{
-				//Receptions des datas
-				/*if (serial.BytesToRead > 0)
-				{
-					try
-					{
-						//InputBuffer.AddRange(serial.ReadExisting().ToCharArray())
-						while (serial.BytesToRead > 0)
-						{
-							InputBuffer.Add((byte)serial.ReadByte());
-						}
-					}
-					catch (System.Exception e)
-					{
-						//Debug.LogError(e);
-					}
-				}
-				else */if (serial.BytesToRead == -1)
+				if (serial.BytesToRead == -1)
 				{
 					// Happens when leonardo is reset, device disapears in system
 					Debug.Log("is open: " + serial.IsOpen);
@@ -264,12 +245,10 @@ public class Virtual_Com_Port : MonoBehaviour
 	{
 		if (serial == null)
 		{
-			//serial = new SerialPort(portName, portSpeed, Parity.None, 8, StopBits.One);
 			serial = new SerialPort();
-			/*serial.ReadTimeout = 1000;
-			serial.WriteTimeout = 1000;*/
 			serial.WriteBufferSize = 30000;
 			serial.ReadBufferSize = 30000;
+			serial.ReadTimeout = 2000;			
 		}
 
 		if (serial.IsOpen)
@@ -281,8 +260,6 @@ public class Virtual_Com_Port : MonoBehaviour
 		// Get a list of available ports
 		List<string> portNames = new List<string>();
 		portNames.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-		//portNames.AddRange(System.IO.Directory.GetFiles("/dev/", "cu.*"));
-		//Debug.Log(portNames.Count + " available ports: \n" + string.Join("\n", portNames.ToArray()));
 
 		if (portName == "")
 		{
@@ -296,7 +273,7 @@ public class Virtual_Com_Port : MonoBehaviour
 		try
 		{
 			serial.Open();
-			//serial.DtrEnable = true; // Won't read from Leonardo without this
+			//Enable Event Handler
 		}
 		catch 
 		{

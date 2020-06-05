@@ -10,6 +10,7 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 	public List<Communication> Received_Messages = new List<Communication>();
 
 	public long Nb_Erreur_Recues = 0;
+	public long Nb_Erreur_Data_non_Rx = 0;
 
 	public bool Lunch_Test_Messages;
 
@@ -21,7 +22,6 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 			StartCoroutine("TEST");
 
 		StartCoroutine("Coroutine_Send");
-		//StartCoroutine("Coroutine_Receive");
 	}
 
 	IEnumerator TEST()
@@ -88,29 +88,6 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		}
 	}
 
-	IEnumerator Coroutine_Receive()
-	{
-		if (portserie == null)
-		{
-			portserie = GetComponent<Virtual_Com_Port>();
-		}
-
-		while (true)
-		{
-			if (portserie.serial != null)
-			{
-				if (portserie.serial.IsOpen)
-				{
-					if (portserie.InputBuffer.Count > 10)
-					{
-						ReadTrame();
-					}
-				}
-			}
-			yield return new WaitForSeconds(0.01F);
-		}
-	}
-
 
 	public void Send_trame(Communication.Communication_Trame trame)
 	{
@@ -119,7 +96,7 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		Messages_to_send.Add(comm);
 	}
 
-	public void Update()
+	public void FixedUpdate()
 	{
 		int boucle = 0;
 		if (portserie != null)
@@ -128,7 +105,7 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 			{
 				if (portserie.serial.IsOpen)
 				{
-					while (portserie.InputBuffer.Count > 10 && boucle < 100)
+					while (portserie.InputBuffer.Count > 75 && boucle < 100)
 					{
 						ReadTrame();
 						boucle++;
@@ -206,7 +183,7 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		//reception de l'heure de la trame
 		//received_trame.Heure = DateTime.Now;
 
-		Thread.Sleep(5);
+		//Thread.Sleep(5);
 
 		//Reception En-tête API
 		API_start = (byte)portserie.ReadRemoveInputByte();
@@ -253,13 +230,13 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		}
 
 		boucle = 0;
-		while (portserie.serial.BytesToRead < API_LENGTH - 1)
+		while (portserie.Wainting_Data_in_ReceptionList() < API_LENGTH - 1)
 		{
 			boucle++;
 
 			if (boucle > 5)
 			{
-				Nb_Erreur_Recues++;
+				Nb_Erreur_Data_non_Rx++;
 				return;
 			}
 			Thread.Sleep(1);
@@ -294,13 +271,13 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		if (received_trame.Trame_Data.Length <= Communication.COMMUNICATION_TRAME_MAX_DATA)
 		{
 			boucle = 0;
-			while (portserie.serial.BytesToRead < received_trame.Trame_Data.Length + 1)
+			while (portserie.Wainting_Data_in_ReceptionList() < received_trame.Trame_Data.Length + 1)
 			{
 				boucle++;
 
 				if (boucle > 5)
 				{
-					Nb_Erreur_Recues++;
+					Nb_Erreur_Data_non_Rx++;
 					return;
 				}
 				Thread.Sleep(1);
