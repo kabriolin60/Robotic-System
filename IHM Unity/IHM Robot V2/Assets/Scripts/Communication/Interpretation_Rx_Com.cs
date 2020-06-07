@@ -281,10 +281,10 @@ public class Interpretation_Rx_Com : MonoBehaviour
 
         try
         {
-            /*using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"graph_data.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"graph_data.txt", true))
             {
                 file.WriteLine(csv_output);
-            }*/
+            }
         }
         catch (Exception)
         {

@@ -17,7 +17,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = -0.0027F;	//-0.0018
 	newparameters.Coef_Multiplicateur_Periode_asserv = 9;	//(9+1)*1 = 10ms
-	newparameters.SIMULATION = 1;
+	newparameters.SIMULATION = 0;
 	_1_Odometrie_Set_Parameters(&newparameters);
 
 	//Position initiale du Robot
@@ -37,9 +37,9 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		struct st_pid_filter* ptr_PID_Vitesse_Rotation = _1_Asserv_GetPtr_PID_Vit_Rot();
 
 		ptr_PID_Vitesse_Position->Enable = 1;
-		ptr_PID_Vitesse_Position->gain_P = 1.9F;	//1.0F
-		ptr_PID_Vitesse_Position->gain_I = 0.0F;	//0.011F
-		ptr_PID_Vitesse_Position->gain_D = 1.0F;	//0.001F
+		ptr_PID_Vitesse_Position->gain_P = 0.84F;	//1.0F
+		ptr_PID_Vitesse_Position->gain_I = 0.005F;	//0.011F
+		ptr_PID_Vitesse_Position->gain_D = 0.00125F;	//0.001F
 		ptr_PID_Vitesse_Position->Max_Erreur_Cumul = 0;	//1
 		ptr_PID_Vitesse_Position->commande_max = 50;
 		ptr_PID_Vitesse_Position->commande_min = -50;
@@ -61,18 +61,18 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		struct st_pid_filter* ptr_PID_Rotation = _2_Asserv_GetPtr_PID_Rot();
 
 		ptr_PID_Position->Enable = 1;
-		ptr_PID_Position->gain_P = 0.5F;	//0.2F
+		ptr_PID_Position->gain_P = 1.9F;	//0.5F
 		ptr_PID_Position->gain_I = 0.0F;	//0.0F
-		ptr_PID_Position->gain_D = 0.5F;	//1.0F
+		ptr_PID_Position->gain_D = 1.0F;	//0.5F
 		ptr_PID_Position->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Position->commande_max = 10;
 		ptr_PID_Position->commande_min = -10;
 		ptr_PID_Position->Sommation_Sortie = 0;
 
 		ptr_PID_Rotation->Enable = 1;
-		ptr_PID_Rotation->gain_P = 1.0F;	//0.1F
+		ptr_PID_Rotation->gain_P = 2.0F;	//1.0F
 		ptr_PID_Rotation->gain_I = 0.0F;	//0.0F
-		ptr_PID_Rotation->gain_D = 0.5F;	//0.3F
+		ptr_PID_Rotation->gain_D = 0.5F;	//0.5F
 		ptr_PID_Rotation->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Rotation->commande_max = 10;
 		ptr_PID_Rotation->commande_min = -10;
@@ -86,18 +86,18 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		struct st_pid_filter* ptr_PID_Vitesse_Rotation = _1_Asserv_GetPtr_PID_Vit_Rot();
 
 		ptr_PID_Vitesse_Position->Enable = 1;
-		ptr_PID_Vitesse_Position->gain_P = 0.05F;	//0.1F
-		ptr_PID_Vitesse_Position->gain_I = 0.0F;	//0.0F
-		ptr_PID_Vitesse_Position->gain_D = 0.4F;	//0.6F
+		ptr_PID_Vitesse_Position->gain_P = 1.0F;	//0.05F
+		ptr_PID_Vitesse_Position->gain_I = 0.05F;	//0.0F
+		ptr_PID_Vitesse_Position->gain_D = 0.0125F;	//0.4F
 		ptr_PID_Vitesse_Position->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Vitesse_Position->commande_max = 30;
 		ptr_PID_Vitesse_Position->commande_min = -30;
-		ptr_PID_Vitesse_Position->Sommation_Sortie = 1; //1
+		ptr_PID_Vitesse_Position->Sommation_Sortie = 0; //1
 
 		ptr_PID_Vitesse_Rotation->Enable = 1;
-		ptr_PID_Vitesse_Rotation->gain_P = 0.05F;	//0.05F
-		ptr_PID_Vitesse_Rotation->gain_I = 0.0F;	//0.0F
-		ptr_PID_Vitesse_Rotation->gain_D = 0.4F;	//0.4F
+		ptr_PID_Vitesse_Rotation->gain_P = 0.6F;	//0.05F
+		ptr_PID_Vitesse_Rotation->gain_I = 0.05F;	//0.0F
+		ptr_PID_Vitesse_Rotation->gain_D = 0.025F;	//0.4F
 		ptr_PID_Vitesse_Rotation->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Vitesse_Rotation->commande_max = 30;
 		ptr_PID_Vitesse_Rotation->commande_min = -30;
@@ -230,11 +230,11 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(2);
+		Task_Delay_Until(5);
 		channel = 0;
 
 
-		Datas_To_Plot.Datas[channel].Channel = channel;
+		/*Datas_To_Plot.Datas[channel].Channel = channel;
 		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Consigne;
 		channel++;
 
@@ -242,7 +242,7 @@ void Test_Task_Graphique(void* pvParameter)
 		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Current_Value;
 		channel++;
 
-		/*Datas_To_Plot.Datas[channel].Channel = channel;
+		Datas_To_Plot.Datas[channel].Channel = channel;
 		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Rot()->Consigne;
 		channel++;
 
@@ -252,7 +252,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 
 
-		/*Datas_To_Plot.Datas[channel].Channel = channel;
+		Datas_To_Plot.Datas[channel].Channel = channel;
 		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
 		channel++;
 
@@ -281,6 +281,38 @@ void TEST_PID_Tunning(void* pvParameter)
 
 	//disable asserv level 2
 	_2_Disable_Asserv();
+
+/*
+	//Init PID en vitesse
+	struct st_pid_filter* ptr_PID_Vitesse_Position = _1_Asserv_GetPtr_PID_Vit_Pos();
+	struct st_pid_filter* ptr_PID_Vitesse_Rotation = _1_Asserv_GetPtr_PID_Vit_Rot();
+
+	ptr_PID_Vitesse_Position->Enable = 1;
+	ptr_PID_Vitesse_Position->gain_P = 0.0F;	//1.0F
+	ptr_PID_Vitesse_Position->gain_I = 0.0F;	//0.011F
+	ptr_PID_Vitesse_Position->gain_D = 0.0F;	//0.001F
+	ptr_PID_Vitesse_Position->Max_Erreur_Cumul = 0;	//1
+	ptr_PID_Vitesse_Position->commande_max = 50;
+	ptr_PID_Vitesse_Position->commande_min = -50;
+	ptr_PID_Vitesse_Position->Sommation_Sortie = 1; //1
+
+	ptr_PID_Vitesse_Rotation->Enable = 1;
+	ptr_PID_Vitesse_Rotation->gain_P = 0.0F;	//0.9F
+	ptr_PID_Vitesse_Rotation->gain_I = 0.0F;	//0.005F
+	ptr_PID_Vitesse_Rotation->gain_D = 0.0F;	//0.00125F
+	ptr_PID_Vitesse_Rotation->Max_Erreur_Cumul = 0;	//0
+	ptr_PID_Vitesse_Rotation->commande_max = 50;
+	ptr_PID_Vitesse_Rotation->commande_min = -50;
+	ptr_PID_Vitesse_Rotation->Sommation_Sortie = 1;
+
+	ptr_PID_Vitesse_Rotation->Consigne = 10;
+
+
+	Task_Delete_Current;*/
+
+
+
+
 
 	struct st_pid_filter* ptr_PID_Position = _2_Asserv_GetPtr_PID_Pos();
 	struct st_pid_filter* ptr_PID_Rotation = _2_Asserv_GetPtr_PID_Rot();
