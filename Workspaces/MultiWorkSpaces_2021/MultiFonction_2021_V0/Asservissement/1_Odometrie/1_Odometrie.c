@@ -33,7 +33,7 @@ void _1_Odometrie_Init(void)
 	(void)memset(&_1_Odometrie_Codeurs, 0, sizeof(struct st_Codeurs));
 
 	/* Init Task Odometrie */
-	xTaskCreate(vTask_1_Interpolation_lineaire, (char *) "vTask_Odometrie",	80, NULL, (tskIDLE_PRIORITY + 4UL), (xTaskHandle *) NULL);
+	xTaskCreate(vTask_1_Interpolation_lineaire, (char *) "vTask_Odometrie",	120, NULL, (tskIDLE_PRIORITY + 4UL), (xTaskHandle *) NULL);
 }
 
 

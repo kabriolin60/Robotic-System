@@ -67,6 +67,38 @@ void _2_Deplacement_Init(void)
 
 
 /*****************************************************************************
+ ** Function name:		_2_Enable_Asserv
+ **
+ ** Descriptions:		Active l'asservissement de niveau 2
+ ** 					Utile pour le réglage des PIDs par exemple
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Enable_Asserv(void)
+{
+	vTaskResume(xHandle_Asserv_Position_Rotation);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Disable_Asserv
+ **
+ ** Descriptions:		Desactive l'asservissement de niveau 2
+ ** 					Utile pour le réglage des PIDs par exemple
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Disable_Asserv(void)
+{
+	vTaskSuspend(xHandle_Asserv_Position_Rotation);
+}
+
+
+/*****************************************************************************
  ** Function name:		_2_Get_prt_PID_Position
  **
  ** Descriptions:		get pointeurs des PID

@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/Init.c \
+../src/Old_TEST.c \
 ../src/Test.c \
 ../src/cr_startup_lpc175x_6x.c \
 ../src/crp.c \
@@ -13,6 +14,7 @@ C_SRCS += \
 
 OBJS += \
 ./src/Init.o \
+./src/Old_TEST.o \
 ./src/Test.o \
 ./src/cr_startup_lpc175x_6x.o \
 ./src/crp.o \
@@ -21,6 +23,7 @@ OBJS += \
 
 C_DEPS += \
 ./src/Init.d \
+./src/Old_TEST.d \
 ./src/Test.d \
 ./src/cr_startup_lpc175x_6x.d \
 ./src/crp.d \

@@ -102,17 +102,24 @@ void pid_do_filter2(struct st_pid_filter *p)
 	En = p->Consigne - p->Current_Value;     //Calcul de l'erreur en Position
 	Dn = p->Current_Value - p->prev_value;    //Calcul de l'erreur Derivee
 
+	p->Erreur_Cumul += En;
+
 	//Gain Kp
 	commande = (p->gain_P * En);
 
 	//Gain Kd
-	commande -= (p->gain_D * Dn);
+	commande += (p->gain_D * Dn);
+
+	//Gain Ki
+	commande += (p->gain_I * p->Erreur_Cumul);
+
 
 	if(!p->Enable) commande = 0;
 
+	p->Commande = commande;           //envoie de la nouvelle commande
+
 	pid_seuillage(p);
 
-	p->Commande = commande;           //envoie de la nouvelle commande
 	p->prev_value = p->Current_Value; //sauvegarde de la position actuelle
 }
 

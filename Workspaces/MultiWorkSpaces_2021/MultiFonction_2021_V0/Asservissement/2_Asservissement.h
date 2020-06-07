@@ -53,6 +53,12 @@ struct st_DEPLACEMENT
 
 void _2_Deplacement_Init(void);
 
+void _2_Enable_Asserv(void);
+
+void _2_Disable_Asserv(void);
+
+
+
 struct st_pid_filter* _2_Asserv_GetPtr_PID_Pos(void);
 
 struct st_pid_filter* _2_Asserv_GetPtr_PID_Rot(void);

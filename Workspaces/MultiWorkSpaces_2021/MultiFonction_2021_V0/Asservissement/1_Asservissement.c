@@ -39,7 +39,7 @@ void _1_Asserv_Init_Asserv(void)
 	(void)memset(&PID_Vitesse_Roue_Gauche, 0, sizeof(struct st_pid_filter));
 
 	/* Init Task Asserv en vitesse */
-	xTaskCreate(_1_Asserv_Niveau_1, (char *) "vTask_Asserv_1",	80, NULL, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Asserv_Niveau_1, (char *) "vTask_Asserv_1",	120, NULL, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 
@@ -321,12 +321,12 @@ void _1_Asserv_Boucle_Asserv_Vitesse_Polaire(void *pvParameters)
 	//Mise à jour des current Value des PID
 	PID_update_Current_Value(&PID_Vitesse_Position, deplacement_distance);
 	//Execute le PID d'asserv en vitesse POSITION
-	pid_do_filter(&PID_Vitesse_Position);
+	pid_do_filter2(&PID_Vitesse_Position);
 
 	//Execute le PID d'asserv en vitesse ROTATION
 	PID_update_Current_Value(&PID_Vitesse_Rotation, deplacement_Droit - deplacement_Gauche);
 	//Execute le PID d'asserv en vitesse ROTATION
-	pid_do_filter(&PID_Vitesse_Rotation);
+	pid_do_filter2(&PID_Vitesse_Rotation);
 
 	//Envoie les consignes vers les PWM pour les moteurs
 	if(!_1_Omodetrie_Get_Simulation())
@@ -371,6 +371,6 @@ void _1_Asserv_Boucle_Asserv_Vitesse_Polaire(void *pvParameters)
 		consigne_perc_moteur_Gauche = PID_Vitesse_Position.Commande - PID_Vitesse_Rotation.Commande;
 
 		//Mise à jour des codeurs virtuels pour la simulation
-		_0_Codeurs_Increment_Simulation(consigne_perc_moteur_Droit, consigne_perc_moteur_Gauche);
+		_0_Codeurs_Increment_Simulation(consigne_perc_moteur_Droit / 2, consigne_perc_moteur_Gauche / 2);
 	}
 }

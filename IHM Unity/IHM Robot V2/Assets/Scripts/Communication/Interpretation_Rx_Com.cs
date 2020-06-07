@@ -270,10 +270,28 @@ public class Interpretation_Rx_Com : MonoBehaviour
         //Transforme la trame en Message utile
         Graphiques.Com_Graphique_Datas received_message = Datas.Trame_To_Data(input_trame);
 
+        string csv_output = "";
+
         for (int data_in = 0; data_in < received_message.nb_datas_to_send; data_in++)
         {
-            Graph1.Add_Data(received_message.Datas[data_in].Data, received_message.Datas[data_in].Channel);
+            //Graph1.Add_Data(received_message.Datas[data_in].Data, received_message.Datas[data_in].Channel);
+
+            csv_output += received_message.Datas[data_in].Data.ToString() + ",";
         }
+
+        try
+        {
+            /*using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"graph_data.txt", true))
+            {
+                file.WriteLine(csv_output);
+            }*/
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
     }
     #endregion
 
