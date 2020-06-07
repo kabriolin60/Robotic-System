@@ -37,7 +37,7 @@ static long Nb_Messages_Interpretes = 0;
 void _2_Communication_RX_Init()
 {
 	//Tache de décodage des donnees messages reçus
-	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 100, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
 
 

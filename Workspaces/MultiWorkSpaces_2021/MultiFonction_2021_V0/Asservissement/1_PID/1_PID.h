@@ -10,8 +10,8 @@ struct st_pid_filter
 	float Consigne;   //Consigne à respecter
 	float Current_Value; //valeur actuelle
 	float gain_P; /**< Gain of Proportionnal module */
-	float gain_D; /**< Gain of Derivate module */
 	float gain_I; /**< Gain of Integral module */
+	float gain_D; /**< Gain of Derivate module */
 	float Erreur_Cumul;
 	float Max_Erreur_Cumul;
 

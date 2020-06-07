@@ -244,9 +244,10 @@ void TEST_init_parametres_task2(void *pvParameters)
 	while (1)
 	{
 		_2_Comm_Send_Infos((struct Com_Reponse_Info *)Get_ptr_Reponse_info(), RS485_port);
+		_2_Comm_Send_Infos((struct Com_Reponse_Info *)Get_ptr_Reponse_info(), RS485_port);
 
 		//_2_Comm_Send_Log_Message("Toto est ici en rouge RS485\n\r", Color_Red, RS485_port);
-		Task_Delay_Until(100);
+		Task_Delay_Until(1);
 	}
 }
 
