@@ -70,7 +70,14 @@ static void vTask_LunchUser_Application(void *pvParameters) {
 	//Wait 5 seconds
 	vTaskDelay(5000);
 
-	execute_user_code();
+	//Si user code présent:
+		if(user_code_present())
+		{
+			//execute user code
+			execute_user_code();
+		}
+
+
 	bool LedState = false;
 
 

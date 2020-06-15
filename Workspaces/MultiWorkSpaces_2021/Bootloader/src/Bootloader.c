@@ -46,37 +46,24 @@ void execute_user_code(void)
 {
 	void (*user_code_entry)(void);
 
-	/* Change the Vector Table to the USER_FLASH_START
-	        in case the user application uses interrupts */
-    // Disable interrupts and turn off all peripherals so the user code doesn't
-    // accidentally jump back to the old vector table
+		unsigned *p;	// used for loading address of reset handler from user flash
 
-    __disable_irq();
-    vTaskEndScheduler();
+		/* Change the Vector Table to the USER_FLASH_START
+		in case the user application uses interrupts */
+		SCB->VTOR = (USER_FLASH_START & 0x1FFFFF80);
 
-    Chip_SetupIrcClocking();
+		// Load contents of second word of user flash - the reset handler address
+		// in the applications vector table
+		p = (unsigned *)(USER_FLASH_START +4);
 
-	volatile const int *stack_adr = 0x00010000;
-	volatile const int *start_adr = 0x00010004;
+		// Set user_code_entry to be the address contained in that second word
+		// of user flash
+		user_code_entry = (void *) *p;
 
-	__set_MSP(*stack_adr);
-
-	SCB->VTOR = (USER_FLASH_START & 0x1FFFFF80);
-	
-    __set_CONTROL(0); // Change from PSP to MSP
-
-
-	user_code_entry = (void (*)(void))(*start_adr);
-	user_code_entry();
+		// Jump to user application
+		user_code_entry();
 }
 
-void bootjump(uint32_t adress)
-{
-	__asm volatile (
-			"LDR SP, [R0] \n"
-			"LDR PC, [R0, #4] \n"
-	);
-}
 
 
 int user_code_present(void)
