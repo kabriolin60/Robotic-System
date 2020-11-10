@@ -17,7 +17,7 @@ C_DEPS += \
 FreeRTOS/portable/GCC/POSIX/utils/%.o: ../FreeRTOS/portable/GCC/POSIX/utils/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross GCC Compiler'
-	arm-linux-gnueabihf-gcc -I"/home/pi/eclipse-workspace/Test_FreeRTOS/FreeRTOS" -I"/home/pi/eclipse-workspace/Test_FreeRTOS/FreeRTOS/include" -I"/home/pi/eclipse-workspace/Test_FreeRTOS/FreeRTOS/portable" -I"/home/pi/eclipse-workspace/Test_FreeRTOS/FreeRTOS/portable/GCC/POSIX" -I"/home/pi/eclipse-workspace/Test_FreeRTOS/FreeRTOS/portable/GCC/POSIX/utils" -I/home/pi/WiringPi/wiringPi -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	arm-linux-gnueabihf-gcc -I"/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS" -I"/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include" -I"/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/portable" -I"/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/portable/GCC/POSIX" -I"/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/portable/GCC/POSIX/utils" -I/home/pi/WiringPi/wiringPi -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
