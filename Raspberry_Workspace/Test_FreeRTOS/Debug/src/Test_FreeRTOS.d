@@ -10,7 +10,8 @@ src/Test_FreeRTOS.o: ../src/Test_FreeRTOS.c \
  /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include/list.h \
  /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include/timers.h \
  /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include/task.h \
- ../src/tiny_gpio.h
+ ../src/tiny_gpio.h \
+ /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/Astar/Astar/Astar.h
 
 /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include/FreeRTOS.h:
 
@@ -35,3 +36,5 @@ src/Test_FreeRTOS.o: ../src/Test_FreeRTOS.c \
 /home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/FreeRTOS/include/task.h:
 
 ../src/tiny_gpio.h:
+
+/home/pi/git/Robotic-System/Raspberry_Workspace/Test_FreeRTOS/Astar/Astar/Astar.h:

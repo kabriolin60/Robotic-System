@@ -19,6 +19,10 @@
 
 #include "tiny_gpio.h"
 
+#include "Astar.h"
+
+#include <sys/time.h>
+
 
 
 
@@ -33,6 +37,8 @@ void vTask_LED(void *parameter);
 
 
 int main(void) {
+
+	struct timeval begin, end;
 
 	/*int i;
 
@@ -53,6 +59,19 @@ int main(void) {
 
 	//xTaskCreate( vTask_LED, "Task LED", 1000, NULL, 1, NULL );
 
+
+
+	gettimeofday(&begin, 0);
+	Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), 10, 10, 1500, 1500);
+
+	Astar_Find_Path(Astar_Get_Map(), Astar_Get_Vector_Map());
+
+
+	gettimeofday(&end, 0);
+	long seconds = end.tv_sec - begin.tv_sec;
+	long microseconds = end.tv_usec - begin.tv_usec;
+	double elapsed = seconds + microseconds*1e-6;
+	printf("Time measured: %.5f seconds.\n", elapsed);
 
 
 	vTaskStartScheduler();

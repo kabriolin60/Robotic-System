@@ -13,6 +13,7 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Astar/Astar \
 FreeRTOS \
 FreeRTOS/portable/GCC/POSIX \
 FreeRTOS/portable/GCC/POSIX/utils \
