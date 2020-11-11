@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Communication_TX_RX_Trames : MonoBehaviour
 {
-	Virtual_Com_Port portserie; //Port de commuication
+	UDP_Communication portserie; //Port de commuication
 	List<Communication> Messages_to_send = new List<Communication>();
 	public List<Communication> Received_Messages = new List<Communication>();
 
@@ -98,24 +98,16 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 
 	public void FixedUpdate()
 	{
-		int boucle = 0;
 		if (portserie != null)
 		{
-			if (portserie.serial != null)
+			while (portserie.InputBuffer.Count > 0)
 			{
-				if (portserie.serial.IsOpen)
-				{
-					while (portserie.InputBuffer.Count > 75 && boucle < 100)
-					{
-						ReadTrame();
-						boucle++;
-					}
-				}
+				ReadTrame();
 			}
 		}
 		else
 		{
-			portserie = GetComponent<Virtual_Com_Port>();
+			portserie = GetComponent<UDP_Communication>();
 		}
 	}
 
@@ -186,10 +178,15 @@ public class Communication_TX_RX_Trames : MonoBehaviour
 		//Thread.Sleep(5);
 
 		//Reception En-tête API
-		API_start = (byte)portserie.ReadRemoveInputByte();
 		byte boucle = 0;
-		if (API_start != 0x7E)
-			return;
+		while (API_start != 0x7E)
+		{
+			API_start = (byte)portserie.ReadRemoveInputByte();
+			boucle++;
+			if (boucle > 5)
+				return;
+		}
+		boucle = 0;
 
 		//Le start byte est recu, on demarre la lecture de la trame
 		API_LENGTH_HIGH = (byte)portserie.ReadRemoveInputByte();
