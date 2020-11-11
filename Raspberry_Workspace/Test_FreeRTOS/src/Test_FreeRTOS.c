@@ -52,11 +52,11 @@ int main(void) {
 
 
 	/* Creating Two Task Same Priorities and Delay*/
-	xTaskCreate( vTask1, "Task 1", 1000, NULL, 1, NULL );
-	xTaskCreate( vTask2, "Task 2", 1000, NULL, 1, NULL );
+	//xTaskCreate( vTask1, "Task 1", 1000, NULL, 1, NULL );
+	//xTaskCreate( vTask2, "Task 2", 1000, NULL, 1, NULL );
 	/* Creating Two Task Same Priorities and DelayUntil*/
-	xTaskCreate( vTask3, "Task 3", 1000, NULL, 1, NULL );
-	xTaskCreate( vTask4, "Task 4", 1000, NULL, 1, NULL );
+	//xTaskCreate( vTask3, "Task 3", 1000, NULL, 1, NULL );
+	//xTaskCreate( vTask4, "Task 4", 1000, NULL, 1, NULL );
 
 	//xTaskCreate( vTask_LED, "Task LED", 1000, NULL, 1, NULL );
 
@@ -75,8 +75,8 @@ int main(void) {
 	printf("Time measured: %.5f seconds.\n", elapsed);*/
 
 	int port = 26000;
-	xTaskCreate( Init_UDP, "UDP Rx", 1000, &port, 1, NULL );
-	//Init_UDP(26000);
+	Init_UDP(port);
+	xTaskCreate( Task_UDP, "UDP Rx", 1000, &port, 1, NULL );
 
 
 	vTaskStartScheduler();
