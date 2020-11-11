@@ -20,6 +20,7 @@
 #include "tiny_gpio.h"
 
 #include "Astar.h"
+#include "UDP.h"
 
 #include <sys/time.h>
 
@@ -61,7 +62,7 @@ int main(void) {
 
 
 
-	gettimeofday(&begin, 0);
+	/*gettimeofday(&begin, 0);
 	Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), 10, 10, 1500, 1500);
 
 	Astar_Find_Path(Astar_Get_Map(), Astar_Get_Vector_Map());
@@ -71,7 +72,11 @@ int main(void) {
 	long seconds = end.tv_sec - begin.tv_sec;
 	long microseconds = end.tv_usec - begin.tv_usec;
 	double elapsed = seconds + microseconds*1e-6;
-	printf("Time measured: %.5f seconds.\n", elapsed);
+	printf("Time measured: %.5f seconds.\n", elapsed);*/
+
+	int port = 26000;
+	xTaskCreate( Init_UDP, "UDP Rx", 1000, &port, 1, NULL );
+	//Init_UDP(26000);
 
 
 	vTaskStartScheduler();

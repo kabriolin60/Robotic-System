@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/subdir.mk
+-include TCP_UDP/subdir.mk
 -include FreeRTOS/portable/MemMang/subdir.mk
 -include FreeRTOS/portable/GCC/POSIX/utils/subdir.mk
 -include FreeRTOS/portable/GCC/POSIX/subdir.mk

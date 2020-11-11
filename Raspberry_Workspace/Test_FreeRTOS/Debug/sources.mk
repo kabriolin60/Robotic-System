@@ -18,5 +18,6 @@ FreeRTOS \
 FreeRTOS/portable/GCC/POSIX \
 FreeRTOS/portable/GCC/POSIX/utils \
 FreeRTOS/portable/MemMang \
+TCP_UDP \
 src \
 
