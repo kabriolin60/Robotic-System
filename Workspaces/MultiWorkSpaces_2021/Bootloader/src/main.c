@@ -53,7 +53,8 @@ static void vTask_HartBeat(void *pvParameters) {
 	Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, false);
 	Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, false);
 
-	while (1) {
+	while (1)
+	{
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
@@ -71,11 +72,11 @@ static void vTask_LunchUser_Application(void *pvParameters) {
 	vTaskDelay(5000);
 
 	//Si user code présent:
-		if(user_code_present())
-		{
-			//execute user code
-			execute_user_code();
-		}
+	if(user_code_present())
+	{
+		//execute user code
+		execute_user_code();
+	}
 
 
 	bool LedState = false;
