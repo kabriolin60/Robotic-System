@@ -120,6 +120,44 @@ int main(void)
 	usb_main();
 #endif
 
+#ifndef TYPE_CARTE_IA
+	//Turn Servo power OFF
+	Chip_IOCON_PinMux(LPC_IOCON, SERVO_ON_OFF_PORT, SERVO_ON_OFF_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, SERVO_ON_OFF_PORT, SERVO_ON_OFF_BIT, true);
+
+	//Commencer par couper l'alimentation des Servos
+	Chip_GPIO_WritePortBit(LPC_GPIO, SERVO_ON_OFF_PORT, SERVO_ON_OFF_BIT, 0);
+
+
+	//Turn AX-12 power OFF
+	Chip_IOCON_PinMux(LPC_IOCON, AX_12_ON_OFF_PORT, AX_12_ON_OFF_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, AX_12_ON_OFF_PORT, AX_12_ON_OFF_BIT, true);
+
+	//Commencer par couper l'alimentation des AX12
+	Chip_GPIO_WritePortBit(LPC_GPIO, AX_12_ON_OFF_PORT, AX_12_ON_OFF_BIT, 0);
+
+
+	//Dir Moteur Gauche
+	Chip_IOCON_PinMux(LPC_IOCON, DIR_MOTEUR_1_GAUCHE_PORT, DIR_MOTEUR_1_GAUCHE_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, DIR_MOTEUR_1_GAUCHE_PORT, DIR_MOTEUR_1_GAUCHE_BIT, true);
+
+	//PWM Moteur Gauche
+	Chip_IOCON_PinMux(LPC_IOCON, 4, 28, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, 4, 28, true);
+	Chip_GPIO_WritePortBit(LPC_GPIO, 4, 28, 0);
+
+
+	//Dir Moteur Droit
+	Chip_IOCON_PinMux(LPC_IOCON, DIR_MOTEUR_2_DROIT_PORT, DIR_MOTEUR_2_DROIT_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, DIR_MOTEUR_2_DROIT_PORT, DIR_MOTEUR_2_DROIT_BIT, true);
+
+	//PWM Moteur Droit
+	Chip_IOCON_PinMux(LPC_IOCON, 4, 29, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, 4, 29, true);
+	Chip_GPIO_WritePortBit(LPC_GPIO, 4, 29, 0);
+
+#endif
+
 	/* Init Bootloader */
 	Init_bootloader();
 
