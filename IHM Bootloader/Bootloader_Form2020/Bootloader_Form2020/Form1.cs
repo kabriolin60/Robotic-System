@@ -67,6 +67,8 @@ namespace Bootloader_Form2020
             this.Avancement.Text = "0/" + _lines.Length.ToString() + " Lines";
             int line_number = 0;
 
+            this.progressBar1.Maximum = _lines.Length;
+
             //start listening for messages and copy the messages back to the client
             foreach (string _line in _lines)
             {
@@ -77,6 +79,7 @@ namespace Bootloader_Form2020
                 line_number++;
 
                 this.Avancement.Text = line_number.ToString() + "/ " + _lines.Length.ToString() + " Lines";
+                this.progressBar1.Value = line_number;
 
                 this.Update();
 
@@ -84,7 +87,7 @@ namespace Bootloader_Form2020
                 if((line_number -1) % 256 == 0 && line_number != 1)
                 {
                     //Ecritude d'un bloc
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                 }
             }
         }
