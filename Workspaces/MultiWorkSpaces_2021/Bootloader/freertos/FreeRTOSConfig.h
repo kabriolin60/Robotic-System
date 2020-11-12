@@ -65,6 +65,15 @@
 
 #define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
 
+#define INCLUDE_xEventGroupSetBitsFromISR 		1
+#define INCLUDE_xTimerPendFunctionCall 			1
+
+/* Software timer definitions. */
+#define configUSE_TIMERS						1
+#define configTIMER_TASK_PRIORITY				( configMAX_PRIORITIES - 1 )
+#define configTIMER_QUEUE_LENGTH				5
+#define configTIMER_TASK_STACK_DEPTH			( 100 )
+
 #define configUSE_COUNTING_SEMAPHORES 	0
 #define configUSE_ALTERNATIVE_API 		0
 #define configCHECK_FOR_STACK_OVERFLOW	2
@@ -147,22 +156,6 @@ extern void vConfigureTimerForRunTimeStats( void );
 #define portGET_RUN_TIME_COUNTER_VALUE() LPC_TIM0->TC
 */
 
-
-/**************************************************
-Declaration des macro des Tempo pour FreeRTOS
- **************************************************/
-
-#define Init_Timing_Tache TickType_t xLastWakeTime; xLastWakeTime = xTaskGetTickCount ();
-#define Task_Delay_Until(Time) vTaskDelayUntil(&xLastWakeTime, (float)Time /((float)(1000/(float)configTICK_RATE_HZ)));
-#define Task_Delay(Time) (Time > 0? vTaskDelay((float)Time /((float)(1000/(float)configTICK_RATE_HZ))) : Time);
-
-#define Task_Get_Current_Handle xTaskGetCurrentTaskHandle()
-#define Task_Delete_Current vTaskDelete(xTaskGetCurrentTaskHandle());
-#define Task_Suspend_Current vTaskSuspend(xTaskGetCurrentTaskHandle());
-
-#define WAIT(condition, temps)  while(condition){ Task_Delay(temps); }
-
-/*************************************************/
 
 
 #endif /* FREERTOS_CONFIG_H */

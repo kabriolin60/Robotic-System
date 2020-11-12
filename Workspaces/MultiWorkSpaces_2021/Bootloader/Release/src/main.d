@@ -72,7 +72,14 @@ src/main.o src/main.d: ../src/main.c \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
  D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
- ../src/Bootloader.h
+ ../src/Bootloader.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Event_Group.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/event_groups.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/timers.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Communication.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
+ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Configuration.h
 
 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/chip.h:
 
@@ -221,3 +228,17 @@ D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\
 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h:
 
 ../src/Bootloader.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Event_Group.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/event_groups.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/timers.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Communication.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
+
+D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Configuration.h:

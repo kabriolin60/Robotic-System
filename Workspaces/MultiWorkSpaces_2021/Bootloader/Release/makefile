@@ -11,6 +11,8 @@ RM := rm -rf
 -include src/subdir.mk
 -include freertos/src/subdir.mk
 -include 0_Communication/USB/scr/subdir.mk
+-include 0_Communication/RS485/subdir.mk
+-include 0_Communication/subdir.mk
 -include subdir.mk
 -include objects.mk
 

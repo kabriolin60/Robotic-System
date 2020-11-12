@@ -22,8 +22,13 @@
 #include "Configuration.h"
 #include "Bootloader.h"
 
+#include "0_Event_Group.h"
+#include "0_Communication.h"
+
 
 #include <cr_section_macros.h>
+
+TaskHandle_t Run_Application_Handler = NULL;
 
 
 /* Sets up system hardware */
@@ -95,6 +100,7 @@ static void vTask_LunchUser_Application(void *pvParameters) {
 }
 
 
+
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
@@ -107,9 +113,21 @@ int main(void)
 {
 	prvSetupHardware();
 
+#ifdef USE_USB
+	usb_main();
+#endif
+
+	/* Init du Groupe d'event de synchronisation */
+	_0_Communication_Init_Event_Group();
+
+	/* Init de la communication Niveau 0 */
+	_0_Communication_Init();
+
+
+
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 1000, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, (xTaskHandle *) NULL);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 1000, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
 
 
 	/* Start the scheduler */

@@ -32,9 +32,11 @@
 #include "board.h"
 #include <stdio.h>
 #include <string.h>
+#include "stopwatch.h"
 #include "app_usbd_cfg.h"
 #include "cdc_vcom.h"
-#include "stopwatch.h"
+
+#include "FreeRTOSConfig.h"
 
 /*****************************************************************************
  * Private types/enumerations/variables
@@ -44,7 +46,7 @@
  * Public types/enumerations/variables
  ****************************************************************************/
 
-static USBD_HANDLE_T g_hUsb;
+USBD_HANDLE_T g_hUsb;
 
 extern const  USBD_HW_API_T hw_api;
 extern const  USBD_CORE_API_T core_api;
@@ -74,27 +76,14 @@ static void usb_pin_clk_init(void)
 	Chip_USB_Init();
 	/* enable USB 1 port on the board */
 	Board_USBD_Init(1);
-
-	//Run Enumeration P2.9 = 0
-	Chip_GPIO_WriteDirBit(LPC_GPIO, 2, 9, true);
-	Chip_GPIO_WriteDirBit(LPC_GPIO, 1, 18, true);
-
-	Chip_GPIO_WritePortBit(LPC_GPIO, 1, 2, false);
-	Chip_GPIO_WritePortBit(LPC_GPIO, 1, 18, false);
 }
 
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
 
-/**
- * @brief	Handle interrupt from USB0
- * @return	Nothing
- */
-void USB_IRQHandler(void)
-{
-	USBD_API->hw->ISR(g_hUsb);
-}
+
+
 
 /* Find the address of interface descriptor for given class type. */
 USB_INTERFACE_DESCRIPTOR *find_IntfDesc(const uint8_t *pDesc, uint32_t intfClass)
@@ -164,11 +153,11 @@ void usb_main(void)
 		ret = vcom_init(g_hUsb, &desc, &usb_param);
 		if (ret == LPC_OK) {
 			/*  enable USB interrupts */
+			NVIC_SetPriority(USB_IRQn, configUSB_INTERRUPT_PRIORITY);
 			NVIC_EnableIRQ(USB_IRQn);
 			/* now connect */
 			USBD_API->hw->Connect(g_hUsb, 1);
 		}
 	}
-
 	//DEBUGSTR("USB CDC class based virtual Comm port example!\r\n");
 }
