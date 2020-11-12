@@ -24,8 +24,10 @@
 
 #define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
 
+#define TYPE_CARTE_IA
+
 #ifdef CARTE_LPCXPRESSO
-#define USE_USB
+//#define USE_USB
 #else
 #ifdef TYPECARTE
 //#define USE_USB
@@ -126,7 +128,7 @@ Déclaration des cannaux des Codeurs
 /**************************************************
 Declaration des Reglages liés à la Communication RS485
 **************************************************/
-#define BAUDRATE_RS485				2000000
+#define BAUDRATE_RS485				1000000//2000000
 #define RS484_UART					LPC_UART1
 
 #define RS485_IRQ_SELECTION 		UART1_IRQn

@@ -6,13 +6,13 @@
  * Generated linker script file for LPC1769
  * Created from memory.ldt by FMCreateLinkMemory
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.1.1 [Build 3241] [2020-03-02] on 31 mai 2020 18:07:46
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 12 nov. 2020 19:52:01
  */
 
 MEMORY
 {
   /* Define each memory region */
-  MFlash512 (rx) : ORIGIN = 0x0, LENGTH = 0x80000 /* 512K bytes (alias Flash) */  
+  MFlash512 (rx) : ORIGIN = 0x0, LENGTH = 0x10000 /* 64K bytes (alias Flash) */  
   RamLoc32 (rwx) : ORIGIN = 0x10000000, LENGTH = 0x8000 /* 32K bytes (alias RAM) */  
   RamAHB32 (rwx) : ORIGIN = 0x2007c000, LENGTH = 0x8000 /* 32K bytes (alias RAM2) */  
 }
@@ -20,8 +20,8 @@ MEMORY
   /* Define a symbol for the top of each memory region */
   __base_MFlash512 = 0x0  ; /* MFlash512 */  
   __base_Flash = 0x0 ; /* Flash */  
-  __top_MFlash512 = 0x0 + 0x80000 ; /* 512K bytes */  
-  __top_Flash = 0x0 + 0x80000 ; /* 512K bytes */  
+  __top_MFlash512 = 0x0 + 0x10000 ; /* 64K bytes */  
+  __top_Flash = 0x0 + 0x10000 ; /* 64K bytes */  
   __base_RamLoc32 = 0x10000000  ; /* RamLoc32 */  
   __base_RAM = 0x10000000 ; /* RAM */  
   __top_RamLoc32 = 0x10000000 + 0x8000 ; /* 32K bytes */  

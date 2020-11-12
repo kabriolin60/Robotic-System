@@ -11,6 +11,8 @@
 #include "FreeRTOS.h"
 #include "Type_Declaration.h"
 
+#include "stdbool.h"
+
 
 #define NB_SERVO	6
 #define NB_AX_12	4

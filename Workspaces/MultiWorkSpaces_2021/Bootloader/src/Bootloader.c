@@ -34,13 +34,6 @@ unsigned sector_end_map[MAX_FLASH_SECTOR] = {SECTOR_0_END,SECTOR_1_END,    \
 unsigned param_table[5];
 unsigned result_table[5];
 
-char flash_buf[FLASH_BUF_SIZE];
-
-unsigned *flash_address = 0;
-unsigned byte_ctr = 0;
-
-unsigned sector_erased_map[MAX_FLASH_SECTOR];
-
 
 void execute_user_code(void)
 {

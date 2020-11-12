@@ -6,11 +6,12 @@
  * Generated linker script file for LPC1769
  * Created from library.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 12 nov. 2020 14:31:55
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 12 nov. 2020 17:30:50
  */
 
 GROUP (
-  "libcr_c.a"
-  "libcr_eabihelpers.a"
   "libgcc.a"
+  "libc_nano.a"
+  "libm.a"
+  "libcr_newlib_none.a"
 )

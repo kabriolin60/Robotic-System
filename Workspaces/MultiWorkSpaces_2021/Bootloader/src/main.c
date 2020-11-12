@@ -24,6 +24,9 @@
 
 #include "0_Event_Group.h"
 #include "0_Communication.h"
+#include "1_Trame_Communication.h"
+#include "2_Echange_Datas.h"
+#include "2_Echange_Datas_Reception.h"
 
 
 #include <cr_section_macros.h>
@@ -74,7 +77,7 @@ static void vTask_HartBeat(void *pvParameters) {
 
 static void vTask_LunchUser_Application(void *pvParameters) {
 	//Wait 5 seconds
-	vTaskDelay(5000);
+	vTaskDelay(10000);
 
 	//Si user code présent:
 	if(user_code_present())
@@ -122,6 +125,15 @@ int main(void)
 
 	/* Init de la communication Niveau 0 */
 	_0_Communication_Init();
+
+	/* Init de la communication Niveau 1 */
+	_1_Communication_Init();
+
+	/* Init de la communication Niveau 2 */
+	_2_Communication_Init();
+
+	/* Init de la communication de Reception Niveau 2 */
+	_2_Communication_RX_Init();
 
 
 

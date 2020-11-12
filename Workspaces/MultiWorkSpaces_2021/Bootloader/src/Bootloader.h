@@ -9,6 +9,12 @@
 #define BOOTLOADER_H_
 
 
+#if defined (__USE_LPCOPEN)
+#include "chip.h"
+#endif
+
+#include "board.h"
+
 /***********************************************************************
  * Code Red Technologies - Minor modifications to original code for use
  * in RDB1768 secondary USB bootloader based on LPCUSB USB stack.
@@ -48,7 +54,7 @@
  * size used by SCSI layer of LPCUSB
  */
 
-#define FLASH_BUF_SIZE 512
+#define FLASH_BUF_SIZE 4096
 #define USER_FLASH_START (sector_start_map[USER_START_SECTOR])
 #define USER_FLASH_END     (sector_end_map[MAX_USER_SECTOR])
 #define USER_FLASH_SIZE  ((USER_FLASH_END - USER_FLASH_START) + 1)
