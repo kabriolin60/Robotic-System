@@ -61,8 +61,8 @@ namespace Bootloader_Form2020
             // 
             // serialPort1
             // 
-            this.serialPort1.BaudRate = 1000000;
-            this.serialPort1.PortName = "COM5";
+            this.serialPort1.BaudRate = 2000000;
+            this.serialPort1.PortName = "COM7";
             // 
             // progressBar1
             // 

@@ -84,7 +84,7 @@ namespace Bootloader_Form2020
                 if((line_number -1) % 256 == 0 && line_number != 1)
                 {
                     //Ecritude d'un bloc
-                    Thread.Sleep(50);
+                    Thread.Sleep(500);
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace Bootloader_Form2020
 
             Send_Trame(comm);
 
-            Thread.Sleep(2);            
+            Thread.Sleep(10);            
 
             return 1;
         }
