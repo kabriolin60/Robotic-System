@@ -120,6 +120,9 @@ int main(void)
 	usb_main();
 #endif
 
+	/* Init Bootloader */
+	Init_bootloader();
+
 	/* Init du Groupe d'event de synchronisation */
 	_0_Communication_Init_Event_Group();
 

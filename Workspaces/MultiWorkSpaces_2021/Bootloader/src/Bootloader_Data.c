@@ -15,27 +15,21 @@
 
 long Offset_Adresse_Ecriture = 0;
 long Adresse_Ecriture = 0;
-long Nb_Bloc = 0;
 long Adresse_Depart = 0;
-uint8_t checksum_calculated = 0;
 
 char flash_buf[FLASH_BUF_SIZE];
 
-unsigned int byte_ctr = 0;
-unsigned int sector_start = 0;
-
-extern TaskHandle_t Run_Application_Handler;
-uint8_t is_RunApplication_running = true;
 unsigned int block_start_address = 0;
+
+void Init_bootloader(void)
+{
+	//Clear buffer
+	memset(&flash_buf, 0xFF, sizeof(flash_buf));
+}
+
 
 void Reception_Trame_Bootloader(struct Communication_Trame *_trame)
 {
-	if(is_RunApplication_running && Run_Application_Handler != NULL)
-	{
-		vTaskSuspend( Run_Application_Handler );
-		is_RunApplication_running = false;
-	}
-
 	struct st_LineBootloader _line;
 
 	//_trame.Date[0] = ':';
@@ -90,58 +84,6 @@ void Traitement_Data(struct st_LineBootloader *line)
 				block_start_address = 0;
 			}
 		}
-
-		/*
-		//Toogle_Pin(LED_1_PORT, LED_1_BIT);
-
-		Adresse_Ecriture = Offset_Adresse_Ecriture + Nb_Bloc * FLASH_BUF_SIZE;
-
-		//Memorise l'adresse du début de l'application
-		if(Adresse_Depart == 0)
-		{
-			Adresse_Depart = Offset_Adresse_Ecriture;
-		}
-
-		//Ecriture des données reçues en Flash
-		write_flash(Adresse_Ecriture, &line->data, line->longueur);
-
-		//Si l'adresse est la fin du premier bloc
-		/*
-		if(line->adresse == 0x1F0 && checksum_calculated == 0)
-		{
-			//Calcul le checksum de la table de vecteur, à écrire à offset + 0x1C
-			long Checksum = 0;
-
-			Checksum = *(long *)Adresse_Depart;
-			Checksum += *(long *)(Adresse_Depart + 4);
-			Checksum += *(long *)(Adresse_Depart + 8);
-			Checksum += *(long *)(Adresse_Depart + 12);
-			Checksum += *(long *)(Adresse_Depart + 16);
-			Checksum += *(long *)(Adresse_Depart + 20);
-			Checksum += *(long *)(Adresse_Depart + 24);
-
-			Checksum = 0xFFFFFFFF - Checksum;
-			Checksum += 1;
-
-			//Lecture du premier bloc
-			long Premier_Bloc[128];
-			int i;
-
-			for(i = 0; i < 128; i++)
-			{
-				Premier_Bloc[i] = *(long*)(Adresse_Depart + (i * 4));
-			}
-
-			//Integration du checksum dans le premier bloc @ 0x1C
-			Premier_Bloc[7] = (unsigned int)Checksum;
-
-			checksum_calculated = 1;
-
-			//Reecriture du premier bloc dans la Flash
-			write_flash(Offset_Adresse_Ecriture, &Premier_Bloc, sizeof(Premier_Bloc));
-			Nb_Bloc--;
-		}
-		/* */
 		break;
 
 	case bootloader_FindeFichier:
@@ -158,7 +100,6 @@ void Traitement_Data(struct st_LineBootloader *line)
 		Offset_Adresse_Ecriture += line->data[1];
 
 		Offset_Adresse_Ecriture <<= 4;
-		Nb_Bloc = 0;
 		break;
 
 	case bootloader_ExtendedLinear_Address:
@@ -167,7 +108,6 @@ void Traitement_Data(struct st_LineBootloader *line)
 		Offset_Adresse_Ecriture <<= 8;
 		Offset_Adresse_Ecriture += line->data[1];
 		Offset_Adresse_Ecriture <<= 16;
-		Nb_Bloc = 0;
 		break;
 
 	case bootloader_StartLinear_Address:

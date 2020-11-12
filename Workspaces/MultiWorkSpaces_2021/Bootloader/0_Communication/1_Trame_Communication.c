@@ -23,6 +23,10 @@ static long Nb_Erreurs_com = 0;
 static long Nb_Rx_Fifo_Full = 0;
 
 
+extern TaskHandle_t Run_Application_Handler;
+uint8_t is_RunApplication_running = true;
+
+
 /*****************************************************************************
  ** Function name:		_1_Communication_Init
  **
@@ -321,13 +325,13 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	{
 		boucle++;
 
-		if (boucle > 5)
+		if (boucle > 10)
 		{
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
-		Task_Delay(1);
+		Task_Delay(5);
 	}
 
 	RingBuffer_PopMult(RingBuff, &Data_rx, 6);
@@ -394,6 +398,15 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		//Vérifie le CRC
 		if (crc == rx_crc)
 		{
+
+			//Pour le bootloader, dans tous les cas, arrete le lancement de l'application dès qu'un message arrive
+			if(is_RunApplication_running && Run_Application_Handler != NULL)
+			{
+				vTaskSuspend( Run_Application_Handler );
+				is_RunApplication_running = false;
+			}
+
+
 			BaseType_t res;
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message

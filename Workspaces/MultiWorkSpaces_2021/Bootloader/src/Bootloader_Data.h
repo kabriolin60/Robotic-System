@@ -42,6 +42,7 @@ struct st_LineBootloader
 	uint8_t CRC;
 };
 
+void Init_bootloader(void);
 
 void Reception_Trame_Bootloader(struct Communication_Trame *_trame);
 void Traitement_Data(struct st_LineBootloader *line);
