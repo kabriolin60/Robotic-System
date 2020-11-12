@@ -50,7 +50,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "IA_2021_V0.axf" ; arm-none-eabi-objcopy -O ihex "IA_2021_V0.axf" "IA_2021_V0.hex" ; #arm-none-eabi-objcopy -v -O binary "IA_2021_V0.axf" "IA_2021_V0.bin" ; #arm-none-eabi-objcopy -I binary "IA_2021_V0.bin" -O ihex "IA_2021_V0.hex" ; #arm-none-eabi-objcopy -O ihex "IA_2021_V0.hex" ; #checksum -p LPC1769 -d "IA_2021_V0.bin"
+	-arm-none-eabi-size "IA_2021_V0.axf" ; arm-none-eabi-objcopy -O ihex "IA_2021_V0.axf" "IA_2021_V0.hex" ; #checksum -p LPC1769 -d "IA_2021_V0.bin"
 	-@echo ' '
 
 .PHONY: all clean dependents post-build
