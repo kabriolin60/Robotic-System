@@ -15,8 +15,6 @@ using System.IO;
 
 public class Virtual_SerialPort : MonoBehaviour
 {
-    public GameObject Logger;
-
     static System.IO.Ports.SerialPort serialPort;
 
     public string portName;
@@ -102,7 +100,7 @@ public class Virtual_SerialPort : MonoBehaviour
         byte[] byteBuffer = new byte[intBuffer];
         serialPort.Read(byteBuffer, 0, intBuffer);        
 
-        //await Task.Delay(1);
+        await Task.Delay(2);
 
         return byteBuffer;
     }
@@ -113,6 +111,8 @@ public class Virtual_SerialPort : MonoBehaviour
         //S'il y a des infos à envoyer
         byte[] datas_to_send = datas.ToArray();
         serialPort.Write(datas_to_send, 0, datas_to_send.Length);
+
+        await Task.Delay(20);
     }
 
 
@@ -179,6 +179,8 @@ public class Virtual_SerialPort : MonoBehaviour
 
     #region INTERNAL_LOGGER
 
+    public GameObject Logger;
+
     private void Log(string text, int channel, Color color)
     {
         Debug.Log(text);
@@ -209,7 +211,7 @@ public class Virtual_SerialPort : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.2F);
 
             message_used = 0;
             foreach (Logger_New_Line.Logger_Message message in messages_for_internal_Logger)
