@@ -33,6 +33,8 @@
 
 TaskHandle_t Run_Application_Handler = NULL;
 
+extern uint8_t is_RunApplication_running;
+
 
 /* Sets up system hardware */
 static void prvSetupHardware(void)
@@ -63,9 +65,15 @@ static void vTask_HartBeat(void *pvParameters) {
 
 	while (1)
 	{
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
+		if(is_RunApplication_running)
+		{
+			Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
+			Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
+			Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
+		}else
+		{
+			Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
+		}
 		LedState = (bool) !LedState;
 
 		/* About a 5Hz on/off toggle rate */

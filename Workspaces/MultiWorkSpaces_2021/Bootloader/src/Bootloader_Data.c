@@ -12,6 +12,7 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include "Configuration.h"
 
 long Offset_Adresse_Ecriture = 0;
 long Adresse_Ecriture = 0;
@@ -27,7 +28,7 @@ void Init_bootloader(void)
 	memset(&flash_buf, 0xFF, sizeof(flash_buf));
 }
 
-
+bool LedState = false;
 void Reception_Trame_Bootloader(struct Communication_Trame *_trame)
 {
 	struct st_LineBootloader _line;
@@ -46,6 +47,10 @@ void Reception_Trame_Bootloader(struct Communication_Trame *_trame)
 	}
 
 	_line.CRC = _trame->Data[5 + i];
+
+
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
+	LedState = !LedState;
 
 	Traitement_Data(&_line);
 }

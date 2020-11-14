@@ -110,7 +110,7 @@ static void vTask_HartBeat(void *pvParameters) {
 		LedState = (bool) !LedState;
 
 		/* About a 3Hz on/off toggle rate */
-		Task_Delay(2000);
+		Task_Delay(500);
 	}
 }
 

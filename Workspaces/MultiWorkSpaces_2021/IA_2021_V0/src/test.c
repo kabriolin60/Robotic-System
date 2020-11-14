@@ -85,7 +85,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 
 
-	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
@@ -117,14 +117,14 @@ void TEST_envoi_Ping(void *pvParameters)
 	Init_Timing_Tache;
 	vTraceEnable( TRC_START );
 
-	while(Nb_Ping_Envoyes < 50000)
+	while(Nb_Ping_Envoyes < 1000000)
 	{
 		Set_Debug_Pin_0_High();
 
 		_2_Comm_Send_Demande_Info(1, RS485_port);
 		Nb_Ping_Envoyes++;
 
-		Task_Delay_Until(20.0F);
+		Task_Delay_Until(1.0F);
 	}
 
 	Task_Delay_Until(20);
@@ -132,5 +132,10 @@ void TEST_envoi_Ping(void *pvParameters)
 	if(Nb_PONG_recus == Nb_Ping_Envoyes)
 	{
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
+	}
+
+	while(1)
+	{
+		Task_Delay_Until(20);
 	}
 }
