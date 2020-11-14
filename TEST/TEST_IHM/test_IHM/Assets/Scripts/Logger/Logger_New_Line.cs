@@ -57,10 +57,17 @@ public class Logger_New_Line : MonoBehaviour
         {
             if (_channel.Channel_id == Channel)
             {
-                if (_channel.GetComponentInParent<Toggle>().isOn == false)
+                try
                 {
-                    //Debug.Log("Channel disabled");
-                    go.SetActive(false);
+                    if (_channel.GetComponentInParent<Toggle>().isOn == false)
+                    {
+                        //Debug.Log("Channel disabled");
+                        go.SetActive(false);
+                    }
+                }
+                catch
+                {
+
                 }
             }
         }

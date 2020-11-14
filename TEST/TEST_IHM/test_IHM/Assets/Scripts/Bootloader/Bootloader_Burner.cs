@@ -53,6 +53,26 @@ public class Bootloader_Burner : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         Main_IHM_To_Hide.SetActive(false);
+
+        if (serialPort1 == null)
+        {
+            serialPort1 = new System.IO.Ports.SerialPort();
+            serialPort1.BaudRate = portSpeed;
+            serialPort1.PortName = portName;
+        }
+
+        if (serialPort1.IsOpen == false)
+        {
+            try
+            {
+                serialPort1.Open();
+            }
+            catch
+            {
+                Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
+                return;
+            }
+        }
     }
 
     public void Bootloader_Form_Hide()
@@ -101,25 +121,7 @@ public class Bootloader_Burner : MonoBehaviour
 
         //Transform this string lines in byte[] lines and send over Serial Port
 
-        if (serialPort1 == null)
-        {
-            serialPort1 = new System.IO.Ports.SerialPort();
-            serialPort1.BaudRate = portSpeed;
-            serialPort1.PortName = portName;
-        }
-
-        if (serialPort1.IsOpen == false)
-        {
-            try
-            {
-                serialPort1.Open();
-            }
-            catch
-            {
-                Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
-                return;
-            }
-        }
+       
 
         try
         {

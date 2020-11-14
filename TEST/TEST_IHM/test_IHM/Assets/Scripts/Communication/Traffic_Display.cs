@@ -22,8 +22,8 @@ public class Traffic_Display : MonoBehaviour
                 PortCom_Status.GetComponent<TextMeshProUGUI>().text = $"{_serialPort.PortName} opened";
                 PortCom_Status.GetComponent<TextMeshProUGUI>().color = Color.green;
 
-                Nombre_Messages_Display.GetComponent<TextMeshProUGUI>().text = $"Mess= {this.GetComponent<Trame_Decoder>().Messages_Number}";
-                Nombre_Erreur_Display.GetComponent<TextMeshProUGUI>().text = $"Err= {this.GetComponent<Trame_Decoder>().Error_Number}";
+                Nombre_Messages_Display.GetComponent<TextMeshProUGUI>().text = $"Mess = {this.GetComponent<Trame_Decoder>().Messages_Number}";
+                Nombre_Erreur_Display.GetComponent<TextMeshProUGUI>().text = $"Errors = {this.GetComponent<Trame_Decoder>().Error_Number}";
             }
             else
             {

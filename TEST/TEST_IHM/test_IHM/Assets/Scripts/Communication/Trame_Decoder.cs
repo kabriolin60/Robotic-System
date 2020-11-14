@@ -50,8 +50,6 @@ public class Trame_Decoder : MonoBehaviour
 	}    
 }
 
-
-
 public class Sending_Data
 {
 	/* Prend un message, et transforme-le en trame pret à partir, avec en-tête X-bee et CRC */
