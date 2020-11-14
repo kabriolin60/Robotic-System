@@ -1,15 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Windows.Forms;
 using System;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 
 
@@ -23,19 +15,7 @@ public class Bootloader : MonoBehaviour
 
     string[] _lines;
 
-    public void Open_Bootloader_Form()
-    {
-        if(Bootloader_Form == null)
-        {
-            Bootloader_Form = new Form();
-            InitializeComponent();
-
-            Bootloader_Form.ShowDialog();
-        }
-
-
-    }
-
+   
 
     private void Select_HEX_File_Click(object sender, EventArgs e)
     {
@@ -49,7 +29,7 @@ public class Bootloader : MonoBehaviour
         {
             Application_HEX_File_Path = openFileDialog1.FileName;
 
-            this.File_Name.Text = Application_HEX_File_Path;
+            //this.File_Name.Text = Application_HEX_File_Path;
 
             //Read file content
             _lines = System.IO.File.ReadAllLines(Application_HEX_File_Path);
@@ -79,10 +59,10 @@ public class Bootloader : MonoBehaviour
     {
         byte[] data_to_send;
 
-        this.Avancement.Text = "0/" + _lines.Length.ToString() + " Lines";
+        //this.Avancement.Text = "0/" + _lines.Length.ToString() + " Lines";
         int line_number = 0;
 
-        this.progressBar1.Maximum = _lines.Length;
+        //this.progressBar1.Maximum = _lines.Length;
 
         //start listening for messages and copy the messages back to the client
         foreach (string _line in _lines)
@@ -93,8 +73,8 @@ public class Bootloader : MonoBehaviour
             var dummy = Create_Trame(data_to_send);
             line_number++;
 
-            this.Avancement.Text = line_number.ToString() + "/ " + _lines.Length.ToString() + " Lines";
-            this.progressBar1.Value = line_number;
+            //this.Avancement.Text = line_number.ToString() + "/ " + _lines.Length.ToString() + " Lines";
+            //this.progressBar1.Value = line_number;
 
             this.Bootloader_Form.Update();
 
@@ -114,7 +94,7 @@ public class Bootloader : MonoBehaviour
 
         trame.Instruction = Communication.Com_Instruction.BOOTLOADER;
 
-        switch (this.Destination.SelectedIndex)
+        /*switch (this.Destination.SelectedIndex)
         {
             case 0:
                 trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
@@ -138,7 +118,7 @@ public class Bootloader : MonoBehaviour
 
             default:
                 return 0;
-        }
+        }*/
 
         trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
@@ -359,122 +339,4 @@ public class Bootloader : MonoBehaviour
                 return 0;
         }
     }
-
-
-
-
-    /// <summary>
-    /// Variable nécessaire au concepteur.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
-
-    #region Code généré par le Concepteur Windows Form
-
-    /// <summary>
-    /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
-    /// le contenu de cette méthode avec l'éditeur de code.
-    /// </summary>
-    private void InitializeComponent()
-    {
-        this.components = new System.ComponentModel.Container();
-        this.Select_HEX_File = new System.Windows.Forms.Button();
-        this.Envoi = new System.Windows.Forms.Button();
-        if(this.serialPort1 == null)
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-        this.progressBar1 = new System.Windows.Forms.ProgressBar();
-        this.File_Name = new System.Windows.Forms.Label();
-        this.Avancement = new System.Windows.Forms.Label();
-        this.Destination = new System.Windows.Forms.ComboBox();
-        this.Bootloader_Form.SuspendLayout();
-        // 
-        // Select_HEX_File
-        // 
-        this.Select_HEX_File.Location = new System.Drawing.Point(13, 13);
-        this.Select_HEX_File.Name = "Select_HEX_File";
-        this.Select_HEX_File.Size = new System.Drawing.Size(75, 23);
-        this.Select_HEX_File.TabIndex = 0;
-        this.Select_HEX_File.Text = "Select .HEX";
-        this.Select_HEX_File.UseVisualStyleBackColor = true;
-        this.Select_HEX_File.Click += new System.EventHandler(this.Select_HEX_File_Click);
-        // 
-        // Envoi
-        // 
-        this.Envoi.Location = new System.Drawing.Point(12, 70);
-        this.Envoi.Name = "Envoi";
-        this.Envoi.Size = new System.Drawing.Size(75, 23);
-        this.Envoi.TabIndex = 1;
-        this.Envoi.Text = "Burn";
-        this.Envoi.UseVisualStyleBackColor = true;
-        this.Envoi.Click += new System.EventHandler(this.Envoi_Click);
-        // 
-        // serialPort1
-        // 
-        this.serialPort1.BaudRate = 2000000;
-        this.serialPort1.PortName = "COM7";
-        // 
-        // progressBar1
-        // 
-        this.progressBar1.Location = new System.Drawing.Point(12, 100);
-        this.progressBar1.Name = "progressBar1";
-        this.progressBar1.Size = new System.Drawing.Size(221, 23);
-        this.progressBar1.TabIndex = 2;
-        // 
-        // File_Name
-        // 
-        this.File_Name.AutoSize = true;
-        this.File_Name.Location = new System.Drawing.Point(94, 18);
-        this.File_Name.Name = "File_Name";
-        this.File_Name.Size = new System.Drawing.Size(16, 13);
-        this.File_Name.TabIndex = 3;
-        this.File_Name.Text = "...";
-        // 
-        // Avancement
-        // 
-        this.Avancement.AutoSize = true;
-        this.Avancement.Location = new System.Drawing.Point(239, 105);
-        this.Avancement.Name = "Avancement";
-        this.Avancement.Size = new System.Drawing.Size(0, 13);
-        this.Avancement.TabIndex = 4;
-        // 
-        // Destination
-        // 
-        this.Destination.FormattingEnabled = true;
-        this.Destination.Items.AddRange(new object[] {
-            "IA",
-            "MultiFct_1",
-            "MultiFct_2",
-            "MultiFct_3",
-            "MultiFct_4"});
-        this.Destination.Location = new System.Drawing.Point(13, 43);
-        this.Destination.Name = "Destination";
-        this.Destination.Size = new System.Drawing.Size(121, 21);
-        this.Destination.TabIndex = 5;
-        // 
-        // Bootloader
-        // 
-        this.Bootloader_Form.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-        this.Bootloader_Form.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.Bootloader_Form.ClientSize = new System.Drawing.Size(800, 450);
-        this.Bootloader_Form.Controls.Add(this.Destination);
-        this.Bootloader_Form.Controls.Add(this.Avancement);
-        this.Bootloader_Form.Controls.Add(this.File_Name);
-        this.Bootloader_Form.Controls.Add(this.progressBar1);
-        this.Bootloader_Form.Controls.Add(this.Envoi);
-        this.Bootloader_Form.Controls.Add(this.Select_HEX_File);
-        this.Bootloader_Form.Name = "Bootloader";
-        this.Bootloader_Form.Text = "Robotic System: Bootloader";
-        this.Bootloader_Form.ResumeLayout(false);
-        this.Bootloader_Form.PerformLayout();
-
-    }
-
-    #endregion
-
-    private System.Windows.Forms.Button Select_HEX_File;
-    private System.Windows.Forms.Button Envoi;
-    private System.Windows.Forms.ProgressBar progressBar1;
-    private System.Windows.Forms.Label File_Name;
-    private System.Windows.Forms.Label Avancement;
-    private System.Windows.Forms.ComboBox Destination;
-
 }

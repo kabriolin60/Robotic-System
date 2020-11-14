@@ -245,4 +245,152 @@ public class Communication
 		}
 	}
 
+
+
+
+	/* Prend un message, et transforme-le en trame pret à partir, avec en-tête X-bee et CRC */
+	public byte[] Send_Trame(Communication Message_to_send)
+	{
+		Message_to_send.Trame_Data.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE; //Envoie du PC vers tous les XBEE par defaut
+
+		byte[] data = new byte[Message_to_send.Trame_Data.Length + 11];
+		data[0] = 0x7E;                         //Xbee API start byte
+
+		int length = Message_to_send.Trame_Data.Length + 7;
+
+		data[1] = (byte)(length >> 8);                  //length high
+		data[2] = (byte)(length & 0xFF);                //length low
+
+		data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
+		data[4] = 0x01;                         //Frame ID
+
+		data[5] = (byte)((int)Message_to_send.Trame_Data.XBEE_DEST_ADDR >> 8);        //add high
+		data[6] = (byte)((int)Message_to_send.Trame_Data.XBEE_DEST_ADDR & 0xFF);      //add low
+
+		data[7] = 0x00;                         //Option
+
+		byte index = 0;
+		//Datas
+		{
+			data[8] = (byte)(Message_to_send.Trame_Data.Instruction);
+
+			data[9] = (byte)(Message_to_send.Trame_Data.Slave_Adresse);
+
+			for (index = 0; index < Message_to_send.Trame_Data.Length; index++)
+			{
+				data[10 + index] = Message_to_send.Trame_Data.Data[index];
+			}
+		}
+
+		short API_CRC = 0;
+		for (index = 3; index < 10 + Message_to_send.Trame_Data.Length; index++)
+		{
+			API_CRC += data[index];
+		}
+
+		API_CRC &= 0xFF;
+		API_CRC = (byte)(0xFF - API_CRC);
+
+		data[index] = (byte)(API_CRC);
+
+		return data;
+	}
+}
+
+
+public class Infos_Carte
+{
+	//Instruction 36
+	//Infos cartes
+
+	public const byte NB_SERVO = 6;
+	public const byte NB_AX_12 = 4;
+	public const byte NB_MES_ANA = 4;
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Com_Position_Robot_Data
+	{
+		[MarshalAs(UnmanagedType.U1)]
+		public Com_Position_Robot.Com_Position_Robot_Identification Numero_Robot;
+
+		[MarshalAs(UnmanagedType.I2)]
+		public short Position_X;         //*10
+
+		[MarshalAs(UnmanagedType.I2)]
+		public short Position_Y;         //*10
+
+		[MarshalAs(UnmanagedType.I2)]
+		public short Angle;              //*100 //Orientation du Robot (° *100)
+										 //byte Bloquage;
+										 //byte Fin_Deplacement;
+	}
+
+	/**************************************************
+	Declaration de la definition de la Structure de communication permettant de faire remonter la position des servos
+	**************************************************/
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Com_Position_Servos
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_SERVO)]
+		public ushort[] Position;
+	}
+
+	/**************************************************
+	Declaration de la definition de la Structure de communication permettant de faire remonter la position des AX 12
+	**************************************************/
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Com_Position_AX12
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_AX_12)]
+		public ushort[] Position;
+
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_AX_12)]
+		public short[] Torque;
+	}
+
+	/**************************************************
+	Declaration de la definition de la Structure de communication permettant de faire remonter les valeurs des mesures analogiques
+	**************************************************/
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Com_Mesures_Analogiques
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_MES_ANA)]
+		public ushort[] Mesure;
+	}
+
+	/**************************************************
+	Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos de la carte vers la carte IA ou vers le PC
+	**************************************************/
+	[StructLayout(LayoutKind.Sequential)]
+	public class Com_Reponse_Info
+	{
+		//instruction 101		//59 + alignement = 60 octets
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Numero_Carte;                                   //Numero de la carte emettant le message // 1 octet
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Etat_Alim; //0= motor power; 1 = motor aux power; 2 = servos power; 3 = ax12 power; 4 = AUX 1 power; 5 = Aux 2 power					 //1 octet
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
+
+		[MarshalAs(UnmanagedType.Struct)]
+		public Com_Position_Robot_Data PositionRobot;               //8 octets
+
+		[MarshalAs(UnmanagedType.Struct)]
+		public Com_Position_Servos Position_Servos;                 //12 octets
+
+		[MarshalAs(UnmanagedType.Struct)]
+		public Com_Position_AX12 Position_AX12;                     //16 octets
+
+		[MarshalAs(UnmanagedType.Struct)]
+		public Com_Mesures_Analogiques Mesures_Analogiques;         //8 octets
+
+		[MarshalAs(UnmanagedType.U2)]
+		public ushort Tension_Batterie;                             //Tension * 100		//2 octets
+	}
 }
