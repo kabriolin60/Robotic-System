@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 using SFB;
 using UnityEngine.UI;
 using System.Threading;
+using System.Threading.Tasks;
 
 public class Bootloader_Burner : MonoBehaviour
 {
@@ -21,8 +22,29 @@ public class Bootloader_Burner : MonoBehaviour
     public GameObject ProgressBar;
     public GameObject Destination;
 
-    System.IO.Ports.SerialPort serialPort1;
-    string[] _lines;
+
+    static System.IO.Ports.SerialPort serialPort1;
+    static string[] _lines;
+    static int destination_board;
+    static bool burn_ended = false;
+
+    static int line_number_position = 0;
+    int max_line_number = 0;
+
+
+    public void FixedUpdate()
+    {
+        ProgressBar.GetComponent<Slider>().value = line_number_position;
+
+        if (burn_ended)
+        {
+            Status.GetComponent<TextMeshProUGUI>().text = "Target burned";
+            serialPort1.Close();
+
+            burn_ended = false;
+        }
+    }
+     
 
     public void Bootloader_Form_Visible()
     {
@@ -36,6 +58,7 @@ public class Bootloader_Burner : MonoBehaviour
         Main_IHM_To_Hide.SetActive(true);
     }
 
+
     public void Bootloader_Select_File_Button_OnClick()
     {
         /*
@@ -43,8 +66,6 @@ public class Bootloader_Burner : MonoBehaviour
          * https://github.com/gkngkc/UnityStandaloneFileBrowser         
          * 
          */
-
-
 
         var multipath = StandaloneFileBrowser.OpenFilePanel("Select HEX file", "", "hex", false);
         if (multipath != null)
@@ -63,7 +84,7 @@ public class Bootloader_Burner : MonoBehaviour
     }
 
 
-    public void Bootloader_Start_Burning()
+    public void Bootloader_Start_BurningAsync()
     {
         if(Application_HEX_File_Path == null)
         {
@@ -77,21 +98,21 @@ public class Bootloader_Burner : MonoBehaviour
 
         //Transform this string lines in byte[] lines and send over Serial Port
 
-        if (this.serialPort1 == null)
+        if (serialPort1 == null)
         {
-            this.serialPort1 = new System.IO.Ports.SerialPort();
+            serialPort1 = new System.IO.Ports.SerialPort();
             // 
             // serialPort1
             // 
-            this.serialPort1.BaudRate = 2000000;
-            this.serialPort1.PortName = "COM5";
+            serialPort1.BaudRate = 2000000;
+            serialPort1.PortName = "COM5";
         }
 
-            if (this.serialPort1.IsOpen == false)
+            if (serialPort1.IsOpen == false)
         {
             try
             {
-                this.serialPort1.Open();
+                serialPort1.Open();
             }catch
             {
                 Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
@@ -101,56 +122,41 @@ public class Bootloader_Burner : MonoBehaviour
 
         try
         {
-            get_HEX_lines(_lines);
+            max_line_number = _lines.Length;
 
-            this.serialPort1.Close();
+            destination_board = Destination.GetComponent<TMPro.TMP_Dropdown>().value;
+
+            ProgressBar.GetComponent<Slider>().maxValue = _lines.Length;
+
+            Status.GetComponent<TextMeshProUGUI>().text = "Burning";
+
+            //start listening for messages and copy the messages back to the client
+            Task.Factory.StartNew(async () =>
+            {
+                bool received = await EnvoiAsync();
+
+                if (received)
+                    burn_ended = true;
+            });
+
         }
         catch
         {
 
         }
-    }
-    
+    }       
 
-    private void get_HEX_lines(string[] _lines)
+    private static async Task<bool> EnvoiAsync()
     {
-        byte[] data_to_send;
-        
-        int line_number = 0;
+        byte[] data_to_send;        
 
-        this.ProgressBar.GetComponent<Slider>().maxValue = _lines.Length;
+        //Envoie le message
+        Communication comm = new Communication();
 
-        Status.GetComponent<TextMeshProUGUI>().text = "Burning";
-
-        //start listening for messages and copy the messages back to the client
-        foreach (string _line in _lines)
-        {
-            data_to_send = ReadHexLine_to_ByteArray(_line);
-
-            //Cree une trame de communication
-            var dummy = Create_Trame(data_to_send);
-            line_number++;
-
-            this.ProgressBar.GetComponent<Slider>().value = line_number;
-
-            if ((line_number - 1) % 256 == 0 && line_number != 1)
-            {
-                //Ecritude d'un bloc
-                Thread.Sleep(200);
-            }
-        }
-
-        Status.GetComponent<TextMeshProUGUI>().text = "Target burned";
-    }
-
-
-    public byte Create_Trame(byte[] _data)
-    {
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
         trame.Instruction = Communication.Com_Instruction.BOOTLOADER;
-
-        switch (this.Destination.GetComponent<TMPro.TMP_Dropdown>().value)
+        switch (destination_board)
         {
             case 0:
                 trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
@@ -173,43 +179,51 @@ public class Bootloader_Burner : MonoBehaviour
                 break;
 
             default:
-                return 0;
+                trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
+                break;
         }
-
         trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
-        trame.Length = (byte)_data.Length;
-
-        for (int i = 0; i < _data.Length; i++)
+        //start listening for messages and copy the messages back to the client
+        foreach (string _line in _lines)
         {
-            trame.Data[i] = _data[i];
-        }
+            data_to_send = ReadHexLine_to_ByteArray(_line);
 
+            trame.Length = (byte)data_to_send.Length;
+            for (int i = 0; i < data_to_send.Length; i++)
+            {
+                trame.Data[i] = data_to_send[i];
+            }
 
-        //Envoie le message
-        Communication comm = new Communication();
-        comm.Trame_Data = trame;
+            comm.Trame_Data = trame;
 
-        //Envoi du message
-        Send(comm.Send_Trame(comm));
+            //Envoi du message
+            Send(comm.Send_Trame(comm));
 
-        Thread.Sleep(10);
+            //Cree une trame de communication
+            line_number_position++;            
 
-        return 1;
+            await Task.Delay(5);
+
+            if ((line_number_position - 1) % 256 == 0 && line_number_position != 1)
+            {
+                //Ecritude d'un bloc
+                await Task.Delay(200);
+            }
+        }                
+
+        return true;
     }
 
 
-    
-
-
-    private void Send(byte[] data)
+    static private void Send(byte[] data)
     {
-        if (this.serialPort1 == null || !this.serialPort1.IsOpen)
+        if (serialPort1 == null || !serialPort1.IsOpen)
         {
             return;
         }
 
-        if (!this.serialPort1.IsOpen)
+        if (!serialPort1.IsOpen)
             return;
 
 
@@ -217,8 +231,8 @@ public class Bootloader_Burner : MonoBehaviour
         {
             try
             {
-                this.serialPort1.Write(data, 0, data.Length);
-                while (this.serialPort1.BytesToWrite > 0) ;
+                serialPort1.Write(data, 0, data.Length);
+                while (serialPort1.BytesToWrite > 0) ;
             }
             catch
             {
@@ -233,8 +247,8 @@ public class Bootloader_Burner : MonoBehaviour
             {
                 try
                 {
-                    this.serialPort1.Write(data, offset, len > 64 ? 64 : len);
-                    while (this.serialPort1.BytesToWrite > 0) ;
+                    serialPort1.Write(data, offset, len > 64 ? 64 : len);
+                    while (serialPort1.BytesToWrite > 0) ;
                 }
                 catch
                 {
@@ -246,11 +260,11 @@ public class Bootloader_Burner : MonoBehaviour
         }
 
 
-        while (this.serialPort1.BytesToWrite > 0) ;
+        while (serialPort1.BytesToWrite > 0) ;
     }
 
 
-    private byte[] ReadHexLine_to_ByteArray(string _line)
+    static private byte[] ReadHexLine_to_ByteArray(string _line)
     {
         //transforme cette string en un tableau de chars
         char[] _line_char = _line.ToCharArray();
@@ -284,7 +298,7 @@ public class Bootloader_Burner : MonoBehaviour
     }
 
 
-    private byte TwoChar_To_Byte(char _charA, char _charB)
+    static private byte TwoChar_To_Byte(char _charA, char _charB)
     {
         byte _result = 0;
 
@@ -293,7 +307,8 @@ public class Bootloader_Burner : MonoBehaviour
         return _result;
     }
 
-    private byte char_to_byte(char _input)
+
+    static private byte char_to_byte(char _input)
     {
         switch (_input)
         {
@@ -349,7 +364,4 @@ public class Bootloader_Burner : MonoBehaviour
                 return 0;
         }
     }
-
-
-
 }
