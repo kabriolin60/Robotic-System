@@ -39,11 +39,11 @@ public class Virtual_SerialPort : MonoBehaviour
     {
         this.StartCoroutine("Routine_Internal_Logger");
 
+        Log("Waiting for serialport!", 6, Color.black);
+
         //start listening for messages asynchronously
         tasks.Add(Task.Factory.StartNew(async () =>
-        {
-            Log("Waiting for receiving datas!", 6, Color.black);            
-
+        {  
             //Attente des 10 secondes de lancement du bootloader
             await Task.Delay(9000);
 
@@ -66,20 +66,17 @@ public class Virtual_SerialPort : MonoBehaviour
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(20);
-
-            Log("Waiting for sending datas!" + serialPort.PortName, 6, Color.black);
-
-            await Task.Delay(9080);
+            await Task.Delay(9100);
 
             if (serialPort != null && serialPort.IsOpen) 
             {
-                Log("Serial Port:" + serialPort.PortName + " Opened! Ready for Sending datas!", 6, Color.black);
+                Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
                 while (true)
                 {
                     await SendBytes(OutputBuffer);
                 }
             }
+
         }));
     }
 
@@ -90,7 +87,7 @@ public class Virtual_SerialPort : MonoBehaviour
         {
             serialPort.Close();
         }
-        catch (System.Exception e)
+        catch
         {
 
         }
@@ -178,6 +175,8 @@ public class Virtual_SerialPort : MonoBehaviour
         return readed;
     }
 
+
+
     #region INTERNAL_LOGGER
 
     private void Log(string text, int channel, Color color)
@@ -190,7 +189,7 @@ public class Virtual_SerialPort : MonoBehaviour
     }
 
     List<Logger_New_Line.Logger_Message> messages_for_internal_Logger = new List<Logger_New_Line.Logger_Message>();
-    static Logger_New_Line new_Liner;
+    
 
     private void Internal_Logger(string time, int Channel, Color color, string text, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
     {
@@ -202,6 +201,7 @@ public class Virtual_SerialPort : MonoBehaviour
     IEnumerator Routine_Internal_Logger()
     {
         yield return new WaitForSeconds(0.5F);
+        Logger_New_Line new_Liner;
 
         new_Liner = Logger.GetComponent<Logger_New_Line>();
 
@@ -225,3 +225,4 @@ public class Virtual_SerialPort : MonoBehaviour
     }
     #endregion
 }
+
