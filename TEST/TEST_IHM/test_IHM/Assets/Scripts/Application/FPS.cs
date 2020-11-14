@@ -8,7 +8,7 @@ public class FPS : MonoBehaviour
 {
     public int Max_FrameRate;
 
-    /*[SerializeField]*/ private TextMeshProUGUI _fpsText;
+    private TextMeshProUGUI _fpsText;
 
     void Awake()
     {
