@@ -32,6 +32,8 @@ public class Bootloader : MonoBehaviour
 
             Bootloader_Form.ShowDialog();
         }
+
+
     }
 
 
@@ -377,7 +379,8 @@ public class Bootloader : MonoBehaviour
         this.components = new System.ComponentModel.Container();
         this.Select_HEX_File = new System.Windows.Forms.Button();
         this.Envoi = new System.Windows.Forms.Button();
-        //this.serialPort1 = new System.IO.SerialPort(this.components);
+        if(this.serialPort1 == null)
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
         this.progressBar1 = new System.Windows.Forms.ProgressBar();
         this.File_Name = new System.Windows.Forms.Label();
         this.Avancement = new System.Windows.Forms.Label();
