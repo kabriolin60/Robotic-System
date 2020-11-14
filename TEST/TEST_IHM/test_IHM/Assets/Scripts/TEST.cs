@@ -10,6 +10,9 @@ public class TEST : MonoBehaviour
 
     public void Start()
     {
+        byte[] test = new byte[1];
+
+
         data_test = new Infos_Carte.Com_Reponse_Info();
 
         data_test.Numero_Carte = 0;

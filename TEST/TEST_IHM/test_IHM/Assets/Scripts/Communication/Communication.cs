@@ -6,7 +6,8 @@ using System;
 
 public class Communication
 {
-	public enum Com_Instruction : byte
+    #region Definition messages de communication
+    public enum Com_Instruction : byte
 	{
 		//Destination Robot
 		DESTINATION_ROBOT = 0,
@@ -157,42 +158,16 @@ public class Communication
 		public Adress_Xbee XBEE_DEST_ADDR;                              //Adresse de la cible Xbee en mode API
 	};
 
-	public Communication_Trame Trame_Data;
+	public class Communication_Message
+    {
+		public Communication_Trame Trame;
+		public DateTime Heure;
 
-	public Communication()
-	{
-		Trame_Data = new Communication_Trame();
-	}
-
-	public void Set_Instruction(Com_Instruction instruction)
-	{
-		Trame_Data.Instruction = instruction;
-	}
-
-	public void Set_SlaveAdress(Slave_Adresses slave)
-	{
-		Trame_Data.Slave_Adresse = slave;
-		if (slave == Slave_Adresses.PC)
-		{
-			Trame_Data.XBEE_DEST_ADDR = Adress_Xbee.XBee_PC;
+		public Communication_Message()
+        {
+			Trame = new Communication_Trame();
+			Heure = DateTime.Now;
 		}
-	}
-
-	public void Set_Data(byte[] data)
-	{
-		Trame_Data.Data = data;
-		Trame_Data.Length = (byte)data.Length;
-	}
-
-	public void Set_Data(object input)
-	{
-		Trame_Data.Data = COPYDATA(input);
-		Trame_Data.Length = (byte)Trame_Data.Data.Length;
-	}
-
-	public Communication_Trame Get_Trame()
-	{
-		return Trame_Data;
 	}
 
 	public byte[] COPYDATA(object input)
@@ -245,58 +220,8 @@ public class Communication
 		}
 	}
 
-
-
-
-	/* Prend un message, et transforme-le en trame pret à partir, avec en-tête X-bee et CRC */
-	public byte[] Send_Trame(Communication Message_to_send)
-	{
-		Message_to_send.Trame_Data.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE; //Envoie du PC vers tous les XBEE par defaut
-
-		byte[] data = new byte[Message_to_send.Trame_Data.Length + 11];
-		data[0] = 0x7E;                         //Xbee API start byte
-
-		int length = Message_to_send.Trame_Data.Length + 7;
-
-		data[1] = (byte)(length >> 8);                  //length high
-		data[2] = (byte)(length & 0xFF);                //length low
-
-		data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
-		data[4] = 0x01;                         //Frame ID
-
-		data[5] = (byte)((int)Message_to_send.Trame_Data.XBEE_DEST_ADDR >> 8);        //add high
-		data[6] = (byte)((int)Message_to_send.Trame_Data.XBEE_DEST_ADDR & 0xFF);      //add low
-
-		data[7] = 0x00;                         //Option
-
-		byte index = 0;
-		//Datas
-		{
-			data[8] = (byte)(Message_to_send.Trame_Data.Instruction);
-
-			data[9] = (byte)(Message_to_send.Trame_Data.Slave_Adresse);
-
-			for (index = 0; index < Message_to_send.Trame_Data.Length; index++)
-			{
-				data[10 + index] = Message_to_send.Trame_Data.Data[index];
-			}
-		}
-
-		short API_CRC = 0;
-		for (index = 3; index < 10 + Message_to_send.Trame_Data.Length; index++)
-		{
-			API_CRC += data[index];
-		}
-
-		API_CRC &= 0xFF;
-		API_CRC = (byte)(0xFF - API_CRC);
-
-		data[index] = (byte)(API_CRC);
-
-		return data;
-	}
+    #endregion    
 }
-
 
 public class Infos_Carte
 {

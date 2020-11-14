@@ -22,6 +22,9 @@ public class Bootloader_Burner : MonoBehaviour
     public GameObject ProgressBar;
     public GameObject Destination;
 
+    public string portName;
+    public int portSpeed;
+
 
     static System.IO.Ports.SerialPort serialPort1;
     static string[] _lines;
@@ -44,7 +47,7 @@ public class Bootloader_Burner : MonoBehaviour
             burn_ended = false;
         }
     }
-     
+
 
     public void Bootloader_Form_Visible()
     {
@@ -86,7 +89,7 @@ public class Bootloader_Burner : MonoBehaviour
 
     public void Bootloader_Start_BurningAsync()
     {
-        if(Application_HEX_File_Path == null)
+        if (Application_HEX_File_Path == null)
         {
             Status.GetComponent<TextMeshProUGUI>().text = "No file path found";
             return;
@@ -101,19 +104,17 @@ public class Bootloader_Burner : MonoBehaviour
         if (serialPort1 == null)
         {
             serialPort1 = new System.IO.Ports.SerialPort();
-            // 
-            // serialPort1
-            // 
-            serialPort1.BaudRate = 2000000;
-            serialPort1.PortName = "COM5";
+            serialPort1.BaudRate = portSpeed;
+            serialPort1.PortName = portName;
         }
 
-            if (serialPort1.IsOpen == false)
+        if (serialPort1.IsOpen == false)
         {
             try
             {
                 serialPort1.Open();
-            }catch
+            }
+            catch
             {
                 Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
                 return;
@@ -144,61 +145,59 @@ public class Bootloader_Burner : MonoBehaviour
         {
 
         }
-    }       
+    }   
 
     private static async Task<bool> EnvoiAsync()
     {
-        byte[] data_to_send;        
+        byte[] data_to_send;
 
         //Envoie le message
-        Communication comm = new Communication();
+        Sending_Data comm = new Sending_Data();
 
-        Communication.Communication_Trame trame = new Communication.Communication_Trame();
+        Communication.Communication_Message trame = new Communication.Communication_Message();
 
-        trame.Instruction = Communication.Com_Instruction.BOOTLOADER;
+        trame.Trame.Instruction = Communication.Com_Instruction.BOOTLOADER;
         switch (destination_board)
         {
             case 0:
-                trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
                 break;
 
             case 1:
-                trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1;
                 break;
 
             case 2:
-                trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_2;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_2;
                 break;
 
             case 3:
-                trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_3;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_3;
                 break;
 
             case 4:
-                trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_4;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_4;
                 break;
 
             default:
-                trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
+                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
                 break;
         }
-        trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
+        trame.Trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
         //start listening for messages and copy the messages back to the client
         foreach (string _line in _lines)
         {
             data_to_send = ReadHexLine_to_ByteArray(_line);
 
-            trame.Length = (byte)data_to_send.Length;
+            trame.Trame.Length = (byte)data_to_send.Length;
             for (int i = 0; i < data_to_send.Length; i++)
             {
-                trame.Data[i] = data_to_send[i];
+                trame.Trame.Data[i] = data_to_send[i];
             }
 
-            comm.Trame_Data = trame;
-
             //Envoi du message
-            Send(comm.Send_Trame(comm));
+            Send(comm.Send_Trame(trame));
 
             //Cree une trame de communication
             line_number_position++;            
