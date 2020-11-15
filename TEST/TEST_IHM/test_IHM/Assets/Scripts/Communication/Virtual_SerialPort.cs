@@ -22,6 +22,7 @@ public class Virtual_SerialPort : MonoBehaviour
     public string portName;
     public int portSpeed;
     public int data_in_port_read_buffer = 0;
+    public int data_in_input_buffer = 0;
 
     public List<byte> InputBuffer = new List<byte>();
     public List<byte> OutputBuffer = new List<byte>();  
@@ -57,16 +58,37 @@ public class Virtual_SerialPort : MonoBehaviour
             Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
             while (true)
             {
-                var dataReceived = await Read_Rx_Bytes(serialPort);
-                if (dataReceived != null && dataReceived.Length > 0)
+                if (this.serialPort.IsOpen)
                 {
-                    InputBuffer.AddRange(dataReceived);
+                    try
+                    {
+                        var dataReceived = await Read_Rx_Bytes(serialPort);
+                        if (dataReceived != null && dataReceived.Length > 0)
+                        {
+                            try
+                            {
+                                InputBuffer.AddRange(dataReceived);
+                            }
+                            catch
+                            {
+                                Log($"Error in buffer insertion {dataReceived.Length}", 6, Color.black);
+                            }
+                        }
+
+                        data_in_port_read_buffer = serialPort.BytesToRead;
+                        data_in_input_buffer = InputBuffer.Count;
+
+                        await Task.Delay(2);
+
+                    }
+                    catch (Exception _ex)
+                    {
+                        Log($"Receiving task Exception!: {_ex}", 6, Color.red);
+                    }
+                }else
+                {
+                    await Task.Delay(100);
                 }
-
-
-                data_in_port_read_buffer = serialPort.BytesToRead;
-
-                await Task.Delay(3);
 
                 if(Comport_cancellationToken)
                     throw new TaskCanceledException();
@@ -191,12 +213,13 @@ public class Virtual_SerialPort : MonoBehaviour
     {
         if (InputBuffer.Count > 0)
         {
-            byte readed = InputBuffer[0];
+            byte read = InputBuffer[0];
             InputBuffer.RemoveAt(0);
-            return readed;
+            return read;
         }
         else
         {
+            Log("Not enought data in RX buffer", 6, Color.black);
             return 0;
         }
     }
@@ -206,12 +229,13 @@ public class Virtual_SerialPort : MonoBehaviour
         if (InputBuffer.Count < count)
         {
             count = InputBuffer.Count;
+            Log($"Not enought data {count} in RX buffer {InputBuffer.Count}", 6, Color.black);
         }
 
-        byte[] readed = new byte[count];
-        readed = InputBuffer.GetRange(0, count).ToArray();
+        byte[] read = new byte[count];
+        read = InputBuffer.GetRange(0, count).ToArray();
         InputBuffer.RemoveRange(0, count);
-        return readed;
+        return read;
     }
 
 
@@ -224,7 +248,14 @@ public class Virtual_SerialPort : MonoBehaviour
     {
         Debug.Log(text);
 
-        string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
+        string hour= String.Format("{0,-2}", System.DateTime.Now.Hour);
+        string minutes=String.Format("{0,-2}", System.DateTime.Now.Minute);
+        string secondes=String.Format("{0,-2}", System.DateTime.Now.Second);
+        string miliseconds= String.Format("{0,-23}", System.DateTime.Now.Millisecond);
+
+        string time = hour+":"+minutes+":"+secondes+":"+miliseconds;
+
+        //string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
 
         Internal_Logger(time, channel, color, text, lineNumber, caller);
     }
@@ -253,10 +284,16 @@ public class Virtual_SerialPort : MonoBehaviour
             yield return new WaitForSeconds(0.2F);
 
             message_used = 0;
-            foreach (Logger_New_Line.Logger_Message message in messages_for_internal_Logger)
+            try
             {
-                new_Liner.Add_New_Logger_Line(message);
-                message_used++;
+                foreach (Logger_New_Line.Logger_Message message in messages_for_internal_Logger)
+                {
+                    new_Liner.Add_New_Logger_Line(message);
+                    message_used++;
+                }
+            }catch
+            {
+
             }
 
 

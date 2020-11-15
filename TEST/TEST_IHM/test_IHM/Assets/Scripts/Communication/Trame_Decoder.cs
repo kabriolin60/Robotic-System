@@ -25,7 +25,7 @@ public class Trame_Decoder : MonoBehaviour
 
 				while (true)
 				{
-					if (serialport.InputBuffer.Count > 10)
+					while (serialport.InputBuffer.Count > 10)
 					{
 						var dataReceived = await Reception_Data.ReadTrame(serialport);
 						if (dataReceived != null)
@@ -60,8 +60,8 @@ public class Sending_Data
 
 		int length = Message_to_send.Trame.Length + 7;
 
-		data[1] = (byte)(length >> 8);                  //length high
-		data[2] = (byte)(length & 0xFF);                //length low
+		data[1] = (byte)(length >> 8);          //length high
+		data[2] = (byte)(length & 0xFF);        //length low
 
 		data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
 		data[4] = 0x01;                         //Frame ID
@@ -123,9 +123,11 @@ public class Reception_Data
 			API_start = (byte)_SerialPort.ReadRemoveInputByte();
 			boucle++;
 			if (boucle > 5)
+			{
+				Debug.Log("API_start != 0x7E");
 				return null;
+			}
 		}
-		boucle = 0;
 
 		//Le start byte est recu, on demarre la lecture de la trame
 		API_LENGTH_HIGH = (byte)_SerialPort.ReadRemoveInputByte();
@@ -137,6 +139,7 @@ public class Reception_Data
 
 		if (API_LENGTH > Communication.COMMUNICATION_TRAME_MAX_DATA + 11)
 		{
+			Debug.Log("API_LENGTH > Communication.COMMUNICATION_TRAME_MAX_DATA + 11");
 			return null;
 		}
 
@@ -166,16 +169,17 @@ public class Reception_Data
 
 		if (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
 		{
-			await Task.Delay(2);
+			Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1");
+			await Task.Delay(5);
 		}
 
 		boucle = 0;
 		while (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
 		{
 			boucle++;
-
 			if (boucle > 5)
 			{
+				Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle");
 				return null;
 			}
 			await Task.Delay(1);
@@ -203,53 +207,66 @@ public class Reception_Data
 		received_message.Trame.Slave_Adresse = (Communication.Slave_Adresses)(byte)_SerialPort.ReadRemoveInputByte();
 		crc += (byte)received_message.Trame.Slave_Adresse;
 
-		received_message.Trame.Length = (byte)(API_LENGTH - 7);		
+		received_message.Trame.Length = (byte)(API_LENGTH - 7);
 
-		if (received_message.Trame.Length <= Communication.COMMUNICATION_TRAME_MAX_DATA)
+		if (received_message.Trame.Length > Communication.COMMUNICATION_TRAME_MAX_DATA)
 		{
-			if (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+			Debug.Log("received_message.Trame.Length > Communication.COMMUNICATION_TRAME_MAX_DATA");
+			return null;
+		}
+
+
+		if (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+		{
+			Debug.Log("_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1");
+			await Task.Delay(10);
+		}
+
+
+		boucle = 0;
+		while (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+		{
+			boucle++;
+
+			if (boucle > 5)
 			{
-				await Task.Delay(2);
+				Debug.Log("SerialPort.InputBuffer.Count < received_message.Trame.Length + 1; boucle");
+				return null;
 			}
+			await Task.Delay(1);
+		}
 
-			boucle = 0;
-			while (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+		//Reception des data
+		for (index = 0; index < received_message.Trame.Length; index++)
+		{
+			received_message.Trame.Data[index] = (byte)_SerialPort.ReadRemoveInputByte();
+			crc += (byte)(received_message.Trame.Data[index]);
+		}
+
+		//API CRC
+		rx_crc = (byte)_SerialPort.ReadRemoveInputByte();
+
+		//Contrôle CRC
+		crc &= 0xFF;
+		crc = (byte)(0xFF - crc);
+
+		//Vérifie le CRC
+		if (crc == rx_crc)
+		{
+			return received_message;
+		}
+		else
+		{
+			if (index == 0)
 			{
-				boucle++;
-
-				if (boucle > 5)
-				{
-					return null;
-				}
-				await Task.Delay(1);
-			}
-
-			//Reception des data
-			for (index = 0; index < received_message.Trame.Length; index++)
-			{
-				received_message.Trame.Data[index] = (byte)_SerialPort.ReadRemoveInputByte();
-				crc += (byte)(received_message.Trame.Data[index]);
-			}
-
-			//API CRC
-			rx_crc = (byte)_SerialPort.ReadRemoveInputByte();
-
-			//Contrôle CRC
-			crc &= 0xFF;
-			crc = (byte)(0xFF - crc);
-
-			//Vérifie le CRC
-			if (crc == rx_crc)
-			{
-				return received_message;
+				Debug.Log($"Error Comm CRC: {crc}/RX crc: {rx_crc}; previous: {(byte)received_message.Trame.Slave_Adresse}");
 			}
 			else
 			{
-				return null;
+				Debug.Log($"Error Comm CRC: {crc}/RX crc: {rx_crc}; previous: {received_message.Trame.Data[index - 1]}");
 			}
+			return null;
 		}
-
-		return null;
 	}
 }
 

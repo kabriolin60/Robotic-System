@@ -16,6 +16,8 @@ public class Bootloader_Burner : MonoBehaviour
 {
     string Application_HEX_File_Path;
 
+    public GameObject panel_resize;
+
     public GameObject Main_IHM_To_Hide;
     public GameObject File_path_Display;
     public GameObject Status;
@@ -40,6 +42,15 @@ public class Bootloader_Burner : MonoBehaviour
     List<Task> tasks = new List<Task>();
 
     static bool cancellationToken;
+
+    private void Start()
+    {
+#if UNITY_EDITOR
+        panel_resize.transform.localScale = new Vector3(2, 2, 2);
+#else
+        panel_resize.transform.localScale = new Vector3(1.5F, 1.5F, 1.5F);
+#endif
+    }
 
 
     public void FixedUpdate()
