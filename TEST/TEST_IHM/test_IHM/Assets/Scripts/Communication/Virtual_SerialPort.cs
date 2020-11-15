@@ -43,7 +43,7 @@ public class Virtual_SerialPort : MonoBehaviour
         {
             await Task.Delay(1000);
             //Attente des 10 secondes de lancement du bootloader
-            Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
+            //Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
             while (true)
             {
                 var dataReceived = await Read_Rx_Bytes(serialPort);
@@ -61,7 +61,7 @@ public class Virtual_SerialPort : MonoBehaviour
         tasks.Add(Task.Factory.StartNew(async () =>
         {
             await Task.Delay(1100);
-            Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
+            //Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
             while (true)
             {
                 if (serialPort != null && serialPort.IsOpen)
