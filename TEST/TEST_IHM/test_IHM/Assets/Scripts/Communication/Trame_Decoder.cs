@@ -25,7 +25,7 @@ public class Trame_Decoder : MonoBehaviour
 
 				while (true)
 				{
-					while (serialport.InputBuffer.Count > 10)
+					while (serialport.InputBuffer.Count > 100)
 					{
 						var dataReceived = await Reception_Data.ReadTrame(serialport);
 						if (dataReceived != null)
@@ -170,7 +170,7 @@ public class Reception_Data
 		if (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
 		{
 			Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1");
-			await Task.Delay(5);
+			await Task.Delay(1);
 		}
 
 		boucle = 0;
@@ -179,10 +179,10 @@ public class Reception_Data
 			boucle++;
 			if (boucle > 5)
 			{
-				Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle");
+				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.InputBuffer.Count}/{API_LENGTH + 1}");
 				return null;
 			}
-			await Task.Delay(1);
+			await Task.Delay(3);
 		}
 
 		//Tx Address
