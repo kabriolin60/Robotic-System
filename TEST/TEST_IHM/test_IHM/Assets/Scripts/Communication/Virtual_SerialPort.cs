@@ -15,14 +15,15 @@ using System.IO;
 
 public class Virtual_SerialPort : MonoBehaviour
 {
-    static System.IO.Ports.SerialPort serialPort;
+    System.IO.Ports.SerialPort serialPort;
+
+    public bool port_opened = false;
 
     public string portName;
     public int portSpeed;
 
     public List<byte> InputBuffer = new List<byte>();
-    public List<byte> OutputBuffer = new List<byte>();   
-
+    public List<byte> OutputBuffer = new List<byte>();  
 
     List<Task> tasks = new List<Task>();
 
@@ -35,47 +36,86 @@ public class Virtual_SerialPort : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.StartCoroutine("Routine_Internal_Logger");
-
         Log("Waiting for serialport!", 6, Color.black);
 
         //start listening for messages asynchronously
         tasks.Add(Task.Factory.StartNew(async () =>
-        {  
+        {
+            await Task.Delay(1000);
             //Attente des 10 secondes de lancement du bootloader
-            await Task.Delay(9000);
-
-            if (Check_Serial_Opened())
+            Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
+            while (true)
             {
-                Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
-                while (true)
+                var dataReceived = await Read_Rx_Bytes(serialPort);
+                if (dataReceived != null && dataReceived.Length > 0)
                 {
-                    var dataReceived = await Read_Rx_Bytes();
-                    if (dataReceived.Length > 0)
-                    {
-                        InputBuffer.AddRange(dataReceived);
-                    }
+                    InputBuffer.AddRange(dataReceived);
                 }
+
+                await Task.Delay(2);
             }
-            Log("Error while opening Serial Port: " + serialPort.PortName, 6, Color.red);
         }));
 
 
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(9100);
-
-            if (serialPort != null && serialPort.IsOpen) 
+            await Task.Delay(1100);
+            Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
+            while (true)
             {
-                Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
-                while (true)
+                if (serialPort != null && serialPort.IsOpen)
                 {
-                    await SendBytes(OutputBuffer);
+                    port_opened = true;
+                    await SendBytes(serialPort, OutputBuffer);
+                }
+                else
+                {
+                    port_opened = false;
+                    await Task.Delay(20);
                 }
             }
-
         }));
+
+
+        this.StartCoroutine("Routine_Internal_Logger");
+    }
+
+
+    public void Connect(string name)
+    {
+        if (serialPort == null)
+        {
+            serialPort = new System.IO.Ports.SerialPort();
+        }
+
+        serialPort.BaudRate = portSpeed;
+        serialPort.PortName = name;
+        this.portName = name;
+
+        try
+        {
+            serialPort.Open();
+            Log("Serial Port:" + serialPort.PortName + " Opened!", 6, Color.black);
+        }
+        catch
+        {
+            Log("Error while oppening Serial Port:" + serialPort.PortName + "!", 6, Color.red);
+        }       
+    }
+
+    
+    public void DisConnect()
+    {
+        try
+        {
+            serialPort.Close();
+            Log("Serial Port:" + serialPort.PortName + " Closed!", 6, Color.black);
+        }
+        catch
+        {
+
+        }
     }
 
 
@@ -92,58 +132,32 @@ public class Virtual_SerialPort : MonoBehaviour
     }
 
 
-    private static async Task<byte[]> Read_Rx_Bytes()
-    {         
+    private static async Task<byte[]> Read_Rx_Bytes(System.IO.Ports.SerialPort port)
+    {       
+        if(port == null || port.IsOpen == false)
+        {
+            return null;
+        }
+
         //Receptions des datas	
         int intBuffer;
-        intBuffer = serialPort.BytesToRead;
+        intBuffer = port.BytesToRead;
         byte[] byteBuffer = new byte[intBuffer];
-        serialPort.Read(byteBuffer, 0, intBuffer);        
-
-        await Task.Delay(2);
+        port.Read(byteBuffer, 0, intBuffer);    
 
         return byteBuffer;
     }
 
 
-    private static async Task SendBytes(List<byte> datas)
+    private static async Task SendBytes(System.IO.Ports.SerialPort port, List<byte> datas)
     {
-        //S'il y a des infos à envoyer
-        byte[] datas_to_send = datas.ToArray();
-        serialPort.Write(datas_to_send, 0, datas_to_send.Length);
-
-        await Task.Delay(20);
-    }
-
-
-    private bool Check_Serial_Opened()
-    {
-        if (serialPort == null)
-        {
-            serialPort = new System.IO.Ports.SerialPort();
-            // 
-            // serialPort1
-            // 
-            serialPort.BaudRate = portSpeed;
-            serialPort.PortName = portName;
+        if (port != null && port.IsOpen == false)
+        {           
+            //S'il y a des infos à envoyer
+            byte[] datas_to_send = datas.ToArray();
+            port.Write(datas_to_send, 0, datas_to_send.Length);
         }
-
-        if (serialPort.IsOpen == false)
-        {
-            try
-            {
-                serialPort.Open();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
-
 
     public byte ReadRemoveInputByte()
     {

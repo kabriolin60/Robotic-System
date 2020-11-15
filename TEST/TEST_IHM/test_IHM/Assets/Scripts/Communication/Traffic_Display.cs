@@ -7,36 +7,44 @@ public class Traffic_Display : MonoBehaviour
 {
     public GameObject PortCom_Status;
     public GameObject Nombre_Messages_Display;
-    public GameObject Nombre_Erreur_Display;    
+    public GameObject Nombre_Erreur_Display;
 
-    System.IO.Ports.SerialPort _serialPort;
+    
+    public bool port_opened = false;
+
+    private System.IO.Ports.SerialPort _serialPort;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (_serialPort != null)
+        Virtual_SerialPort serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
+        if (serialport != null)
         {
-            if (_serialPort.IsOpen)
-            {
-                //Le port existe et il est ouvert
-                PortCom_Status.GetComponent<TextMeshProUGUI>().text = $"{_serialPort.PortName} opened";
-                PortCom_Status.GetComponent<TextMeshProUGUI>().color = Color.green;
+            _serialPort = serialport.getserialPort();
 
-                Nombre_Messages_Display.GetComponent<TextMeshProUGUI>().text = $"Mess = {this.GetComponent<Trame_Decoder>().Messages_Number}";
-                Nombre_Erreur_Display.GetComponent<TextMeshProUGUI>().text = $"Errors = {this.GetComponent<Trame_Decoder>().Error_Number}";
-            }
-            else
+            if (_serialPort != null)
             {
-                //Le port existe mais il est fermé
-                PortCom_Status.GetComponent<TextMeshProUGUI>().text = $"{_serialPort.PortName} closed";
-                PortCom_Status.GetComponent<TextMeshProUGUI>().color = Color.red;
+                if (_serialPort.IsOpen)
+                {
+                    port_opened = true;
+
+                    //Le port existe et il est ouvert
+                    PortCom_Status.GetComponent<TextMeshProUGUI>().text = $"{serialport.portName} opened";
+                    PortCom_Status.GetComponent<TextMeshProUGUI>().color = Color.green;
+
+                    Nombre_Messages_Display.GetComponent<TextMeshProUGUI>().text = $"Mess = {this.GetComponent<Trame_Decoder>().Messages_Number}";
+                    Nombre_Erreur_Display.GetComponent<TextMeshProUGUI>().text = $"Errors = {this.GetComponent<Trame_Decoder>().Error_Number}";
+                }
+                else
+                {
+                    port_opened = false;
+                    //Le port existe mais il est fermé
+                    PortCom_Status.GetComponent<TextMeshProUGUI>().text = $"{serialport.portName} closed";
+                    PortCom_Status.GetComponent<TextMeshProUGUI>().color = Color.red;
+                }
+
+                _serialPort.Dispose();
             }
-        }
-        else
-        {
-            Virtual_SerialPort serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
-            if (serialport != null)
-                _serialPort = serialport.getserialPort();
         }
     }
 }

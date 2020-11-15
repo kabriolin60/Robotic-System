@@ -52,7 +52,7 @@ public class TEST : MonoBehaviour
 
         this.StartCoroutine("Routine_Internal_Logger");
 
-        this.StartCoroutine("test_logger_quantity");
+        //this.StartCoroutine("test_logger_quantity");
 
 
     }
