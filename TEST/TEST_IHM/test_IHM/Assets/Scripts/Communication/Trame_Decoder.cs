@@ -40,10 +40,8 @@ public class Trame_Decoder : MonoBehaviour
 							Error_Number++;
 						}
                     }
-                    else
-                    {
-						await Task.Delay(50);
-					}
+
+					await Task.Delay(5);
 				}
 			}));
 		}
@@ -166,6 +164,11 @@ public class Reception_Data
 			return null;
 		}
 
+		if (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
+		{
+			await Task.Delay(2);
+		}
+
 		boucle = 0;
 		while (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
 		{
@@ -200,12 +203,15 @@ public class Reception_Data
 		received_message.Trame.Slave_Adresse = (Communication.Slave_Adresses)(byte)_SerialPort.ReadRemoveInputByte();
 		crc += (byte)received_message.Trame.Slave_Adresse;
 
-		received_message.Trame.Length = (byte)(API_LENGTH - 7);
-
-		//Thread.Sleep(5);
+		received_message.Trame.Length = (byte)(API_LENGTH - 7);		
 
 		if (received_message.Trame.Length <= Communication.COMMUNICATION_TRAME_MAX_DATA)
 		{
+			if (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+			{
+				await Task.Delay(2);
+			}
+
 			boucle = 0;
 			while (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
 			{

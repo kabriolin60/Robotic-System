@@ -21,6 +21,7 @@ public class Virtual_SerialPort : MonoBehaviour
 
     public string portName;
     public int portSpeed;
+    public int data_in_port_read_buffer = 0;
 
     public List<byte> InputBuffer = new List<byte>();
     public List<byte> OutputBuffer = new List<byte>();  
@@ -62,7 +63,10 @@ public class Virtual_SerialPort : MonoBehaviour
                     InputBuffer.AddRange(dataReceived);
                 }
 
-                await Task.Delay(2);
+
+                data_in_port_read_buffer = serialPort.BytesToRead;
+
+                await Task.Delay(3);
 
                 if(Comport_cancellationToken)
                     throw new TaskCanceledException();
@@ -205,11 +209,8 @@ public class Virtual_SerialPort : MonoBehaviour
         }
 
         byte[] readed = new byte[count];
-        for (int i = 0; i < count; i++)
-        {
-            readed[i] = InputBuffer[i];
-            InputBuffer.RemoveRange(0, count);
-        }
+        readed = InputBuffer.GetRange(0, count).ToArray();
+        InputBuffer.RemoveRange(0, count);
         return readed;
     }
 
