@@ -85,28 +85,21 @@ static void vTask_HartBeat(void *pvParameters) {
 
 static void vTask_LunchUser_Application(void *pvParameters) {
 	//Wait 5 seconds
-	vTaskDelay(10000);
+	vTaskDelay(9000);
+
+	//disable les receptions
+	NVIC_DisableIRQ(RS485_IRQ_SELECTION);
+#ifdef USE_USB
+	NVIC_DisableIRQ(USB_IRQn);
+#endif
+
+	vTaskDelay(1000);
 
 	//Si user code présent:
 	if(user_code_present())
 	{
 		//execute user code
 		execute_user_code();
-	}
-
-
-	bool LedState = false;
-
-
-	while (1) {
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, LedState);
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, LedState);
-		LedState = (bool) !LedState;
-
-		/* About a 10Hz on/off toggle rate */
-		//ERROR
-		vTaskDelay(configTICK_RATE_HZ / 20);
 	}
 }
 

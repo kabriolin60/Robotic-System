@@ -19,7 +19,7 @@
 #include "task.h"
 
 #define MAJOR_RELEASE "4"
-#define MINOR_RELEASE "0d"
+#define MINOR_RELEASE "1a"
 
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
@@ -68,7 +68,7 @@ Declaration des macro des Tempo pour FreeRTOS
 #ifdef CARTE_LPCXPRESSO
 /**************************************************
 Declaration des Entrees/Sorties TOR et parametres
-**************************************************/
+ **************************************************/
 #define LED_0_PORT					1
 #define LED_0_BIT					16
 
@@ -91,7 +91,7 @@ Declaration des Entrees/Sorties TOR et parametres
 
 /**************************************************
 Déclaration des cpins de debug
-**************************************************/
+ **************************************************/
 #define DEBUG_0_PORT				2
 #define DEBUG_0_BIT					0
 
@@ -101,7 +101,7 @@ Déclaration des cpins de debug
 
 /**************************************************
 Déclaration des cannaux des Codeurs
-**************************************************/
+ **************************************************/
 #define Codeur_D_Cannal_A_Port		0
 #define Codeur_D_Cannal_A_Bit		7
 
@@ -124,7 +124,7 @@ Déclaration des cannaux des Codeurs
 
 /**************************************************
 Declaration des Reglages liés à la Communication RS485
-**************************************************/
+ **************************************************/
 #define BAUDRATE_RS485				2000000
 #define RS484_UART					LPC_UART1
 
@@ -137,7 +137,7 @@ Declaration des Reglages liés à la Communication RS485
 
 /**************************************************
 Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'adressages
-**************************************************/
+ **************************************************/
 #ifdef TYPE_CARTE_IA
 
 #define ADRESSE_CARTE 				IA_BOARD
@@ -162,7 +162,7 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 
 /**************************************************
 Declaration des Reglages de la RTI et des Taches a executer
-**************************************************/
+ **************************************************/
 
 #define PERIODE_INTERRUPTIONS_RTI 		(float)(1000/(float)configTICK_RATE_HZ)  //periode des interruptions RTI (ms)
 

@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1769
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 14 nov. 2020 20:35:52
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 15 nov. 2020 14:45:30
  */
 
 INCLUDE "IA_2021_V0_Release_library.ld"
@@ -82,23 +82,23 @@ SECTIONS
  
     _etext = .;
         
-    /* DATA section for RamAHB32 */
+    /* DATA section for Ram_USB */
 
     .data_RAM2 : ALIGN(4)
     {
         FILL(0xff)
         PROVIDE(__start_data_RAM2 = .) ;
-        PROVIDE(__start_data_RamAHB32 = .) ;
+        PROVIDE(__start_data_Ram_USB = .) ;
         *(.ramfunc.$RAM2)
-        *(.ramfunc.$RamAHB32)
+        *(.ramfunc.$Ram_USB)
         *(.data.$RAM2)
-        *(.data.$RamAHB32)
+        *(.data.$Ram_USB)
         *(.data.$RAM2.*)
-        *(.data.$RamAHB32.*)
+        *(.data.$Ram_USB.*)
         . = ALIGN(4) ;
         PROVIDE(__end_data_RAM2 = .) ;
-        PROVIDE(__end_data_RamAHB32 = .) ;
-     } > RamAHB32 AT>MFlash512
+        PROVIDE(__end_data_Ram_USB = .) ;
+     } > Ram_USB AT>MFlash512
 
     /* DATA section for RAM3 */
 
@@ -146,19 +146,19 @@ SECTIONS
        PROVIDE(__end_data_RamLoc32 = .) ;
     } > RamLoc32 AT>MFlash512
 
-    /* BSS section for RamAHB32 */
+    /* BSS section for Ram_USB */
     .bss_RAM2 : ALIGN(4)
     {
        PROVIDE(__start_bss_RAM2 = .) ;
-       PROVIDE(__start_bss_RamAHB32 = .) ;
+       PROVIDE(__start_bss_Ram_USB = .) ;
        *(.bss.$RAM2)
-       *(.bss.$RamAHB32)
+       *(.bss.$Ram_USB)
        *(.bss.$RAM2.*)
-       *(.bss.$RamAHB32.*)
+       *(.bss.$Ram_USB.*)
        . = ALIGN (. != 0 ? 4 : 1) ; /* avoid empty segment */
        PROVIDE(__end_bss_RAM2 = .) ;
-       PROVIDE(__end_bss_RamAHB32 = .) ;
-    } > RamAHB32 AT> RamAHB32
+       PROVIDE(__end_bss_Ram_USB = .) ;
+    } > Ram_USB AT> Ram_USB
 
     /* BSS section for RAM3 */
     .bss_RAM3 : ALIGN(4)
@@ -189,19 +189,19 @@ SECTIONS
         PROVIDE(end = .);
     } > RamLoc32 AT> RamLoc32
 
-    /* NOINIT section for RamAHB32 */
+    /* NOINIT section for Ram_USB */
     .noinit_RAM2 (NOLOAD) : ALIGN(4)
     {
        PROVIDE(__start_noinit_RAM2 = .) ;
-       PROVIDE(__start_noinit_RamAHB32 = .) ;
+       PROVIDE(__start_noinit_Ram_USB = .) ;
        *(.noinit.$RAM2)
-       *(.noinit.$RamAHB32)
+       *(.noinit.$Ram_USB)
        *(.noinit.$RAM2.*)
-       *(.noinit.$RamAHB32.*)
+       *(.noinit.$Ram_USB.*)
        . = ALIGN(4) ;
        PROVIDE(__end_noinit_RAM2 = .) ;
-       PROVIDE(__end_noinit_RamAHB32 = .) ;
-    } > RamAHB32 AT> RamAHB32
+       PROVIDE(__end_noinit_Ram_USB = .) ;
+    } > Ram_USB AT> Ram_USB
 
     /* NOINIT section for RAM3 */
     .noinit_RAM3 (NOLOAD) : ALIGN(4)

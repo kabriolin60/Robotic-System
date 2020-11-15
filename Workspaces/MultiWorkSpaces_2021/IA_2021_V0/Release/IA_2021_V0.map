@@ -423,7 +423,7 @@ Discarded input sections
  .bss.$RAM3     0x00000000       0x10 ./Strategie/Deplacement/0_Deplacements.o
  .bss.Astar_Task_Handler
                 0x00000000        0x4 ./Strategie/Deplacement/0_Deplacements.o
- .bss.str.10237
+ .bss.str.10249
                 0x00000000       0x46 ./Strategie/Deplacement/0_Deplacements.o
  .text          0x00000000        0x0 ./Strategie/Deplacement/1_Obstacles.o
  .data          0x00000000        0x0 ./Strategie/Deplacement/1_Obstacles.o
@@ -616,7 +616,7 @@ Discarded input sections
                 0x00000000        0x1 ./Communication/0_Communication.o
  .bss.Trace_Timer_USB_Handle
                 0x00000000        0x1 ./Communication/0_Communication.o
- .bss.already_flaged.11226
+ .bss.already_flaged.11227
                 0x00000000        0x1 ./Communication/0_Communication.o
  .text          0x00000000        0x0 ./Communication/0_Event_Group.o
  .data          0x00000000        0x0 ./Communication/0_Event_Group.o
@@ -641,7 +641,7 @@ Discarded input sections
                 0x00000000       0x3c ./Communication/2_Echange_Datas.o
  .bss.Com_Position_Robot
                 0x00000000        0x8 ./Communication/2_Echange_Datas.o
- .bss.str.9944  0x00000000       0x46 ./Communication/2_Echange_Datas.o
+ .bss.str.9945  0x00000000       0x46 ./Communication/2_Echange_Datas.o
  .text          0x00000000        0x0 ./Communication/2_Echange_Datas_Reception.o
  .data          0x00000000        0x0 ./Communication/2_Echange_Datas_Reception.o
  .bss           0x00000000        0x0 ./Communication/2_Echange_Datas_Reception.o
@@ -1168,7 +1168,7 @@ Memory Configuration
 Name             Origin             Length             Attributes
 MFlash512        0x00010000         0x00070000         xr
 RamLoc32         0x10000000         0x00008000         xrw
-RamAHB32         0x2007c000         0x00000800         xrw
+Ram_USB          0x2007c000         0x00000800         xrw
 RAM3             0x2007c800         0x00007800         xrw
 *default*        0x00000000         0xffffffff
 
@@ -1224,16 +1224,16 @@ END GROUP
                 0x10000000                __base_RAM = 0x10000000
                 0x10008000                __top_RamLoc32 = 0x10008000
                 0x10008000                __top_RAM = 0x10008000
-                0x2007c000                __base_RamAHB32 = 0x2007c000
+                0x2007c000                __base_Ram_USB = 0x2007c000
                 0x2007c000                __base_RAM2 = 0x2007c000
-                0x2007c800                __top_RamAHB32 = 0x2007c800
+                0x2007c800                __top_Ram_USB = 0x2007c800
                 0x2007c800                __top_RAM2 = 0x2007c800
                 0x2007c800                __base_RAM3 = 0x2007c800
                 0x2007c800                __base_RAM3 = 0x2007c800
                 0x20084000                __top_RAM3 = 0x20084000
                 0x20084000                __top_RAM3 = 0x20084000
 
-.text           0x00010000     0x4b88
+.text           0x00010000     0x4b90
  FILL mask 0xff
                 0x00010000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -1242,13 +1242,13 @@ END GROUP
                 0x000100cc                . = ALIGN (0x4)
                 0x000100cc                __section_table_start = .
                 0x000100cc                __data_section_table = .
-                0x000100cc        0x4 LONG 0x14b88 LOADADDR (.data)
+                0x000100cc        0x4 LONG 0x14b90 LOADADDR (.data)
                 0x000100d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x000100d4        0x4 LONG 0x80 SIZEOF (.data)
-                0x000100d8        0x4 LONG 0x14b88 LOADADDR (.data_RAM2)
+                0x000100d8        0x4 LONG 0x14b90 LOADADDR (.data_RAM2)
                 0x000100dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x000100e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
-                0x000100e4        0x4 LONG 0x14b88 LOADADDR (.data_RAM3)
+                0x000100e4        0x4 LONG 0x14b90 LOADADDR (.data_RAM3)
                 0x000100e8        0x4 LONG 0x2007c800 ADDR (.data_RAM3)
                 0x000100ec        0x4 LONG 0x0 SIZEOF (.data_RAM3)
                 0x000100f0                __data_section_table_end = .
@@ -1258,7 +1258,7 @@ END GROUP
                 0x000100f8        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
                 0x000100fc        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
                 0x00010100        0x4 LONG 0x2007c800 ADDR (.bss_RAM3)
-                0x00010104        0x4 LONG 0x23b0 SIZEOF (.bss_RAM3)
+                0x00010104        0x4 LONG 0x23b8 SIZEOF (.bss_RAM3)
                 0x00010108                __bss_section_table_end = .
                 0x00010108                __section_table_end = .
  *(.after_vectors*)
@@ -1351,58 +1351,58 @@ END GROUP
                 0x0001047c       0x28 ./src/test.o
                 0x0001047c                TEST_init_parametres
  .text.TEST_envoi_Ping
-                0x000104a4       0x6c ./src/test.o
+                0x000104a4       0x68 ./src/test.o
                 0x000104a4                TEST_envoi_Ping
  .text.vApplicationStackOverflowHook
-                0x00010510       0x12 ./freertos/src/FreeRTOSCommonHooks.o
-                0x00010510                vApplicationStackOverflowHook
+                0x0001050c       0x12 ./freertos/src/FreeRTOSCommonHooks.o
+                0x0001050c                vApplicationStackOverflowHook
  .text.xEventGroupCreate
-                0x00010522       0x1a ./freertos/src/event_groups.o
-                0x00010522                xEventGroupCreate
+                0x0001051e       0x1a ./freertos/src/event_groups.o
+                0x0001051e                xEventGroupCreate
  .text.xEventGroupWaitBits
-                0x0001053c       0xb8 ./freertos/src/event_groups.o
-                0x0001053c                xEventGroupWaitBits
+                0x00010538       0xb8 ./freertos/src/event_groups.o
+                0x00010538                xEventGroupWaitBits
  .text.xEventGroupSetBits
-                0x000105f4       0x5c ./freertos/src/event_groups.o
-                0x000105f4                xEventGroupSetBits
+                0x000105f0       0x5c ./freertos/src/event_groups.o
+                0x000105f0                xEventGroupSetBits
  .text.vEventGroupSetBitsCallback
-                0x00010650        0x4 ./freertos/src/event_groups.o
-                0x00010650                vEventGroupSetBitsCallback
+                0x0001064c        0x4 ./freertos/src/event_groups.o
+                0x0001064c                vEventGroupSetBitsCallback
  .text.prvInsertBlockIntoFreeList
-                0x00010654       0x48 ./freertos/src/heap_5.o
+                0x00010650       0x48 ./freertos/src/heap_5.o
  .text.pvPortMalloc
-                0x0001069c       0xb4 ./freertos/src/heap_5.o
-                0x0001069c                pvPortMalloc
+                0x00010698       0xb4 ./freertos/src/heap_5.o
+                0x00010698                pvPortMalloc
  .text.vPortFree
-                0x00010750       0x58 ./freertos/src/heap_5.o
-                0x00010750                vPortFree
+                0x0001074c       0x58 ./freertos/src/heap_5.o
+                0x0001074c                vPortFree
  .text.vPortDefineHeapRegions
-                0x000107a8       0x88 ./freertos/src/heap_5.o
-                0x000107a8                vPortDefineHeapRegions
+                0x000107a4       0x88 ./freertos/src/heap_5.o
+                0x000107a4                vPortDefineHeapRegions
  .text.vListInitialise
-                0x00010830       0x16 ./freertos/src/list.o
-                0x00010830                vListInitialise
+                0x0001082c       0x16 ./freertos/src/list.o
+                0x0001082c                vListInitialise
  .text.vListInitialiseItem
-                0x00010846        0x6 ./freertos/src/list.o
-                0x00010846                vListInitialiseItem
+                0x00010842        0x6 ./freertos/src/list.o
+                0x00010842                vListInitialiseItem
  .text.vListInsertEnd
-                0x0001084c       0x18 ./freertos/src/list.o
-                0x0001084c                vListInsertEnd
+                0x00010848       0x18 ./freertos/src/list.o
+                0x00010848                vListInsertEnd
  .text.vListInsert
-                0x00010864       0x2e ./freertos/src/list.o
-                0x00010864                vListInsert
+                0x00010860       0x2e ./freertos/src/list.o
+                0x00010860                vListInsert
  .text.uxListRemove
-                0x00010892       0x20 ./freertos/src/list.o
-                0x00010892                uxListRemove
+                0x0001088e       0x20 ./freertos/src/list.o
+                0x0001088e                uxListRemove
  .text.prvTaskExitError
-                0x000108b2       0x20 ./freertos/src/port.o
- *fill*         0x000108d2        0x2 ff
+                0x000108ae       0x20 ./freertos/src/port.o
+ *fill*         0x000108ce        0x2 ff
  .text.prvPortStartFirstTask
-                0x000108d4       0x20 ./freertos/src/port.o
+                0x000108d0       0x20 ./freertos/src/port.o
  .text.pxPortInitialiseStack
-                0x000108f4       0x24 ./freertos/src/port.o
-                0x000108f4                pxPortInitialiseStack
- *fill*         0x00010918        0x8 ff
+                0x000108f0       0x24 ./freertos/src/port.o
+                0x000108f0                pxPortInitialiseStack
+ *fill*         0x00010914        0xc ff
  .text.vPortSVCHandler
                 0x00010920       0x24 ./freertos/src/port.o
                 0x00010920                vPortSVCHandler
@@ -1553,522 +1553,522 @@ END GROUP
                 0x00011bc4       0x10 ./Strategie/0_Infos.o
                 0x00011bc4                _0_Infos_Init
  .text._0_Update_Card_Datas
-                0x00011bd4       0x20 ./Strategie/0_Infos.o
+                0x00011bd4       0x28 ./Strategie/0_Infos.o
                 0x00011bd4                _0_Update_Card_Datas
  .text._0_RS485_Master_Mode
-                0x00011bf4       0x16 ./Communication/RS485/0_RS485.o
-                0x00011bf4                _0_RS485_Master_Mode
+                0x00011bfc       0x16 ./Communication/RS485/0_RS485.o
+                0x00011bfc                _0_RS485_Master_Mode
  .text._0_RS485_Slave_Mode
-                0x00011c0a       0x16 ./Communication/RS485/0_RS485.o
-                0x00011c0a                _0_RS485_Slave_Mode
+                0x00011c12       0x16 ./Communication/RS485/0_RS485.o
+                0x00011c12                _0_RS485_Slave_Mode
  .text._0_RS485_Init
-                0x00011c20       0x54 ./Communication/RS485/0_RS485.o
-                0x00011c20                _0_RS485_Init
+                0x00011c28       0x54 ./Communication/RS485/0_RS485.o
+                0x00011c28                _0_RS485_Init
  .text._0_Communication_Send_RS485
-                0x00011c74       0x6a ./Communication/0_Communication.o
-                0x00011c74                _0_Communication_Send_RS485
+                0x00011c7c       0x6a ./Communication/0_Communication.o
+                0x00011c7c                _0_Communication_Send_RS485
  .text.Chip_UART_SendByte
-                0x00011cde        0x4 ./Communication/0_Communication.o
+                0x00011ce6        0x4 ./Communication/0_Communication.o
  .text.Chip_UART_ReadLineStatus
-                0x00011ce2        0x4 ./Communication/0_Communication.o
- *fill*         0x00011ce6        0x2 ff
+                0x00011cea        0x4 ./Communication/0_Communication.o
+ *fill*         0x00011cee        0x2 ff
  .text._0_Communication_Init_RS485
-                0x00011ce8       0xa0 ./Communication/0_Communication.o
-                0x00011ce8                _0_Communication_Init_RS485
+                0x00011cf0       0xa0 ./Communication/0_Communication.o
+                0x00011cf0                _0_Communication_Init_RS485
  .text._0_Communication_Init
-                0x00011d88       0x58 ./Communication/0_Communication.o
-                0x00011d88                _0_Communication_Init
+                0x00011d90       0x58 ./Communication/0_Communication.o
+                0x00011d90                _0_Communication_Init
  .text.UART1_IRQHandler
-                0x00011de0       0x9c ./Communication/0_Communication.o
-                0x00011de0                UART1_IRQHandler
+                0x00011de8       0x9c ./Communication/0_Communication.o
+                0x00011de8                UART1_IRQHandler
  .text.USB_IRQHandler
-                0x00011e7c       0x18 ./Communication/0_Communication.o
-                0x00011e7c                USB_IRQHandler
+                0x00011e84       0x18 ./Communication/0_Communication.o
+                0x00011e84                USB_IRQHandler
  .text._0_Communication_Send_Data
-                0x00011e94       0x64 ./Communication/0_Communication.o
-                0x00011e94                _0_Communication_Send_Data
+                0x00011e9c       0x64 ./Communication/0_Communication.o
+                0x00011e9c                _0_Communication_Send_Data
  .text._0_Communication_Init_Event_Group
-                0x00011ef8       0x10 ./Communication/0_Event_Group.o
-                0x00011ef8                _0_Communication_Init_Event_Group
+                0x00011f00       0x10 ./Communication/0_Event_Group.o
+                0x00011f00                _0_Communication_Init_Event_Group
  .text._1_Communication_Create_Trame_From_Buffer
-                0x00011f08      0x2d4 ./Communication/1_Trame_Communication.o
-                0x00011f08                _1_Communication_Create_Trame_From_Buffer
+                0x00011f10      0x2d4 ./Communication/1_Trame_Communication.o
+                0x00011f10                _1_Communication_Create_Trame_From_Buffer
  .text._1_Communication_Check_Rx_Adresse
-                0x000121dc       0x24 ./Communication/1_Trame_Communication.o
-                0x000121dc                _1_Communication_Check_Rx_Adresse
+                0x000121e4       0x24 ./Communication/1_Trame_Communication.o
+                0x000121e4                _1_Communication_Check_Rx_Adresse
  .text._1_Communication_Recomposition_Rx
-                0x00012200       0x64 ./Communication/1_Trame_Communication.o
-                0x00012200                _1_Communication_Recomposition_Rx
+                0x00012208       0x64 ./Communication/1_Trame_Communication.o
+                0x00012208                _1_Communication_Recomposition_Rx
  .text._1_Communication_Create_Queues_Semaphores
-                0x00012264       0x30 ./Communication/1_Trame_Communication.o
-                0x00012264                _1_Communication_Create_Queues_Semaphores
+                0x0001226c       0x30 ./Communication/1_Trame_Communication.o
+                0x0001226c                _1_Communication_Create_Queues_Semaphores
  .text._1_Communication_Init
-                0x00012294       0x30 ./Communication/1_Trame_Communication.o
-                0x00012294                _1_Communication_Init
+                0x0001229c       0x30 ./Communication/1_Trame_Communication.o
+                0x0001229c                _1_Communication_Init
  .text._1_Communication_Wait_To_Send
-                0x000122c4       0x20 ./Communication/1_Trame_Communication.o
-                0x000122c4                _1_Communication_Wait_To_Send
+                0x000122cc       0x20 ./Communication/1_Trame_Communication.o
+                0x000122cc                _1_Communication_Wait_To_Send
  .text._1_Communication_Free_Send_Bit
-                0x000122e4       0x10 ./Communication/1_Trame_Communication.o
-                0x000122e4                _1_Communication_Free_Send_Bit
+                0x000122ec       0x10 ./Communication/1_Trame_Communication.o
+                0x000122ec                _1_Communication_Free_Send_Bit
  .text._1_Communication_Wait_To_Receive
-                0x000122f4       0x20 ./Communication/1_Trame_Communication.o
-                0x000122f4                _1_Communication_Wait_To_Receive
+                0x000122fc       0x20 ./Communication/1_Trame_Communication.o
+                0x000122fc                _1_Communication_Wait_To_Receive
  .text._1_Communication_Free_Receive_Bit
-                0x00012314       0x10 ./Communication/1_Trame_Communication.o
-                0x00012314                _1_Communication_Free_Receive_Bit
+                0x0001231c       0x10 ./Communication/1_Trame_Communication.o
+                0x0001231c                _1_Communication_Free_Receive_Bit
  .text._1_Communication_Create_Trame
-                0x00012324       0xa0 ./Communication/1_Trame_Communication.o
-                0x00012324                _1_Communication_Create_Trame
+                0x0001232c       0xa0 ./Communication/1_Trame_Communication.o
+                0x0001232c                _1_Communication_Create_Trame
  .text._2_Communication_Init
-                0x000123c4       0x10 ./Communication/2_Echange_Datas.o
-                0x000123c4                _2_Communication_Init
+                0x000123cc       0x10 ./Communication/2_Echange_Datas.o
+                0x000123cc                _2_Communication_Init
  .text._2_Comm_Send_Demande_Info
-                0x000123d4       0x34 ./Communication/2_Echange_Datas.o
-                0x000123d4                _2_Comm_Send_Demande_Info
+                0x000123dc       0x34 ./Communication/2_Echange_Datas.o
+                0x000123dc                _2_Comm_Send_Demande_Info
  .text._2_Comm_Send_PING
-                0x00012408       0x34 ./Communication/2_Echange_Datas.o
-                0x00012408                _2_Comm_Send_PING
+                0x00012410       0x34 ./Communication/2_Echange_Datas.o
+                0x00012410                _2_Comm_Send_PING
  .text._2_Comm_Send_Log_Message
-                0x0001243c      0x104 ./Communication/2_Echange_Datas.o
-                0x0001243c                _2_Comm_Send_Log_Message
+                0x00012444      0x104 ./Communication/2_Echange_Datas.o
+                0x00012444                _2_Comm_Send_Log_Message
  .text._2_Comm_Send_PONG
-                0x00012540       0x6c ./Communication/2_Echange_Datas.o
-                0x00012540                _2_Comm_Send_PONG
+                0x00012548       0x6c ./Communication/2_Echange_Datas.o
+                0x00012548                _2_Comm_Send_PONG
  .text._2_Communication_Boards_Status
-                0x000125ac       0x38 ./Communication/2_Echange_Datas.o
-                0x000125ac                _2_Communication_Boards_Status
+                0x000125b4       0x38 ./Communication/2_Echange_Datas.o
+                0x000125b4                _2_Communication_Boards_Status
  .text._2_Communication_RX_Lectures_Messages
-                0x000125e4       0x98 ./Communication/2_Echange_Datas_Reception.o
-                0x000125e4                _2_Communication_RX_Lectures_Messages
+                0x000125ec       0x98 ./Communication/2_Echange_Datas_Reception.o
+                0x000125ec                _2_Communication_RX_Lectures_Messages
  .text._2_Communication_RX_Init
-                0x0001267c       0x2c ./Communication/2_Echange_Datas_Reception.o
-                0x0001267c                _2_Communication_RX_Init
+                0x00012684       0x2c ./Communication/2_Echange_Datas_Reception.o
+                0x00012684                _2_Communication_RX_Init
  .text.SystemCoreClockUpdate
-                0x000126a8       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
-                0x000126a8                SystemCoreClockUpdate
+                0x000126b0       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+                0x000126b0                SystemCoreClockUpdate
  .text.Chip_Clock_EnablePLL
-                0x000126b8       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000126b8                Chip_Clock_EnablePLL
+                0x000126c0       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000126c0                Chip_Clock_EnablePLL
  .text.Chip_Clock_DisablePLL
-                0x000126dc       0x26 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000126dc                Chip_Clock_DisablePLL
+                0x000126e4       0x26 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000126e4                Chip_Clock_DisablePLL
  .text.Chip_Clock_SetupPLL
-                0x00012702       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00012702                Chip_Clock_SetupPLL
- *fill*         0x00012732        0x2 ff
+                0x0001270a       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x0001270a                Chip_Clock_SetupPLL
+ *fill*         0x0001273a        0x2 ff
  .text.Chip_Clock_EnablePeriphClock
-                0x00012734       0x18 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00012734                Chip_Clock_EnablePeriphClock
+                0x0001273c       0x18 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x0001273c                Chip_Clock_EnablePeriphClock
  .text.Chip_Clock_GetCPUClockSource
-                0x0001274c       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001274c                Chip_Clock_GetCPUClockSource
+                0x00012754       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012754                Chip_Clock_GetCPUClockSource
  .text.Chip_Clock_SetCPUClockDiv
-                0x0001275c        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001275c                Chip_Clock_SetCPUClockDiv
+                0x00012764        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012764                Chip_Clock_SetCPUClockDiv
  .text.Chip_Clock_GetCPUClockDiv
-                0x00012768       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00012768                Chip_Clock_GetCPUClockDiv
+                0x00012770       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012770                Chip_Clock_GetCPUClockDiv
  .text.Chip_Clock_GetPCLKDiv
-                0x00012778       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00012778                Chip_Clock_GetPCLKDiv
+                0x00012780       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012780                Chip_Clock_GetPCLKDiv
  .text.Chip_Clock_GetSYSCLKRate
-                0x000127b0       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000127b0                Chip_Clock_GetSYSCLKRate
+                0x000127b8       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000127b8                Chip_Clock_GetSYSCLKRate
  .text.Chip_Clock_GetMainPLLOutClockRate
-                0x000127e8       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000127e8                Chip_Clock_GetMainPLLOutClockRate
+                0x000127f0       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000127f0                Chip_Clock_GetMainPLLOutClockRate
  .text.Chip_Clock_GetMainClockRate
-                0x0001281c       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001281c                Chip_Clock_GetMainClockRate
+                0x00012824       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012824                Chip_Clock_GetMainClockRate
  .text.Chip_Clock_GetSystemClockRate
-                0x0001283c       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001283c                Chip_Clock_GetSystemClockRate
+                0x00012844       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012844                Chip_Clock_GetSystemClockRate
  .text.Chip_Clock_GetPeripheralClockRate
-                0x0001284e       0x16 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001284e                Chip_Clock_GetPeripheralClockRate
+                0x00012856       0x16 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00012856                Chip_Clock_GetPeripheralClockRate
  .text.RingBuffer_Init
-                0x00012864       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00012864                RingBuffer_Init
+                0x0001286c       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x0001286c                RingBuffer_Init
  .text.RingBuffer_Insert
-                0x00012874       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00012874                RingBuffer_Insert
+                0x0001287c       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x0001287c                RingBuffer_Insert
  .text.RingBuffer_InsertMult
-                0x000128a4       0x8c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x000128a4                RingBuffer_InsertMult
+                0x000128ac       0x8c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000128ac                RingBuffer_InsertMult
  .text.RingBuffer_Pop
-                0x00012930       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00012930                RingBuffer_Pop
+                0x00012938       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x00012938                RingBuffer_Pop
  .text.RingBuffer_PopMult
-                0x00012960       0x7e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00012960                RingBuffer_PopMult
+                0x00012968       0x7e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x00012968                RingBuffer_PopMult
  .text.RingBuffer_Count
-                0x000129de        0x8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x000129de                RingBuffer_Count
- *fill*         0x000129e6        0x2 ff
+                0x000129e6        0x8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000129e6                RingBuffer_Count
+ *fill*         0x000129ee        0x2 ff
  .text.Chip_SetupIrcClocking
-                0x000129e8       0x64 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x000129e8                Chip_SetupIrcClocking
+                0x000129f0       0x64 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x000129f0                Chip_SetupIrcClocking
  .text.Chip_SetupXtalClocking
-                0x00012a4c       0xdc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x00012a4c                Chip_SetupXtalClocking
+                0x00012a54       0xdc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00012a54                Chip_SetupXtalClocking
  .text.Chip_SystemInit
-                0x00012b28        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x00012b28                Chip_SystemInit
+                0x00012b30        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00012b30                Chip_SystemInit
  .text.Chip_TIMER_Init
-                0x00012b2c       0x2c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
-                0x00012b2c                Chip_TIMER_Init
+                0x00012b34       0x2c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+                0x00012b34                Chip_TIMER_Init
  .text.Chip_UART_Init
-                0x00012b58       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012b58                Chip_UART_Init
+                0x00012b60       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012b60                Chip_UART_Init
  .text.Chip_UART_TXEnable
-                0x00012bb0        0x6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012bb0                Chip_UART_TXEnable
- *fill*         0x00012bb6        0x2 ff
+                0x00012bb8        0x6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012bb8                Chip_UART_TXEnable
+ *fill*         0x00012bbe        0x2 ff
  .text.Chip_UART_SetBaud
-                0x00012bb8       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012bb8                Chip_UART_SetBaud
+                0x00012bc0       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012bc0                Chip_UART_SetBaud
  .text.Chip_UART_RXIntHandlerRB
-                0x00012c10       0x22 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012c10                Chip_UART_RXIntHandlerRB
+                0x00012c18       0x22 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012c18                Chip_UART_RXIntHandlerRB
  .text.Chip_UART_TXIntHandlerRB
-                0x00012c32       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012c32                Chip_UART_TXIntHandlerRB
- *fill*         0x00012c56        0x2 ff
+                0x00012c3a       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012c3a                Chip_UART_TXIntHandlerRB
+ *fill*         0x00012c5e        0x2 ff
  .text.Chip_UART_IRQRBHandler
-                0x00012c58       0x68 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00012c58                Chip_UART_IRQRBHandler
+                0x00012c60       0x68 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00012c60                Chip_UART_IRQRBHandler
  .text.Set_Clock_in
-                0x00012cc0        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x00012cc0                Set_Clock_in
+                0x00012cc8        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x00012cc8                Set_Clock_in
  .text.Board_Init
-                0x00012ccc       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x00012ccc                Board_Init
- .text.EPAdr    0x00012cde       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012cde                EPAdr
- .text.hwWrCmd  0x00012cee       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012cee                hwWrCmd
+                0x00012cd4       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x00012cd4                Board_Init
+ .text.EPAdr    0x00012ce6       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012ce6                EPAdr
+ .text.hwWrCmd  0x00012cf6       0x10 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012cf6                hwWrCmd
  .text.hwWrCmdDat
-                0x00012cfe       0x16 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012cfe                hwWrCmdDat
+                0x00012d06       0x16 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d06                hwWrCmdDat
  .text.hwWrCmdEP
-                0x00012d14       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d14                hwWrCmdEP
+                0x00012d1c       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d1c                hwWrCmdEP
  .text.hwRdCmdDat
-                0x00012d38       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d38                hwRdCmdDat
+                0x00012d40       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d40                hwRdCmdDat
  .text.hwUSB_GetMemSize
-                0x00012d4a        0x6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d4a                hwUSB_GetMemSize
+                0x00012d52        0x6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d52                hwUSB_GetMemSize
  .text.hwUSB_Connect
-                0x00012d50       0x1c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d50                hwUSB_Connect
+                0x00012d58       0x1c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d58                hwUSB_Connect
  .text.hwUSB_Reset
-                0x00012d6c       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d6c                hwUSB_Reset
+                0x00012d74       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012d74                hwUSB_Reset
  .text.hwUSB_WakeUp
-                0x00012d9c       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012d9c                hwUSB_WakeUp
+                0x00012da4       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012da4                hwUSB_WakeUp
  .text.hwUSB_WakeUpCfg
-                0x00012dbc        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012dbc                hwUSB_WakeUpCfg
- *fill*         0x00012dbe        0x2 ff
+                0x00012dc4        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012dc4                hwUSB_WakeUpCfg
+ *fill*         0x00012dc6        0x2 ff
  .text.hwUSB_SetAddress
-                0x00012dc0       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012dc0                hwUSB_SetAddress
+                0x00012dc8       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012dc8                hwUSB_SetAddress
  .text.hwUSB_Init
-                0x00012df0       0x84 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012df0                hwUSB_Init
+                0x00012df8       0x84 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012df8                hwUSB_Init
  .text.hwUSB_Configure
-                0x00012e74       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012e74                hwUSB_Configure
+                0x00012e7c       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012e7c                hwUSB_Configure
  .text.hwUSB_ConfigEP
-                0x00012ea8       0x32 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012ea8                hwUSB_ConfigEP
+                0x00012eb0       0x32 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012eb0                hwUSB_ConfigEP
  .text.hwUSB_DirCtrlEP
-                0x00012eda        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012eda                hwUSB_DirCtrlEP
+                0x00012ee2        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012ee2                hwUSB_DirCtrlEP
  .text.hwUSB_EnableEP
-                0x00012edc       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012edc                hwUSB_EnableEP
+                0x00012ee4       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012ee4                hwUSB_EnableEP
  .text.hwUSB_DisableEP
-                0x00012f00       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012f00                hwUSB_DisableEP
+                0x00012f08       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012f08                hwUSB_DisableEP
  .text.hwUSB_ResetEP
-                0x00012f28       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012f28                hwUSB_ResetEP
+                0x00012f30       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012f30                hwUSB_ResetEP
  .text.hwUSB_SetStallEP
-                0x00012f4c       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012f4c                hwUSB_SetStallEP
+                0x00012f54       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012f54                hwUSB_SetStallEP
  .text.hwUSB_ClrStallEP
-                0x00012f74       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012f74                hwUSB_ClrStallEP
+                0x00012f7c       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012f7c                hwUSB_ClrStallEP
  .text.hwUSB_EnableEvent
-                0x00012f98       0xd8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00012f98                hwUSB_EnableEvent
+                0x00012fa0       0xd8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00012fa0                hwUSB_EnableEvent
  .text.hwUSB_ReadEP
-                0x00013070       0x80 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00013070                hwUSB_ReadEP
+                0x00013078       0x80 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00013078                hwUSB_ReadEP
  .text.hwUSB_ForceFullSpeed
-                0x000130f0        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x000130f0                hwUSB_ForceFullSpeed
+                0x000130f8        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x000130f8                hwUSB_ForceFullSpeed
  .text.hwUSB_SetTestMode
-                0x000130f2        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x000130f2                hwUSB_SetTestMode
- .text.hwUSB_ReadReqEP
-                0x000130f6        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x000130f6                hwUSB_ReadReqEP
- .text.hwUSB_ReadSetupPkt
                 0x000130fa        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x000130fa                hwUSB_ReadSetupPkt
- *fill*         0x000130fe        0x2 ff
+                0x000130fa                hwUSB_SetTestMode
+ .text.hwUSB_ReadReqEP
+                0x000130fe        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x000130fe                hwUSB_ReadReqEP
+ .text.hwUSB_ReadSetupPkt
+                0x00013102        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00013102                hwUSB_ReadSetupPkt
+ *fill*         0x00013106        0x2 ff
  .text.hwUSB_WriteEP
-                0x00013100       0x44 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00013100                hwUSB_WriteEP
+                0x00013108       0x44 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x00013108                hwUSB_WriteEP
  .text.hwUSB_ISR
-                0x00013144      0x1a0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
-                0x00013144                hwUSB_ISR
+                0x0001314c      0x1a0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+                0x0001314c                hwUSB_ISR
  .text.mwCDC_SetRequest
-                0x000132e4       0x7c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x000132e4                mwCDC_SetRequest
+                0x000132ec       0x7c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x000132ec                mwCDC_SetRequest
  .text.mwCDC_ep0_hdlr
-                0x00013360       0xb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x00013360                mwCDC_ep0_hdlr
+                0x00013368       0xb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x00013368                mwCDC_ep0_hdlr
  .text.mwCDC_GetRequest
-                0x00013410       0x50 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x00013410                mwCDC_GetRequest
+                0x00013418       0x50 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x00013418                mwCDC_GetRequest
  .text.mwCDC_SendNotification
-                0x00013460       0x50 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x00013460                mwCDC_SendNotification
+                0x00013468       0x50 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x00013468                mwCDC_SendNotification
  .text.mwCDC_GetMemSize
-                0x000134b0        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x000134b0                mwCDC_GetMemSize
+                0x000134b8        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x000134b8                mwCDC_GetMemSize
  .text.mwCDC_init
-                0x000134b4      0x140 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
-                0x000134b4                mwCDC_init
+                0x000134bc      0x140 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+                0x000134bc                mwCDC_init
  .text.USB_ReqGetConfiguration
-                0x000135f4       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x000135f4                USB_ReqGetConfiguration
+                0x000135fc       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x000135fc                USB_ReqGetConfiguration
  .text.USBD_virt_to_phys
-                0x00013614        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013614                USBD_virt_to_phys
+                0x0001361c        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x0001361c                USBD_virt_to_phys
  .text.USBD_cache_flush
-                0x00013616        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013616                USBD_cache_flush
+                0x0001361e        0x2 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x0001361e                USBD_cache_flush
  .text.USB_ReqGetStatus
-                0x00013618       0x8c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013618                USB_ReqGetStatus
+                0x00013620       0x8c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013620                USB_ReqGetStatus
  .text.USB_ReqGetDescriptor
-                0x000136a4       0x84 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x000136a4                USB_ReqGetDescriptor
+                0x000136ac       0x84 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x000136ac                USB_ReqGetDescriptor
  .text.USB_ReqGetInterface
-                0x00013728       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013728                USB_ReqGetInterface
+                0x00013730       0x34 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013730                USB_ReqGetInterface
  .text.USB_ReqSetClrFeature
-                0x0001375c       0xb4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x0001375c                USB_ReqSetClrFeature
+                0x00013764       0xb4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013764                USB_ReqSetClrFeature
  .text.USB_ReqSetConfiguration
-                0x00013810      0x194 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013810                USB_ReqSetConfiguration
+                0x00013818      0x194 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013818                USB_ReqSetConfiguration
  .text.USB_ReqSetInterface
-                0x000139a4      0x144 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x000139a4                USB_ReqSetInterface
+                0x000139ac      0x144 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x000139ac                USB_ReqSetInterface
  .text.mwUSB_SetupStage
-                0x00013ae8        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013ae8                mwUSB_SetupStage
+                0x00013af0        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013af0                mwUSB_SetupStage
  .text.mwUSB_DataInStage
-                0x00013af2       0x2e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013af2                mwUSB_DataInStage
+                0x00013afa       0x2e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013afa                mwUSB_DataInStage
  .text.mwUSB_DataOutStage
-                0x00013b20       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b20                mwUSB_DataOutStage
+                0x00013b28       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b28                mwUSB_DataOutStage
  .text.mwUSB_StatusInStage
-                0x00013b44        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b44                mwUSB_StatusInStage
+                0x00013b4c        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b4c                mwUSB_StatusInStage
  .text.mwUSB_StatusOutStage
-                0x00013b4e        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b4e                mwUSB_StatusOutStage
+                0x00013b56        0xa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b56                mwUSB_StatusOutStage
  .text.mwUSB_StallEp0
-                0x00013b58       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b58                mwUSB_StallEp0
- *fill*         0x00013b6a        0x2 ff
+                0x00013b60       0x12 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b60                mwUSB_StallEp0
+ *fill*         0x00013b72        0x2 ff
  .text.USB_ReqSetAddress
-                0x00013b6c       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b6c                USB_ReqSetAddress
+                0x00013b74       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b74                USB_ReqSetAddress
  .text.USB_InvokeEp0Hdlrs
-                0x00013b90       0x44 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013b90                USB_InvokeEp0Hdlrs
+                0x00013b98       0x44 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013b98                USB_InvokeEp0Hdlrs
  .text.mwUSB_ResetCore
-                0x00013bd4       0x26 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013bd4                mwUSB_ResetCore
- *fill*         0x00013bfa        0x2 ff
+                0x00013bdc       0x26 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013bdc                mwUSB_ResetCore
+ *fill*         0x00013c02        0x2 ff
  .text.USB_EvtSetupHandler
-                0x00013bfc      0x108 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013bfc                USB_EvtSetupHandler
+                0x00013c04      0x108 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013c04                USB_EvtSetupHandler
  .text.USB_EvtOutHandler
-                0x00013d04       0x68 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013d04                USB_EvtOutHandler
+                0x00013d0c       0x68 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013d0c                USB_EvtOutHandler
  .text.USB_EndPoint0
-                0x00013d6c       0x94 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013d6c                USB_EndPoint0
+                0x00013d74       0x94 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013d74                USB_EndPoint0
  .text.mwUSB_InitCore
-                0x00013e00       0xdc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013e00                mwUSB_InitCore
+                0x00013e08       0xdc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013e08                mwUSB_InitCore
  .text.mwUSB_RegisterClassHandler
-                0x00013edc       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013edc                mwUSB_RegisterClassHandler
+                0x00013ee4       0x28 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013ee4                mwUSB_RegisterClassHandler
  .text.mwUSB_RegisterEpHandler
-                0x00013f04       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
-                0x00013f04                mwUSB_RegisterEpHandler
- .text.memcpy   0x00013f28       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
-                0x00013f28                memcpy
- .text.memset   0x00013f44       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
-                0x00013f44                memset
- .text.sprintf  0x00013f54       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
-                0x00013f54                siprintf
-                0x00013f54                sprintf
- .text          0x00013f94       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen.o)
-                0x00013f94                strlen
+                0x00013f0c       0x24 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+                0x00013f0c                mwUSB_RegisterEpHandler
+ .text.memcpy   0x00013f30       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
+                0x00013f30                memcpy
+ .text.memset   0x00013f4c       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
+                0x00013f4c                memset
+ .text.sprintf  0x00013f5c       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
+                0x00013f5c                siprintf
+                0x00013f5c                sprintf
+ .text          0x00013f9c       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen.o)
+                0x00013f9c                strlen
  .text.__ssputs_r
-                0x00013fa4       0xb6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x00013fa4                __ssputs_r
- *fill*         0x0001405a        0x2 ff
+                0x00013fac       0xb6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00013fac                __ssputs_r
+ *fill*         0x00014062        0x2 ff
  .text._svfprintf_r
-                0x0001405c      0x200 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0001405c                _svfiprintf_r
-                0x0001405c                _svfprintf_r
+                0x00014064      0x200 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00014064                _svfiprintf_r
+                0x00014064                _svfprintf_r
  .text._printf_common
-                0x0001425c       0xde c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0001425c                _printf_common
- *fill*         0x0001433a        0x2 ff
+                0x00014264       0xde c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00014264                _printf_common
+ *fill*         0x00014342        0x2 ff
  .text._printf_i
-                0x0001433c      0x24c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0001433c                _printf_i
- .text.memchr   0x00014588       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
-                0x00014588                memchr
- .text.memmove  0x000145a4       0x34 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
-                0x000145a4                memmove
- .text._free_r  0x000145d8       0x98 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
-                0x000145d8                _free_r
+                0x00014344      0x24c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00014344                _printf_i
+ .text.memchr   0x00014590       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
+                0x00014590                memchr
+ .text.memmove  0x000145ac       0x34 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
+                0x000145ac                memmove
+ .text._free_r  0x000145e0       0x98 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
+                0x000145e0                _free_r
  .text._malloc_r
-                0x00014670       0xb4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00014670                _malloc_r
+                0x00014678       0xb4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00014678                _malloc_r
  .text._realloc_r
-                0x00014724       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
-                0x00014724                _realloc_r
- .text._sbrk_r  0x00014770       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
-                0x00014770                _sbrk_r
+                0x0001472c       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x0001472c                _realloc_r
+ .text._sbrk_r  0x00014778       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
+                0x00014778                _sbrk_r
  .text.__malloc_lock
-                0x00014790        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
-                0x00014790                __malloc_lock
+                0x00014798        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
+                0x00014798                __malloc_lock
  .text.__malloc_unlock
-                0x0001479c        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
-                0x0001479c                __malloc_unlock
+                0x000147a4        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
+                0x000147a4                __malloc_unlock
  .text._malloc_usable_size_r
-                0x000147a8       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
-                0x000147a8                _malloc_usable_size_r
+                0x000147b0       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
+                0x000147b0                _malloc_usable_size_r
  .text.__retarget_lock_acquire_recursive
-                0x000147b8        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
-                0x000147b8                __retarget_lock_acquire_recursive
+                0x000147c0        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+                0x000147c0                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x000147ba        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
-                0x000147ba                __retarget_lock_release_recursive
- .text._sbrk    0x000147bc       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
-                0x000147bc                _sbrk
+                0x000147c2        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+                0x000147c2                __retarget_lock_release_recursive
+ .text._sbrk    0x000147c4       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
+                0x000147c4                _sbrk
  .text.__check_heap_overflow
-                0x000147f8       0x14 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_check_heap.o)
-                0x000147f8                __check_heap_overflow
- .text.__errno  0x0001480c        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
-                0x0001480c                __errno
+                0x00014800       0x14 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_check_heap.o)
+                0x00014800                __check_heap_overflow
+ .text.__errno  0x00014814        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
+                0x00014814                __errno
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.main.str1.1
-                0x00014818        0xf ./src/IA_2021_V0.o
+                0x00014820        0xf ./src/IA_2021_V0.o
  .rodata.Init_Carte_IA.str1.1
-                0x00014827        0xd ./src/Init.o
- .rodata        0x00014834        0x5 ./src/test.o
+                0x0001482f        0xd ./src/Init.o
+ .rodata        0x0001483c        0x5 ./src/test.o
  .rodata.vTaskStartScheduler.str1.1
-                0x00014839        0x5 ./freertos/src/tasks.o
+                0x00014841        0x5 ./freertos/src/tasks.o
  .rodata.prvCheckForValidListAndQueue.str1.1
-                0x0001483e        0x5 ./freertos/src/timers.o
+                0x00014846        0x5 ./freertos/src/timers.o
  .rodata.xTimerCreateTimerTask.str1.1
-                0x00014843        0x8 ./freertos/src/timers.o
- *fill*         0x0001484b        0x1 ff
+                0x0001484b        0x8 ./freertos/src/timers.o
+ *fill*         0x00014853        0x1 ff
  .rodata.g_usbApi
-                0x0001484c       0x20 ./Communication/USB/src/cdc_usb_main.o
- .rodata        0x0001486c       0x23 ./Communication/0_Communication.o
- .rodata        0x0001488f       0x26 ./Communication/1_Trame_Communication.o
+                0x00014854       0x20 ./Communication/USB/src/cdc_usb_main.o
+ .rodata        0x00014874       0x23 ./Communication/0_Communication.o
+ .rodata        0x00014897       0x26 ./Communication/1_Trame_Communication.o
  .rodata._2_Comm_Send_PONG.str1.1
-                0x000148b5       0x35 ./Communication/2_Echange_Datas.o
- *fill*         0x000148ea        0x2 ff
+                0x000148bd       0x35 ./Communication/2_Echange_Datas.o
+ *fill*         0x000148f2        0x2 ff
  .rodata._2_Communication_RX_Lectures_Messages.str1.4
-                0x000148ec       0x2b ./Communication/2_Echange_Datas_Reception.o
+                0x000148f4       0x2b ./Communication/2_Echange_Datas_Reception.o
  .rodata._2_Communication_RX_Init.str1.1
-                0x00014917       0x11 ./Communication/2_Echange_Datas_Reception.o
+                0x0001491f       0x11 ./Communication/2_Echange_Datas_Reception.o
  .rodata.MainOscPLL0conf_12
-                0x00014928       0xf0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00014930       0xf0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .rodata.MainOscPLL0conf_16
-                0x00014a18       0xb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00014a20       0xb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .rodata.RTCOscRateIn
-                0x00014ac8        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x00014ac8                RTCOscRateIn
+                0x00014ad0        0x4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x00014ad0                RTCOscRateIn
  .rodata.hw_api
-                0x00014acc       0x5c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
-                0x00014acc                hw_api
+                0x00014ad4       0x5c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+                0x00014ad4                hw_api
  .rodata.core_api
-                0x00014b28       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
-                0x00014b28                core_api
+                0x00014b30       0x20 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+                0x00014b30                core_api
  .rodata.cdc_api
-                0x00014b48        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
-                0x00014b48                cdc_api
+                0x00014b50        0xc D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+                0x00014b50                cdc_api
  .rodata._svfprintf_r.str1.1
-                0x00014b54       0x11 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00014b5c       0x11 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x00014b65       0x22 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x00014b88                . = ALIGN (0x4)
- *fill*         0x00014b87        0x1 ff
+                0x00014b6d       0x22 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00014b90                . = ALIGN (0x4)
+ *fill*         0x00014b8f        0x1 ff
 
-.glue_7         0x00014b88        0x0
- .glue_7        0x00014b88        0x0 linker stubs
+.glue_7         0x00014b90        0x0
+ .glue_7        0x00014b90        0x0 linker stubs
 
-.glue_7t        0x00014b88        0x0
- .glue_7t       0x00014b88        0x0 linker stubs
+.glue_7t        0x00014b90        0x0
+ .glue_7t       0x00014b90        0x0 linker stubs
 
-.vfp11_veneer   0x00014b88        0x0
- .vfp11_veneer  0x00014b88        0x0 linker stubs
+.vfp11_veneer   0x00014b90        0x0
+ .vfp11_veneer  0x00014b90        0x0 linker stubs
 
-.v4_bx          0x00014b88        0x0
- .v4_bx         0x00014b88        0x0 linker stubs
+.v4_bx          0x00014b90        0x0
+ .v4_bx         0x00014b90        0x0 linker stubs
 
-.iplt           0x00014b88        0x0
- .iplt          0x00014b88        0x0 ./src/IA_2021_V0.o
+.iplt           0x00014b90        0x0
+ .iplt          0x00014b90        0x0 ./src/IA_2021_V0.o
 
-.rel.dyn        0x00014b88        0x0
- .rel.iplt      0x00014b88        0x0 ./src/IA_2021_V0.o
+.rel.dyn        0x00014b90        0x0
+ .rel.iplt      0x00014b90        0x0 ./src/IA_2021_V0.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x00014b88        0x0
-                0x00014b88                __exidx_start = .
+.ARM.exidx      0x00014b90        0x0
+                0x00014b90                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00014b88                __exidx_end = .
-                0x00014b88                _etext = .
+                0x00014b90                __exidx_end = .
+                0x00014b90                _etext = .
 
-.data_RAM2      0x2007c000        0x0 load address 0x00014b88
+.data_RAM2      0x2007c000        0x0 load address 0x00014b90
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM2 = .)
-                [!provide]                PROVIDE (__start_data_RamAHB32 = .)
+                [!provide]                PROVIDE (__start_data_Ram_USB = .)
  *(.ramfunc.$RAM2)
- *(.ramfunc.$RamAHB32)
+ *(.ramfunc.$Ram_USB)
  *(.data.$RAM2)
- *(.data.$RamAHB32)
+ *(.data.$Ram_USB)
  *(.data.$RAM2.*)
- *(.data.$RamAHB32.*)
+ *(.data.$Ram_USB.*)
                 0x2007c000                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__end_data_RAM2 = .)
-                [!provide]                PROVIDE (__end_data_RamAHB32 = .)
+                [!provide]                PROVIDE (__end_data_Ram_USB = .)
 
-.data_RAM3      0x2007c800        0x0 load address 0x00014b88
+.data_RAM3      0x2007c800        0x0 load address 0x00014b90
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM3 = .)
                 [!provide]                PROVIDE (__start_data_RAM3 = .)
@@ -2089,7 +2089,7 @@ END GROUP
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _end_uninit_RESERVED = .
 
-.data           0x10000000       0x80 load address 0x00014b88
+.data           0x10000000       0x80 load address 0x00014b90
  FILL mask 0xff
                 0x10000000                _data = .
                 [!provide]                PROVIDE (__start_data_RAM = .)
@@ -2120,37 +2120,37 @@ END GROUP
                 [!provide]                PROVIDE (__end_data_RAM = .)
                 [!provide]                PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x10000080        0x0 load address 0x00014c08
+.igot.plt       0x10000080        0x0 load address 0x00014c10
  .igot.plt      0x10000080        0x0 ./src/IA_2021_V0.o
 
 .bss_RAM2       0x2007c000        0x0
                 [!provide]                PROVIDE (__start_bss_RAM2 = .)
-                [!provide]                PROVIDE (__start_bss_RamAHB32 = .)
+                [!provide]                PROVIDE (__start_bss_Ram_USB = .)
  *(.bss.$RAM2)
- *(.bss.$RamAHB32)
+ *(.bss.$Ram_USB)
  *(.bss.$RAM2.*)
- *(.bss.$RamAHB32.*)
+ *(.bss.$Ram_USB.*)
                 0x2007c000                . = ALIGN ((. != 0x0)?0x4:0x1)
                 [!provide]                PROVIDE (__end_bss_RAM2 = .)
-                [!provide]                PROVIDE (__end_bss_RamAHB32 = .)
+                [!provide]                PROVIDE (__end_bss_Ram_USB = .)
 
-.bss_RAM3       0x2007c800     0x23b0
+.bss_RAM3       0x2007c800     0x23b8
                 [!provide]                PROVIDE (__start_bss_RAM3 = .)
                 [!provide]                PROVIDE (__start_bss_RAM3 = .)
  *(.bss.$RAM3)
- .bss.$RAM3     0x2007c800       0xc0 ./Strategie/0_Infos.o
- .bss.$RAM3     0x2007c8c0      0x180 ./Communication/0_Communication.o
- .bss.$RAM3     0x2007ca40       0xdf ./Communication/1_Trame_Communication.o
- *fill*         0x2007cb1f        0x1 
- .bss.$RAM3     0x2007cb20       0x46 ./Communication/2_Echange_Datas.o
- *fill*         0x2007cb66        0x2 
- .bss.$RAM3     0x2007cb68       0x46 ./Communication/2_Echange_Datas_Reception.o
+ .bss.$RAM3     0x2007c800       0xc8 ./Strategie/0_Infos.o
+ .bss.$RAM3     0x2007c8c8      0x180 ./Communication/0_Communication.o
+ .bss.$RAM3     0x2007ca48       0xdf ./Communication/1_Trame_Communication.o
+ *fill*         0x2007cb27        0x1 
+ .bss.$RAM3     0x2007cb28       0x46 ./Communication/2_Echange_Datas.o
+ *fill*         0x2007cb6e        0x2 
+ .bss.$RAM3     0x2007cb70       0x46 ./Communication/2_Echange_Datas_Reception.o
  *(.bss.$RAM3)
  *(.bss.$RAM3.*)
- .bss.$RAM3.    0x2007cbae     0x2000 ./src/IA_2021_V0.o
+ .bss.$RAM3.    0x2007cbb6     0x2000 ./src/IA_2021_V0.o
  *(.bss.$RAM3.*)
-                0x2007ebb0                . = ALIGN ((. != 0x0)?0x4:0x1)
- *fill*         0x2007ebae        0x2 
+                0x2007ebb8                . = ALIGN ((. != 0x0)?0x4:0x1)
+ *fill*         0x2007ebb6        0x2 
                 [!provide]                PROVIDE (__end_bss_RAM3 = .)
                 [!provide]                PROVIDE (__end_bss_RAM3 = .)
 
@@ -2239,15 +2239,15 @@ END GROUP
                 0x10000234                _0_Deplacement_EventGroup
  .bss.g_hUsb    0x10000238        0x4 ./Communication/USB/src/cdc_usb_main.o
                 0x10000238                g_hUsb
- .bss.Message.11231
+ .bss.Message.11232
                 0x1000023c       0x4d ./Communication/0_Communication.o
  *fill*         0x10000289        0x3 
  .bss._1_xQueue_Message_TO_Send
                 0x1000028c        0x4 ./Communication/0_Communication.o
                 0x1000028c                _1_xQueue_Message_TO_Send
- .bss.already_flaged.11220
+ .bss.already_flaged.11221
                 0x10000290        0x1 ./Communication/0_Communication.o
- .bss.g_txBuff.11232
+ .bss.g_txBuff.11233
                 0x10000291       0x80 ./Communication/0_Communication.o
  *fill*         0x10000311        0x3 
  .bss.rxring_RS485
@@ -2271,7 +2271,7 @@ END GROUP
                 0x10000350                _1_xQueue_Message_Receive
  .bss.log_message
                 0x10000354       0x3e ./Communication/2_Echange_Datas.o
- .bss.str.9956  0x10000392       0x46 ./Communication/2_Echange_Datas.o
+ .bss.str.9957  0x10000392       0x46 ./Communication/2_Echange_Datas.o
  .bss.Nb_Messages_Interpretes
                 0x100003d8        0x4 ./Communication/2_Echange_Datas_Reception.o
  .bss.Nb_PONG_recus
@@ -2313,23 +2313,23 @@ END GROUP
 
 .noinit_RAM2    0x2007c000        0x0
                 [!provide]                PROVIDE (__start_noinit_RAM2 = .)
-                [!provide]                PROVIDE (__start_noinit_RamAHB32 = .)
+                [!provide]                PROVIDE (__start_noinit_Ram_USB = .)
  *(.noinit.$RAM2)
- *(.noinit.$RamAHB32)
+ *(.noinit.$Ram_USB)
  *(.noinit.$RAM2.*)
- *(.noinit.$RamAHB32.*)
+ *(.noinit.$Ram_USB.*)
                 0x2007c000                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__end_noinit_RAM2 = .)
-                [!provide]                PROVIDE (__end_noinit_RamAHB32 = .)
+                [!provide]                PROVIDE (__end_noinit_Ram_USB = .)
 
-.noinit_RAM3    0x2007ebb0        0x0
+.noinit_RAM3    0x2007ebb8        0x0
                 [!provide]                PROVIDE (__start_noinit_RAM3 = .)
                 [!provide]                PROVIDE (__start_noinit_RAM3 = .)
  *(.noinit.$RAM3)
  *(.noinit.$RAM3)
  *(.noinit.$RAM3.*)
  *(.noinit.$RAM3.*)
-                0x2007ebb0                . = ALIGN (0x4)
+                0x2007ebb8                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__end_noinit_RAM3 = .)
                 [!provide]                PROVIDE (__end_noinit_RAM3 = .)
 
@@ -2346,47 +2346,47 @@ END GROUP
                 0x10008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 [!provide]                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x00010000                _image_start = LOADADDR (.text)
-                0x00014c08                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x00004c08                _image_size = (_image_end - _image_start)
+                0x00014c10                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00004c10                _image_size = (_image_end - _image_start)
 OUTPUT(IA_2021_V0.axf elf32-littlearm)
 
-.debug_info     0x00000000    0x2bc86
+.debug_info     0x00000000    0x2bc71
  .debug_info    0x00000000     0x28f2 ./src/IA_2021_V0.o
  .debug_info    0x000028f2     0x11d7 ./src/Init.o
  .debug_info    0x00003ac9      0x2f5 ./src/cr_startup_lpc175x_6x.o
  .debug_info    0x00003dbe       0x3c ./src/crp.o
  .debug_info    0x00003dfa      0x9d6 ./src/sysinit.o
- .debug_info    0x000047d0      0xfc8 ./src/test.o
- .debug_info    0x00005798      0xb10 ./freertos/src/FreeRTOSCommonHooks.o
- .debug_info    0x000062a8     0x136c ./freertos/src/event_groups.o
- .debug_info    0x00007614      0xefd ./freertos/src/heap_5.o
- .debug_info    0x00008511      0xbeb ./freertos/src/list.o
- .debug_info    0x000090fc      0xd09 ./freertos/src/port.o
- .debug_info    0x00009e05     0x2551 ./freertos/src/queue.o
- .debug_info    0x0000c356     0x303c ./freertos/src/tasks.o
- .debug_info    0x0000f392     0x1d60 ./freertos/src/timers.o
- .debug_info    0x000110f2     0x167d ./Strategie/Deplacement/0_Deplacements.o
- .debug_info    0x0001276f      0xdce ./Strategie/0_Infos.o
- .debug_info    0x0001353d     0x2627 ./Communication/USB/src/cdc_usb_main.o
- .debug_info    0x00015b64     0x101e ./Communication/RS485/0_RS485.o
- .debug_info    0x00016b82     0x31b5 ./Communication/0_Communication.o
- .debug_info    0x00019d37      0xaa4 ./Communication/0_Event_Group.o
- .debug_info    0x0001a7db     0x194b ./Communication/1_Trame_Communication.o
- .debug_info    0x0001c126     0x183d ./Communication/2_Echange_Datas.o
- .debug_info    0x0001d963     0x119b ./Communication/2_Echange_Datas_Reception.o
- .debug_info    0x0001eafe      0x642 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_info    0x0001f140      0xeb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_info    0x0001fff0      0x63f D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_info    0x0002062f      0x89e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_info    0x00020ecd      0x501 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_info    0x000213ce     0x179c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_info    0x00022b6a     0x2849 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_info    0x000253b3     0x14f8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
- .debug_info    0x000268ab     0x1f77 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
- .debug_info    0x00028822     0x14e4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
- .debug_info    0x00029d06     0x1f80 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_info    0x000047d0      0xfc9 ./src/test.o
+ .debug_info    0x00005799      0xb10 ./freertos/src/FreeRTOSCommonHooks.o
+ .debug_info    0x000062a9     0x136c ./freertos/src/event_groups.o
+ .debug_info    0x00007615      0xefd ./freertos/src/heap_5.o
+ .debug_info    0x00008512      0xbeb ./freertos/src/list.o
+ .debug_info    0x000090fd      0xd09 ./freertos/src/port.o
+ .debug_info    0x00009e06     0x2551 ./freertos/src/queue.o
+ .debug_info    0x0000c357     0x303c ./freertos/src/tasks.o
+ .debug_info    0x0000f393     0x1d60 ./freertos/src/timers.o
+ .debug_info    0x000110f3     0x164b ./Strategie/Deplacement/0_Deplacements.o
+ .debug_info    0x0001273e      0xddc ./Strategie/0_Infos.o
+ .debug_info    0x0001351a     0x2627 ./Communication/USB/src/cdc_usb_main.o
+ .debug_info    0x00015b41     0x101e ./Communication/RS485/0_RS485.o
+ .debug_info    0x00016b5f     0x31b5 ./Communication/0_Communication.o
+ .debug_info    0x00019d14      0xaa4 ./Communication/0_Event_Group.o
+ .debug_info    0x0001a7b8     0x194b ./Communication/1_Trame_Communication.o
+ .debug_info    0x0001c103     0x183d ./Communication/2_Echange_Datas.o
+ .debug_info    0x0001d940     0x11a9 ./Communication/2_Echange_Datas_Reception.o
+ .debug_info    0x0001eae9      0x642 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_info    0x0001f12b      0xeb0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_info    0x0001ffdb      0x63f D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_info    0x0002061a      0x89e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_info    0x00020eb8      0x501 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_info    0x000213b9     0x179c D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_info    0x00022b55     0x2849 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_info    0x0002539e     0x14f8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+ .debug_info    0x00026896     0x1f77 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_info    0x0002880d     0x14e4 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_info    0x00029cf1     0x1f80 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
-.debug_abbrev   0x00000000     0x6a42
+.debug_abbrev   0x00000000     0x6a28
  .debug_abbrev  0x00000000      0x3af ./src/IA_2021_V0.o
  .debug_abbrev  0x000003af      0x2a8 ./src/Init.o
  .debug_abbrev  0x00000657      0x166 ./src/cr_startup_lpc175x_6x.o
@@ -2401,28 +2401,28 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_abbrev  0x00001b11      0x43e ./freertos/src/queue.o
  .debug_abbrev  0x00001f4f      0x4ee ./freertos/src/tasks.o
  .debug_abbrev  0x0000243d      0x3fe ./freertos/src/timers.o
- .debug_abbrev  0x0000283b      0x441 ./Strategie/Deplacement/0_Deplacements.o
- .debug_abbrev  0x00002c7c      0x2a1 ./Strategie/0_Infos.o
- .debug_abbrev  0x00002f1d      0x3c5 ./Communication/USB/src/cdc_usb_main.o
- .debug_abbrev  0x000032e2      0x2bf ./Communication/RS485/0_RS485.o
- .debug_abbrev  0x000035a1      0x537 ./Communication/0_Communication.o
- .debug_abbrev  0x00003ad8      0x1e3 ./Communication/0_Event_Group.o
- .debug_abbrev  0x00003cbb      0x402 ./Communication/1_Trame_Communication.o
- .debug_abbrev  0x000040bd      0x3cf ./Communication/2_Echange_Datas.o
- .debug_abbrev  0x0000448c      0x322 ./Communication/2_Echange_Datas_Reception.o
- .debug_abbrev  0x000047ae      0x1e7 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_abbrev  0x00004995      0x426 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_abbrev  0x00004dbb      0x221 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_abbrev  0x00004fdc      0x294 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_abbrev  0x00005270      0x1f9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_abbrev  0x00005469      0x4c9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_abbrev  0x00005932      0x52a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_abbrev  0x00005e5c      0x143 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
- .debug_abbrev  0x00005f9f      0x3b8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
- .debug_abbrev  0x00006357      0x2f5 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
- .debug_abbrev  0x0000664c      0x3f6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_abbrev  0x0000283b      0x427 ./Strategie/Deplacement/0_Deplacements.o
+ .debug_abbrev  0x00002c62      0x2a1 ./Strategie/0_Infos.o
+ .debug_abbrev  0x00002f03      0x3c5 ./Communication/USB/src/cdc_usb_main.o
+ .debug_abbrev  0x000032c8      0x2bf ./Communication/RS485/0_RS485.o
+ .debug_abbrev  0x00003587      0x537 ./Communication/0_Communication.o
+ .debug_abbrev  0x00003abe      0x1e3 ./Communication/0_Event_Group.o
+ .debug_abbrev  0x00003ca1      0x402 ./Communication/1_Trame_Communication.o
+ .debug_abbrev  0x000040a3      0x3cf ./Communication/2_Echange_Datas.o
+ .debug_abbrev  0x00004472      0x322 ./Communication/2_Echange_Datas_Reception.o
+ .debug_abbrev  0x00004794      0x1e7 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_abbrev  0x0000497b      0x426 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_abbrev  0x00004da1      0x221 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_abbrev  0x00004fc2      0x294 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_abbrev  0x00005256      0x1f9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_abbrev  0x0000544f      0x4c9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_abbrev  0x00005918      0x52a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_abbrev  0x00005e42      0x143 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+ .debug_abbrev  0x00005f85      0x3b8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_abbrev  0x0000633d      0x2f5 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_abbrev  0x00006632      0x3f6 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
-.debug_loc      0x00000000     0xd9ae
+.debug_loc      0x00000000     0xd9be
  .debug_loc     0x00000000      0x62f ./src/IA_2021_V0.o
  .debug_loc     0x0000062f      0x4b0 ./src/Init.o
  .debug_loc     0x00000adf      0x16a ./src/cr_startup_lpc175x_6x.o
@@ -2436,22 +2436,22 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_loc     0x0000322b     0x1c91 ./freertos/src/tasks.o
  .debug_loc     0x00004ebc      0xcf0 ./freertos/src/timers.o
  .debug_loc     0x00005bac      0x40d ./Strategie/Deplacement/0_Deplacements.o
- .debug_loc     0x00005fb9      0x1c2 ./Strategie/0_Infos.o
- .debug_loc     0x0000617b      0x127 ./Communication/USB/src/cdc_usb_main.o
- .debug_loc     0x000062a2      0x3cd ./Communication/RS485/0_RS485.o
- .debug_loc     0x0000666f      0x441 ./Communication/0_Communication.o
- .debug_loc     0x00006ab0      0x6ea ./Communication/1_Trame_Communication.o
- .debug_loc     0x0000719a      0x3cc ./Communication/2_Echange_Datas.o
- .debug_loc     0x00007566       0x8a ./Communication/2_Echange_Datas_Reception.o
- .debug_loc     0x000075f0      0x688 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_loc     0x00007c78      0x5ca D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_loc     0x00008242      0x110 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_loc     0x00008352      0x245 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_loc     0x00008597     0x1046 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_loc     0x000095dd     0x1b00 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_loc     0x0000b0dd      0xf0b D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
- .debug_loc     0x0000bfe8      0xb98 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
- .debug_loc     0x0000cb80      0xe2e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_loc     0x00005fb9      0x1d2 ./Strategie/0_Infos.o
+ .debug_loc     0x0000618b      0x127 ./Communication/USB/src/cdc_usb_main.o
+ .debug_loc     0x000062b2      0x3cd ./Communication/RS485/0_RS485.o
+ .debug_loc     0x0000667f      0x441 ./Communication/0_Communication.o
+ .debug_loc     0x00006ac0      0x6ea ./Communication/1_Trame_Communication.o
+ .debug_loc     0x000071aa      0x3cc ./Communication/2_Echange_Datas.o
+ .debug_loc     0x00007576       0x8a ./Communication/2_Echange_Datas_Reception.o
+ .debug_loc     0x00007600      0x688 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_loc     0x00007c88      0x5ca D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_loc     0x00008252      0x110 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_loc     0x00008362      0x245 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_loc     0x000085a7     0x1046 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_loc     0x000095ed     0x1b00 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_loc     0x0000b0ed      0xf0b D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_loc     0x0000bff8      0xb98 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_loc     0x0000cb90      0xe2e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
 .debug_aranges  0x00000000      0xdf8
  .debug_aranges
@@ -2523,7 +2523,7 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_aranges
                 0x00000d20       0xd8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
-.debug_ranges   0x00000000     0x1a18
+.debug_ranges   0x00000000     0x19c8
  .debug_ranges  0x00000000      0x108 ./src/IA_2021_V0.o
  .debug_ranges  0x00000108       0xe0 ./src/Init.o
  .debug_ranges  0x000001e8       0x70 ./src/cr_startup_lpc175x_6x.o
@@ -2537,63 +2537,63 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_ranges  0x00000450      0x270 ./freertos/src/queue.o
  .debug_ranges  0x000006c0      0x348 ./freertos/src/tasks.o
  .debug_ranges  0x00000a08      0x108 ./freertos/src/timers.o
- .debug_ranges  0x00000b10       0xd0 ./Strategie/Deplacement/0_Deplacements.o
- .debug_ranges  0x00000be0       0x30 ./Strategie/0_Infos.o
- .debug_ranges  0x00000c10       0x30 ./Communication/USB/src/cdc_usb_main.o
- .debug_ranges  0x00000c40       0x88 ./Communication/RS485/0_RS485.o
- .debug_ranges  0x00000cc8      0x128 ./Communication/0_Communication.o
- .debug_ranges  0x00000df0       0x10 ./Communication/0_Event_Group.o
- .debug_ranges  0x00000e00       0x80 ./Communication/1_Trame_Communication.o
- .debug_ranges  0x00000e80       0xb8 ./Communication/2_Echange_Datas.o
- .debug_ranges  0x00000f38       0x38 ./Communication/2_Echange_Datas_Reception.o
- .debug_ranges  0x00000f70       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_ranges  0x00000fa0      0x198 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_ranges  0x00001138      0x138 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_ranges  0x00001270       0x90 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_ranges  0x00001300       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_ranges  0x00001358      0x238 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_ranges  0x00001590      0x268 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_ranges  0x000017f8      0x108 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
- .debug_ranges  0x00001900       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
- .debug_ranges  0x00001938       0xe0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_ranges  0x00000b10       0x80 ./Strategie/Deplacement/0_Deplacements.o
+ .debug_ranges  0x00000b90       0x30 ./Strategie/0_Infos.o
+ .debug_ranges  0x00000bc0       0x30 ./Communication/USB/src/cdc_usb_main.o
+ .debug_ranges  0x00000bf0       0x88 ./Communication/RS485/0_RS485.o
+ .debug_ranges  0x00000c78      0x128 ./Communication/0_Communication.o
+ .debug_ranges  0x00000da0       0x10 ./Communication/0_Event_Group.o
+ .debug_ranges  0x00000db0       0x80 ./Communication/1_Trame_Communication.o
+ .debug_ranges  0x00000e30       0xb8 ./Communication/2_Echange_Datas.o
+ .debug_ranges  0x00000ee8       0x38 ./Communication/2_Echange_Datas_Reception.o
+ .debug_ranges  0x00000f20       0x30 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_ranges  0x00000f50      0x198 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_ranges  0x000010e8      0x138 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_ranges  0x00001220       0x90 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_ranges  0x000012b0       0x58 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_ranges  0x00001308      0x238 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_ranges  0x00001540      0x268 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_ranges  0x000017a8      0x108 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_ranges  0x000018b0       0x38 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_ranges  0x000018e8       0xe0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
-.debug_line     0x00000000    0x10a03
+.debug_line     0x00000000    0x10a67
  .debug_line    0x00000000      0x933 ./src/IA_2021_V0.o
  .debug_line    0x00000933      0x7a3 ./src/Init.o
  .debug_line    0x000010d6      0x28e ./src/cr_startup_lpc175x_6x.o
  .debug_line    0x00001364       0x2d ./src/crp.o
  .debug_line    0x00001391      0x2ac ./src/sysinit.o
- .debug_line    0x0000163d      0x7a6 ./src/test.o
- .debug_line    0x00001de3      0x4a6 ./freertos/src/FreeRTOSCommonHooks.o
- .debug_line    0x00002289      0x8c6 ./freertos/src/event_groups.o
- .debug_line    0x00002b4f      0x881 ./freertos/src/heap_5.o
- .debug_line    0x000033d0      0x5c7 ./freertos/src/list.o
- .debug_line    0x00003997      0x65f ./freertos/src/port.o
- .debug_line    0x00003ff6     0x137f ./freertos/src/queue.o
- .debug_line    0x00005375     0x1f4a ./freertos/src/tasks.o
- .debug_line    0x000072bf      0xc15 ./freertos/src/timers.o
- .debug_line    0x00007ed4      0xb60 ./Strategie/Deplacement/0_Deplacements.o
- .debug_line    0x00008a34      0x59d ./Strategie/0_Infos.o
- .debug_line    0x00008fd1      0x79d ./Communication/USB/src/cdc_usb_main.o
- .debug_line    0x0000976e      0x50d ./Communication/RS485/0_RS485.o
- .debug_line    0x00009c7b      0xc60 ./Communication/0_Communication.o
- .debug_line    0x0000a8db      0x48f ./Communication/0_Event_Group.o
- .debug_line    0x0000ad6a      0xc5d ./Communication/1_Trame_Communication.o
- .debug_line    0x0000b9c7      0xa08 ./Communication/2_Echange_Datas.o
- .debug_line    0x0000c3cf      0x778 ./Communication/2_Echange_Datas_Reception.o
- .debug_line    0x0000cb47      0x2df D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_line    0x0000ce26      0x7aa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_line    0x0000d5d0      0x509 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_line    0x0000dad9      0x4b9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_line    0x0000df92      0x316 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_line    0x0000e2a8      0xb8a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_line    0x0000ee32      0xd19 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_line    0x0000fb4b      0x198 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
- .debug_line    0x0000fce3      0x54e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
- .debug_line    0x00010231      0x308 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
- .debug_line    0x00010539      0x4ca D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_line    0x0000163d      0x7a3 ./src/test.o
+ .debug_line    0x00001de0      0x4a6 ./freertos/src/FreeRTOSCommonHooks.o
+ .debug_line    0x00002286      0x8c6 ./freertos/src/event_groups.o
+ .debug_line    0x00002b4c      0x881 ./freertos/src/heap_5.o
+ .debug_line    0x000033cd      0x5c7 ./freertos/src/list.o
+ .debug_line    0x00003994      0x65f ./freertos/src/port.o
+ .debug_line    0x00003ff3     0x137f ./freertos/src/queue.o
+ .debug_line    0x00005372     0x1f4a ./freertos/src/tasks.o
+ .debug_line    0x000072bc      0xc15 ./freertos/src/timers.o
+ .debug_line    0x00007ed1      0xbc6 ./Strategie/Deplacement/0_Deplacements.o
+ .debug_line    0x00008a97      0x59e ./Strategie/0_Infos.o
+ .debug_line    0x00009035      0x79d ./Communication/USB/src/cdc_usb_main.o
+ .debug_line    0x000097d2      0x50d ./Communication/RS485/0_RS485.o
+ .debug_line    0x00009cdf      0xc60 ./Communication/0_Communication.o
+ .debug_line    0x0000a93f      0x48f ./Communication/0_Event_Group.o
+ .debug_line    0x0000adce      0xc5d ./Communication/1_Trame_Communication.o
+ .debug_line    0x0000ba2b      0xa08 ./Communication/2_Echange_Datas.o
+ .debug_line    0x0000c433      0x778 ./Communication/2_Echange_Datas_Reception.o
+ .debug_line    0x0000cbab      0x2df D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_line    0x0000ce8a      0x7aa D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_line    0x0000d634      0x509 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_line    0x0000db3d      0x4b9 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_line    0x0000dff6      0x316 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_line    0x0000e30c      0xb8a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_line    0x0000ee96      0xd19 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_line    0x0000fbaf      0x198 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+ .debug_line    0x0000fd47      0x54e D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_line    0x00010295      0x308 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_line    0x0001059d      0x4ca D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
 
-.debug_str      0x00000000     0x7ed8
+.debug_str      0x00000000     0x7ee9
  .debug_str     0x00000000     0x1a0e ./src/IA_2021_V0.o
                                0x1d38 (size before relaxing)
  .debug_str     0x00001a0e      0x1a6 ./src/Init.o
@@ -2624,43 +2624,43 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
                                 0xfd5 (size before relaxing)
  .debug_str     0x00003c43      0x4b9 ./Strategie/Deplacement/0_Deplacements.o
                                 0xf74 (size before relaxing)
- .debug_str     0x000040fc      0x147 ./Strategie/0_Infos.o
-                                0xaa1 (size before relaxing)
- .debug_str     0x00004243      0x47f ./Communication/USB/src/cdc_usb_main.o
+ .debug_str     0x000040fc      0x158 ./Strategie/0_Infos.o
+                                0xab2 (size before relaxing)
+ .debug_str     0x00004254      0x47f ./Communication/USB/src/cdc_usb_main.o
                                0x1efb (size before relaxing)
- .debug_str     0x000046c2       0xcf ./Communication/RS485/0_RS485.o
+ .debug_str     0x000046d3       0xcf ./Communication/RS485/0_RS485.o
                                 0x879 (size before relaxing)
- .debug_str     0x00004791      0x36d ./Communication/0_Communication.o
+ .debug_str     0x000047a2      0x36d ./Communication/0_Communication.o
                                0x23a5 (size before relaxing)
- .debug_str     0x00004afe       0x21 ./Communication/0_Event_Group.o
+ .debug_str     0x00004b0f       0x21 ./Communication/0_Event_Group.o
                                 0x890 (size before relaxing)
- .debug_str     0x00004b1f      0x70b ./Communication/1_Trame_Communication.o
+ .debug_str     0x00004b30      0x70b ./Communication/1_Trame_Communication.o
                                0x1577 (size before relaxing)
- .debug_str     0x0000522a      0x154 ./Communication/2_Echange_Datas.o
+ .debug_str     0x0000523b      0x154 ./Communication/2_Echange_Datas.o
                                0x12e0 (size before relaxing)
- .debug_str     0x0000537e       0x93 ./Communication/2_Echange_Datas_Reception.o
-                               0x10e9 (size before relaxing)
- .debug_str     0x00005411      0x5ce D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_str     0x0000538f       0x93 ./Communication/2_Echange_Datas_Reception.o
+                               0x10fa (size before relaxing)
+ .debug_str     0x00005422      0x5ce D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
                                 0x899 (size before relaxing)
- .debug_str     0x000059df      0x7e8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_str     0x000059f0      0x7e8 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
                                 0xeb3 (size before relaxing)
- .debug_str     0x000061c7       0xaf D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_str     0x000061d8       0xaf D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
                                 0x340 (size before relaxing)
- .debug_str     0x00006276       0xe5 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_str     0x00006287       0xe5 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
                                 0x74c (size before relaxing)
- .debug_str     0x0000635b      0x12a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_str     0x0000636c      0x12a D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
                                 0x69c (size before relaxing)
- .debug_str     0x00006485      0x2ee D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_str     0x00006496      0x2ee D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
                                 0xe2f (size before relaxing)
- .debug_str     0x00006773      0x755 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_str     0x00006784      0x755 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
                                 0xfe6 (size before relaxing)
- .debug_str     0x00006ec8      0x6f7 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
+ .debug_str     0x00006ed9      0x6f7 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_rom_api.o)
                                0x18af (size before relaxing)
- .debug_str     0x000075bf      0x633 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
+ .debug_str     0x000075d0      0x633 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(hw_usbd_ip3503.o)
                                0x1ab2 (size before relaxing)
- .debug_str     0x00007bf2      0x165 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
+ .debug_str     0x00007c03      0x165 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_cdcuser.o)
                                0x1910 (size before relaxing)
- .debug_str     0x00007d57      0x181 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
+ .debug_str     0x00007d68      0x181 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a(mw_usbd_core.o)
                                0x19a7 (size before relaxing)
 
 .comment        0x00000000      0x15f

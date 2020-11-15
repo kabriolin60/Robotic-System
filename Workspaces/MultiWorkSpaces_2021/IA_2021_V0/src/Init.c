@@ -106,5 +106,5 @@ void Init_Carte_IA(void)
 	_2_Communication_RX_Init();
 
 	/* Demande de presence des cartes */
-	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
+	//xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
 }

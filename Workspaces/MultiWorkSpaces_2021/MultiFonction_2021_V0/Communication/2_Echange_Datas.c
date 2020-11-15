@@ -89,7 +89,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 			MINOR_RELEASE,
 			__DATE__,
 			__TIME__);
-	_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);
+	//_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);
 }
 
 

@@ -117,14 +117,15 @@ void TEST_envoi_Ping(void *pvParameters)
 	Init_Timing_Tache;
 	vTraceEnable( TRC_START );
 
-	while(Nb_Ping_Envoyes < 1000000)
+	while(Nb_Ping_Envoyes < 100000)
 	{
 		Set_Debug_Pin_0_High();
 
-		_2_Comm_Send_Demande_Info(1, RS485_port);
+		_2_Comm_Send_PING(1, RS485_port);
+		//_2_Comm_Send_Demande_Info(1, RS485_port);
 		Nb_Ping_Envoyes++;
 
-		Task_Delay_Until(1.0F);
+		Task_Delay_Until(5.0F);
 	}
 
 	Task_Delay_Until(20);

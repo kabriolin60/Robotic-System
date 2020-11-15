@@ -45,7 +45,7 @@ enum Com_Instruction
 	DEMANDE_POSITION_MOTEURS_AUX,
 	REPONDE_POSITION_MOTEURS_AUX,
 	RECALAGE_MOTEUR_AUX,
-	
+
 	DESTINATION_SERVOS_AND_AX12 = 20,
 
 	/*
@@ -67,7 +67,7 @@ enum Com_Instruction
 	DEMANDE_MESURES_DIGITALES = 31,
 	REPONSE_MESURES_DIGITALES,
 	SET_SORTIES_DIGITALES,
-	*/
+	 */
 
 	//Info sur la carte
 	DEMANDE_INFO = 35,
@@ -279,7 +279,9 @@ struct Com_Reponse_Info
 
 	byte Numero_Carte;											//Numero de la carte emettant le message // 1 octet
 
-	byte Etat_Alim;	//7=Simu 6=SimuAux 5=PowerMotor 4=PowerAux 3=PowerAX12 2=PowerServo					 //1 octet
+	byte Etat_Alim; //0= motor power; 1 = motor aux power; 2 = servos power; 3 = ax12 power; 4 = AUX 1 power; 5 = Aux 2 power					 //1 octet
+
+	byte Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
 
 	struct Com_Position_Robot PositionRobot;					//8 octets
 
@@ -289,12 +291,9 @@ struct Com_Reponse_Info
 
 	struct Com_Mesures_Analogiques Mesures_Analogiques;			//8 octets
 
-
 	unsigned short Tension_Batterie;							//Tension * 100		//2 octets
 
 	/*struct Com_Position_Moteurs_Aux_Light PositionMoteursAux;	//4 octets
-
-	struct Com_EntresSorties_Digitales_Light ValeursDigitales; 	//2 octets
 
 	UInt16 Timer;												//Temps du match en 10*ms //2 octets
 	 */

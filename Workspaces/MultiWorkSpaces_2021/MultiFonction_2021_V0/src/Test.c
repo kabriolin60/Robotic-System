@@ -206,12 +206,12 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	_2_Asservissement_Set_Distance_Speed_Accel(20, 1, 1);
 	_2_Asservissement_Set_Rotation_Speed_Accel(20, 2, 2);
 
-	xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_AX12, (char *) "TEST AX12", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(Test_Calibration_Odometrie, (char *) "Odometrie Calib", 250, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
