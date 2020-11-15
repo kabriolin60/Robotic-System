@@ -71,19 +71,19 @@ public class TEST : MonoBehaviour
 
         #region INTERNAL_LOGGER
     public GameObject Logger_View;
-    private void Log(string text, int channel, Color color)
+    private void Log(string text, int channel, Color color, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
     {
         Debug.Log(text);
 
         string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
 
-        Internal_Logger(time, channel, color, text);
+        Internal_Logger(time, channel, color, text, lineNumber, caller);
     }
 
     List<Logger_New_Line.Logger_Message> messages_for_internal_Logger = new List<Logger_New_Line.Logger_Message>();
 
 
-    private void Internal_Logger(string time, int Channel, Color color, string text, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
+    private void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
     {
         string path_string = "File: " + System.IO.Path.GetFileName(caller) + ", " + lineNumber;
 

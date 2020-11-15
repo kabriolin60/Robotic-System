@@ -25,6 +25,8 @@ public class Virtual_SerialPort : MonoBehaviour
     public List<byte> InputBuffer = new List<byte>();
     public List<byte> OutputBuffer = new List<byte>();  
 
+    private bool Comport_cancellationToken = false;
+
     List<Task> tasks = new List<Task>();
 
     public System.IO.Ports.SerialPort getserialPort()
@@ -36,14 +38,22 @@ public class Virtual_SerialPort : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Log("Waiting for serialport!", 6, Color.black);
+        if (serialPort == null)
+        {
+            serialPort = new System.IO.Ports.SerialPort();
+        }
 
         //start listening for messages asynchronously
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(1000);
-            //Attente des 10 secondes de lancement du bootloader
-            //Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
+            Log("Waiting for serialport!", 6, Color.black);
+
+            while (this.serialPort.IsOpen == false)
+            {
+                await Task.Delay(100);
+            }
+
+            Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
             while (true)
             {
                 var dataReceived = await Read_Rx_Bytes(serialPort);
@@ -53,6 +63,9 @@ public class Virtual_SerialPort : MonoBehaviour
                 }
 
                 await Task.Delay(2);
+
+                if(Comport_cancellationToken)
+                    throw new TaskCanceledException();
             }
         }));
 
@@ -60,8 +73,12 @@ public class Virtual_SerialPort : MonoBehaviour
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(1100);
-            //Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
+            while (this.serialPort.IsOpen == false)
+            {
+                await Task.Delay(100);
+            }
+
+            Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
             while (true)
             {
                 if (serialPort != null && serialPort.IsOpen)
@@ -74,6 +91,9 @@ public class Virtual_SerialPort : MonoBehaviour
                     port_opened = false;
                     await Task.Delay(20);
                 }
+
+                if (Comport_cancellationToken)
+                    throw new TaskCanceledException();
             }
         }));
 
@@ -88,6 +108,9 @@ public class Virtual_SerialPort : MonoBehaviour
         {
             serialPort = new System.IO.Ports.SerialPort();
         }
+
+        if (name == "")
+            return;
 
         serialPort.BaudRate = portSpeed;
         serialPort.PortName = name;
@@ -123,6 +146,7 @@ public class Virtual_SerialPort : MonoBehaviour
     {
         try
         {
+            Comport_cancellationToken = true;
             serialPort.Close();
         }
         catch
@@ -195,21 +219,21 @@ public class Virtual_SerialPort : MonoBehaviour
 
     public GameObject Logger;
 
-    private void Log(string text, int channel, Color color)
+    private void Log(string text, int channel, Color color, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
     {
         Debug.Log(text);
 
         string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
 
-        Internal_Logger(time, channel, color, text);
+        Internal_Logger(time, channel, color, text, lineNumber, caller);
     }
 
     List<Logger_New_Line.Logger_Message> messages_for_internal_Logger = new List<Logger_New_Line.Logger_Message>();
     
 
-    private void Internal_Logger(string time, int Channel, Color color, string text, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
+    private void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
     {
-        string path_string = "File: " + Path.GetFileName(caller) + ", " + lineNumber;
+        string path_string = "File: " + System.IO.Path.GetFileName(caller) + ", " + lineNumber;
 
         messages_for_internal_Logger.Add(new Logger_New_Line.Logger_Message(time, Channel, color, path_string + ":: " + text));
     }

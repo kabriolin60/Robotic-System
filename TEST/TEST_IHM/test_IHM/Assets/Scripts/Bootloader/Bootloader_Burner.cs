@@ -21,18 +21,25 @@ public class Bootloader_Burner : MonoBehaviour
     public GameObject Status;
     public GameObject ProgressBar;
     public GameObject Destination;
+    public GameObject Portcom_dropdown;
+    public GameObject Communication_interface;
 
     public string portName;
     public int portSpeed;
 
 
-    static System.IO.Ports.SerialPort serialPort1;
+    private System.IO.Ports.SerialPort serialPort1;
+
     static string[] _lines;
     static int destination_board;
     static bool burn_ended = false;
 
     static int line_number_position = 0;
     int max_line_number = 0;
+
+    List<Task> tasks = new List<Task>();
+
+    static bool cancellationToken;
 
 
     public void FixedUpdate()
@@ -43,9 +50,15 @@ public class Bootloader_Burner : MonoBehaviour
         {
             Status.GetComponent<TextMeshProUGUI>().text = "Target burned";
             serialPort1.Close();
+            serialPort1.Dispose();
 
             burn_ended = false;
         }
+    }
+
+    public void OnDestroy()
+    {
+        cancellationToken = true;
     }
 
 
@@ -54,31 +67,25 @@ public class Bootloader_Burner : MonoBehaviour
         this.gameObject.SetActive(true);
         Main_IHM_To_Hide.SetActive(false);
 
-        if (serialPort1 == null)
+        foreach(Virtual_SerialPort extern_port in Communication_interface.GetComponentsInChildren<Virtual_SerialPort>())
         {
-            serialPort1 = new System.IO.Ports.SerialPort();
-            serialPort1.BaudRate = portSpeed;
-            serialPort1.PortName = portName;
-        }
-
-        if (serialPort1.IsOpen == false)
-        {
-            try
+            if(extern_port != null)
             {
-                serialPort1.Open();
+                if(extern_port.getserialPort().IsOpen)
+                {
+                    extern_port.DisConnect();
+                }
             }
-            catch
-            {
-                Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
-                return;
-            }
-        }
+        }        
     }
 
     public void Bootloader_Form_Hide()
     {
         this.gameObject.SetActive(false);
         Main_IHM_To_Hide.SetActive(true);
+
+        //discard all possible task running in //
+        cancellationToken = true;
     }
 
 
@@ -115,13 +122,33 @@ public class Bootloader_Burner : MonoBehaviour
             return;
         }
 
+        if (serialPort1 == null)
+        {
+            serialPort1 = new System.IO.Ports.SerialPort();
+        }
+
+        int index = Portcom_dropdown.GetComponent<TMPro.TMP_Dropdown>().value;
+        var list = Portcom_dropdown.GetComponent<TMPro.TMP_Dropdown>().options;
+
+        serialPort1.BaudRate = portSpeed;
+        serialPort1.PortName = list[index].text;
+
+        if (serialPort1.IsOpen == false)
+        {
+            try
+            {
+                serialPort1.Open();
+            }
+            catch
+            {
+                Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
+                return;
+            }
+        }
+
+
         //Read all file lines:
         _lines = System.IO.File.ReadAllLines(Application_HEX_File_Path);
-
-
-        //Transform this string lines in byte[] lines and send over Serial Port
-
-       
 
         try
         {
@@ -134,13 +161,13 @@ public class Bootloader_Burner : MonoBehaviour
             Status.GetComponent<TextMeshProUGUI>().text = "Burning";
 
             //start listening for messages and copy the messages back to the client
-            Task.Factory.StartNew(async () =>
+            tasks.Add(Task.Factory.StartNew(async () =>
             {
-                bool received = await EnvoiAsync();
+                bool received = await EnvoiAsync(serialPort1);
 
                 if (received)
                     burn_ended = true;
-            });
+            }));
 
         }
         catch
@@ -149,7 +176,7 @@ public class Bootloader_Burner : MonoBehaviour
         }
     }   
 
-    private static async Task<bool> EnvoiAsync()
+    private static async Task<bool> EnvoiAsync(System.IO.Ports.SerialPort serialPort1)
     {
         byte[] data_to_send;
 
@@ -199,7 +226,7 @@ public class Bootloader_Burner : MonoBehaviour
             }
 
             //Envoi du message
-            Send(comm.Send_Trame(trame));
+            Send(serialPort1, comm.Send_Trame(trame));
 
             //Cree une trame de communication
             line_number_position++;            
@@ -211,13 +238,16 @@ public class Bootloader_Burner : MonoBehaviour
                 //Ecritude d'un bloc
                 await Task.Delay(200);
             }
+
+            if (cancellationToken)
+                throw new TaskCanceledException();
         }                
 
         return true;
     }
 
 
-    static private void Send(byte[] data)
+    static private void Send(System.IO.Ports.SerialPort serialPort1, byte[] data)
     {
         if (serialPort1 == null || !serialPort1.IsOpen)
         {
