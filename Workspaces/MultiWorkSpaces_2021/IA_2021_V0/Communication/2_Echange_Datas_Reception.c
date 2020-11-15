@@ -71,7 +71,6 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 
 			case REPONSE_INFO:
 				_2_Communication_RX_Reponse_Infos(&received_trame);
-				Nb_PONG_recus++;
 				Set_Debug_Pin_0_Low();
 				break;
 
@@ -82,6 +81,7 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 			case PONG:
 				//Reception d'un Pong
 				Nb_PONG_recus++;
+				Set_Debug_Pin_0_Low();
 				break;
 
 			default:
