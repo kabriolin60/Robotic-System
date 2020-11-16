@@ -7,6 +7,9 @@
 
 #include "0_Motors.h"
 
+static bool MOTOR_POWER_ENABLE = false;
+
+
 /******************************************************************************
  ** Function name:		_0_GPIO_Moteurs
  **
@@ -156,6 +159,7 @@ __attribute__((optimize("O0"))) void _0_Set_Motor_Direction(bool dir_mot_1, bool
  ******************************************************************************/
 __attribute__((optimize("O0"))) void _0_Set_Motor_Power(uint8_t moteur_number, bool power)
 {
+	MOTOR_POWER_ENABLE = power;
 	switch(moteur_number)
 	{
 	case 0: //Moteur Gauche
@@ -187,4 +191,20 @@ __attribute__((optimize("O0"))) void _0_Set_Motor_Power(uint8_t moteur_number, b
 		LPC_TIMER2->MR[1] = 0;
 		break;
 	}
+}
+
+
+/******************************************************************************
+ ** Function name:		_0_Get_Motor_Power
+ **
+ ** Descriptions:		Renvoie si la puissance est activée sur les moteurs ou non
+ **
+ ** parameters:			None
+ **
+ ** Returned value:		Power activated
+ **
+ ******************************************************************************/
+__attribute__((optimize("O0"))) bool _0_Get_Motor_Power(void)
+{
+	return MOTOR_POWER_ENABLE;
 }

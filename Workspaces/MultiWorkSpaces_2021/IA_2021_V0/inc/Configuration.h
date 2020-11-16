@@ -146,6 +146,9 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 #define GROS_ROBOT 					0
 #define PETIT_ROBOT 				1
 
+#define GROS_PETIT_PIN_PORT			2
+#define GROS_PETIT_PIN_BIT			11
+
 #else
 
 #define ADRESSE_0_PORT				1

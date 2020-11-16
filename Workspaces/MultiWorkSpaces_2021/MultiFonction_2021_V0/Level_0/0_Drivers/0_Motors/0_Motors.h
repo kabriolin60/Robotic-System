@@ -31,4 +31,6 @@ __attribute__((optimize("O0"))) void _0_Set_Motor_Direction(bool dir_mot_1, bool
 
 __attribute__((optimize("O0"))) void _0_Set_Motor_Power(uint8_t moteur_number, bool power);
 
+__attribute__((optimize("O0"))) bool _0_Get_Motor_Power(void);
+
 #endif /* 0_MOTORS_0_MOTORS_H_ */

@@ -29,5 +29,6 @@ void Set_Debug_Pin_1_Low(void);
 
 void Init_Carte_IA(void);
 
+void Init_Send_Robot_ID();
 
 #endif /* INIT_H_ */

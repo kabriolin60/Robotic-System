@@ -147,6 +147,9 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 #define GROS_ROBOT 0
 #define PETIT_ROBOT 1
 
+#define GROS_PETIT_PIN_PORT			2
+#define GROS_PETIT_PIN_BIT			11
+
 #else
 
 #define ADRESSE_0_PORT				1
@@ -187,6 +190,28 @@ Declaration des parametres pour la conversion ADC
 
 #define ADC_CHANNEL_BATTERIE_PORT	0
 #define ADC_CHANNEL_BATTERIE_BIT	3
+
+
+/**************************************************
+Declaration des Inputs des contacteurs ToR
+**************************************************/
+#define FDC_0_PORT					1
+#define FDC_0_BIT					30
+
+#define FDC_1_PORT					1
+#define FDC_1_BIT					31
+
+#define CTC_0_PORT					0
+#define CTC_0_BIT					30
+
+#define CTC_1_PORT					0
+#define CTC_1_BIT					29
+
+#define CTC_2_PORT					3
+#define CTC_2_BIT					25
+
+#define CTC_3_PORT					3
+#define CTC_3_BIT					26
 
 
 /**************************************************

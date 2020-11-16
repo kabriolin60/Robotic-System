@@ -105,6 +105,15 @@ void Init_Carte_IA(void)
 	/* Init de la communication de Reception Niveau 2 */
 	_2_Communication_RX_Init();
 
+	/* Envoie l'ID du Robot vers les cartes sur le réseau */
+	Init_Send_Robot_ID();
+
 	/* Demande de presence des cartes */
 	//xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
+}
+
+
+void Init_Send_Robot_ID()
+{
+	_2_Comm_Robot_ID(Chip_GPIO_GetPinState(LPC_GPIO, GROS_PETIT_PIN_PORT, GROS_PETIT_PIN_BIT), RS485_port);
 }

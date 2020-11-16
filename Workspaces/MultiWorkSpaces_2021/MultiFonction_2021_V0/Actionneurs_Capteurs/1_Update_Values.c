@@ -11,12 +11,14 @@
 #include "0_Servos.h"
 #include "0_AX12.h"
 #include "0_ADC.h"
+#include "0_Motors.h"
 
 #include "1_Odometrie.h"
 #include "1_Servos.h"
 #include "1_AX12.h"
 
 #include "2_Echange_Datas.h"
+#include "2_Echange_Datas_Reception.h"
 
 static TO_AHBS_RAM3 struct Com_Reponse_Info Updated_Infos;
 static float tension_Batterie;
@@ -53,6 +55,10 @@ void _1_Update_Task(void * pvParameter)
 	{
 		Task_Delay_Until(PERIODE_UPDATE);
 
+
+		//Id du Robot
+		Updated_Infos.Numero_Robot = _2_Comm_Get_Robot_ID(); //0 = PR, 1 = GR
+
 		//Numero de la carte
 #ifdef CARTE_LPCXPRESSO
 		Updated_Infos.Numero_Carte = 1;
@@ -60,12 +66,31 @@ void _1_Update_Task(void * pvParameter)
 		Updated_Infos.Numero_Carte = ADRESSE_CARTE;
 #endif
 
-		//Info sur l'alim
-		Updated_Infos.Etat_Alim = 0;
-		Updated_Infos.Etat_Alim |= Chip_GPIO_ReadPortBit(LPC_GPIO, SERVO_ON_OFF_PORT, SERVO_ON_OFF_BIT) << 2;
-		Updated_Infos.Etat_Alim |= Chip_GPIO_ReadPortBit(LPC_GPIO, AX_12_ON_OFF_PORT, AX_12_ON_OFF_BIT) << 3;
 
-		Updated_Infos.Etat_Alim |= _1_Omodetrie_Get_Simulation() << 7;
+		//Info sur l'alim
+		byte Etat_Alim; //0= motor power; 1 = Simulation; 2 = servos power; 3 = ax12 power; 4 = AUX 1 power; 5 = Aux 2 power					 //1 octet
+
+		Etat_Alim = _0_Get_Motor_Power(); 			//Motor power
+		Etat_Alim |= _1_Omodetrie_Get_Simulation() << 1; 	//Simulation
+		Etat_Alim |= Chip_GPIO_ReadPortBit(LPC_GPIO, SERVO_ON_OFF_PORT, SERVO_ON_OFF_BIT) << 2;	//Servo Power
+		Etat_Alim |= Chip_GPIO_ReadPortBit(LPC_GPIO, AX_12_ON_OFF_PORT, AX_12_ON_OFF_BIT) << 3;	//AX12 power
+		Etat_Alim |= 0 << 4;	//Aux 1
+		Etat_Alim |= 0 << 5;	//Aux 2
+
+		Updated_Infos.Etat_Alim = Etat_Alim;
+
+
+		//Info sur les contacteurs et FDC
+		byte Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
+
+		Etat_Contacteurs = Chip_GPIO_ReadPortBit(LPC_GPIO, FDC_0_PORT, FDC_0_BIT);
+		Etat_Contacteurs |= Chip_GPIO_ReadPortBit(LPC_GPIO, FDC_1_PORT, FDC_1_BIT) << 1;
+		Etat_Contacteurs |= Chip_GPIO_ReadPortBit(LPC_GPIO, CTC_0_PORT, CTC_0_BIT) << 2;
+		Etat_Contacteurs |= Chip_GPIO_ReadPortBit(LPC_GPIO, CTC_1_PORT, CTC_1_BIT) << 3;
+		Etat_Contacteurs |= Chip_GPIO_ReadPortBit(LPC_GPIO, CTC_2_PORT, CTC_2_BIT) << 4;
+		Etat_Contacteurs |= Chip_GPIO_ReadPortBit(LPC_GPIO, CTC_3_PORT, CTC_3_BIT) << 5;
+
+		Updated_Infos.Etat_Contacteurs = Etat_Contacteurs;
 
 		//Mise à jour de la position du Robot
 		pos_robot = _1_Odometrie_GetRobot_Position();
@@ -73,7 +98,6 @@ void _1_Update_Task(void * pvParameter)
 		Updated_Infos.PositionRobot.Position_X = (short)(pos_robot.Position_X * 10);
 		Updated_Infos.PositionRobot.Position_Y = (short)(pos_robot.Position_Y * 10);
 		Updated_Infos.PositionRobot.Angle = (short)(pos_robot.Angle_Deg * 100);
-		Updated_Infos.PositionRobot.Numero_Robot = 1; //reste à aller chercher si on est gros ou petit Robot
 
 
 		//Mise à jour de la position des servos

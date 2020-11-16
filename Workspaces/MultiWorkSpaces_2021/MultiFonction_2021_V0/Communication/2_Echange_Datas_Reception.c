@@ -25,6 +25,8 @@
 extern QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 static long Nb_Messages_Interpretes = 0;
 
+static byte ID_Robot;	//Id du Robot sur lequel est monté cette carte
+
 /*****************************************************************************
  ** Function name:		_2_Communication_RX_Init
  **
@@ -79,12 +81,19 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 				_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
 #endif
 				break;
-					
-				case DESTINATION_SERVOS_AND_AX12:
+
+
+			case DESTINATION_SERVOS_AND_AX12:
 #ifdef TYPE_CARTE_MULTIFCT
 				_2_Comm_RX_Destination_Servos(&received_trame);
 #endif
 				break;
+
+
+			case DEFINITION_ID_ROBOT:		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
+				_2_Comm_RX_Id_Robot(&received_trame);
+				break;
+
 
 			case DEMANDE_INFO:
 				//Mise en pile des infos à envoyer
@@ -93,19 +102,21 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 				_0_Communication_Give_Sending_Clearance();
 				break;
 
+
 			case PARAMETRES_PID:
 				_2_Communication_RX_Parametres_PID(&received_trame);
 				break;
+
 
 			case PING:
 				//A la demande d'une carte, on répond par un PONG
 				_2_Comm_Send_PONG(RS485_port);
 				break;	
-					
+
+
 			default:
 				break;
 			}
-
 			Debug_Trace_Texte("Fin_Interpretation");
 		}
 	}
@@ -249,7 +260,7 @@ void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas)
 {
 	struct st_Destination_Servos destinations;	
 	COPYDATA2(datas->Data, destinations);
-	
+
 	//For each servos asked
 	for(int i = 0; i < destinations.Nombre_servos_to_move; i++)
 	{
@@ -257,7 +268,7 @@ void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas)
 		//IDs x6 to x9 = AX12
 		//ID = @carte*10 + Local_servo_id
 		//Local_ID = global_ID % 10
-		
+
 		//Check if this servo is associated to this board
 		if(destinations.servo[i].ID / 10 == ADRESSE_CARTE)
 		{
@@ -273,4 +284,28 @@ void _2_Comm_RX_Destination_Servos(struct Communication_Trame* datas)
 			}
 		}
 	}
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Id_Robot
+ **
+ ** Descriptions:		Receive Robot id
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Id_Robot(struct Communication_Trame* datas)
+{
+	struct Com_Def_Id_Robot id;
+	COPYDATA2(datas->Data, id);
+
+	ID_Robot = id.Numero_Robot;
+}
+
+
+byte _2_Comm_Get_Robot_ID()
+{
+	return ID_Robot;
 }

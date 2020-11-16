@@ -193,7 +193,7 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 	Com_Position_Robot.Position_X = (short)(rob_pos.Position_X * 10);
 	Com_Position_Robot.Position_Y = (short)(rob_pos.Position_Y * 10);
 	Com_Position_Robot.Angle = (short)(rob_pos.Angle_Deg * 100);
-	Com_Position_Robot.Numero_Robot = 1;
+	//Com_Position_Robot.Numero_Robot = 1;
 
 	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
@@ -333,6 +333,38 @@ void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination,
 
 	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Robot_ID
+ **
+ ** Descriptions:		Fonction d'envoie d'une réponse à un ping
+ **
+ ** parameters:			ID du robot
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = DEFINITION_ID_ROBOT;
+	trame_echange.Slave_Adresse = ALL_CARDS;
+
+	trame_echange.Length = 1;
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	trame_echange.Data[0] = ID;
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
 }

@@ -122,7 +122,7 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 	Com_Position_Robot.Position_X = (short)(rob_pos.Position_X * 10);
 	Com_Position_Robot.Position_Y = (short)(rob_pos.Position_Y * 10);
 	Com_Position_Robot.Angle = (short)(rob_pos.Angle_Deg * 100);
-	Com_Position_Robot.Numero_Robot = 1;
+	//Com_Position_Robot.Numero_Robot = 1;
 
 	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;

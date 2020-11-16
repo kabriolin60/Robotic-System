@@ -70,7 +70,8 @@ enum Com_Instruction
 	 */
 
 	//Info sur la carte
-	DEMANDE_INFO = 35,
+	DEFINITION_ID_ROBOT = 34,		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
+	DEMANDE_INFO,
 	REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
 
 	//Power
@@ -223,7 +224,6 @@ struct Com_Position_Robot
 	//Instruction 10		//7 octets + alignement = 8
 	//Position du Robot
 
-	byte Numero_Robot;			//0 = PR, 1 = GR
 	int16_t Position_X;			//*10
 	int16_t Position_Y;			//*10
 	int16_t Angle;				//*100 //Orientation du Robot (° *100)
@@ -271,11 +271,27 @@ struct Com_Mesures_Analogiques
 
 
 /**************************************************
+Declaration de la definition de la Structure de communication permettant de définir l'ID du robot (IA vers autres cartes)
+ **************************************************/
+struct Com_Def_Id_Robot
+{
+	//instruction 34		//58 + alignement = 60 octets
+
+	byte Numero_Robot;											//0 = PR, 1 = GR
+};
+
+/*************************************************/
+
+
+
+/**************************************************
 Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos de la carte vers la carte IA ou vers le PC
  **************************************************/
 struct Com_Reponse_Info
 {
-	//instruction 101		//58 + alignement = 60 octets
+	//instruction 35		//58 + alignement = 60 octets
+
+	byte Numero_Robot;											//0 = PR, 1 = GR
 
 	byte Numero_Carte;											//Numero de la carte emettant le message // 1 octet
 
