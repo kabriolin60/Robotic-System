@@ -28,39 +28,3 @@ public class CarteMultiFct_maj : MonoBehaviour
 }
 
 
-public class Com_Position_Robot
-	{
-		//Instruction 10		//7 octets + alignement = 8
-		//Position du Robot
-
-		public enum Com_Position_Robot_Identification : byte
-		{
-			Gros_Robot,
-			Petit_Robot
-		};
-
-		/**************************************************
-		Declaration de la definition de la Structure de communication permettant de faire remonter la position du Robot vers la carte IA ou vers le PC
-		**************************************************/
-
-		[StructLayout(LayoutKind.Sequential)]
-		public class Com_Position_Robot_Data
-		{
-			[MarshalAs(UnmanagedType.U1)]
-			public Com_Position_Robot_Identification Numero_Robot;
-
-			[MarshalAs(UnmanagedType.I2)]
-			public short Position_X;         //*10
-
-			[MarshalAs(UnmanagedType.I2)]
-			public short Position_Y;         //*10
-
-			[MarshalAs(UnmanagedType.I2)]
-			public short Angle;              //*100 //Orientation du Robot (° *100)
-											 //byte Bloquage;
-											 //byte Fin_Deplacement;
-		}
-	};
-
-
-

@@ -7,6 +7,10 @@ using UnityEngine;
 public class Trame_Decoder : MonoBehaviour
 {
 	public List<Communication.Communication_Message> Received_Messages = new List<Communication.Communication_Message>();
+	private Int32 index_lecteur_message = 0;
+
+
+
 	public uint Error_Number = 0;
 	public uint Messages_Number = 0;
 
@@ -14,11 +18,11 @@ public class Trame_Decoder : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		Virtual_SerialPort serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
 		if (serialport != null)
-        {
-			//Creation d'une tâche asynchrone chargée de lire les datas recues par le port virtuel et d'en faire des trames de communication
+		{
+			//Creation d'une tâche asynchrone chargée de lire les datas recues par le port virtuel et d'en faire des messages de communication
 			tasks.Add(Task.Factory.StartNew(async () =>
 			{
 				await Task.Delay(50);
@@ -39,14 +43,30 @@ public class Trame_Decoder : MonoBehaviour
 							//Une erreur a ete recue
 							Error_Number++;
 						}
-                    }
+					}
 
 					await Task.Delay(5);
 				}
 			}));
 		}
-	}    
+	}
+
+
+	public Communication.Communication_Message Pick_Message()
+	{
+		if (Received_Messages.Count > 0 && index_lecteur_message < Received_Messages.Count)
+		{
+			//Il y a au moins un message à lire
+			index_lecteur_message++;
+			return Received_Messages[index_lecteur_message - 1];
+		}
+
+		//Aucun message à lire
+		return null;
+	}
 }
+
+
 
 public class Sending_Data
 {
