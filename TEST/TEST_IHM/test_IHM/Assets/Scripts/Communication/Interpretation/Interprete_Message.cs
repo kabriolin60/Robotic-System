@@ -15,11 +15,16 @@ public class Interprete_Message : MonoBehaviour
 	public GameObject Tab_Multi_Carte_Petit_Robot;
 	public GameObject Tab_Multi_Carte_Gros_Robot;
 
+	//Class qui contiendra les toutes dernières infos reçues et mise à jour
+	Last_Infos Last_Data_Received;
+
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		Decodeurs = this.GetComponentsInChildren<Trame_Decoder>();
+
+		Last_Data_Received = this.GetComponent<Last_Infos>();
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
@@ -65,21 +70,9 @@ public class Interprete_Message : MonoBehaviour
 				//Transforme la trame en un message interpretable
 				Infos_Carte.Com_Reponse_Info data = temp.Trame_To_Data(message.Trame);
 
-				//MaJ de l'affichage des infos dans l'IHM
-				switch (data.Numero_Robot)
-				{
-					case Infos_Carte.Com_Position_Robot_Identification.Petit_Robot:
-						Tab_Multi_Carte_Petit_Robot.GetComponent<Multi_Carte_maj>().maj_Carte(data);
-						break;
-
-					case Infos_Carte.Com_Position_Robot_Identification.Gros_Robot:
-						Tab_Multi_Carte_Gros_Robot.GetComponent<Multi_Carte_maj>().maj_Carte(data);
-						break;
-
-					default:
-						break;
-				}
-				break;
+				//Maj de la classe contenant les dernieres infos pour toutes les cartes
+				Last_Data_Received.Update_Last_Data_Received(data);
+				break;				
 		}
 	}
 }

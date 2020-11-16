@@ -62,7 +62,7 @@ public class Virtual_SerialPort : MonoBehaviour
                 {
                     try
                     {
-                        var dataReceived = await Read_Rx_Bytes(serialPort);
+                        var dataReceived = Read_Rx_Bytes(serialPort);
                         if (dataReceived != null && dataReceived.Length > 0)
                         {
                             try
@@ -110,7 +110,7 @@ public class Virtual_SerialPort : MonoBehaviour
                 if (serialPort != null && serialPort.IsOpen)
                 {
                     port_opened = true;
-                    await SendBytes(serialPort, OutputBuffer);
+                    SendBytes(serialPort, OutputBuffer);
                 }
                 else
                 {
@@ -182,7 +182,7 @@ public class Virtual_SerialPort : MonoBehaviour
     }
 
 
-    private static async Task<byte[]> Read_Rx_Bytes(System.IO.Ports.SerialPort port)
+    private byte[] Read_Rx_Bytes(System.IO.Ports.SerialPort port)
     {       
         if(port == null || port.IsOpen == false)
         {
@@ -199,7 +199,7 @@ public class Virtual_SerialPort : MonoBehaviour
     }
 
 
-    private static async Task SendBytes(System.IO.Ports.SerialPort port, List<byte> datas)
+    private void SendBytes(System.IO.Ports.SerialPort port, List<byte> datas)
     {
         if (port != null && port.IsOpen == false)
         {           
