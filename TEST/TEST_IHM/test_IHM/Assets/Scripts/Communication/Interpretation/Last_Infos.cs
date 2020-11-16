@@ -49,7 +49,14 @@ public class Last_Infos : MonoBehaviour
 
         public void Set_Last_Infos(int card_number, Infos_Carte.Com_Reponse_Info data)
         {
-            Last_Cartes_MultiFct[card_number] = data;
+            try
+            {
+                Last_Cartes_MultiFct[card_number] = data;
+            }
+            catch
+            {
+
+            }
         }
 
         public Infos_Carte.Com_Reponse_Info Get_Last_Infos(int card_number)

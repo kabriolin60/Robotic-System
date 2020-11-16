@@ -37,7 +37,7 @@ public class Interprete_Message : MonoBehaviour
 		Communication.Communication_Message message;
 		while (true)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < 100; j++)
 			{
 				for (int i = 0; i < Decodeurs.Length; i++)
 				{
