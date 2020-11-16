@@ -14,8 +14,8 @@ public class Infos_Carte
 
 	public enum Com_Position_Robot_Identification : byte
 	{
-		Gros_Robot,
-		Petit_Robot
+		Petit_Robot,
+		Gros_Robot		
 	};
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -103,6 +103,21 @@ public class Infos_Carte
 
 		[MarshalAs(UnmanagedType.U2)]
 		public ushort Tension_Batterie;                             //Tension * 100		//2 octets
+	}
+
+
+	public Com_Reponse_Info Trame_To_Data(Communication.Communication_Trame input_trame)
+	{
+		Com_Reponse_Info output = new Com_Reponse_Info();
+
+		output.Position_Servos.Position = new ushort[NB_SERVO];
+		output.Position_AX12.Position = new ushort[NB_AX_12];
+		output.Position_AX12.Torque = new short[NB_AX_12];
+		output.Mesures_Analogiques.Mesure = new ushort[NB_MES_ANA];
+		output.PositionRobot = new Com_Position_Robot_Data();
+
+		output = (Com_Reponse_Info)Communication.GetStructFromArray<Com_Reponse_Info>(input_trame.Data);
+		return output;
 	}
 }
 

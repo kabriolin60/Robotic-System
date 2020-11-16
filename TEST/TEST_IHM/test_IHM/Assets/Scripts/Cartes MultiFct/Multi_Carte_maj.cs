@@ -13,19 +13,19 @@ public class Multi_Carte_maj : MonoBehaviour
     {
         switch(infos.Numero_Carte)
         {
-            case 0:
+            case 1:
                 Carte_1.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
                 break;
 
-            case 1:
+            case 2:
                 Carte_2.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
                 break;
 
-            case 2:
+            case 3:
                 Carte_3.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
                 break;
 
-            case 3:
+            case 4:
                 Carte_4.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
                 break;
 

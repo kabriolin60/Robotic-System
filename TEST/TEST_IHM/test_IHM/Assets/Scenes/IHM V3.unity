@@ -517,6 +517,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58496473}
+  - component: {fileID: 58496474}
+  - component: {fileID: 58496475}
   m_Layer: 0
   m_Name: Communication
   m_TagString: Untagged
@@ -538,8 +540,41 @@ Transform:
   - {fileID: 113103037}
   - {fileID: 1116977563}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58496474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58496472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0767e770f871bdc41843e1098d81cc3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Nb_Messages_Decodes: 0
+  Tab_Multi_Carte_Petit_Robot: {fileID: 64719441}
+  Tab_Multi_Carte_Gros_Robot: {fileID: 8898876769466759472}
+--- !u!114 &58496475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58496472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd0b0f21ddb8bf43b5594196706b620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &64719441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4482039761266152485, guid: b1c1936ab73da6345945722ec36acbaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 898886833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &80507395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3208,7 +3243,7 @@ RectTransform:
   - {fileID: 1874704885}
   - {fileID: 1225070224}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6419,6 +6454,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4482039761266152485, guid: b1c1936ab73da6345945722ec36acbaf,
+        type: 3}
+      propertyPath: m_Name
+      value: Tab Multi Cartes Petit Robot
+      objectReference: {fileID: 0}
     - target: {fileID: 4483306276435605469, guid: b1c1936ab73da6345945722ec36acbaf,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -9118,6 +9158,56 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 791357358}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1178620824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178620826}
+  - component: {fileID: 1178620825}
+  m_Layer: 0
+  m_Name: Common settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1178620825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178620824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e98425846aba1f4b8a3149b9a7b5b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Nombre_Robots: 2
+  Nombre_Cartes_MultiFct_Par_Robot: 4
+--- !u!224 &1178620826
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178620824}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1190723044
 GameObject:
   m_ObjectHideFlags: 0
@@ -11448,7 +11538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 469.25714}
+  m_AnchoredPosition: {x: 0, y: 468.9324}
   m_SizeDelta: {x: -5, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1501869256
@@ -11631,7 +11721,7 @@ Transform:
   - {fileID: 736407463}
   - {fileID: 212627680}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573155796
 GameObject:
@@ -11804,7 +11894,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2042281694}
   m_HandleRect: {fileID: 2042281693}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14783,7 +14873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2068627797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14810,7 +14900,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2110659531
 GameObject:
@@ -19706,6 +19796,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482039761266152485, guid: b1c1936ab73da6345945722ec36acbaf,
+        type: 3}
+      propertyPath: m_Name
+      value: Tab Multi Cartes Gros Robot
       objectReference: {fileID: 0}
     - target: {fileID: 4635433197352535528, guid: b1c1936ab73da6345945722ec36acbaf,
         type: 3}
