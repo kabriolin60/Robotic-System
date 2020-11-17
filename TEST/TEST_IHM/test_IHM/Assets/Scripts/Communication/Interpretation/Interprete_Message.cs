@@ -12,9 +12,6 @@ public class Interprete_Message : MonoBehaviour
 
 	public Int32 Nb_Messages_Decodes = 0;
 
-	public GameObject Tab_Multi_Carte_Petit_Robot;
-	public GameObject Tab_Multi_Carte_Gros_Robot;
-
 	//Class qui contiendra les toutes dernières infos reçues et mise à jour
 	Last_Infos Last_Data_Received;
 
@@ -55,7 +52,7 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-	private void Decodage_Message(Communication.Communication_Message message)
+	public void Decodage_Message(Communication.Communication_Message message)
 	{
 		switch (message.Trame.Instruction)
 		{

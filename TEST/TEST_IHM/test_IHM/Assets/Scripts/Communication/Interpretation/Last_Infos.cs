@@ -44,6 +44,10 @@ public class Last_Infos : MonoBehaviour
         {
             Nombre_Cartes_MultiFct_Par_Robot = nb_multifct;
             Last_Cartes_MultiFct = new Infos_Carte.Com_Reponse_Info[Nombre_Cartes_MultiFct_Par_Robot];
+            for (int i = 0; i < Last_Cartes_MultiFct.Length; i++)
+            {
+                Last_Cartes_MultiFct[i] = new Infos_Carte.Com_Reponse_Info();
+            }
         }
 
         public void Set_Last_Infos(int card_number, Infos_Carte.Com_Reponse_Info data)
@@ -54,7 +58,7 @@ public class Last_Infos : MonoBehaviour
             }
             catch
             {
-
+                Debug.Log("Pas de carte définie");
             }
         }
 
