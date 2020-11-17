@@ -39,8 +39,6 @@ public class Virtual_SerialPort : MonoBehaviour
         Start_Reading_Task();
 
         Start_Sending_Task();
-
-        this.StartCoroutine("Routine_Internal_Logger");
     }
 
 
@@ -111,7 +109,7 @@ public class Virtual_SerialPort : MonoBehaviour
                 await Task.Delay(100);
             }
 
-            Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
+            Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
             while (true)
             {
                 if (serialPort != null && serialPort.IsOpen)
@@ -149,11 +147,11 @@ public class Virtual_SerialPort : MonoBehaviour
         try
         {
             serialPort.Open();
-            Log("Serial Port:" + serialPort.PortName + " Opened!", 6, Color.black);
+            Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Opened!", 6, Color.black);
         }
         catch
         {
-            Log("Error while oppening Serial Port:" + serialPort.PortName + "!", 6, Color.red);
+            Logger_New_Line.Log("Error while oppening Serial Port:" + serialPort.PortName + "!", 6, Color.red);
         }       
     }
 
@@ -163,7 +161,7 @@ public class Virtual_SerialPort : MonoBehaviour
         try
         {
             serialPort.Close();
-            Log("Serial Port:" + serialPort.PortName + " Closed!", 6, Color.black);
+            Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Closed!", 6, Color.black);
         }
         catch
         {
@@ -250,7 +248,7 @@ public class Virtual_SerialPort : MonoBehaviour
 
         if (serialPort.BytesToRead < count)
         {
-            Log($"Not enought data {count} in RX buffer {serialPort.BytesToRead}", 6, Color.black);
+            Logger_New_Line.Log($"Not enought data {count} in RX buffer {serialPort.BytesToRead}", 6, Color.black);
             count = serialPort.BytesToRead;
         }
 
@@ -260,70 +258,5 @@ public class Virtual_SerialPort : MonoBehaviour
 
         return true;
     }
-
-
-
-    #region INTERNAL_LOGGER
-
-    public GameObject Logger;
-
-    private void Log(string text, int channel, Color color, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
-    {
-        Debug.Log(text);
-
-        string hour= String.Format("{0,-2}", System.DateTime.Now.Hour);
-        string minutes=String.Format("{0,-2}", System.DateTime.Now.Minute);
-        string secondes=String.Format("{0,-2}", System.DateTime.Now.Second);
-        string miliseconds= String.Format("{0,-23}", System.DateTime.Now.Millisecond);
-
-        string time = hour+":"+minutes+":"+secondes+":"+miliseconds;
-
-        //string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
-
-        Internal_Logger(time, channel, color, text, lineNumber, caller);
-    }
-
-    List<Logger_New_Line.Logger_Message> messages_for_internal_Logger = new List<Logger_New_Line.Logger_Message>();
-    
-
-    private void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
-    {
-        string path_string = "File: " + System.IO.Path.GetFileName(caller) + ", " + lineNumber;
-
-        messages_for_internal_Logger.Add(new Logger_New_Line.Logger_Message(time, Channel, color, path_string + ":: " + text));
-    }
-
-    IEnumerator Routine_Internal_Logger()
-    {
-        yield return new WaitForSeconds(0.5F);
-        Logger_New_Line new_Liner;
-
-        new_Liner = Logger.GetComponent<Logger_New_Line>();
-
-        int message_used = 0;
-
-        while (true)
-        {
-            yield return new WaitForSeconds(0.2F);
-
-            message_used = 0;
-            try
-            {
-                foreach (Logger_New_Line.Logger_Message message in messages_for_internal_Logger)
-                {
-                    new_Liner.Add_New_Logger_Line(message);
-                    message_used++;
-                }
-            }catch
-            {
-
-            }
-
-
-            messages_for_internal_Logger.RemoveRange(0, message_used);
-            yield return null;
-        }
-    }
-    #endregion
 }
 

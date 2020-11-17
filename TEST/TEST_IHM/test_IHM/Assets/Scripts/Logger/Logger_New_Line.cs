@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Logger_New_Line : MonoBehaviour
 {
+    static public Logger_New_Line Logger_Viewer;
+
+
     public GameObject Line_Contener;
     public GameObject Line_Prefab;
 
@@ -35,6 +38,9 @@ public class Logger_New_Line : MonoBehaviour
 
     public void Start()
     {
+        //utilisé pour le logger, accessible en static
+        Logger_Viewer = this.gameObject.GetComponent<Logger_New_Line>();
+
         //string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
         //Add_New_Logger_Line(time, 3, Color.green, "Toto est passé par ici");
     }
@@ -72,4 +78,26 @@ public class Logger_New_Line : MonoBehaviour
             }
         }
     }
+
+
+
+
+    #region INTERNAL_LOGGER
+    public static void Log(string text, int channel, Color color, [System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0, [System.Runtime.CompilerServices.CallerFilePath] string caller = null)
+    {
+        Debug.Log(text);
+
+        string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
+
+        Internal_Logger(time, channel, color, text, lineNumber, caller);
+    }
+
+
+    public static  void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
+    {
+        string path_string = "File: " + System.IO.Path.GetFileName(caller) + ", " + lineNumber;
+
+        Logger_New_Line.Logger_Viewer.Add_New_Logger_Line(new Logger_New_Line.Logger_Message(time, Channel, color, path_string + ":: " + text));
+    }
+    #endregion
 }
