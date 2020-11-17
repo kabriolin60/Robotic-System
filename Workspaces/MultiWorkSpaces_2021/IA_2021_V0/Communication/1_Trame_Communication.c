@@ -350,7 +350,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 #endif
 			return pdFAIL;
 		}
-		Task_Delay(0.5F);
+		Task_Delay(0.1F);
 	}
 
 	RingBuffer_PopMult(RingBuff, &Data_rx, 6);
@@ -399,7 +399,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 #endif
 				return pdFAIL;
 			}
-			Task_Delay(0.2F);
+			Task_Delay(0.1F);
 		}
 
 		RingBuffer_PopMult(RingBuff, &received_trame.Data, received_trame.Length);

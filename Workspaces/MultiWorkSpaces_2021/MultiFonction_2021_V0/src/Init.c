@@ -157,7 +157,7 @@ void Init_Carte_MultiFonctions(void)
 	_1_Update_Init();
 
 	//Quand l'init est terminée, envoie un message d'identification
-	_2_Comm_Send_PONG(RS485_port);
+	//_2_Comm_Send_PONG(RS485_port);
 }
 
 

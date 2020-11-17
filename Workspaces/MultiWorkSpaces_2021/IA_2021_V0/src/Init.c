@@ -108,6 +108,9 @@ void Init_Carte_IA(void)
 	/* Envoie l'ID du Robot vers les cartes sur le réseau */
 	Init_Send_Robot_ID();
 
+	//Quand l'init est terminée, envoie un message d'identification
+	_2_Comm_Send_PONG(RS485_port);
+
 	/* Demande de presence des cartes */
 	//xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
 }

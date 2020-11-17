@@ -1739,9 +1739,11 @@ END GROUP
  .rodata        0x00003545       0x23 ./0_Communication/0_Communication.o
  .rodata        0x00003568       0x26 ./0_Communication/1_Trame_Communication.o
  .rodata._2_Comm_Send_PONG.str1.1
-                0x0000358e       0x3d ./0_Communication/2_Echange_Datas.o
+                0x0000358e       0x3b ./0_Communication/2_Echange_Datas.o
+                                 0x3d (size before relaxing)
  .rodata._2_Communication_RX_Init.str1.1
-                0x000035cb       0x11 ./0_Communication/2_Echange_Datas_Reception.o
+                0x000035c9       0x11 ./0_Communication/2_Echange_Datas_Reception.o
+ *fill*         0x000035da        0x2 ff
  .rodata.MainOscPLL0conf_12
                 0x000035dc       0xf0 D:\Developpement_Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .rodata.MainOscPLL0conf_16
@@ -1941,15 +1943,15 @@ END GROUP
  .bss.xTimerTaskHandle
                 0x100012b0        0x4 ./freertos/src/timers.o
  .bss.$RAM3     0x100012b4      0x180 ./0_Communication/0_Communication.o
- .bss.Message.11071
+ .bss.Message.11072
                 0x10001434       0x4d ./0_Communication/0_Communication.o
  *fill*         0x10001481        0x3 
  .bss._1_xQueue_Message_TO_Send
                 0x10001484        0x4 ./0_Communication/0_Communication.o
                 0x10001484                _1_xQueue_Message_TO_Send
- .bss.already_flaged.11062
+ .bss.already_flaged.11063
                 0x10001488        0x1 ./0_Communication/0_Communication.o
- .bss.g_txBuff.11072
+ .bss.g_txBuff.11073
                 0x10001489       0x80 ./0_Communication/0_Communication.o
  *fill*         0x10001509        0x3 
  .bss.rxring_RS485
@@ -1976,7 +1978,7 @@ END GROUP
  .bss.$RAM3     0x1000162c       0x46 ./0_Communication/2_Echange_Datas.o
  .bss.log_message
                 0x10001672       0x3e ./0_Communication/2_Echange_Datas.o
- .bss.str.9932  0x100016b0       0x46 ./0_Communication/2_Echange_Datas.o
+ .bss.str.9933  0x100016b0       0x46 ./0_Communication/2_Echange_Datas.o
  *fill*         0x100016f6        0x2 
  .bss.$RAM3     0x100016f8       0x46 ./0_Communication/2_Echange_Datas_Reception.o
  *fill*         0x1000173e        0x2 

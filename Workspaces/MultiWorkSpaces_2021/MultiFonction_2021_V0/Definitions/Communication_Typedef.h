@@ -330,6 +330,7 @@ enum Logger_Debug_Color
 
 enum Channel_Debug
 {
+	Channel_Debug_Communication,
 	Channel_Debug_Deplacement,
 	Channel_Debug_ASTAR,
 	Channel_Debug_Test,

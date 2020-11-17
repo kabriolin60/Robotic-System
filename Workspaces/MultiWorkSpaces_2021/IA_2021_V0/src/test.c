@@ -117,23 +117,31 @@ void TEST_envoi_Ping(void *pvParameters)
 	Init_Timing_Tache;
 	vTraceEnable( TRC_START );
 
-	while(Nb_Ping_Envoyes < 1000000)
+	_2_Comm_Send_PING(1, RS485_port);
+
+	while(Nb_Ping_Envoyes < 120000)
 	{
 		Set_Debug_Pin_0_High();
-
 		//_2_Comm_Send_PING(1, RS485_port);
 		_2_Comm_Send_Demande_Info(1, RS485_port);
 		Nb_Ping_Envoyes++;
 
-		Task_Delay_Until(3.0F);
+		Task_Delay_Until(5.0F);
 	}
 
 	Task_Delay_Until(20);
 
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, true);
 	if(Nb_PONG_recus == Nb_Ping_Envoyes)
 	{
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
 	}
+
+	//Send the revision of this board firmware
+	static char str[70];
+	sprintf(str, "N_Mess recu= %ld\n",
+			Nb_PONG_recus);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Communication, RS485_port);
 
 	while(1)
 	{
