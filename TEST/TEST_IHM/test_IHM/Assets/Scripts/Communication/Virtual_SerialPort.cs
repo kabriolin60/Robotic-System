@@ -1,17 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEditor;
-using System.Text;
-using System.Runtime.InteropServices;
 using System;
-using UnityEngine.EventSystems;
-using SFB;
-using UnityEngine.UI;
-using System.Threading;
 using System.Threading.Tasks;
-using System.IO;
 
 public class Virtual_SerialPort : MonoBehaviour
 {
@@ -24,8 +15,8 @@ public class Virtual_SerialPort : MonoBehaviour
     public int data_in_port_read_buffer = 0;
     public int data_in_input_buffer = 0;
 
-    public List<byte> InputBuffer = new List<byte>();
-    public List<byte> OutputBuffer = new List<byte>();  
+    //private List<byte> InputBuffer = new List<byte>();
+    private List<byte> OutputBuffer = new List<byte>();  
 
     private bool Comport_cancellationToken = false;
 
@@ -45,6 +36,18 @@ public class Virtual_SerialPort : MonoBehaviour
             serialPort = new System.IO.Ports.SerialPort();
         }
 
+        Start_Reading_Task();
+
+        Start_Sending_Task();
+
+        this.StartCoroutine("Routine_Internal_Logger");
+    }
+
+
+
+    private void Start_Reading_Task()
+    {
+        /*
         //start listening for messages asynchronously
         tasks.Add(Task.Factory.StartNew(async () =>
         {
@@ -85,17 +88,21 @@ public class Virtual_SerialPort : MonoBehaviour
                     {
                         Log($"Receiving task Exception!: {_ex}", 6, Color.red);
                     }
-                }else
+                }
+                else
                 {
                     await Task.Delay(100);
                 }
 
-                if(Comport_cancellationToken)
+                if (Comport_cancellationToken)
                     throw new TaskCanceledException();
             }
         }));
+        */
+    }
 
-
+    private void Start_Sending_Task()
+    {
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
@@ -122,11 +129,7 @@ public class Virtual_SerialPort : MonoBehaviour
                     throw new TaskCanceledException();
             }
         }));
-
-
-        this.StartCoroutine("Routine_Internal_Logger");
     }
-
 
     public void Connect(string name)
     {
@@ -210,33 +213,52 @@ public class Virtual_SerialPort : MonoBehaviour
         }
     }
 
-    public byte ReadRemoveInputByte()
+
+    public int Number_Byte_To_Read()
     {
-        if (InputBuffer.Count > 0)
-        {
-            byte read = InputBuffer[0];
-            InputBuffer.RemoveAt(0);
-            return read;
-        }
-        else
-        {
-            Log("Not enought data in RX buffer", 6, Color.black);
-            return 0;
-        }
+        return serialPort.BytesToRead;
     }
 
-    public byte[] ReadRemoveInputByte(int count)
+
+    public bool ReadRemoveInputByte(out byte data)
     {
-        if (InputBuffer.Count < count)
+        if (serialPort == null || serialPort.IsOpen == false)
         {
-            count = InputBuffer.Count;
-            Log($"Not enought data {count} in RX buffer {InputBuffer.Count}", 6, Color.black);
+            data = 0;
+            return false;
         }
 
-        byte[] read = new byte[count];
-        read = InputBuffer.GetRange(0, count).ToArray();
-        InputBuffer.RemoveRange(0, count);
-        return read;
+        if (serialPort.BytesToRead > 0)
+        {
+            data = (byte)serialPort.ReadByte();
+            return true;
+        }
+
+        data = 0;
+        return false;
+    }
+        
+  
+
+    public bool ReadRemoveInputByte(int count, out byte[] datas)
+    {
+        if (serialPort == null || serialPort.IsOpen == false)
+        {
+            datas = new byte[0];
+            return false;
+        }
+
+        if (serialPort.BytesToRead < count)
+        {
+            Log($"Not enought data {count} in RX buffer {serialPort.BytesToRead}", 6, Color.black);
+            count = serialPort.BytesToRead;
+        }
+
+        //Receptions des datas
+        datas = new byte[count];
+        serialPort.Read(datas, 0, count);
+
+        return true;
     }
 
 

@@ -18,7 +18,12 @@ public class Trame_Decoder : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-	{
+	{		
+		Start_Decodage_Task();
+	}
+
+	private void Start_Decodage_Task()
+    {
 		Virtual_SerialPort serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
 		if (serialport != null)
 		{
@@ -29,7 +34,7 @@ public class Trame_Decoder : MonoBehaviour
 
 				while (true)
 				{
-					while (serialport.InputBuffer.Count > 100)
+					while (serialport.Number_Byte_To_Read() > 100)
 					{
 						var dataReceived = await Reception_Data.ReadTrame(serialport);
 						if (dataReceived != null)
@@ -140,7 +145,7 @@ public class Reception_Data
 		byte boucle = 0;
 		while (API_start != 0x7E)
 		{
-			API_start = (byte)_SerialPort.ReadRemoveInputByte();
+			_SerialPort.ReadRemoveInputByte(out API_start);
 			boucle++;
 			if (boucle > 5)
 			{
@@ -150,8 +155,8 @@ public class Reception_Data
 		}
 
 		//Le start byte est recu, on demarre la lecture de la trame
-		API_LENGTH_HIGH = (byte)_SerialPort.ReadRemoveInputByte();
-		API_LENGTH_LOW = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_LENGTH_HIGH);
+		_SerialPort.ReadRemoveInputByte(out API_LENGTH_LOW);
 
 		API_LENGTH = API_LENGTH_HIGH;
 		API_LENGTH <<= 8;
@@ -164,16 +169,16 @@ public class Reception_Data
 		}
 
 		//Packet Type
-		API_FRAME_TYPE = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_FRAME_TYPE);
 		crc += API_FRAME_TYPE;
 
 		if (API_FRAME_TYPE == 0x89)
 		{
 			//Tx status
-			API_DUMMY = _SerialPort.ReadRemoveInputByte();
+			_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 			crc += API_DUMMY;
 
-			API_DUMMY = _SerialPort.ReadRemoveInputByte();
+			_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 			crc += API_DUMMY;
 
 			if (API_DUMMY == 00)
@@ -183,50 +188,55 @@ public class Reception_Data
 			}
 
 			//API CRC
-			rx_crc = _SerialPort.ReadRemoveInputByte();
+			_SerialPort.ReadRemoveInputByte(out rx_crc);
 			return null;
 		}
 
-		if (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
+		if (_SerialPort.Number_Byte_To_Read() < API_LENGTH - 1)
 		{
 			Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1");
 			await Task.Delay(1);
 		}
 
 		boucle = 0;
-		while (_SerialPort.InputBuffer.Count < API_LENGTH - 1)
+		while (_SerialPort.Number_Byte_To_Read() < API_LENGTH - 1)
 		{
 			boucle++;
 			if (boucle > 5)
 			{
-				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.InputBuffer.Count}/{API_LENGTH + 1}");
+				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.Number_Byte_To_Read()}/{API_LENGTH + 1}");
 				return null;
 			}
 			await Task.Delay(3);
 		}
 
 		//Tx Address
-		API_DUMMY = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 		crc += API_DUMMY;
 
-		API_DUMMY = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 		crc += API_DUMMY;
 
 		//RSSI
-		API_DUMMY = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 		crc += API_DUMMY;
 
 		//Option
-		API_DUMMY = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
 		crc += API_DUMMY;
 
 		//Reception datas
-		received_message.Trame.Instruction = (Communication.Com_Instruction)(byte)_SerialPort.ReadRemoveInputByte();
+		//Instruction
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
+		received_message.Trame.Instruction = (Communication.Com_Instruction)(API_DUMMY);
 		crc += (byte)received_message.Trame.Instruction;
 
-		received_message.Trame.Slave_Adresse = (Communication.Slave_Adresses)(byte)_SerialPort.ReadRemoveInputByte();
+		//Slave Address
+		_SerialPort.ReadRemoveInputByte(out API_DUMMY);
+		received_message.Trame.Slave_Adresse = (Communication.Slave_Adresses)(API_DUMMY);
 		crc += (byte)received_message.Trame.Slave_Adresse;
 
+		//Trame length
 		received_message.Trame.Length = (byte)(API_LENGTH - 7);
 
 		if (received_message.Trame.Length > Communication.COMMUNICATION_TRAME_MAX_DATA)
@@ -236,7 +246,7 @@ public class Reception_Data
 		}
 
 
-		if (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+		if (_SerialPort.Number_Byte_To_Read() < received_message.Trame.Length + 1)
 		{
 			Debug.Log("_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1");
 			await Task.Delay(10);
@@ -244,7 +254,7 @@ public class Reception_Data
 
 
 		boucle = 0;
-		while (_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1)
+		while (_SerialPort.Number_Byte_To_Read() < received_message.Trame.Length + 1)
 		{
 			boucle++;
 
@@ -259,12 +269,12 @@ public class Reception_Data
 		//Reception des data
 		for (index = 0; index < received_message.Trame.Length; index++)
 		{
-			received_message.Trame.Data[index] = (byte)_SerialPort.ReadRemoveInputByte();
+			_SerialPort.ReadRemoveInputByte(out received_message.Trame.Data[index]);
 			crc += (byte)(received_message.Trame.Data[index]);
 		}
 
 		//API CRC
-		rx_crc = (byte)_SerialPort.ReadRemoveInputByte();
+		_SerialPort.ReadRemoveInputByte(out rx_crc);
 
 		//Contrôle CRC
 		crc &= 0xFF;
