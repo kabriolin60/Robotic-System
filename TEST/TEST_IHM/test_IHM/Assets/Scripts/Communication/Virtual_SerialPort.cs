@@ -140,6 +140,7 @@ public class Virtual_SerialPort : MonoBehaviour
 
         serialPort.BaudRate = portSpeed;
         serialPort.PortName = name;
+        serialPort.ReadBufferSize = 65000;
         this.portName = name;
 
         try
