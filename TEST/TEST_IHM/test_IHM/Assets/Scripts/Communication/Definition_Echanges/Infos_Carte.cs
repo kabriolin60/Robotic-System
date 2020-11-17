@@ -14,8 +14,8 @@ public class Infos_Carte
 
 	public enum Com_Position_Robot_Identification : byte
 	{
-		Petit_Robot,
-		Gros_Robot		
+		Gros_Robot,
+		Petit_Robot
 	};
 
 	[StructLayout(LayoutKind.Sequential)]

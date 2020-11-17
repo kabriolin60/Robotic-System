@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Last_Infos : MonoBehaviour
 {
-    public GameObject Common_settings;
 
     private int Nombre_robots;
     private int Nombre_Cartes_MultiFct_Par_Robot;
@@ -17,8 +16,8 @@ public class Last_Infos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Nombre_robots = Common_settings.GetComponent<Common_settings>().Nombre_Robots;
-        Nombre_Cartes_MultiFct_Par_Robot = Common_settings.GetComponent<Common_settings>().Nombre_Cartes_MultiFct_Par_Robot;
+        Nombre_robots = Common_settings.static_Nombre_Robots;
+        Nombre_Cartes_MultiFct_Par_Robot = Common_settings.static_Nombre_Cartes_MultiFct_Par_Robot;
 
         Robots_Last_Info = new Robot_Last_Infos[Nombre_robots];
 
