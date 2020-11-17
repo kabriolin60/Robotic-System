@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Multi_Carte_maj : MonoBehaviour
 {
-    public GameObject Carte_1;
-    public GameObject Carte_2;
-    public GameObject Carte_3;
-    public GameObject Carte_4;
+    public GameObject[] Carte_multiFct;
 
     public int Robot_id;
 
+
+    public void Start()
+    {
+        Carte_multiFct = new GameObject[Common_settings.static_Nombre_Cartes_MultiFct_Par_Robot];  
+    }
+
+
     public void FixedUpdate()
     {
-        for (int carte_id = 0; carte_id < 4; carte_id++)
+        for (int carte_id = 0; carte_id < Common_settings.static_Nombre_Cartes_MultiFct_Par_Robot; carte_id++)
         {
             try
             {
@@ -26,31 +30,8 @@ public class Multi_Carte_maj : MonoBehaviour
         }
     }
 
-
-
-
     public void maj_Carte(Infos_Carte.Com_Reponse_Info infos)
     {
-        switch(infos.Numero_Carte)
-        {
-            case 1:
-                Carte_1.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
-                break;
-
-            case 2:
-                Carte_2.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
-                break;
-
-            case 3:
-                Carte_3.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
-                break;
-
-            case 4:
-                Carte_4.GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
-                break;
-
-            default:
-                break;
-        }
+        Carte_multiFct[infos.Numero_Carte - 1].GetComponent<CarteMultiFct_maj>().MaJ_Carte(infos);
     }
 }

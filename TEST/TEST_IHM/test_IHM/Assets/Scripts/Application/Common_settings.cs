@@ -12,6 +12,8 @@ public class Common_settings : MonoBehaviour
 
     static public string[] static_Robots_Names = { "Gros Robot", "Petit Robot", "test 1", "Test 2", "Test 3" };
 
+    static public string[] static_Cartes_Names = { "Carte MultiFct 1", "Carte MultiFct 2", "Carte MultiFct 3", "Carte MultiFct 4", "test 1", "Test 2", "Test 3" };
+
     static public Infos_Carte.Com_Position_Robot_Identification[] static_Id_Robot;
 
     public void Start()

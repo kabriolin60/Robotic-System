@@ -8,7 +8,6 @@ public class Last_Infos : MonoBehaviour
     private int Nombre_robots;
     private int Nombre_Cartes_MultiFct_Par_Robot;
 
-    [SerializeField]
     static public Robot_Last_Infos[] Robots_Last_Info;
 
 
@@ -30,7 +29,7 @@ public class Last_Infos : MonoBehaviour
 
     public void Update_Last_Data_Received(Infos_Carte.Com_Reponse_Info data)
     {
-        Robots_Last_Info[(int)data.Numero_Robot].Set_Last_Infos(data.Numero_Carte - 1, data);
+        Robots_Last_Info[(int)data.Numero_Robot].Set_Last_Infos(data.Numero_Carte, data);
     }
 
 
@@ -54,7 +53,7 @@ public class Last_Infos : MonoBehaviour
         {
             try
             {
-                Last_Cartes_MultiFct[card_number] = data;
+                Last_Cartes_MultiFct[card_number - 1] = data;
             }
             catch
             {

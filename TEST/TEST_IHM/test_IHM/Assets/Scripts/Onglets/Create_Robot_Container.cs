@@ -12,9 +12,14 @@ public class Create_Robot_Container : MonoBehaviour
     public GameObject Onglet_Prefab;
     public GameObject Robot_Prefab;
 
+    private List<GameObject> list_Panels_Robots = new List<GameObject>(); 
+
     // Start is called before the first frame update
     void Start()
     {
+        if (Common_settings.static_Nombre_Robots == 0)
+            return;
+
         //Premier Robot qui est actif
         GameObject go_robot = Instantiate(Onglet_Prefab, Switch_Holder.transform) as GameObject;
         go_robot.GetComponent<Toggle>().isOn = true;
@@ -22,6 +27,7 @@ public class Create_Robot_Container : MonoBehaviour
 
         //Le premier contenu
         GameObject go_robot_contenu = Instantiate(Robot_Prefab, Contenu_Panel.transform) as GameObject;
+        list_Panels_Robots.Add(go_robot_contenu);
         go_robot_contenu.SetActive(true);
 
         //Associe le panel à cet onglet
@@ -50,9 +56,10 @@ public class Create_Robot_Container : MonoBehaviour
 
             //Le contenu de l'onglet
             go_robot_contenu = Instantiate(Robot_Prefab, Contenu_Panel.transform) as GameObject;
+            list_Panels_Robots.Add(go_robot_contenu);
 
             //desactive les cartes
-            go_robot_contenu.SetActive(false);
+            //go_robot_contenu.SetActive(false);
 
             //Associe le panel à cet onglet
             go_robot.GetComponent<Toggle>().onValueChanged.AddListener(go_robot_contenu.SetActive);
@@ -73,6 +80,18 @@ public class Create_Robot_Container : MonoBehaviour
             {
                 go_robot_contenu.GetComponent<Multi_Carte_maj>().Robot_id = (int)Common_settings.static_Id_Robot[0];
             }
+        }
+
+        StartCoroutine(LateStart());
+    }
+
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(0.1F);
+
+        for (int robot_count = 1; robot_count < Common_settings.static_Nombre_Robots; robot_count++)
+        {
+            list_Panels_Robots[robot_count].SetActive(false);
         }
     }
 }

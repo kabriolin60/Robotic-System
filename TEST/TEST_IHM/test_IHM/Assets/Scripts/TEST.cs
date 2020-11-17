@@ -63,6 +63,18 @@ public class TEST : MonoBehaviour
 
         Communication_GO.GetComponent<Interprete_Message>().Decodage_Message(message);
 
+
+
+        data_test.Numero_Robot = Infos_Carte.Com_Position_Robot_Identification.Petit_Robot;
+        data_test.Numero_Carte = 1;
+
+        data_test.PositionRobot.Position_X = 7555;
+        data_test.PositionRobot.Position_Y = 12234;
+        data_test.PositionRobot.Angle = -12300;
+        message.Trame.Data = com.COPYDATA(data_test);
+
+        Communication_GO.GetComponent<Interprete_Message>().Decodage_Message(message);
+
         this.StartCoroutine("Routine_Internal_Logger");
 
         //this.StartCoroutine("test_logger_quantity");

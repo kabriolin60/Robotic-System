@@ -22,9 +22,9 @@ public class Update_Panel_Position_Robot : MonoBehaviour
             float pos_y = (float)(last_position.PositionRobot.Position_Y) / 10;
             float angle = (float)(last_position.PositionRobot.Angle) / 100;
 
-            Robot_Position_X.GetComponent<TextMeshProUGUI>().text = $"X = {pos_x.ToString()} mm";
-            Robot_Position_Y.GetComponent<TextMeshProUGUI>().text = $"Y = {pos_y.ToString()} mm";
-            Robot_Angle.GetComponent<TextMeshProUGUI>().text = $"Ang = {angle.ToString()} °";
+            Robot_Position_X.GetComponent<TextMeshProUGUI>().text = $"X= {pos_x.ToString()} mm";
+            Robot_Position_Y.GetComponent<TextMeshProUGUI>().text = $"Y= {pos_y.ToString()} mm";
+            Robot_Angle.GetComponent<TextMeshProUGUI>().text = $"Ang= {angle.ToString()} °";
         }
         catch
         {
