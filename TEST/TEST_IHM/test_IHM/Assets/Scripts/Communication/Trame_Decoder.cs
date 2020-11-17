@@ -10,7 +10,7 @@ public class Trame_Decoder : MonoBehaviour
 	private Int32 index_lecteur_message = 0;
 
 
-
+	public int Buffer_Lower_Limit;
 	public uint Error_Number = 0;
 	public uint Messages_Number = 0;
 
@@ -34,7 +34,7 @@ public class Trame_Decoder : MonoBehaviour
 
 				while (true)
 				{
-					while (serialport.Number_Byte_To_Read() > 100)
+					while (serialport.Number_Byte_To_Read() > Buffer_Lower_Limit)
 					{
 						var dataReceived = await Reception_Data.ReadTrame(serialport);
 						if (dataReceived != null)

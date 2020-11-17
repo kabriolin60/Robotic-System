@@ -93,11 +93,18 @@ public class Logger_New_Line : MonoBehaviour
     }
 
 
-    public static  void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
+    public static void Internal_Logger(string time, int Channel, Color color, string text, int lineNumber, string caller)
     {
         string path_string = "File: " + System.IO.Path.GetFileName(caller) + ", " + lineNumber;
 
-        Logger_New_Line.Logger_Viewer.Add_New_Logger_Line(new Logger_New_Line.Logger_Message(time, Channel, color, path_string + ":: " + text));
+        try
+        {
+            //Logger_New_Line.Logger_Viewer.Add_New_Logger_Line(new Logger_New_Line.Logger_Message(time, Channel, color, path_string + ":: " + text));
+        }
+        catch
+        {
+            Debug.Log("Error in Internal Logger");
+        }
     }
     #endregion
 }

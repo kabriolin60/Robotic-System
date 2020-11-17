@@ -36,7 +36,7 @@ public class Virtual_SerialPort : MonoBehaviour
             serialPort = new System.IO.Ports.SerialPort();
         }
 
-        Start_Reading_Task();
+        //Start_Reading_Task();
 
         Start_Sending_Task();
     }
@@ -45,18 +45,17 @@ public class Virtual_SerialPort : MonoBehaviour
 
     private void Start_Reading_Task()
     {
-        /*
         //start listening for messages asynchronously
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            Log("Waiting for serialport!", 6, Color.black);
+            Logger_New_Line.Log("Waiting for serialport!", 6, Color.black);
 
             while (this.serialPort.IsOpen == false)
             {
                 await Task.Delay(100);
             }
 
-            Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
+            Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
             while (true)
             {
                 if (this.serialPort.IsOpen)
@@ -68,23 +67,23 @@ public class Virtual_SerialPort : MonoBehaviour
                         {
                             try
                             {
-                                InputBuffer.AddRange(dataReceived);
+                                //InputBuffer.AddRange(dataReceived);
                             }
                             catch
                             {
-                                Log($"Error in buffer insertion {dataReceived.Length}", 6, Color.black);
+                                Logger_New_Line.Log($"Error in buffer insertion {dataReceived.Length}", 6, Color.black);
                             }
                         }
 
                         data_in_port_read_buffer = serialPort.BytesToRead;
-                        data_in_input_buffer = InputBuffer.Count;
+                        //data_in_input_buffer = InputBuffer.Count;
 
                         await Task.Delay(2);
 
                     }
                     catch (Exception _ex)
                     {
-                        Log($"Receiving task Exception!: {_ex}", 6, Color.red);
+                        Logger_New_Line.Log($"Receiving task Exception!: {_ex}", 6, Color.red);
                     }
                 }
                 else
@@ -96,7 +95,6 @@ public class Virtual_SerialPort : MonoBehaviour
                     throw new TaskCanceledException();
             }
         }));
-        */
     }
 
     private void Start_Sending_Task()
@@ -214,7 +212,16 @@ public class Virtual_SerialPort : MonoBehaviour
 
     public int Number_Byte_To_Read()
     {
-        return serialPort.BytesToRead;
+        if (serialPort == null)
+            return 0;
+
+        if (serialPort.IsOpen)
+        {
+            data_in_port_read_buffer = serialPort.BytesToRead;
+            return serialPort.BytesToRead;
+        }
+
+        return 0;
     }
 
 

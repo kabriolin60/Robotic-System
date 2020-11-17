@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class Logger_Debug : MonoBehaviour
+public class Logger_Debug
 {
 	//Instruction 230					       //Maximum COMMUNICATION_TRAME_MAX_DATA informations à rentrer
 	//Logger
@@ -15,18 +15,18 @@ public class Logger_Debug : MonoBehaviour
 		Color_Red
 	};
 
-	public const byte Max_Char_per_Log = 60;
+	public const byte Max_Char_per_Log = 59;
 	[StructLayout(LayoutKind.Sequential)]
 	public class Logger_Debug_Data
 	{
 		[MarshalAs(UnmanagedType.U1)]
-		public byte Nombre_Carateres;                               //Nombre d'octets de la chaine de commentaires à suivre						//1 octet
-
-		[MarshalAs(UnmanagedType.U1)]
-		public Logger_Debug_Color Color;                            //Couleur du texte à afficher												//1 octet
+		public byte Nombre_Carateres;                               //Nombre d'octets de la chaine de commentaires à suivre						//1 octet		
 
 		[MarshalAs(UnmanagedType.U1)]
 		public byte Channel;                                        //Cannal de débug à utiliser												//1 octet
+
+		[MarshalAs(UnmanagedType.U1)]
+		public Logger_Debug_Color Color;                            //Couleur du texte à afficher												//1 octet
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = Max_Char_per_Log)]
 		public char[] Text = new char[Max_Char_per_Log];            //Chaine de commentaire limitée au nombre ci-dessus, maximum 60 caratcers 	//60 octets

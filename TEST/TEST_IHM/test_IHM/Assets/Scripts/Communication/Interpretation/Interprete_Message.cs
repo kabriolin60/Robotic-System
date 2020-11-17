@@ -57,6 +57,8 @@ public class Interprete_Message : MonoBehaviour
 		switch (message.Trame.Instruction)
 		{
 			default:
+				break;
+
 			case Communication.Com_Instruction.LOGGER_DEBUG:
 				Decode_Logger_Debug(message);
 				break;
@@ -92,7 +94,9 @@ public class Interprete_Message : MonoBehaviour
 				color = Color.red;
 				break;
 		}
-		Logger_New_Line.Logger_Message log = new Logger_New_Line.Logger_Message(time, data.Channel, color, data.Text.ToString());
+
+		string text = new string(data.Text, 0, data.Nombre_Carateres);
+		Logger_New_Line.Logger_Message log = new Logger_New_Line.Logger_Message(time, data.Channel, color, text);
 
 		Logger_New_Line.Logger_Viewer.Add_New_Logger_Line(log);
 	}

@@ -9,7 +9,7 @@ public class Create_Robot_Container : MonoBehaviour
     public GameObject Switch_Holder;
     public GameObject Contenu_Panel;
 
-    public GameObject Onglet_Prefab;
+    public GameObject Onglet_Prefab; 
     public GameObject Robot_Prefab;
 
     private List<GameObject> list_Panels_Robots = new List<GameObject>(); 
