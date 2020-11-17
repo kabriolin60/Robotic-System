@@ -116,6 +116,9 @@ void Init_Carte_MultiFonctions(void)
 	/* Init des sorties Servos Niveau 1*/
 	_1_Servos_Init();
 
+	/* Init du module ADC niveau 0 */
+	_0_ADC_Init();
+
 	/* Init des AX 12 Niveau 0 */
 	_0_Init_AX12();
 
@@ -146,15 +149,15 @@ void Init_Carte_MultiFonctions(void)
 	/* Init de l'asserv de niveau 2 */
 	_2_Deplacement_Init();
 
-	/* Init de 'asserv de niveau 3 */
+	/* Init de l'asserv de niveau 3 */
 	_3_Deplacement_Init();
 
 
 	/* Init de la tache de mise à jour des infos */
 	_1_Update_Init();
 
-	/* Init du module ADC niveau 0 */
-	_0_ADC_Init();
+	//Quand l'init est terminée, envoie un message d'identification
+	_2_Comm_Send_PONG(RS485_port);
 }
 
 

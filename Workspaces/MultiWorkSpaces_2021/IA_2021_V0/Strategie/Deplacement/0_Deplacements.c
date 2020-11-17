@@ -404,7 +404,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					(short)_0_Get_Robot_Position().Position_Y,
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
-			_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+			_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_ASTAR, RS485_port);
 		}
 
 		/*

@@ -328,15 +328,25 @@ enum Logger_Debug_Color
 	Color_Red
 };
 
+enum Channel_Debug
+{
+	Channel_Debug_Deplacement,
+	Channel_Debug_ASTAR,
+	Channel_Debug_Test,
+	Channel_Debug_Divers
+};
 
-#define Max_Char_per_Log 60
+
+#define Max_Char_per_Log 59
 struct Logger_Debug_Data
 {
 	byte Nombre_Carateres;								//Nombre d'octets de la chaine de commentaires à suivre						//1 octet
 
-	enum Logger_Debug_Color Color;                            //Couleur du texte à afficher												//1 octet
+	byte Channel;										//Cannal de Debug utilisé													//1 octet
 
-	char Text[Max_Char_per_Log];			//Chaine de commentaire limitée au nombre ci-dessus, maximum 60 caratcers 	//60 octets
+	enum Logger_Debug_Color Color;                      //Couleur du texte à afficher												//1 octet
+
+	char Text[Max_Char_per_Log];						//Chaine de commentaire limitée au nombre ci-dessus, maximum 60 caratcers 	//60 octets
 };
 
 

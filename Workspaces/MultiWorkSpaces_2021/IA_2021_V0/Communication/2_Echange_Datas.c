@@ -62,7 +62,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 			(short)_0_Get_Robot_Position().Position_Y,
 			(short)destination->coord.X,
 			(short)destination->coord.Y);
-	_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
 }
 
 
@@ -160,7 +160,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 			MINOR_RELEASE,
 			__DATE__,
 			__TIME__);
-	_2_Comm_Send_Log_Message(str, Color_Black, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
 }
 
 
@@ -216,13 +216,14 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
  **
  ** parameters:			Pointeur vers la chaine de caracteres
  ** 					Couleur
+ ** 					Cannal
  ** 					Queue à la quelle ajouter le message
  ** Returned value:		None
  **
  *****************************************************************************/
 static struct Logger_Debug_Data log_message;// TO_AHBS_RAM0;
 
-void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enum_canal_communication canal)
+void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Channel, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
@@ -236,6 +237,8 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, enum enu
 	trame_echange.Slave_Adresse = PC;
 
 	log_message.Color = color;
+
+	log_message.Channel = Channel;
 
 	uint16_t stringlength;
 	//Calcul la longueur de la chaine

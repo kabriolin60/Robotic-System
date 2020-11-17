@@ -91,16 +91,16 @@ void Do_Odometrie_Calibration(void)
 	sprintf(str, "Mesure decalage Codeuses, difference = %ld sur: %ld pas\n",
 			(long)(_1_Odometrie_GetRobot_Position().Angle_rad *_1_Odometrie_Get_Parameters()->COEF_ROT),
 			(_0_Codeurs_Get_CodeursValues().Codeur_Droit + _0_Codeurs_Get_CodeursValues().Codeur_Gauche) >> 1);
-	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Test, RS485_port);
 
 	sprintf(str, "Old coef = %f\n", _1_Odometrie_Get_Parameters()->COEF_CORRECTION_DIAMETRES);
-	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Test, RS485_port);
 
 	float factor = (float)(_1_Odometrie_GetRobot_Position().Angle_rad *_1_Odometrie_Get_Parameters()->COEF_ROT) / (float)((_0_Codeurs_Get_CodeursValues().Codeur_Droit + _0_Codeurs_Get_CodeursValues().Codeur_Gauche) >> 1);
 	float new_coef = _1_Odometrie_Get_Parameters()->COEF_CORRECTION_DIAMETRES - factor;
 
 	sprintf(str, "New coef = %f\n", new_coef);
-	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Test, RS485_port);
 
 	struct st_ROBOT_PARAMETRES* newparameters;
 	newparameters = _1_Odometrie_Get_Parameters();
@@ -158,13 +158,13 @@ void Do_Rotation_Calibration(int nb_tours)
 	static char str[70];
 
 	sprintf(str, "Old coef Rotation = %f\n", _1_Odometrie_Get_Parameters()->COEF_ROT);
-	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Test, RS485_port);
 
 	float delta_angle = _1_Odometrie_GetRobot_Position().Angle_rad;
 	float new_track = _1_Odometrie_Get_Parameters()->COEF_ROT * (1 + (delta_angle / (2 * PI * nb_tours)));
 
 	sprintf(str, "New coef Rotation = %f\n", new_track);
-	_2_Comm_Send_Log_Message(str, Color_Red, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Test, RS485_port);
 
 	struct st_ROBOT_PARAMETRES* newparameters;
 	newparameters = _1_Odometrie_Get_Parameters();
