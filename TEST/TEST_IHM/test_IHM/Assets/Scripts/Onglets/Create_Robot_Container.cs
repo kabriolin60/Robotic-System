@@ -65,7 +65,14 @@ public class Create_Robot_Container : MonoBehaviour
             go_robot.GetComponentInChildren<TextMeshProUGUI>().text = Common_settings.static_Robots_Names[robot_count];
 
             //Set le Robot ID
-            go_robot_contenu.GetComponent<Multi_Carte_maj>().Robot_id = (int)Common_settings.static_Id_Robot[robot_count];
+            try
+            {
+                go_robot_contenu.GetComponent<Multi_Carte_maj>().Robot_id = (int)Common_settings.static_Id_Robot[robot_count];
+            }
+            catch
+            {
+                go_robot_contenu.GetComponent<Multi_Carte_maj>().Robot_id = (int)Common_settings.static_Id_Robot[0];
+            }
         }
     }
 }

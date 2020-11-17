@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Common_settings : MonoBehaviour
 {
-    static public byte static_Nombre_Robots = 2;
-    static public byte static_Nombre_Cartes_MultiFct_Par_Robot = 4;
+    public byte Nombre_Robots;
+    public byte Nombre_Cartes_MultiFct_Par_Robot;
 
-    static public string[] static_Robots_Names = { "Gros Robot", "Petit Robot" };
+    static public byte static_Nombre_Robots;
+    static public byte static_Nombre_Cartes_MultiFct_Par_Robot;
+
+    static public string[] static_Robots_Names = { "Gros Robot", "Petit Robot", "test 1", "Test 2", "Test 3" };
 
     static public Infos_Carte.Com_Position_Robot_Identification[] static_Id_Robot;
 
     public void Start()
     {
+        static_Nombre_Robots = Nombre_Robots;
+        static_Nombre_Cartes_MultiFct_Par_Robot = Nombre_Cartes_MultiFct_Par_Robot;
+
         static_Id_Robot = (Infos_Carte.Com_Position_Robot_Identification[])typeof(Infos_Carte.Com_Position_Robot_Identification).GetEnumValues();
     }
 }
