@@ -15,11 +15,14 @@ public class Interprete_Message : MonoBehaviour
 	//Class qui contiendra les toutes dernières infos reçues et mise à jour
 	Last_Infos Last_Data_Received;
 
+	File_Logger file_Logger;
+
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		Decodeurs = this.GetComponentsInChildren<Trame_Decoder>();
+		file_Logger = this.GetComponent<File_Logger>();
 
 		Last_Data_Received = this.GetComponent<Last_Infos>();
 
@@ -89,8 +92,8 @@ public class Interprete_Message : MonoBehaviour
 
 	private void Save_Message(Communication.Communication_Message message)
     {
-		this.GetComponent<File_Logger>().Write_Logging_Data(message);
-    }
+		file_Logger.Write_Logging_Data(message);
+	}
 
 
 

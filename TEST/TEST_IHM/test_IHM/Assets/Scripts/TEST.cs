@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TEST : MonoBehaviour
@@ -8,6 +9,9 @@ public class TEST : MonoBehaviour
     Infos_Carte.Com_Reponse_Info data_test;
 
     public GameObject Communication_GO;
+
+    List<Task> tasks = new List<Task>();
+
 
     public void Start()
     {
@@ -76,7 +80,31 @@ public class TEST : MonoBehaviour
         Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
 
         //this.StartCoroutine("test_logger_quantity");
-        this.StartCoroutine(test_logger_saver());
+        //this.StartCoroutine(test_logger_saver());
+
+        Interprete_Message interpreter = Communication_GO.GetComponent<Interprete_Message>();
+
+        tasks.Add(Task.Factory.StartNew(async () =>
+        {
+            await Task.Delay(10000);            
+
+            for (int i = 0; i < 100000; i++)
+            {
+                data_test.PositionRobot.Position_X++;
+                data_test.PositionRobot.Position_Y--;
+                data_test.PositionRobot.Angle++;
+
+                message = new Communication.Communication_Message();
+                message.Heure = DateTime.Now;
+                message.Trame = new Communication.Communication_Trame();
+                message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
+                message.Trame.Data = com.COPYDATA(data_test);
+
+                interpreter.Decodage_and_Save_Message(message);
+
+                await Task.Delay(1);
+            }
+        }));
     }
 
     IEnumerator test_logger_quantity()
@@ -112,7 +140,7 @@ public class TEST : MonoBehaviour
 
             Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
 
-            yield return new WaitForSeconds(0.0025F);
+            yield return new WaitForSeconds(0.001F);
         }
 
         yield return null;

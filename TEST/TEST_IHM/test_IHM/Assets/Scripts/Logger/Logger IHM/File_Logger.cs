@@ -23,8 +23,11 @@ public class File_Logger : MonoBehaviour
 
     private bool Pause_Reading_Token = true;
     private bool Stop_Reading_Token = false;
+    private bool Is_Reading = false;
 
     public GameObject Button_Start_Pause;
+
+    public float Reading_Speed = 1.0F;
 
     public void Save_Data_Select_File_Button_OnClick()
     {
@@ -57,6 +60,7 @@ public class File_Logger : MonoBehaviour
     {
         if(Use_XML)
         {
+            if(!Is_Reading)
             XMLSerializer(typeof(Serialized_Datas), serialized_data);
         }
         else
@@ -196,7 +200,7 @@ public class File_Logger : MonoBehaviour
         }
 
         if (Use_XML)
-        {
+        {            
             XMLDeSerializer(typeof(Serialized_Datas));
         }
         else
@@ -215,6 +219,7 @@ public class File_Logger : MonoBehaviour
     public void Request_Stop_Reading()
     {
         this.Stop_Reading_Token = true;
+        Is_Reading = false;
     }
 
     public void Request_Pause_Reading()
@@ -226,6 +231,7 @@ public class File_Logger : MonoBehaviour
         }
         else
         {
+            Is_Reading = true;
             this.Pause_Reading_Token = false;
             Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = "Pause";
         }
@@ -262,7 +268,7 @@ public class File_Logger : MonoBehaviour
             {
                 //Attend que l'heure de traiter ce message soit venue
                 delay = message.Heure.Subtract(last_hour);
-                await Task.Delay((int)delay.TotalMilliseconds);
+                await Task.Delay((int)(delay.TotalMilliseconds / Reading_Speed));
 
                 //interprete ce message
                 Interpreter.Decodage_Message(message);
@@ -270,8 +276,11 @@ public class File_Logger : MonoBehaviour
                 last_hour = message.Heure;
 
                 //si on demande l'arret de la lecture
-                if(Stop_Reading_Token)
+                if (Stop_Reading_Token)
+                {
+                    Is_Reading = false;
                     throw new TaskCanceledException();
+                }
 
                 //Si une pause dans la lecture est demandee
                 while (Pause_Reading_Token)
@@ -279,9 +288,27 @@ public class File_Logger : MonoBehaviour
                     await Task.Delay(100);
                 }
             }
+
+            Is_Reading = false;
         }));
     }
 
+
+    public void Update()
+    {
+        if(Is_Reading)
+        {
+            if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
+            {
+                this.Reading_Speed *= 2;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Minus) || Input.GetKeyUp(KeyCode.KeypadMinus))
+            {
+                this.Reading_Speed /= 2;
+            }
+        }
+    }
 
     public void OnDestroy()
     {
@@ -300,6 +327,7 @@ public class File_Logger : MonoBehaviour
 [Serializable]
 public class Serialized_Datas
 {
+    public int Nombre_Messages = 0;
     public List<Communication.Communication_Message> messages;
 
     public Serialized_Datas()
@@ -310,5 +338,6 @@ public class Serialized_Datas
     public void Add_Data(Communication.Communication_Message message_to_add)
     {
         messages.Add(message_to_add);
+        Nombre_Messages = messages.Count;
     }
 }
