@@ -98,7 +98,7 @@ public class TEST : MonoBehaviour
 
         yield return new WaitForSeconds(10.0F);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100000; i++)
         {
             data_test.PositionRobot.Position_X ++;
             data_test.PositionRobot.Position_Y --;
@@ -112,7 +112,7 @@ public class TEST : MonoBehaviour
 
             Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
 
-            yield return new WaitForSeconds(0.1F);
+            yield return new WaitForSeconds(0.0025F);
         }
 
         yield return null;

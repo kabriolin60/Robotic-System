@@ -31,12 +31,43 @@ public class File_Logger : MonoBehaviour
          * 
          */
 
-        Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "txt");
-
-        if (Logger_File_Path != null)
+        if (Logger_File_Path == null)
         {
-            Debug.Log($"Logger file path = {Logger_File_Path}");
+
+            Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "txt");
+
+            if (Logger_File_Path != null)
+            {
+                Debug.Log($"Logger file path = {Logger_File_Path}");
+
+                if (File.Exists(Logger_File_Path) == false)
+                {
+                    //Le fichier n'existe pas encore
+                    //Il faut donc commencer par le créer
+                    fileStream = File.Create(Logger_File_Path);
+                }
+                else
+                {
+                    fileStream = File.OpenWrite(Logger_File_Path);
+                }
+            }
         }
+        else
+        {
+            //On a deja commence à écrire, il s'agit de la demande d'arret d'écriture
+            Serialize_And_Close();
+        }
+    }
+
+    private void Serialize_And_Close()
+    {
+        //On peut désormais écrire
+        BinaryFormatter formater = new BinaryFormatter();
+        //Serialisation de nos datas et écritures
+        formater.Serialize(fileStream, serialized_data);
+
+        //Ferme le fichier
+        fileStream.Close();
     }
 
     public void Open_Data_Select_File_Button_OnClick()
@@ -70,30 +101,10 @@ public class File_Logger : MonoBehaviour
         {
             //Aucun enregistrement demandé
             return;
-        }
-
-        if (File.Exists(Logger_File_Path) == false)
-        {
-            //Le fichier n'existe pas encore
-            //Il faut donc commencer par le créer
-            fileStream = File.Create(Logger_File_Path);
-        }
-        else
-        {
-            fileStream = File.OpenWrite(Logger_File_Path);
-        }
+        }        
 
         //ajoute les infos à la liste des données reçues
         serialized_data.Add_Data((Communication.Communication_Message)DataToWrite);
-
-        //Le fichier existe
-        //On peut désormais écrire
-        BinaryFormatter formater = new BinaryFormatter();
-        //Serialisation de nos datas et écritures
-        formater.Serialize(fileStream, serialized_data);
-
-        //Ferme le fichier
-        fileStream.Close();
     }
 
     
@@ -199,7 +210,7 @@ public class File_Logger : MonoBehaviour
     {
         try
         {
-            fileStream.Close();
+            Serialize_And_Close();
         }
         catch
         {
