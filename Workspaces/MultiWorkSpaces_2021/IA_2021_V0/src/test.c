@@ -22,7 +22,7 @@ extern long Nb_PONG_recus;
 
 __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 {
-	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 180, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	/*struct Point founded_destination;
 
 	Set_Debug_Pin_0_High();
@@ -110,41 +110,34 @@ void TEST_Deplacement(void * pvParameter)
 
 
 
-
+extern long Nb_Erreurs_com;
 void TEST_envoi_Ping(void *pvParameters)
 {
 	Task_Delay(20);
 	Init_Timing_Tache;
 	vTraceEnable( TRC_START );
 
-	_2_Comm_Send_PING(1, RS485_port);
+	//_2_Comm_Send_PING(1, RS485_port);
 
-	while(Nb_Ping_Envoyes < 120000)
+	while(Nb_Ping_Envoyes < 4000000)
 	{
 		Set_Debug_Pin_0_High();
 		//_2_Comm_Send_PING(1, RS485_port);
 		_2_Comm_Send_Demande_Info(1, RS485_port);
 		Nb_Ping_Envoyes++;
 
-		Task_Delay_Until(5.0F);
+		Task_Delay_Until(1.0F);
 	}
 
 	Task_Delay_Until(20);
 
 	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, true);
-	if(Nb_PONG_recus == Nb_Ping_Envoyes)
+	if(Nb_PONG_recus >= Nb_Ping_Envoyes)
 	{
 		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
 	}
 
-	//Send the revision of this board firmware
-	static char str[70];
-	sprintf(str, "N_Mess recu= %ld\n",
-			Nb_PONG_recus);
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Communication, RS485_port);
+	_2_Comm_Send_PONG(RS485_port);
 
-	while(1)
-	{
-		Task_Delay_Until(20);
-	}
+	Task_Delete_Current;
 }

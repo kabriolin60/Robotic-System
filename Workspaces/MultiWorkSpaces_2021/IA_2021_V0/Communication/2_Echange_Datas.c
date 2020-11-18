@@ -135,6 +135,8 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
  ** Returned value:		None
  **
  *****************************************************************************/
+extern long Nb_PONG_recus;
+extern long Nb_Erreurs_com;
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
@@ -160,6 +162,11 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 			MINOR_RELEASE,
 			__DATE__,
 			__TIME__);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+
+	sprintf(str, "IA Nb Erreurs communication= %ld // pongs= %ld\n",
+			Nb_PONG_recus,
+			Nb_Erreurs_com);
 	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
 }
 
