@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using System;
 
+[Serializable]
 public class Communication
 {
     #region Definition messages de communication
@@ -140,6 +141,7 @@ public class Communication
 		MultiFct_4 = 4
 	};
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public class Communication_Trame
 	{
@@ -159,6 +161,7 @@ public class Communication
 		public Adress_Xbee XBEE_DEST_ADDR;                              //Adresse de la cible Xbee en mode API
 	};
 
+	[Serializable]
 	public class Communication_Message
     {
 		public Communication_Trame Trame;

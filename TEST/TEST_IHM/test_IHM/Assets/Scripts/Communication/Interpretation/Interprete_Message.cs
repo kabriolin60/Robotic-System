@@ -42,14 +42,27 @@ public class Interprete_Message : MonoBehaviour
 					if (message != null)
 					{
 						//Pour chaque décodeur (chacun son tour)
-						Decodage_Message(message);
-						Nb_Messages_Decodes++;
+						//Enregistre pour le log
+						//compte le nombre de messages recus
+						Decodage_and_Save_Message(message);
 					}
 				}
 			}
 			yield return new WaitForSeconds(0.005F);
 		}
 	}
+
+
+
+	public void Decodage_and_Save_Message(Communication.Communication_Message message)
+    {
+		//Pour chaque décodeur (chacun son tour)
+		Decodage_Message(message);
+
+		//Enregistre pour le log
+		Save_Message(message);
+	}
+
 
 
 	public void Decodage_Message(Communication.Communication_Message message)
@@ -67,7 +80,21 @@ public class Interprete_Message : MonoBehaviour
 				Decode_Reponse_Info(message);				
 				break;				
 		}
+
+		//compte le nombre de messages recus
+		Nb_Messages_Decodes++;
 	}
+
+
+
+	private void Save_Message(Communication.Communication_Message message)
+    {
+		this.GetComponent<File_Logger>().Write_Logging_Data(message);
+    }
+
+
+
+
 
 
 	private void Decode_Logger_Debug(Communication.Communication_Message message)
