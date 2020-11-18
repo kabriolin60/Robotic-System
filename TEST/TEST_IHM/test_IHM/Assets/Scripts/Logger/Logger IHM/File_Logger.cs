@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,8 @@ using UnityEngine;
 public class File_Logger : MonoBehaviour
 {
     string Logger_File_Path;
+
+    private bool Use_XML = true;
 
     FileStream fileStream;
 
@@ -33,23 +36,14 @@ public class File_Logger : MonoBehaviour
 
         if (Logger_File_Path == null)
         {
-
-            Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "txt");
-
-            if (Logger_File_Path != null)
+            //Dans quel fichier écrire
+            if (Use_XML)
             {
-                Debug.Log($"Logger file path = {Logger_File_Path}");
-
-                if (File.Exists(Logger_File_Path) == false)
-                {
-                    //Le fichier n'existe pas encore
-                    //Il faut donc commencer par le créer
-                    fileStream = File.Create(Logger_File_Path);
-                }
-                else
-                {
-                    fileStream = File.OpenWrite(Logger_File_Path);
-                }
+                Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "xml");
+            }
+            else
+            {
+                Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "txt");
             }
         }
         else
@@ -61,14 +55,91 @@ public class File_Logger : MonoBehaviour
 
     private void Serialize_And_Close()
     {
+        if(Use_XML)
+        {
+            XMLSerializer(typeof(Serialized_Datas), serialized_data);
+        }
+        else
+        {
+            BinarySerializer(serialized_data);
+        }        
+    }
+
+    private void BinarySerializer(object data)
+    {
+        if (Logger_File_Path != null)
+        {
+            Debug.Log($"Logger file path = {Logger_File_Path}");
+
+            if (File.Exists(Logger_File_Path) == false)
+            {
+                //Le fichier n'existe pas encore
+                //Il faut donc commencer par le créer
+                fileStream = File.Create(Logger_File_Path);
+            }
+            else
+            {
+                fileStream = File.OpenWrite(Logger_File_Path);
+            }
+        }
+
         //On peut désormais écrire
         BinaryFormatter formater = new BinaryFormatter();
         //Serialisation de nos datas et écritures
-        formater.Serialize(fileStream, serialized_data);
+        formater.Serialize(fileStream, data);
 
         //Ferme le fichier
         fileStream.Close();
     }
+
+    private void XMLSerializer(Type dataType, object data)
+    {
+        if (Logger_File_Path != null)
+        {
+            Debug.Log($"Logger file path = {Logger_File_Path}");
+
+            if (File.Exists(Logger_File_Path) == false)
+            {
+                //Le fichier n'existe pas encore
+                //Il faut donc commencer par le créer
+                File.Delete(Logger_File_Path);
+            }
+        }
+
+        XmlSerializer serialiser = new XmlSerializer(dataType);
+        TextWriter writer = new StreamWriter(Logger_File_Path);
+
+        serialiser.Serialize(writer, data);
+        writer.Close();
+    }
+
+    private void BinaryDeSerializer()
+    {
+        //Ouvre le fichier
+        fileStream = File.OpenRead(Logger_File_Path);
+
+        //Dezerialize les datas dans le fichier
+        BinaryFormatter formater = new BinaryFormatter();
+        object _deserialized_data = formater.Deserialize(fileStream);
+
+        deserialized_data = new Serialized_Datas();
+        deserialized_data = (Serialized_Datas)_deserialized_data;
+    }
+
+    private void XMLDeSerializer(Type dataType)
+    {
+        object obj = null;
+
+        XmlSerializer serialiser = new XmlSerializer(dataType);
+        TextReader reader = new StreamReader(Logger_File_Path);
+
+        obj = serialiser.Deserialize(reader);
+        deserialized_data = new Serialized_Datas();
+        deserialized_data = (Serialized_Datas)obj;
+
+        reader.Close();
+    }
+
 
     public void Open_Data_Select_File_Button_OnClick()
     {
@@ -78,7 +149,15 @@ public class File_Logger : MonoBehaviour
          * 
          */
 
-        var multipath = StandaloneFileBrowser.OpenFilePanel("Save File", "", "txt", false);
+        string extension = "txt";
+        if (Use_XML)
+        {
+            extension = "xml";
+        }
+
+        var multipath = StandaloneFileBrowser.OpenFilePanel("Save File", "", extension, false);
+
+
         if (multipath != null)
         {
             if (multipath.Length > 0)
@@ -116,18 +195,18 @@ public class File_Logger : MonoBehaviour
             return false;
         }
 
-        //Ouvre le fichier
-        fileStream = File.OpenRead(Logger_File_Path);
-
-        //Dezerialize les datas dans le fichier
-        BinaryFormatter formater = new BinaryFormatter();
-        object _deserialized_data = formater.Deserialize(fileStream);
-
-        deserialized_data = new Serialized_Datas();
-        deserialized_data = (Serialized_Datas)_deserialized_data;
-
+        if (Use_XML)
+        {
+            XMLDeSerializer(typeof(Serialized_Datas));
+        }
+        else
+        {
+            BinaryDeSerializer();
+        }
+        
+        
         //crée une tache asynchrone qui va lire les infos en temps réel
-        Start_Reading_Task();
+        Reading_Task();
 
         return true;
     }
@@ -153,7 +232,7 @@ public class File_Logger : MonoBehaviour
     }
 
 
-    private void Start_Reading_Task()
+    private void Reading_Task()
     {
         //vérifie qu'il y a bien des données à lire
         if (deserialized_data.messages.Count == 0)
@@ -164,8 +243,6 @@ public class File_Logger : MonoBehaviour
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(2000);
-
             Logger_New_Line.Log($"Start Reading logged data: {System.IO.Path.GetFileName(Logger_File_Path)}", 6, Color.black);
             Communication.Communication_Message message_output = new Communication.Communication_Message();
 
