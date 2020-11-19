@@ -71,9 +71,9 @@ public class TEST : MonoBehaviour
         data_test.Numero_Robot = Infos_Carte.Com_Position_Robot_Identification.Petit_Robot;
         data_test.Numero_Carte = 1;
 
-        data_test.PositionRobot.Position_X = 7555;
-        data_test.PositionRobot.Position_Y = 12234;
-        data_test.PositionRobot.Angle = -12300;
+        data_test.PositionRobot.Position_X = 10000;
+        data_test.PositionRobot.Position_Y = 15000;
+        data_test.PositionRobot.Angle = 0;
         message.Trame.Data = com.COPYDATA(data_test);
 
         //this.StartCoroutine("test_logger_quantity");
@@ -85,11 +85,11 @@ public class TEST : MonoBehaviour
         {
             await Task.Delay(5000);            
 
-            for (int i = 0; i < 4000000; i++)
+            for (int i = 0; i < 4000; i++)
             {
                 data_test.PositionRobot.Position_X++;
-                data_test.PositionRobot.Position_Y--;
-                data_test.PositionRobot.Angle++;
+                //data_test.PositionRobot.Position_Y--;
+                //data_test.PositionRobot.Angle++;
 
                 message = new Communication.Communication_Message();
                 message.Heure = DateTime.Now;
@@ -97,11 +97,11 @@ public class TEST : MonoBehaviour
                 message.Trame.Data = com.COPYDATA(data_test);
 
                 Decodeurs[0].Received_Messages.Add(message);
-                Decodeurs[1].Received_Messages.Add(message);
-                Decodeurs[0].Received_Messages.Add(message);
-                Decodeurs[1].Received_Messages.Add(message);
+                //Decodeurs[1].Received_Messages.Add(message);
+                //Decodeurs[0].Received_Messages.Add(message);
+                //Decodeurs[1].Received_Messages.Add(message);
 
-                await Task.Delay(1);
+                await Task.Delay(50);
             }
         }));
     }

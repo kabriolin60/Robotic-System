@@ -9,7 +9,7 @@ public class Update_Panel_Position_Robot : MonoBehaviour
     public GameObject Robot_Position_Y;
     public GameObject Robot_Angle;
 
-    public int Robot_id;
+    public Infos_Carte.Com_Position_Robot_Identification Robot_id;
 
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class Update_Panel_Position_Robot : MonoBehaviour
     {
         try
         {
-            Infos_Carte.Com_Reponse_Info last_position = Last_Infos.Robots_Last_Info[Robot_id].Get_Last_Infos(0);
+            Infos_Carte.Com_Reponse_Info last_position = Last_Infos.Robots_Last_Info[(int)Robot_id].Get_Last_Infos(0);
             float pos_x = (float)(last_position.PositionRobot.Position_X) / 10;
             float pos_y = (float)(last_position.PositionRobot.Position_Y) / 10;
             float angle = (float)(last_position.PositionRobot.Angle) / 100;
