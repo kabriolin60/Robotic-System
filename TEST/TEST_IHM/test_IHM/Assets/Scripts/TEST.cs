@@ -89,7 +89,7 @@ public class TEST : MonoBehaviour
             {
                 data_test.PositionRobot.Position_X++;
                 //data_test.PositionRobot.Position_Y--;
-                //data_test.PositionRobot.Angle++;
+                data_test.PositionRobot.Angle += 3;
 
                 message = new Communication.Communication_Message();
                 message.Heure = DateTime.Now;
@@ -101,7 +101,7 @@ public class TEST : MonoBehaviour
                 //Decodeurs[0].Received_Messages.Add(message);
                 //Decodeurs[1].Received_Messages.Add(message);
 
-                await Task.Delay(50);
+                await Task.Delay(10);
             }
         }));
     }
