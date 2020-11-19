@@ -13,9 +13,7 @@ public class Virtual_SerialPort : MonoBehaviour
     public string portName;
     public int portSpeed;
     public int data_in_port_read_buffer = 0;
-    public int data_in_input_buffer = 0;
 
-    //private List<byte> InputBuffer = new List<byte>();
     private List<byte> OutputBuffer = new List<byte>();  
 
     private bool Comport_cancellationToken = false;
@@ -36,65 +34,8 @@ public class Virtual_SerialPort : MonoBehaviour
             serialPort = new System.IO.Ports.SerialPort();
         }
 
-        //Start_Reading_Task();
 
         Start_Sending_Task();
-    }
-
-
-
-    private void Start_Reading_Task()
-    {
-        //start listening for messages asynchronously
-        tasks.Add(Task.Factory.StartNew(async () =>
-        {
-            Logger_New_Line.Log("Waiting for serialport!", 6, Color.black);
-
-            while (this.serialPort.IsOpen == false)
-            {
-                await Task.Delay(100);
-            }
-
-            Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Opened! Starting listening!", 6, Color.black);
-            while (true)
-            {
-                if (this.serialPort.IsOpen)
-                {
-                    try
-                    {
-                        var dataReceived = Read_Rx_Bytes(serialPort);
-                        if (dataReceived != null && dataReceived.Length > 0)
-                        {
-                            try
-                            {
-                                //InputBuffer.AddRange(dataReceived);
-                            }
-                            catch
-                            {
-                                Logger_New_Line.Log($"Error in buffer insertion {dataReceived.Length}", 6, Color.black);
-                            }
-                        }
-
-                        data_in_port_read_buffer = serialPort.BytesToRead;
-                        //data_in_input_buffer = InputBuffer.Count;
-
-                        await Task.Delay(2);
-
-                    }
-                    catch (Exception _ex)
-                    {
-                        Logger_New_Line.Log($"Receiving task Exception!: {_ex}", 6, Color.red);
-                    }
-                }
-                else
-                {
-                    await Task.Delay(100);
-                }
-
-                if (Comport_cancellationToken)
-                    throw new TaskCanceledException();
-            }
-        }));
     }
 
     private void Start_Sending_Task()

@@ -7,8 +7,6 @@ using UnityEngine;
 public class Trame_Decoder : MonoBehaviour
 {
 	public List<Communication.Communication_Message> Received_Messages = new List<Communication.Communication_Message>();
-	private Int32 index_lecteur_message = 0;
-
 
 	public int Buffer_Lower_Limit;
 	public uint Error_Number = 0;
@@ -57,17 +55,18 @@ public class Trame_Decoder : MonoBehaviour
 	}
 
 
-	public Communication.Communication_Message Pick_Message()
+	public void Pick_Message(out Communication.Communication_Message message)
 	{
-		if (Received_Messages.Count > 0 && index_lecteur_message < Received_Messages.Count)
+		if (Received_Messages.Count > 0)
 		{
-			//Il y a au moins un message à lire
-			index_lecteur_message++;
-			return Received_Messages[index_lecteur_message - 1];
+			message = Received_Messages[0];
+			Received_Messages.RemoveAt(0);
+			return;
 		}
 
+		message = null;
 		//Aucun message à lire
-		return null;
+		return;
 	}
 }
 

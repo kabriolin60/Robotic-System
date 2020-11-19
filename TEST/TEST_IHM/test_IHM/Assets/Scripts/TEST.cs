@@ -61,11 +61,10 @@ public class TEST : MonoBehaviour
         Communication com = new Communication();
         Communication.Communication_Message message = new Communication.Communication_Message();
         message.Heure = DateTime.Now;
-        message.Trame = new Communication.Communication_Trame();
         message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
         message.Trame.Data = com.COPYDATA(data_test);
 
-        Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
+        //Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
 
 
 
@@ -77,18 +76,16 @@ public class TEST : MonoBehaviour
         data_test.PositionRobot.Angle = -12300;
         message.Trame.Data = com.COPYDATA(data_test);
 
-        Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
-
         //this.StartCoroutine("test_logger_quantity");
         //this.StartCoroutine(test_logger_saver());
 
-        Interprete_Message interpreter = Communication_GO.GetComponent<Interprete_Message>();
+        Trame_Decoder[] Decodeurs = Communication_GO.GetComponentsInChildren<Trame_Decoder>();
 
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(10000);            
+            await Task.Delay(5000);            
 
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 4000000; i++)
             {
                 data_test.PositionRobot.Position_X++;
                 data_test.PositionRobot.Position_Y--;
@@ -96,11 +93,13 @@ public class TEST : MonoBehaviour
 
                 message = new Communication.Communication_Message();
                 message.Heure = DateTime.Now;
-                message.Trame = new Communication.Communication_Trame();
                 message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
                 message.Trame.Data = com.COPYDATA(data_test);
 
-                interpreter.Decodage_and_Save_Message(message);
+                Decodeurs[0].Received_Messages.Add(message);
+                Decodeurs[1].Received_Messages.Add(message);
+                Decodeurs[0].Received_Messages.Add(message);
+                Decodeurs[1].Received_Messages.Add(message);
 
                 await Task.Delay(1);
             }
@@ -113,34 +112,6 @@ public class TEST : MonoBehaviour
         {
             Logger_New_Line.Log("Test Internal Logger", 6, Color.black);
             yield return new WaitForSeconds(0.1F);
-        }
-
-        yield return null;
-    }
-
-
-    IEnumerator test_logger_saver()
-    {
-        Communication com = new Communication();
-        Communication.Communication_Message message = new Communication.Communication_Message();
-
-        yield return new WaitForSeconds(10.0F);
-
-        for (int i = 0; i < 100000; i++)
-        {
-            data_test.PositionRobot.Position_X ++;
-            data_test.PositionRobot.Position_Y --;
-            data_test.PositionRobot.Angle ++;
-
-            message = new Communication.Communication_Message();
-            message.Heure = DateTime.Now;
-            message.Trame = new Communication.Communication_Trame();
-            message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
-            message.Trame.Data = com.COPYDATA(data_test);
-
-            Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
-
-            yield return new WaitForSeconds(0.001F);
         }
 
         yield return null;

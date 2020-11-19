@@ -41,7 +41,7 @@ public class Interprete_Message : MonoBehaviour
 			{
 				for (int i = 0; i < Decodeurs.Length; i++)
 				{
-					message = Decodeurs[i].Pick_Message();
+					Decodeurs[i].Pick_Message(out message);
 					if (message != null)
 					{
 						//Pour chaque décodeur (chacun son tour)
