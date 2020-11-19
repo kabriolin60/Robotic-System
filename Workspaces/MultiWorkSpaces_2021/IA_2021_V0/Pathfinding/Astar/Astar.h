@@ -14,8 +14,8 @@
 #include "stdbool.h"
 
 
-#define Map_size_X						3000
-#define Map_size_Y						2000
+#define Map_size_X						2000
+#define Map_size_Y						3000
 
 #define Map_Resolution					50
 

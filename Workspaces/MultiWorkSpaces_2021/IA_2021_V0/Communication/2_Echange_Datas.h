@@ -40,4 +40,8 @@ void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination,
 
 void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal);
 
+void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal);
+
+void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */

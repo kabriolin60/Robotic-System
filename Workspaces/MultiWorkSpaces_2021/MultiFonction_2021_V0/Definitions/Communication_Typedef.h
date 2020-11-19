@@ -448,6 +448,30 @@ struct st_Destination_Servos
 
 
 /**************************************************
+Declaration de la definition de la Structure de passage en simulation ou non des moteurs
+ **************************************************/
+struct Simulation_Deplacement
+{
+	bool simulation;
+};
+
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure d'activation de la puissance des moteurs
+ **************************************************/
+struct Motor_Power
+{
+	bool power_Gauche;
+	bool power_Droite;
+};
+
+/*************************************************/
+
+
+
+/**************************************************
 Declaration de la definition de la Structure contenant les parametres de PID reçus
  **************************************************/
 enum PID_Id

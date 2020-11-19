@@ -102,6 +102,14 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 				_0_Communication_Give_Sending_Clearance();
 				break;
 
+			case DEMANDE_MOTEURS_POWER:
+				_2_Comm_RX_Motor_Power(&received_trame);
+				break;
+
+			case DEMANDE_SIMULATION_MOTEURS:
+				_2_Comm_RX_Simulation_Deplacement(&received_trame);
+				break;
+
 
 			case PARAMETRES_PID:
 				_2_Communication_RX_Parametres_PID(&received_trame);
@@ -308,4 +316,41 @@ void _2_Comm_RX_Id_Robot(struct Communication_Trame* datas)
 byte _2_Comm_Get_Robot_ID()
 {
 	return ID_Robot;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Simulation_Deplacement
+ **
+ ** Descriptions:		Receive Robot id
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Simulation_Deplacement(struct Communication_Trame* datas)
+{
+	struct Simulation_Deplacement sim;
+
+	COPYDATA2(datas->Data, sim);
+	_1_Omodetrie_Set_Simulation(sim.simulation);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Motor_Power
+ **
+ ** Descriptions:		Activation de la puissance des moteurs
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Motor_Power(struct Communication_Trame* datas)
+{
+	struct Motor_Power sim;
+
+	COPYDATA2(datas->Data, sim);
+	_0_Set_Motor_Power(0, sim.power_Gauche);
+	_0_Set_Motor_Power(1, sim.power_Droite);
 }

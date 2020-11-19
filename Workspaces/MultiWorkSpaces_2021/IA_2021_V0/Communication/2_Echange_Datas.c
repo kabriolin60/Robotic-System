@@ -57,7 +57,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	_1_Communication_Create_Trame(&trame_echange, canal);
 
 	static char str[70];
-	sprintf(str, "Send Desti, From X= %d, Y= %d; to X= %d, Y= %d\n",
+	sprintf(str, "Send Desti, From X= %d, Y= %d to X= %d, Y= %d\n",
 			(short)_0_Get_Robot_Position().Position_X,
 			(short)_0_Get_Robot_Position().Position_Y,
 			(short)destination->coord.X,
@@ -378,3 +378,74 @@ void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal)
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Demande_Simulation
+ **
+ ** Descriptions:		Fonction d'envoie d'un passage en simulation ou non
+ **
+ ** parameters:			simulation?
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal)
+{
+	struct Simulation_Deplacement simulation;
+	simulation.simulation = sim;
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = DEMANDE_SIMULATION_MOTEURS;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(simulation, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
+
+/*****************************************************************************/
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Demande_Motor_Power
+ **
+ ** Descriptions:		Fonction d'envoie d'activation de la puissance des moteurs
+ **
+ ** parameters:			power?
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal)
+{
+	struct Motor_Power pow;
+	pow.power_Gauche = power;
+	pow.power_Droite = power;
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = DEMANDE_MOTEURS_POWER;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(pow, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
+
+/*****************************************************************************/

@@ -83,61 +83,63 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	Astar_Debug_Display_Map(Astar_Get_Map());
 	 */
 
-
-
-	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
 void TEST_Deplacement(void * pvParameter)
 {
-	GOTO_XY_AVANT_WAIT(500, 500);
+	_2_Comm_Demande_Simulation(TRUE, RS485_port);
+	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
 
-	GOTO_XY_AVANT_ASTAR_WAIT(2585, 1722, &_1_Obstacles_Create_Terrain_Border);
+	Task_Delay(2000);
 
-	GOTO_XY_AVANT_ASTAR_WAIT(600, 1000, &_1_Obstacles_Create_Terrain_Border);
+	while(1)
+	{
+		GOTO_XY_AVANT_WAIT(500, 500);
 
-	GOTO_XY_AVANT_ASTAR_WAIT(2700, 1000, &_1_Obstacles_Create_Terrain_Border);
+		GOTO_XY_AVANT_ASTAR_WAIT(1722, 2585, &_1_Obstacles_Create_Terrain_Border);
 
-	GOTO_XY_AVANT_WAIT(2900, 1000);
+		GOTO_XY_AVANT_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
-	GOTO_XY_ARRIERE_WAIT(2700, 1000);
+		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2700, &_1_Obstacles_Create_Terrain_Border);
 
-	GOTO_XY_ARRIERE_ASTAR_WAIT(600, 1000, &_1_Obstacles_Create_Terrain_Border);
+		GOTO_XY_AVANT_WAIT(1000, 2900);
+
+		GOTO_XY_ARRIERE_WAIT(1000, 2700);
+
+		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
+	}
 
 	Task_Delete_Current;
 }
 
 
 
-extern long Nb_Erreurs_com;
 void TEST_envoi_Ping(void *pvParameters)
 {
 	Task_Delay(20);
 	Init_Timing_Tache;
-	vTraceEnable( TRC_START );
 
-	//_2_Comm_Send_PING(1, RS485_port);
-
-	while(Nb_Ping_Envoyes < 4000000)
+	while(true)
 	{
-		Set_Debug_Pin_0_High();
-		//_2_Comm_Send_PING(1, RS485_port);
 		_2_Comm_Send_Demande_Info(1, RS485_port);
-		Nb_Ping_Envoyes++;
 
-		Task_Delay_Until(1.0F);
+		Task_Delay_Until(2.0F);
+
+		/*_2_Comm_Send_Demande_Info(2, RS485_port);
+
+		Task_Delay_Until(2.0F);
+
+		_2_Comm_Send_Demande_Info(3, RS485_port);
+
+		Task_Delay_Until(2.0F);
+
+		_2_Comm_Send_Demande_Info(4, RS485_port);
+
+		Task_Delay_Until(2.0F);
+		Task_Delay_Until(2.0F);*/
 	}
-
-	Task_Delay_Until(20);
-
-	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, true);
-	if(Nb_PONG_recus >= Nb_Ping_Envoyes)
-	{
-		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
-	}
-
-	_2_Comm_Send_PONG(RS485_port);
 
 	Task_Delete_Current;
 }

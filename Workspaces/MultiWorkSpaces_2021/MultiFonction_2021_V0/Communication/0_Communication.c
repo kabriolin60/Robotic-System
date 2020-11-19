@@ -320,6 +320,8 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	while (1)
 	{
+
+
 #ifdef TYPE_CARTE_MULTIFCT
 		//Attente de l'autorisation d'envoyer un message par la Carte IA
 		_0_Communication_Wait_Sending_Clearance();
@@ -359,7 +361,6 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 				case RS485_port:
 					_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
-					//Set_Debug_Pin_0_Low();
 					break;
 
 				default:
@@ -367,6 +368,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 					RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 					break;
 				}
+				Task_Delay(1);
 			}
 	}
 }
