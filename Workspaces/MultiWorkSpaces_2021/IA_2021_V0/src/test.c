@@ -154,7 +154,7 @@ void TEST_Deplacement(void * pvParameter)
 
 	GOTO_XY_ARRIERE_WAIT(800, 260);
 
-	while(1)
+	//while(1)
 	{
 		Task_Delay(5000);
 	}

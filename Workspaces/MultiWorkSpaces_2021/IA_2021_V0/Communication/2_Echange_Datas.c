@@ -501,6 +501,14 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
+
+	static char str[70];
+	sprintf(str, "Set Robot position= X%.1fmm Y%.1fmm A%.2f°\n",
+			X,
+			Y,
+			Angle);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+
 }
 
 /*****************************************************************************/

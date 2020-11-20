@@ -70,7 +70,7 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 {
 	EventBits_t uxBits;
 
-	while(Distance_To_Destination(_0_Get_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire * 2)
+	while(Distance_To_Destination(_0_Get_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire * 3)
 	{
 		//Check if the "no path found" flag hab been rised
 		//If no Pathfinding is used, Flag will keep low
