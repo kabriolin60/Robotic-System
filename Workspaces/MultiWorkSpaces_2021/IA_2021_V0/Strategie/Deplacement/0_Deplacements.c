@@ -70,7 +70,7 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 {
 	EventBits_t uxBits;
 
-	while(Distance_To_Destination(_0_Get_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire)
+	while(Distance_To_Destination(_0_Get_Robot_Position(), coord) * 100 > coord->ptrParameters.Distance_Detection_Fin_Trajectoire * 2)
 	{
 		//Check if the "no path found" flag hab been rised
 		//If no Pathfinding is used, Flag will keep low
@@ -168,7 +168,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 		//Parametres classiques pour deplacement classiques
 		coord.ptrParameters.Angle_Avant_Debut_Avance = 0.08F * 100;
 		coord.ptrParameters.Angle_Detection_Fin_Trajectoire = 0.05F * 100;
-		coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 4 * 100;
+		coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 2 * 100;
 
 		coord.Type_Arret = depla_AVEC_freinage;
 
@@ -229,7 +229,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	//Parametres classiques pour deplacement classiques
 	coord.ptrParameters.Angle_Avant_Debut_Avance = 0.08F * 100;
 	coord.ptrParameters.Angle_Detection_Fin_Trajectoire = 0.05F * 100;
-	coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 4 * 100;
+	coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 2 * 100;
 
 	coord.Type_Arret = depla_AVEC_freinage;
 

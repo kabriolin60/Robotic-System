@@ -53,7 +53,7 @@ struct st_POSITION_ROBOT
 	float Angle_rad;
 	float Angle_Deg;
 
-	long orient_init;
+	float orient_init;
 };
 
 /*************************************************/

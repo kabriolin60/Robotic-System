@@ -14,6 +14,8 @@
 #include "Astar.h"
 #include "0_Infos.h"
 #include "0_Deplacements.h"
+#include "0_Actionneurs.h"
+
 #include "1_Obstacles.h"
 
 
@@ -94,6 +96,69 @@ void TEST_Deplacement(void * pvParameter)
 
 	Task_Delay(2000);
 
+	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
+
+	Task_Delay(2000);
+
+	//TRAPPE_HAUT;
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+	GOTO_XY_AVANT_WAIT(600, 460);
+
+	//TRAPPE_BAS;
+	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+	GOTO_XY_AVANT_WAIT(430, 780);
+
+	//TRAPPE_HAUT;
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+	GOTO_XY_AVANT_WAIT(370, 890);
+
+	//TRAPPE_BAS;
+	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+	GOTO_XY_ARRIERE_WAIT(730, 260);
+
+	GOTO_XY_AVANT_WAIT(570, 260);
+
+	//TRAPPE_HAUT;
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+	GOTO_XY_ARRIERE_WAIT(800, 260);
+
+
+
+
+	GOTO_XY_AVANT_WAIT(1000, 450);
+
+	//TRAPPE_BAS;
+	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+	GOTO_XY_AVANT_WAIT(877, 942);
+
+	//TRAPPE_HAUT;
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+	GOTO_XY_AVANT_WAIT(848, 1060);
+
+	//TRAPPE_BAS;
+	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+	GOTO_XY_ARRIERE_WAIT(800, 260);
+
+	GOTO_XY_AVANT_WAIT(1020, 260);
+
+	//TRAPPE_HAUT;
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+	GOTO_XY_ARRIERE_WAIT(800, 260);
+
+	while(1)
+	{
+		Task_Delay(5000);
+	}
+
 	while(1)
 	{
 		GOTO_XY_AVANT_WAIT(500, 500);
@@ -125,20 +190,20 @@ void TEST_envoi_Ping(void *pvParameters)
 	{
 		_2_Comm_Send_Demande_Info(1, RS485_port);
 
+		Task_Delay_Until(20.0F);
+
+		/*_2_Comm_Send_Demande_Info(2, RS485_port);
+
 		Task_Delay_Until(2.0F);
 
-		_2_Comm_Send_Demande_Info(2, RS485_port);
-
-		Task_Delay_Until(2.0F);
-
-		/*_2_Comm_Send_Demande_Info(3, RS485_port);
+		_2_Comm_Send_Demande_Info(3, RS485_port);
 
 		Task_Delay_Until(2.0F);
 
 		_2_Comm_Send_Demande_Info(4, RS485_port);
 
 		Task_Delay_Until(2.0F);
-		Task_Delay_Until(2.0F);*/
+		Task_Delay_Until(2.0F);/**/
 	}
 
 	Task_Delete_Current;

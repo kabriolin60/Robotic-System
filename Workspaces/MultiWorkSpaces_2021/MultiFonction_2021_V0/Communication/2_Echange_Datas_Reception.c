@@ -22,6 +22,9 @@
 #include "1_Servos.h"
 #include "1_AX12.h"
 
+#include "0_Motors.h"
+
+
 extern QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 static long Nb_Messages_Interpretes = 0;
 
@@ -80,6 +83,10 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 #ifdef TYPE_CARTE_MULTIFCT
 				_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
 #endif
+				break;
+
+			case SET_ROBOT_POSITION:
+				_2_Comm_RX_Set_Position_Robot(&received_trame);
 				break;
 
 
@@ -353,4 +360,28 @@ void _2_Comm_RX_Motor_Power(struct Communication_Trame* datas)
 	COPYDATA2(datas->Data, sim);
 	_0_Set_Motor_Power(0, sim.power_Gauche);
 	_0_Set_Motor_Power(1, sim.power_Droite);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Set_Position_Robot
+ **
+ ** Descriptions:		Set la position du Robot (recallage ou depart)
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Set_Position_Robot(struct Communication_Trame* datas)
+{
+	//Position initiale du Robot
+	struct st_POSITION_ROBOT newposition;
+	COPYDATA2(datas->Data, newposition);
+
+	newposition.Position_X = newposition.Position_X;
+	newposition.Position_Y = newposition.Position_Y;
+	newposition.Angle_rad = newposition.Angle_rad;
+	newposition.orient_init = newposition.orient_init;
+	newposition.Angle_Deg = newposition.Angle_Deg;
+	_1_Odometrie_SetRobot_Position(&newposition);
 }

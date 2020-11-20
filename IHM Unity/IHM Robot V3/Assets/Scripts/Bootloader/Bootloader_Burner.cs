@@ -245,7 +245,7 @@ public class Bootloader_Burner : MonoBehaviour
             //Cree une trame de communication
             line_number_position++;            
 
-            await Task.Delay(5);
+            await Task.Delay(2);
 
             if ((line_number_position - 1) % 256 == 0 && line_number_position != 1)
             {

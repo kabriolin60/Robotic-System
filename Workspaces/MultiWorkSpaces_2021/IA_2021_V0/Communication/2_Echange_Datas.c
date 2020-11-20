@@ -200,7 +200,6 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 	Com_Position_Robot.Position_X = (short)(rob_pos.Position_X * 10);
 	Com_Position_Robot.Position_Y = (short)(rob_pos.Position_Y * 10);
 	Com_Position_Robot.Angle = (short)(rob_pos.Angle_Deg * 100);
-	//Com_Position_Robot.Numero_Robot = 1;
 
 	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
@@ -443,6 +442,45 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
 	trame_echange.Slave_Adresse = 1;
 
 	trame_echange.Length = COPYDATA(pow, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
+
+/*****************************************************************************/
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Set_Robot_Position
+ **
+ ** Descriptions:		Fonction d'envoie d'activation de la puissance des moteurs
+ **
+ ** parameters:			X (mm)
+ ** 					Y (mm)
+ ** 					Orientation (degres)
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_communication canal)
+{
+	struct st_POSITION_ROBOT pos;
+	pos.Position_X = X;
+	pos.Position_Y = Y;
+	pos.Angle_rad = Convert_Deg_Rad(Angle);
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = SET_ROBOT_POSITION;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(pos, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
 	_1_Communication_Create_Trame(&trame_echange, canal);

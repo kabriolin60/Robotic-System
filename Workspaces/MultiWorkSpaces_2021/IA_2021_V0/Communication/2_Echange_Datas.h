@@ -44,4 +44,6 @@ void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal);
 
 void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal);
 
+void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */
