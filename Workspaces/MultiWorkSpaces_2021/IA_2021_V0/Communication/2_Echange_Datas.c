@@ -135,7 +135,8 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
  ** Returned value:		None
  **
  *****************************************************************************/
-extern long Nb_PONG_recus;
+byte relese_sent = 0;
+extern long Nb_Messages_recus;
 extern long Nb_Erreurs_com;
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
@@ -157,17 +158,28 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 	//Send the revision of this board firmware
 	static char str[70];
-	sprintf(str, "IA release= %s.%s; %s; %s\n",
-			MAJOR_RELEASE,
-			MINOR_RELEASE,
-			__DATE__,
-			__TIME__);
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+	if(!relese_sent)
+	{
+		sprintf(str, "IA release= %s.%s; %s; %s\n",
+				MAJOR_RELEASE,
+				MINOR_RELEASE,
+				__DATE__,
+				__TIME__);
+		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+		relese_sent = 1;
+	}
 
-	sprintf(str, "IA Nb Erreurs communication= %ld // pongs= %ld\n",
-			Nb_PONG_recus,
+	sprintf(str, "IA Nb messages= %ld // erreurs= %ld\n",
+			Nb_Messages_recus,
 			Nb_Erreurs_com);
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+
+	if(Nb_Erreurs_com < 5)
+	{
+		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+	}else
+	{
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Divers, RS485_port);
+	}
 }
 
 
@@ -304,16 +316,21 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
  *****************************************************************************/
 void _2_Communication_Boards_Status(void* pvParameters)
 {
-	Task_Delay(100);
-	_2_Comm_Send_PONG(RS485_port);
-	for(int i = 0; i < 4; i++)
-	{
-		Task_Delay(2);
-		_2_Comm_Send_PING(i+1, RS485_port);
-	}
+	Task_Delay(20);
+	Init_Timing_Tache;
 
-	Task_Delay(10);
-	Task_Delete_Current;
+	Task_Delay(1000);
+	while(true)
+	{
+		_2_Comm_Send_PONG(RS485_port);
+		Task_Delay(2);
+		for(int i = 0; i < 4; i++)
+		{
+			Task_Delay(17);
+			_2_Comm_Send_PING(i+1, RS485_port);
+		}
+		Task_Delay_Until(5000);
+	}
 }
 
 

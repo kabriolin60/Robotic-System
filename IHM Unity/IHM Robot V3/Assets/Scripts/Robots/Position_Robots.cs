@@ -25,13 +25,15 @@ public class Position_Robots : MonoBehaviour
                 Position.y = (float)(last_position.PositionRobot.Position_Y) / 10 / 1000;
                 Orientation = (float)(last_position.PositionRobot.Angle) / 100;
             }
-            transform.localPosition = Vector3.Lerp(transform.localPosition, Position, Lerp_Rate);
 
-            Rotation.z = Orientation;
+            if (Position.x != 0 && Position.y != 0)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, Position, Lerp_Rate);
 
-            //Rotation = Vector3.Lerp(transform.rotation.eulerAngles, Rotation, Lerp_Rate);
+                Rotation.z = Orientation;
 
-            this.transform.localEulerAngles = Rotation;
+                this.transform.localEulerAngles = Rotation;
+            }
 
         }
         catch

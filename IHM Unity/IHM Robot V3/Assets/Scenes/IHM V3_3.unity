@@ -866,14 +866,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155053816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 250938288}
   m_Father: {fileID: 2037678362}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!1 &155462259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,7 +1563,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: 0.042
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
@@ -1578,22 +1578,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: 0.4867402
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: 0.4867402
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.5129171
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0.5129171
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
@@ -1608,7 +1608,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 87
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4e57a342ce5322e41a0fce3a50ef74a8,
         type: 3}
@@ -1677,13 +1677,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbe34e49b3de5d43b8de9096364b22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Robot_id: 1
+  Manual_Position: 0
+  Robot_id: 0
   Carte_Id: 1
-  Numero_Servo: 1
-  Position_Trappe_Bas: -0.02
-  Position_Trappe_Haut: -0.27
-  Servo_Trappe_Bas: 100
-  Servo_Trappe_Haut: 500
+  Numero_Servo: 0
+  Position_Trappe_Bas: 0.07
+  Position_Trappe_Haut: 0.2
+  Servo_Trappe_Bas: 500
+  Servo_Trappe_Haut: 2000
 --- !u!1 &283000567
 GameObject:
   m_ObjectHideFlags: 0
@@ -9816,7 +9817,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2042281693}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13641,6 +13642,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Lerp_Rate
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341912070968515407, guid: e19b5cd9d26963c488380f0ef406b5b2,
+        type: 3}
+      propertyPath: Manual_Position
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3341912071368923093, guid: e19b5cd9d26963c488380f0ef406b5b2,
         type: 3}

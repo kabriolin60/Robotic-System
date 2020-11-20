@@ -18,7 +18,7 @@ QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des c
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
-static long Nb_Messages_recus = 0;
+ long Nb_Messages_recus = 0;
 static long Nb_Messages_adresses_corrects = 0;
 long Nb_Erreurs_com = 0;
 static long Nb_Rx_Fifo_Full = 0;
