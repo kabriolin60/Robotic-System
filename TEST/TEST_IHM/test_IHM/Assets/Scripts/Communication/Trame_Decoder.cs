@@ -11,6 +11,7 @@ public class Trame_Decoder : MonoBehaviour
 	public int Buffer_Lower_Limit;
 	public uint Error_Number = 0;
 	public uint Messages_Number = 0;
+	private int index_lecture = 0;
 
 	List<Task> tasks = new List<Task>();
 
@@ -48,7 +49,7 @@ public class Trame_Decoder : MonoBehaviour
 						}
 					}
 
-					await Task.Delay(5);
+					await Task.Delay(1);
 				}
 			}));
 		}
@@ -57,7 +58,7 @@ public class Trame_Decoder : MonoBehaviour
 
 	public void Pick_Message(out Communication.Communication_Message message)
 	{
-		if (Received_Messages.Count > 0)
+		if (Received_Messages.Count > 0 && index_lecture < Received_Messages.Count)
 		{
 			message = Received_Messages[0];
 			Received_Messages.RemoveAt(0);
@@ -191,12 +192,6 @@ public class Reception_Data
 			return null;
 		}
 
-		if (_SerialPort.Number_Byte_To_Read() < API_LENGTH - 1)
-		{
-			Debug.Log("_SerialPort.InputBuffer.Count < API_LENGTH - 1");
-			await Task.Delay(1);
-		}
-
 		boucle = 0;
 		while (_SerialPort.Number_Byte_To_Read() < API_LENGTH - 1)
 		{
@@ -206,7 +201,7 @@ public class Reception_Data
 				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.Number_Byte_To_Read()}/{API_LENGTH + 1}");
 				return null;
 			}
-			await Task.Delay(3);
+			await Task.Delay(1);
 		}
 
 		//Tx Address
@@ -242,13 +237,6 @@ public class Reception_Data
 		{
 			Debug.Log("received_message.Trame.Length > Communication.COMMUNICATION_TRAME_MAX_DATA");
 			return null;
-		}
-
-
-		if (_SerialPort.Number_Byte_To_Read() < received_message.Trame.Length + 1)
-		{
-			Debug.Log("_SerialPort.InputBuffer.Count < received_message.Trame.Length + 1");
-			await Task.Delay(10);
 		}
 
 

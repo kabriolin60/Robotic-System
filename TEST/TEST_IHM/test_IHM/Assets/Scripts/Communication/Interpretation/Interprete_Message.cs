@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Interprete_Message : MonoBehaviour
 {
-	List<Task> tasks = new List<Task>();
-
 	Trame_Decoder[] Decodeurs;
 
 	public Int32 Nb_Messages_Decodes = 0;
@@ -32,18 +30,47 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-	IEnumerator Interpreteur_Message()
+	private void Update2()
 	{
+		int nb_mess = 0;
+		Communication.Communication_Message message;
+
+		for (int j = 0; j < 10; j++)
+		{
+			for (int i = 0; i < Decodeurs.Length; i++)
+			{
+				Decodeurs[i].Pick_Message(out message);
+				if (message != null)
+				{
+					nb_mess++;
+					//Pour chaque décodeur (chacun son tour)
+					//Enregistre pour le log
+					//compte le nombre de messages recus
+					Decodage_and_Save_Message(message);
+				}
+			}
+		}
+
+		Debug.Log($"nb_mess: {nb_mess}");
+	}
+
+
+
+    IEnumerator Interpreteur_Message()
+	{
+		int nb_mess = 0;
 		Communication.Communication_Message message;
 		while (true)
 		{
-			for (int j = 0; j < 100; j++)
+			nb_mess = 0;
+			for (int j = 0; j < 1000; j++)
 			{
 				for (int i = 0; i < Decodeurs.Length; i++)
 				{
 					Decodeurs[i].Pick_Message(out message);
 					if (message != null)
 					{
+						nb_mess++;
 						//Pour chaque décodeur (chacun son tour)
 						//Enregistre pour le log
 						//compte le nombre de messages recus
@@ -51,6 +78,7 @@ public class Interprete_Message : MonoBehaviour
 					}
 				}
 			}
+			//ebug.Log($"nb_mess: {nb_mess}");
 			yield return new WaitForSeconds(0.005F);
 		}
 	}

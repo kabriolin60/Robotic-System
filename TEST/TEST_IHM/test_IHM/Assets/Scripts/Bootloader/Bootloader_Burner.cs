@@ -11,9 +11,12 @@ using SFB;
 using UnityEngine.UI;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine.Events;
 
 public class Bootloader_Burner : MonoBehaviour
 {
+    private UnityAction m_MyFirstAction;
+
     string Application_HEX_File_Path;
 
     public GameObject panel_resize;

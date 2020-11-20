@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EXIT : MonoBehaviour
 {
@@ -15,5 +16,11 @@ public class EXIT : MonoBehaviour
 #else
          Application.Quit();
 #endif
+    }
+
+    public void Restart()
+    {
+        System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe")); //new program
+        Application.Quit(); //kill current process
     }
 }
