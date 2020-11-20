@@ -8,7 +8,7 @@ public class Interprete_Message : MonoBehaviour
 {
 	Trame_Decoder[] Decodeurs;
 
-	public Int32 Nb_Messages_Decodes = 0;
+	public Int32 Nb_Messages_Interpretes = 0;
 
 	//Class qui contiendra les toutes dernières infos reçues et mise à jour
 	Last_Infos Last_Data_Received;
@@ -78,7 +78,7 @@ public class Interprete_Message : MonoBehaviour
 					}
 				}
 			}
-			//ebug.Log($"nb_mess: {nb_mess}");
+			Debug.Log($"Interpreteur salve de {nb_mess} messages");
 			yield return new WaitForSeconds(0.005F);
 		}
 	}
@@ -113,7 +113,7 @@ public class Interprete_Message : MonoBehaviour
 		}
 
 		//compte le nombre de messages recus
-		Nb_Messages_Decodes++;
+		Nb_Messages_Interpretes++;
 	}
 
 
