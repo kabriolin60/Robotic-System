@@ -7,6 +7,7 @@ using UnityEngine;
 public class Trame_Decoder : MonoBehaviour
 {
 	public List<Communication.Communication_Message> Received_Messages = new List<Communication.Communication_Message>();
+	public Virtual_SerialPort serialport;
 
 	public int Buffer_Lower_Limit;
 	public uint Error_Number = 0;
@@ -17,13 +18,14 @@ public class Trame_Decoder : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-	{		
+	{
+		serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
 		Start_Decodage_Task();
 	}
 
 	private void Start_Decodage_Task()
     {
-		Virtual_SerialPort serialport = this.gameObject.GetComponent<Virtual_SerialPort>();
+		
 		if (serialport != null)
 		{
 			//Creation d'une tâche asynchrone chargée de lire les datas recues par le port virtuel et d'en faire des messages de communication
@@ -41,7 +43,7 @@ public class Trame_Decoder : MonoBehaviour
 						if (dataReceived != null)
 						{
 							//Un message a ete reçu correctement
-							Received_Messages.Add(dataReceived.Result);
+							Received_Messages.Add(dataReceived);
 							Messages_Number++;
 							mess_par_salve++;
 						}
@@ -137,7 +139,7 @@ public class Sending_Data
 public class Reception_Data
 {
 	/* Reception des octets reçus et transformation en une trame brute */
-	public static async Task<Communication.Communication_Message> ReadTrame(Virtual_SerialPort _SerialPort)
+	public static Communication.Communication_Message ReadTrame(Virtual_SerialPort _SerialPort)
 	{
 		Communication.Communication_Message received_message = new Communication.Communication_Message();
 
@@ -209,7 +211,7 @@ public class Reception_Data
 				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.Number_Byte_To_Read()}/{API_LENGTH + 1}");
 				return null;
 			}
-			await Task.Delay(1);
+			Task.Delay(1);
 		}
 
 		//Tx Address
@@ -258,7 +260,7 @@ public class Reception_Data
 				Debug.Log("SerialPort.InputBuffer.Count < received_message.Trame.Length + 1; boucle");
 				return null;
 			}
-			await Task.Delay(1);
+			Task.Delay(1);
 		}
 
 		//Reception des data

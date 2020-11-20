@@ -26,7 +26,41 @@ public class Interprete_Message : MonoBehaviour
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
-		this.StartCoroutine("Interpreteur_Message");
+		this.StartCoroutine(Interpreteur_Message());
+
+
+		/*Virtual_SerialPort[] serialports = this.GetComponentsInChildren<Virtual_SerialPort>();
+		Communication.Communication_Message message = new Communication.Communication_Message();
+		Task.Factory.StartNew(() =>
+		{
+			int nb_mess = 0;
+			while (true)
+			{
+				Task.Factory.StartNew(() =>
+				{
+					nb_mess = 0;
+					for (int i = 0; i < serialports.Length; i++)
+					{
+						while (serialports[i].Number_Byte_To_Read() > 100)
+						{
+							message = Reception_Data.ReadTrame(serialports[i]);
+							if (message != null)
+							{
+								nb_mess++;
+								//Pour chaque décodeur (chacun son tour)
+								//Enregistre pour le log
+								//compte le nombre de messages recus
+								Decodage_and_Save_Message(message);
+							}
+						}
+					}
+					if (nb_mess > 0)
+					{
+						Debug.Log($"Interpreteur salve de {nb_mess} messages");
+					}
+				}).ContinueWith(t => Decodage_and_Save_Message(message), TaskScheduler.FromCurrentSynchronizationContext);
+			}
+		});*/
 	}
 
 
@@ -78,10 +112,10 @@ public class Interprete_Message : MonoBehaviour
 					}
 				}
 			}
-			if (nb_mess > 0)
+			/*if (nb_mess > 0)
 			{
 				Debug.Log($"Interpreteur salve de {nb_mess} messages");
-			}
+			}*/
 			yield return null;// new WaitForSeconds(0.005F);
 		}
 	}
@@ -89,7 +123,9 @@ public class Interprete_Message : MonoBehaviour
 
 
 	public void Decodage_and_Save_Message(Communication.Communication_Message message)
-    {
+	{
+		if (message == null)
+			return;
 		//Pour chaque décodeur (chacun son tour)
 		Decodage_Message(message);
 
@@ -101,6 +137,8 @@ public class Interprete_Message : MonoBehaviour
 
 	public void Decodage_Message(Communication.Communication_Message message)
 	{
+		if (message == null)
+			return;
 		switch (message.Trame.Instruction)
 		{
 			default:
@@ -111,8 +149,8 @@ public class Interprete_Message : MonoBehaviour
 				break;
 
 			case Communication.Com_Instruction.REPONSE_INFO:
-				Decode_Reponse_Info(message);				
-				break;				
+				Decode_Reponse_Info(message);
+				break;
 		}
 
 		//compte le nombre de messages recus

@@ -127,11 +127,11 @@ void TEST_envoi_Ping(void *pvParameters)
 
 		Task_Delay_Until(2.0F);
 
-		/*_2_Comm_Send_Demande_Info(2, RS485_port);
+		_2_Comm_Send_Demande_Info(2, RS485_port);
 
 		Task_Delay_Until(2.0F);
 
-		_2_Comm_Send_Demande_Info(3, RS485_port);
+		/*_2_Comm_Send_Demande_Info(3, RS485_port);
 
 		Task_Delay_Until(2.0F);
 
