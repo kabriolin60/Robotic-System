@@ -78,8 +78,11 @@ public class Interprete_Message : MonoBehaviour
 					}
 				}
 			}
-			Debug.Log($"Interpreteur salve de {nb_mess} messages");
-			yield return new WaitForSeconds(0.005F);
+			if (nb_mess > 0)
+			{
+				Debug.Log($"Interpreteur salve de {nb_mess} messages");
+			}
+			yield return null;// new WaitForSeconds(0.005F);
 		}
 	}
 

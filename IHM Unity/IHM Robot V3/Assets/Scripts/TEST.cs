@@ -98,7 +98,7 @@ public class TEST : MonoBehaviour
 
                 Decodeurs[0].Received_Messages.Add(message);
                 //Decodeurs[1].Received_Messages.Add(message);
-                //Decodeurs[0].Received_Messages.Add(message);
+                Decodeurs[0].Received_Messages.Add(message);
                 //Decodeurs[1].Received_Messages.Add(message);
 
                 await Task.Delay(10);

@@ -51,7 +51,11 @@ public class Trame_Decoder : MonoBehaviour
 							Error_Number++;
 						}
 					}
-					Debug.Log($"Decodeur, salve de {mess_par_salve} messages");
+
+					if (mess_par_salve > 0)
+					{
+						Debug.Log($"Decodeur, salve de {mess_par_salve} messages");
+					}
 
 					await Task.Delay(1);
 				}
