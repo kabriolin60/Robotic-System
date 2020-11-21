@@ -39,8 +39,7 @@ static byte ID_Robot;	//Id du Robot sur lequel est monté cette carte
  *****************************************************************************/
 void _2_Communication_RX_Init()
 {
-	//Tache de décodage des donnees messages reçus
-	//xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
+
 }
 
 
