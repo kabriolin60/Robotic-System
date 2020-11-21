@@ -355,7 +355,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 				break;
 			}
-			Task_Delay(1);
+			Task_Delay(0.5f);
 		}
 	}
 }

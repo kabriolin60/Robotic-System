@@ -13,7 +13,7 @@
 
 
 static struct Astar_Map Map;
-static struct Astar_smoothing_vector Astar_Vector;
+static TO_AHBS_RAM3 struct Astar_smoothing_vector Astar_Vector;
 
 /*****************************************************************************
  ** Function name:		Astar_Map_Init
@@ -110,15 +110,15 @@ struct Astar_smoothing_vector* Astar_Get_Vector_Map(void)
  ** 					-3 End Blocked
  **
  *****************************************************************************/
-short Astar_Find_Path(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
+__attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
 {
 	//Check if Starting point is not in a blocked node
 	if(map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access == Blocked)
 	{
 		//Starting node blocked, no path possible
-		//return -2;
 		_2_Comm_Send_Log_Message("ASTAR: Start node Blocked!\n", Color_Red, RS485_port);
 		map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access = Walkable;
+		//return -2; //Le point de départ, le robot y est, donc il est considéré comme accessible
 	}
 
 	if(map->Nodes[map->End_Node_index.x][map->End_Node_index.y].Astar_Node_Access == Blocked)
@@ -227,7 +227,7 @@ short Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_ve
  ** 					1: we have found the End Node
  **
  *****************************************************************************/
-int8_t Astar_Find_Best_Node_To_Compute(struct Astar_Map* map, short * best_index_x, short * best_index_y)
+__attribute__((optimize("O0"))) int8_t Astar_Find_Best_Node_To_Compute(struct Astar_Map* map, short * best_index_x, short * best_index_y)
 {
 	short Best_F_cost = 0x7FFF; //maximum as begining
 	short Best_H_cost = 0X7FFF;
@@ -299,7 +299,7 @@ int8_t Astar_Find_Best_Node_To_Compute(struct Astar_Map* map, short * best_index
  ** 					True: we've found the End Node
  **
  *****************************************************************************/
-bool Astar_Compute_Surronding_Nodes(struct Astar_Map* map, uint8_t index_x, uint8_t index_y)
+__attribute__((optimize("O0"))) bool Astar_Compute_Surronding_Nodes(struct Astar_Map* map, uint8_t index_x, uint8_t index_y)
 {
 	//Get a pointer on the current Node
 	struct Astar_Node* Current_node = &map->Nodes[index_x][index_y];
@@ -307,7 +307,6 @@ bool Astar_Compute_Surronding_Nodes(struct Astar_Map* map, uint8_t index_x, uint
 
 	//This node has been computed, set as Closed
 	Astar_Set_Node_as_Closed(Current_node);
-
 
 	//Compute the North-Ouest Node if exist
 	if(index_x > 0 && index_y < Astar_Node_Nb_Y - 1)
@@ -430,7 +429,7 @@ bool Astar_Compute_Surronding_Nodes(struct Astar_Map* map, uint8_t index_x, uint
  ** 					False: node is blocked or closed, no comptation done
  **
  *****************************************************************************/
-bool Astar_Compute_Node(struct Astar_Map* map, struct Astar_Node* calling_node, struct Astar_Node* new_node, uint8_t cost_to_go, short index_x_calling, short index_y_calling, short index_x_new, short index_y_new)
+__attribute__((optimize("O0"))) bool Astar_Compute_Node(struct Astar_Map* map, struct Astar_Node* calling_node, struct Astar_Node* new_node, uint8_t cost_to_go, short index_x_calling, short index_y_calling, short index_x_new, short index_y_new)
 {
 	//Check if this node is in Block Acces
 	if(new_node->Astar_Node_Access == Blocked)
@@ -923,8 +922,19 @@ unsigned char Dijkstra_intersect_segment(struct Point *s1, struct Point *s2, str
  *****************************************************************************/
 void Astar_Debug_Display_Map(struct Astar_Map* map)
 {
-	//Astar_DEBUG_Display_Map_Node_Status(map);
-	//Astar_DEBUG_Display_Map_Node_Access(map);
+	vTaskSuspendAll();
+
+		//Passe en TX
+		_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+
+	Astar_DEBUG_Display_Map_Node_Status(map);
+	Astar_DEBUG_Display_Map_Node_Access(map);
+
+	//Passe en RX
+		_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+		xTaskResumeAll();
 }
 
 
@@ -1055,8 +1065,6 @@ void Astar_debug_Display_Node_Status(struct Astar_Node* node)
  *****************************************************************************/
 void Astar_DEBUG_Display_Map_Node_Access(struct Astar_Map* map)
 {
-	//For each Node of the Map
-
 	//New line
 	Astar_Debug_Send_char('\n');Astar_Debug_Send_char('\r');
 	//New line

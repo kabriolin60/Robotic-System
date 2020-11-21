@@ -57,7 +57,17 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	_1_Communication_Create_Trame(&trame_echange, canal);
 
 	static char str[70];
-	sprintf(str, "Send Desti, From X= %d, Y= %d to X= %d, Y= %d\n",
+	static char* dir;
+
+	if(destination->coord.Type_Deplacement == xy_tour_av_avant)
+	{
+		dir = "AV";
+	}else if(destination->coord.Type_Deplacement == xy_tour_av_arriere)
+	{
+		dir = "AR";
+	}
+	sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+			dir,
 			(short)_0_Get_Robot_Position().Position_X,
 			(short)_0_Get_Robot_Position().Position_Y,
 			(short)destination->coord.X,
@@ -138,6 +148,8 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
 byte relese_sent = 0;
 extern long Nb_Messages_recus;
 extern long Nb_Erreurs_com;
+extern long Nb_Rx_Fifo_Full;
+static char str[70];
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
@@ -157,7 +169,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	_1_Communication_Create_Trame(&trame_echange, canal);
 
 	//Send the revision of this board firmware
-	static char str[70];
+
 	if(!relese_sent)
 	{
 		sprintf(str, "IA release= %s.%s; %s; %s\n",
@@ -168,10 +180,16 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
 		relese_sent = 1;
 	}
+	_2_Comm_Send_Communication_Status(canal);
+}
 
-	sprintf(str, "IA Nb messages= %ld // erreurs= %ld\n",
+
+void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
+{
+	sprintf(str, "IA mess= %ld // erreurs= %ld // FIFO FULL= %ld\n",
 			Nb_Messages_recus,
-			Nb_Erreurs_com);
+			Nb_Erreurs_com,
+			Nb_Rx_Fifo_Full);
 
 	if(Nb_Erreurs_com < 5)
 	{
@@ -508,7 +526,6 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 			Y,
 			Angle);
 	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
-
 }
 
 /*****************************************************************************/

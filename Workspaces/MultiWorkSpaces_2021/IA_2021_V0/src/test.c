@@ -24,7 +24,7 @@ extern long Nb_PONG_recus;
 
 __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 {
-	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 100, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 120, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	/*struct Point founded_destination;
 
 	Set_Debug_Pin_0_High();
@@ -85,14 +85,15 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	Astar_Debug_Display_Map(Astar_Get_Map());
 	 */
 
-	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
-
-	xTaskCreate(TEST_OVERFLOW_DEBUGGING, (char *) "test_overflow", 150, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
 void TEST_Deplacement(void * pvParameter)
 {
+	static char str[70];
+
+
 	_2_Comm_Demande_Simulation(TRUE, RS485_port);
 	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
 
@@ -100,82 +101,101 @@ void TEST_Deplacement(void * pvParameter)
 
 	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
 
-	Task_Delay(2000);
-
-	//TRAPPE_HAUT;
-	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
-
-	GOTO_XY_AVANT_WAIT(600, 460);
-
-	//TRAPPE_BAS;
-	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
-
-	GOTO_XY_AVANT_WAIT(430, 780);
-
-	//TRAPPE_HAUT;
-	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
-
-	GOTO_XY_AVANT_WAIT(370, 890);
-
-	//TRAPPE_BAS;
-	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
-
-	GOTO_XY_ARRIERE_WAIT(730, 260);
-
-	GOTO_XY_AVANT_WAIT(570, 260);
-
-	//TRAPPE_HAUT;
-	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
-
-	GOTO_XY_ARRIERE_WAIT(800, 260);
-
-
-
-
-	GOTO_XY_AVANT_WAIT(1000, 450);
-
-	//TRAPPE_BAS;
-	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
-
-	GOTO_XY_AVANT_WAIT(877, 942);
-
-	//TRAPPE_HAUT;
-	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
-
-	GOTO_XY_AVANT_WAIT(848, 1060);
-
-	//TRAPPE_BAS;
-	_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
-
-	GOTO_XY_ARRIERE_WAIT(800, 260);
-
-	GOTO_XY_AVANT_WAIT(1020, 260);
-
-	//TRAPPE_HAUT;
-	_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
-
-	GOTO_XY_ARRIERE_WAIT(800, 260);
-
-	//while(1)
+	while(1)
 	{
-		Task_Delay(5000);
+		Task_Delay(2000);
+
+		//TRAPPE_HAUT;
+		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+		GOTO_XY_AVANT_WAIT(600, 460);
+
+		//TRAPPE_BAS;
+		_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+		GOTO_XY_AVANT_WAIT(430, 780);
+
+		//TRAPPE_HAUT;
+		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+		GOTO_XY_AVANT_WAIT(370, 910);
+
+		//TRAPPE_BAS;
+		_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+		GOTO_XY_ARRIERE_WAIT(730, 260);
+
+		GOTO_XY_AVANT_WAIT(570, 260);
+
+		//TRAPPE_HAUT;
+		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+		GOTO_XY_ARRIERE_WAIT(800, 260);
+
+
+
+
+		GOTO_XY_AVANT_WAIT(1000, 450);
+
+		//TRAPPE_BAS;
+		_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+		GOTO_XY_AVANT_WAIT(877, 942);
+
+		//TRAPPE_HAUT;
+		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+		GOTO_XY_AVANT_WAIT(848, 1060);
+
+		//TRAPPE_BAS;
+		_0_Actionneurs_Move_1_Servo(10, 500, 0, 1000, true);
+
+		GOTO_XY_ARRIERE_WAIT(800, 260);
+
+		GOTO_XY_AVANT_WAIT(1020, 260);
+
+		//TRAPPE_HAUT;
+		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
+
+		GOTO_XY_ARRIERE_WAIT(800, 260);
 	}
 
 	while(1)
 	{
 		GOTO_XY_AVANT_WAIT(500, 500);
 
+		sprintf(str, "Test strategie: 1 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+
 		GOTO_XY_AVANT_ASTAR_WAIT(1722, 2585, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 2 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
 		GOTO_XY_AVANT_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
+		sprintf(str, "Test strategie: 3 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+
 		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2700, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 4 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 2900);
 
+		sprintf(str, "Test strategie: 5 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+
 		GOTO_XY_ARRIERE_WAIT(1000, 2700);
 
+		sprintf(str, "Test strategie: 6 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+
 		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 7 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 	}
 
 	Task_Delete_Current;
@@ -207,26 +227,6 @@ void TEST_envoi_Ping(void *pvParameters)
 		Task_Delay_Until(2.0F);
 		Task_Delay_Until(2.0F);/**/
 	}
-
-	Task_Delete_Current;
-}
-
-
-void TEST_OVERFLOW_DEBUGGING(void *pvparameter)
-{
-	Task_Delay(10000);
-
-	//Send the revision of this board firmware
-	static char str[70];
-	sprintf(str, "First overflow test");
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
-
-	Task_Delay(10000);
-
-	//Send the revision of this board firmware
-	char str2[270];
-	sprintf(str2, "Second overflow test");
-	_2_Comm_Send_Log_Message(str2, Color_Black, Channel_Debug_Divers, RS485_port);
 
 	Task_Delete_Current;
 }

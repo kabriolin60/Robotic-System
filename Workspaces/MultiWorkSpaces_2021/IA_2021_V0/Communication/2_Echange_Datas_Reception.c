@@ -31,7 +31,7 @@ long Nb_PONG_recus = 0;
 void _2_Communication_RX_Init()
 {
 	//Tache de décodage des donnees messages reçus
-	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 100, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 
@@ -72,8 +72,8 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 			case REPONSE_INFO:
 				Set_Debug_Pin_0_Low();
 				_2_Communication_RX_Reponse_Infos(&received_trame);
-				Nb_PONG_recus++;
-				Set_Debug_Pin_0_Low();
+				//Nb_PONG_recus++;
+				//Set_Debug_Pin_0_Low();
 				break;
 
 			case PING:

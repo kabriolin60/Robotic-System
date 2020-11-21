@@ -279,7 +279,7 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 			if(Arrive || Current_Destination.Type_Deplacement == aucun_mouvement)
 			{
 				//On est arrivée ou alors aucun mouvement n'est demandé, alors on s'arrete
-				
+
 				//Mise à jour des consignes en distance et en angle
 				_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
 				_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
@@ -443,7 +443,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 		arrive = true;
 
 		//Mise à jour des consignes en distance et en angle
-		_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
+		//_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
 		_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
 
 	}else if(fabsf(Erreur_Distance) < 3 * ((float)(Param_Depla->Distance_Detection_Fin_Trajectoire))/100)
@@ -488,12 +488,12 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 		arrive = false;
 	}
 
+	/*
+	 * Step 1.5: Si le robot n'est pas arrivé, adapte les coef sur les vitesses pour lui permettre de commencer à s'orienter vers sa cible avant d'avancer
+	 */
+
 	if(!arrive)
 	{
-		/*
-		 * Step 1.5: Si le robot n'est pas arrivé, adapte les coef sur les vitesses pour lui permettre de commencer à s'orienter vers sa cible avant d'avancer
-		 */
-
 		//Le robot n'a pas encore atteint sa destination
 
 		//Mise à jour des consignes en distance et en angle

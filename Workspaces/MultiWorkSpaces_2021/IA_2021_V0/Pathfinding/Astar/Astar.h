@@ -178,20 +178,20 @@ void Astar_Debug_Send_char(char ch);
 
 
 
-static inline void Astar_Set_Node_as_Blocked(struct Astar_Node* node)
+__attribute__((optimize("O0"))) static inline void Astar_Set_Node_as_Blocked(struct Astar_Node* node)
 {
 	node->Astar_Node_State = Closed;
 	node->Astar_Node_Access = Blocked;
 }
 
 
-static inline void Astar_Set_Node_as_Closed(struct Astar_Node* node)
+__attribute__((optimize("O0"))) static inline void Astar_Set_Node_as_Closed(struct Astar_Node* node)
 {
 	node->Astar_Node_State = Closed;
 }
 
 
-static inline void Astar_Set_Node_as_Opened(struct Astar_Node* node)
+__attribute__((optimize("O0"))) static inline void Astar_Set_Node_as_Opened(struct Astar_Node* node)
 {
 	node->Astar_Node_State = Open;
 }

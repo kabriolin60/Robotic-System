@@ -245,7 +245,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED );/* The bits being set. */
 
 	//Create the Astar deplacement task
-	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 220, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
+	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 320, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
 
 	if(!Attente)
 		return true;
@@ -259,6 +259,9 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 		//Delete the Astar task
 		//vTaskDelete(Astar_Task_Handler);
 	}
+
+	//Delete the Astar task
+	vTaskDelete(Astar_Task_Handler);
 
 	//true: we arrived at destination
 	//false: destination is not reachable
@@ -284,15 +287,22 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
  * Private task!!!!
  * Use _0_Deplacement_Tourne_Avance_ASTAR for external calls
  */
+static TO_AHBS_RAM3 char str_ASTAR[70];
 void _0_Deplacement_ASTAR(void* pvParameter)
 {
+
 	Init_Timing_Tache;
 
-	struct Point founded_destination;
+	struct Point found_destination;
 	struct Astar_deplacement parameters = *(struct Astar_deplacement*)pvParameter;
 
 	//Keep safe the real destination
 	struct st_COORDONNEES Final_Destination = parameters.destination.coord;
+
+	sprintf(str_ASTAR, "ASTAR: Creation task to: X:%dmm Y:%dmm\n",
+			Final_Destination.X,
+			Final_Destination.Y);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
 
 	//All new destination will be with replacement active
 	parameters.destination.Replace = true;
@@ -332,10 +342,10 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 			//A path as been found
 			//Load the next destination
-			founded_destination = Astar_Get_Map()->First_Destination;
+			found_destination = Astar_Get_Map()->First_Destination;
 
 			//Send the new destination if != from the previous sent, with replacement
-			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != founded_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != founded_destination.y)
+			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
 			{
 				/*
 				 *Check if the previous sent destination is still an available path
@@ -356,7 +366,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					/*
 					 * For the firsts deplacement, use a larger parameter
 					 */
-					/*if(founded_destination.x != Final_Destination.X && founded_destination.y != Final_Destination.Y)
+					/*if(found_destination.x != Final_Destination.X && found_destination.y != Final_Destination.Y)
 					{
 						//This is not the Final Destination
 						parameters.destination.coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 150*100;
@@ -370,14 +380,14 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					/*
 					 * Step 4: Send new destination to the Robot = new founded Pathfinding Result
 					 */
-					parameters.destination.coord.X = founded_destination.x;
-					parameters.destination.coord.Y = founded_destination.y;
+					parameters.destination.coord.X = found_destination.x;
+					parameters.destination.coord.Y = found_destination.y;
 					_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
 
 					//Set the new Current destination
 					_0_Deplacement_Get_ptr_Current_Destination()->coord = parameters.destination.coord;
 
-					Astar_Debug_Display_Map(Astar_Get_Map());
+					//Astar_Debug_Display_Map(Astar_Get_Map());
 				}else
 				{
 					//No Intersection, the previous destination is still a good choose
@@ -398,13 +408,12 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			parameters.destination.coord.Type_Deplacement = aucun_mouvement;
 			_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
 
-			static char str[70];
-			sprintf(str, "No path found, X= %d, Y= %d; to X= %d, Y= %d \n",
+			sprintf(str_ASTAR, "No path found, X= %d, Y= %d; to X= %d, Y= %d \n",
 					(short)_0_Get_Robot_Position().Position_X,
 					(short)_0_Get_Robot_Position().Position_Y,
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
-			_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_ASTAR, RS485_port);
+			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
 		}
 
 		/*
@@ -422,6 +431,10 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	/*
 	 * Step 7: When we reach the final destination, delete this task
 	 */
+	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+			Final_Destination.X,
+			Final_Destination.Y);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
 	Task_Delete_Current;
 }
 

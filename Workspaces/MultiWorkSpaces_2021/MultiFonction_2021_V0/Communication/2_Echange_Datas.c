@@ -65,7 +65,9 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
  *****************************************************************************/
 extern long Nb_Messages_recus;
 extern long Nb_Erreurs_com;
+extern long Nb_Rx_Fifo_Full;
 byte relese_sent = 0;
+static char str[70];
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
@@ -84,9 +86,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
 
-
 	//Send the revision of this board firmware
-	static char str[70];
 	if(!relese_sent)
 	{
 		sprintf(str, "MultiFct @%c, release= %s.%s; %s; %s\n",
@@ -99,10 +99,19 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 		relese_sent = 1;
 	}
 
-	sprintf(str, "Multi_Fct @%c Nb messages= %ld // erreurs= %ld\n",
+	_2_Comm_Send_Communication_Status(canal);
+}
+
+
+
+
+void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
+{
+	sprintf(str, "Multi_Fct @%c mess= %ld // erreurs= %ld // FIFO FULL= %ld\n",
 			ADRESSE_CARTE_CHAR,
 			Nb_Messages_recus,
-			Nb_Erreurs_com);
+			Nb_Erreurs_com,
+			Nb_Rx_Fifo_Full);
 
 	if(Nb_Erreurs_com < 5)
 	{
@@ -112,6 +121,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Divers, RS485_port);
 	}
 }
+
 
 
 /*****************************************************************************

@@ -18,10 +18,10 @@ QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des c
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
- long Nb_Messages_recus = 0;
+long Nb_Messages_recus = 0;
 static long Nb_Messages_adresses_corrects = 0;
 long Nb_Erreurs_com = 0;
-static long Nb_Rx_Fifo_Full = 0;
+long Nb_Rx_Fifo_Full = 0;
 
 //Canal de tracalyser
 traceString MyChannel_Recompo;
@@ -61,7 +61,7 @@ void _1_Communication_Init(void)
 void _1_Communication_Create_Queues_Semaphores(void)
 {
 	//Création de la Queue de reception pour les datas
-	_1_xQueue_Message_Receive = xQueueCreate( 5, sizeof( struct Communication_Trame )); //Queue contenant les messages reçus
+	_1_xQueue_Message_Receive = xQueueCreate( 10, sizeof( struct Communication_Trame )); //Queue contenant les messages reçus
 	vQueueAddToRegistry( _1_xQueue_Message_Receive, "_1_xQue_Mess_Receive");
 
 
@@ -459,6 +459,8 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 			vTracePrint(MyChannel_Recompo, "CRC Error");
 #endif
+
+			_2_Comm_Send_Communication_Status(RS485_port);
 			return pdFAIL;
 		}
 	}else

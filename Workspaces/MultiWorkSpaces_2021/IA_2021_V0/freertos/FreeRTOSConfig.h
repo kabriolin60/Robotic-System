@@ -54,7 +54,7 @@
 #define configCPU_CLOCK_HZ			( ( unsigned long ) 128000000 )
 #define configTICK_RATE_HZ			( ( TickType_t ) 10000 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 60 )
-#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 8 * 1024 ) )
+#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 12 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 20 )
 
 #ifdef DEBUG
