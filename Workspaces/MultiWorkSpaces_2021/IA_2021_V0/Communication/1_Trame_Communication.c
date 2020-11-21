@@ -18,7 +18,6 @@
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
 long Nb_Messages_recus = 0;
-static long Nb_Messages_adresses_corrects = 0;
 long Nb_Erreurs_com = 0;
 
 //Canal de tracalyser
@@ -247,7 +246,7 @@ static TO_AHBS_RAM3 struct Communication_Trame received_trame;
  **
  *****************************************************************************/
 static TO_AHBS_RAM3 byte Data_rx[COMMUNICATION_TRAME_MAX_DATA + 11];
-__attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff, xQueueHandle pQueue_To_Send)
+__attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff)
 {
 	if(RingBuff == NULL)
 		return pdFAIL;
@@ -268,7 +267,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		if(RingBuffer_Pop(RingBuff, &API_start))
 		{
 			boucle++;
-			if(boucle > 2)
+			if(boucle > 5)
 			{
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 				vTracePrint(MyChannel_Recompo, "Start not Rx");
@@ -422,7 +421,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			_1_Communication_Check_Rx_Adresse(&received_trame, pQueue_To_Send);
+			_1_Communication_Check_Rx_Adresse(&received_trame);
 			_1_Communication_Free_Receive_Bit();
 		}else
 		{
@@ -456,7 +455,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
  ** 					False: message non ajouté (non adressé à la carte ou Queeu pleine)
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame, xQueueHandle pQueue_To_Send)
+BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame)
 {
 	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
 	{
@@ -533,7 +532,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		//Creation de la trame à partir des data reçues
 		while(RingBuffer_Count(Falged_ringBuffer))
 		{
-			_1_Communication_Create_Trame_From_Buffer(Falged_ringBuffer, pvParameters);
+			_1_Communication_Create_Trame_From_Buffer(Falged_ringBuffer);
 		}
 	}
 }

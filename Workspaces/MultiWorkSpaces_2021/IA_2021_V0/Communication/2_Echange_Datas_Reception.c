@@ -58,10 +58,8 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		break;
 
 	case REPONSE_INFO:
-		Set_Debug_Pin_0_Low();
 		_2_Communication_RX_Reponse_Infos(trame);
-		//Nb_PONG_recus++;
-		//Set_Debug_Pin_0_Low();
+		Nb_PONG_recus++;
 		break;
 
 	case PING:

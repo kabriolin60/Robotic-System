@@ -24,7 +24,7 @@ extern long Nb_PONG_recus;
 
 __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 {
-	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 120, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 120, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	/*struct Point founded_destination;
 
 	Set_Debug_Pin_0_High();
@@ -101,7 +101,7 @@ void TEST_Deplacement(void * pvParameter)
 
 	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
 
-	while(1)
+	/*while(1)
 	{
 		Task_Delay(2000);
 
@@ -158,7 +158,7 @@ void TEST_Deplacement(void * pvParameter)
 		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
 
 		GOTO_XY_ARRIERE_WAIT(800, 260);
-	}
+	}*/
 
 	while(1)
 	{
@@ -202,8 +202,31 @@ void TEST_Deplacement(void * pvParameter)
 }
 
 
-
 void TEST_envoi_Ping(void *pvParameters)
+{
+	Task_Delay(20);
+	Init_Timing_Tache;
+
+	long nb_to_send = 100000;
+
+	for(long i = 0; i < nb_to_send; i++)
+	{
+		_2_Comm_Send_Demande_Info(1, RS485_port);
+
+		Task_Delay_Until(2.0F);
+	}
+
+	if(Nb_PONG_recus >= nb_to_send)
+	{
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, 1);
+	}
+	Task_Delete_Current;
+}
+
+
+
+
+void TEST_envoi_Ping2(void *pvParameters)
 {
 	Task_Delay(20);
 	Init_Timing_Tache;
@@ -212,7 +235,7 @@ void TEST_envoi_Ping(void *pvParameters)
 	{
 		_2_Comm_Send_Demande_Info(1, RS485_port);
 
-		Task_Delay_Until(2.0F);
+		Task_Delay_Until(20.0F);
 
 		/*_2_Comm_Send_Demande_Info(2, RS485_port);
 

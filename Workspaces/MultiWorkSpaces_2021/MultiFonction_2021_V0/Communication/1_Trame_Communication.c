@@ -17,7 +17,6 @@
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
 long Nb_Messages_recus = 0;
-static long Nb_Messages_adresses_corrects = 0;
 long Nb_Erreurs_com = 0;
 
 //Canal de tracalyser
@@ -38,7 +37,7 @@ void _1_Communication_Init(void)
 	_1_Communication_Create_Queues_Semaphores();
 
 	//Tache de décodage des donnees recues par differentes FIFO
-	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 320, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 	MyChannel_Recompo = xTraceRegisterString("Recompo_Mess");
@@ -245,7 +244,7 @@ static TO_AHBS_RAM3 struct Communication_Trame received_trame;
  **
  *****************************************************************************/
 static TO_AHBS_RAM3 byte Data_rx[COMMUNICATION_TRAME_MAX_DATA + 11];
-__attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff, xQueueHandle pQueue_To_Send)
+__attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff)
 {
 	if(RingBuff == NULL)
 		return pdFAIL;
@@ -258,15 +257,17 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	byte index = 0, rx_crc = 0;
 
 	//Reception En-tête API
-	byte boucle = 0;
+	static byte boucle = 0;
 	RingBuffer_Pop(RingBuff, &API_start);
+
+	boucle = 0;
 	while (API_start != 0x7E)
 	{
 		//Attente reception en-tête de trame API
 		if(RingBuffer_Pop(RingBuff, &API_start))
 		{
 			boucle++;
-			if(boucle > 2)
+			if(boucle > 5)
 			{
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 				vTracePrint(MyChannel_Recompo, "Start not Rx");
@@ -335,7 +336,9 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	}
 
 	boucle = 0;
-	while (RingBuffer_Count(RingBuff) < API_LENGTH - 1)
+	int available_data_count = 0;
+	available_data_count = RingBuffer_Count(RingBuff);
+	while (available_data_count < API_LENGTH - 1)
 	{
 		boucle++;
 
@@ -349,6 +352,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			return pdFAIL;
 		}
 		Task_Delay(0.1F);
+		available_data_count = RingBuffer_Count(RingBuff);
 	}
 
 	RingBuffer_PopMult(RingBuff, &Data_rx, 6);
@@ -420,7 +424,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			_1_Communication_Check_Rx_Adresse(&received_trame, pQueue_To_Send);
+			_1_Communication_Check_Rx_Adresse(&received_trame);
 			_1_Communication_Free_Receive_Bit();
 		}else
 		{
@@ -454,7 +458,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
  ** 					False: message non ajouté (non adressé à la carte ou Queeu pleine)
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame, xQueueHandle pQueue_To_Send)
+BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame)
 {
 	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
 	{
@@ -505,7 +509,6 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 	while (1)
 	{
 		//Attente de l'info qu'une data est dispo dans un buffer
-		//Sans effacer le bit de Flag
 		uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
 				eGROUP_SYNCH_RS485_Rx_Data_Avail | eGROUP_SYNCH_USB_Rx_Data_Avail, /* The bits within the event group to wait for. */
 				pdTRUE,        /* Clear bits before returning. */
@@ -531,7 +534,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		//Creation de la trame à partir des data reçues
 		while(RingBuffer_Count(Falged_ringBuffer))
 		{
-			_1_Communication_Create_Trame_From_Buffer(Falged_ringBuffer, pvParameters);
+			_1_Communication_Create_Trame_From_Buffer(Falged_ringBuffer);
 		}
 	}
 }

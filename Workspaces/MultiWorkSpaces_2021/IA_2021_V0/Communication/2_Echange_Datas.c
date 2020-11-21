@@ -332,17 +332,56 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
  *****************************************************************************/
 void _2_Communication_Boards_Status(void* pvParameters)
 {
-	Task_Delay(20);
 	Init_Timing_Tache;
 
-	Task_Delay(1000);
+	Task_Delay(100);
+	_2_Comm_Send_PONG(RS485_port); //premier pong initial avec la version de la carte IA
+
+	//Demande un ping sur les autres cartes
+	for(int i = 0; i < 4; i++)
+	{
+		_2_Comm_Send_PING(i+1, RS485_port);
+		Task_Delay_Until(5.0F);
+	}
+
+	Task_Delay(100);
+	int boucle = 0;
+	while(true)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			_2_Comm_Send_Demande_Info(i+1, RS485_port);
+
+			Task_Delay_Until(5.0F);
+		}
+
+		boucle++;
+
+		if(boucle == 1000)
+		{
+			_2_Comm_Send_PONG(RS485_port); //pongs suivants sans la version de la carte IA
+
+			for(int i = 0; i < 4; i++)
+			{
+				_2_Comm_Send_PING(i+1, RS485_port);
+				Task_Delay_Until(5.0F);
+			}
+			boucle = 0;
+		}
+	}
+
+
+
+
+
+	_2_Comm_Send_Demande_Info(1, RS485_port);
 	while(true)
 	{
 		_2_Comm_Send_PONG(RS485_port);
 		Task_Delay(2);
 		for(int i = 0; i < 4; i++)
 		{
-			Task_Delay(17);
+			//Task_Delay(2);
 			_2_Comm_Send_PING(i+1, RS485_port);
 		}
 		Task_Delay_Until(5000);

@@ -39,9 +39,9 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 
 BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal);
 
-BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff, xQueueHandle pQueue_To_Send);
+BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff);
 
-BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame, xQueueHandle pQueue_To_Send);
+BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame);
 
 BaseType_t _1_Communication_Check_Priority_Messages(struct Communication_Trame *received_trame);
 
