@@ -94,7 +94,7 @@ Communication/0_Communication.o Communication/0_Communication.d: \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication\RS485/0_RS485.h \
  ../Communication/0_Communication.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
- ../Communication/0_Event_Group.h
+ ../Communication/0_Event_Group.h ../Communication/2_Echange_Datas.h
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h:
 
@@ -285,3 +285,5 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
 
 ../Communication/0_Event_Group.h:
+
+../Communication/2_Echange_Datas.h:

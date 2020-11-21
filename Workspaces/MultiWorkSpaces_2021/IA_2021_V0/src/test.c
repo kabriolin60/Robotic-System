@@ -93,6 +93,7 @@ void TEST_Deplacement(void * pvParameter)
 {
 	static char str[70];
 
+	Task_Delay(500);
 
 	_2_Comm_Demande_Simulation(TRUE, RS485_port);
 	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
@@ -101,7 +102,7 @@ void TEST_Deplacement(void * pvParameter)
 
 	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
 
-	/*while(1)
+	while(1)
 	{
 		Task_Delay(2000);
 
@@ -158,8 +159,9 @@ void TEST_Deplacement(void * pvParameter)
 		_0_Actionneurs_Move_1_Servo(10, 2000, 0, 1000, true);
 
 		GOTO_XY_ARRIERE_WAIT(800, 260);
-	}*/
+	}/**/
 
+	/*
 	while(1)
 	{
 		GOTO_XY_AVANT_WAIT(500, 500);
@@ -196,7 +198,7 @@ void TEST_Deplacement(void * pvParameter)
 
 		sprintf(str, "Test strategie: 7 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
-	}
+	}/**/
 
 	Task_Delete_Current;
 }

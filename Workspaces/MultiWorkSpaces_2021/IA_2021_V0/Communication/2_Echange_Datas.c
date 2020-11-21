@@ -566,3 +566,16 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 }
 
 /*****************************************************************************/
+
+
+
+struct Communication_Message* _2_Comm_Envoi_Fin_Communication(void)
+{
+	trame_echange.Instruction = END_COMMUNICATION;
+	trame_echange.Slave_Adresse = ALL_CARDS;
+
+	trame_echange.Length = 0;
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	return _1_Communication_Create_Message(&trame_echange);
+}

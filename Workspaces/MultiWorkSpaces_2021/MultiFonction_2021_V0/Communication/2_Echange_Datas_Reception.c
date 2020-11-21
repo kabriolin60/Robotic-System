@@ -71,6 +71,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 #endif
 		break;
 
+
 	case SET_ROBOT_POSITION:
 		_2_Comm_RX_Set_Position_Robot(trame);
 		break;
@@ -95,9 +96,11 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		_0_Communication_Give_Sending_Clearance();
 		break;
 
+
 	case DEMANDE_MOTEURS_POWER:
 		_2_Comm_RX_Motor_Power(trame);
 		break;
+
 
 	case DEMANDE_SIMULATION_MOTEURS:
 		_2_Comm_RX_Simulation_Deplacement(trame);
@@ -112,6 +115,11 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	case PING:
 		//A la demande d'une carte, on répond par un PONG
 		_2_Comm_Send_PONG(RS485_port);
+		break;
+
+
+	case END_COMMUNICATION:
+		_0_Communication_Give_Sending_Clearance();
 		break;
 
 

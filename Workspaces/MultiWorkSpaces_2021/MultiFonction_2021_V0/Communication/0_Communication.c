@@ -183,12 +183,11 @@ void _0_Communication_Init_RS485(void)
  ** Returned value:		None
  **
  *****************************************************************************/
+static int high_watter_mark = 0;
 void RS485_HANDLER_NAME(void)
 {
 	static bool already_flaged = pdFALSE;
 	BaseType_t pxHigherPriorityTaskWoken = false;
-
-	//Set_Debug_Pin_0_High();
 
 	//Trace tracking of ISR entry
 	vTraceStoreISRBegin(Trace_Timer_RS485_Handle);
@@ -215,6 +214,11 @@ void RS485_HANDLER_NAME(void)
 		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
 				eGROUP_SYNCH_RS485_Rx_Data_Avail,		 /* The bits being set. */
 				&pxHigherPriorityTaskWoken);
+	}
+
+	if(RingBuffer_Count(&rxring_RS485) > high_watter_mark)
+	{
+		high_watter_mark = RingBuffer_Count(&rxring_RS485);
 	}
 
 	//Force un changement de tache
@@ -320,8 +324,6 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	while (1)
 	{
-
-
 #ifdef TYPE_CARTE_MULTIFCT
 		//Attente de l'autorisation d'envoyer un message par la Carte IA
 		_0_Communication_Wait_Sending_Clearance();
@@ -368,7 +370,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 					RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 					break;
 				}
-				Task_Delay(1);
+				//Task_Delay(1);
 			}
 	}
 }
@@ -388,6 +390,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 {
 	uint8_t ch;
 
+	Set_Debug_Pin_0_High();
+
 	//Passe en TX
 	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
@@ -406,6 +410,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 
 	//Passe en RX
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	Set_Debug_Pin_0_Low();
 }
 
 
