@@ -24,7 +24,7 @@ extern long Nb_PONG_recus;
 
 __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 {
-	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 180, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_envoi_Ping, (char *) "Ping", 100, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	/*struct Point founded_destination;
 
 	Set_Debug_Pin_0_High();
@@ -86,6 +86,8 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	 */
 
 	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+
+	xTaskCreate(TEST_OVERFLOW_DEBUGGING, (char *) "test_overflow", 150, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
@@ -205,6 +207,26 @@ void TEST_envoi_Ping(void *pvParameters)
 		Task_Delay_Until(2.0F);
 		Task_Delay_Until(2.0F);/**/
 	}
+
+	Task_Delete_Current;
+}
+
+
+void TEST_OVERFLOW_DEBUGGING(void *pvparameter)
+{
+	Task_Delay(10000);
+
+	//Send the revision of this board firmware
+	static char str[70];
+	sprintf(str, "First overflow test");
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+
+	Task_Delay(10000);
+
+	//Send the revision of this board firmware
+	char str2[270];
+	sprintf(str2, "Second overflow test");
+	_2_Comm_Send_Log_Message(str2, Color_Black, Channel_Debug_Divers, RS485_port);
 
 	Task_Delete_Current;
 }

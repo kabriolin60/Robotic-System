@@ -75,11 +75,65 @@ void vApplicationIdleHook(void)
 	__WFI();
 }
 
+#include "Communication_Typedef.h"
+#include "0_RS485.h"
+#include "1_Trame_Communication.h"
+#include "2_Echange_Datas.h"
+
+
+static TO_AHBS_RAM3 struct Logger_Debug_Data log_message_overflow;
+static TO_AHBS_RAM3 struct Communication_Trame trame_echange_overflow;
+static TO_AHBS_RAM3 struct Communication_Message Message_To_Send_overflow;
+static TO_AHBS_RAM3 uint8_t txbuff[128];
+static TO_AHBS_RAM3 char str[70];
+
 /* FreeRTOS stack overflow hook */
 void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)
 {
 	(void) pxTask;
 	(void) pcTaskName;
+
+
+	sprintf(str, "DIE:ERROR: Stack overflow in task \"%s\"\r\n", pcTaskName);
+	trame_echange_overflow.Instruction = LOGGER_DEBUG;
+	trame_echange_overflow.Slave_Adresse = PC;
+
+	log_message_overflow.Color = Color_Red;
+
+	log_message_overflow.Channel = Channel_Debug_Error;
+
+	log_message_overflow.Nombre_Carateres = COPYSTRING(str, log_message_overflow.Text);
+
+	trame_echange_overflow.Length = COPYDATA(log_message_overflow, trame_echange_overflow.Data);
+	trame_echange_overflow.XBEE_DEST_ADDR = XBee_PC;
+
+	//Creation du message
+	Message_To_Send_overflow = (struct Communication_Message)* _1_Communication_Create_Message(&trame_echange_overflow);
+
+	//Transforme le message en [byte]
+	int length = COPYDATA(Message_To_Send_overflow, txbuff);
+
+	//Passe en RX
+	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);	for(int i = 0; i < 3000; i++)__asm volatile( "nop" );
+
+	//Passe en TX
+	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	for(int j = 0; j < length; j++)
+	{
+		Chip_UART_SendByte(RS484_UART, txbuff[j]);
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
+
+	//Passe en RX
+	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	//DEBUGOUT("DIE:ERROR:FreeRTOS: Stack overflow in task %s\r\n", pcTaskName);
 	/* Run time stack overflow checking is performed if

@@ -334,7 +334,9 @@ enum Channel_Debug
 	Channel_Debug_Deplacement,
 	Channel_Debug_ASTAR,
 	Channel_Debug_Test,
-	Channel_Debug_Divers
+	Channel_Debug_Divers,
+	TBD,
+	Channel_Debug_Error
 };
 
 

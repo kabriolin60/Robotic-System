@@ -18,9 +18,9 @@ QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des c
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
- long Nb_Messages_recus = 0;
+long Nb_Messages_recus = 0;
 static long Nb_Messages_adresses_corrects = 0;
- long Nb_Erreurs_com = 0;
+long Nb_Erreurs_com = 0;
 static long Nb_Rx_Fifo_Full = 0;
 
 //Canal de tracalyser
@@ -171,7 +171,8 @@ void _1_Communication_Free_Receive_Bit(void)
  **
  *****************************************************************************/
 static TO_AHBS_RAM3 struct Communication_Message Message_To_Send;
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal)
+
+struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send)
 {
 	//Le bit de synchro issu de l'EventGroup, est pris par la couche 2
 
@@ -215,6 +216,15 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	API_CRC = (byte)(0xFF - API_CRC);
 
 	Message_To_Send.Data[index] = (byte)(API_CRC);
+
+	return &Message_To_Send;
+}
+
+
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal)
+{
+	//Mise en forme des datas
+	(void)_1_Communication_Create_Message(pMessage_to_send);
 
 	//Ajoute au message le cannal de communication à utilisre
 	Message_To_Send.canal_communication = canal;

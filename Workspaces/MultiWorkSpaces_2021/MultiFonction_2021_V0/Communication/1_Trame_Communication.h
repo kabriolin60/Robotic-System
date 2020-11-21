@@ -35,6 +35,7 @@ BaseType_t _1_Communication_Wait_To_Receive(TickType_t xTicksToWait);
 void _1_Communication_Free_Receive_Bit(void);
 
 
+struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send);
 
 BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal);
 
