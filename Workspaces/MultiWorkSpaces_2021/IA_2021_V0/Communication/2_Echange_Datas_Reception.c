@@ -14,7 +14,6 @@
 #include "2_Echange_Datas.h"
 #include "0_Infos.h"
 
-extern QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 static long Nb_Messages_Interpretes = 0;
 
 long Nb_PONG_recus = 0;
@@ -31,7 +30,7 @@ long Nb_PONG_recus = 0;
 void _2_Communication_RX_Init()
 {
 	//Tache de décodage des donnees messages reçus
-	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
+	//xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 
@@ -44,55 +43,43 @@ void _2_Communication_RX_Init()
  ** Returned value:		None
  **
  *****************************************************************************/
-static TO_AHBS_RAM3 struct Communication_Trame received_trame;
 
-struct Com_Position_Robot Com_Position_Robot;
-__attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void *pvParameters)
+void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 {
-	if(pvParameters == NULL)
-		Task_Delete_Current;
+	Debug_Trace_Texte("Debut_Interpretation");
 
-	for(;;)
+	Nb_Messages_Interpretes++;
+
+	switch(trame->Instruction)
 	{
-		//Reception d'un message depuis une Queue
-		if(xQueueReceive(pvParameters, &received_trame, portMAX_DELAY))
-		{
-			Debug_Trace_Texte("Debut_Interpretation");
-
-			Nb_Messages_Interpretes++;
-
-			switch(received_trame.Instruction)
-			{
-			case DEMANDE_ROBOT_POSITION:
+	case DEMANDE_ROBOT_POSITION:
 #ifdef TYPE_CARTE_MULTIFCT
-				_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
+		_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
 #endif
-				break;
+		break;
 
-			case REPONSE_INFO:
-				Set_Debug_Pin_0_Low();
-				_2_Communication_RX_Reponse_Infos(&received_trame);
-				//Nb_PONG_recus++;
-				//Set_Debug_Pin_0_Low();
-				break;
+	case REPONSE_INFO:
+		Set_Debug_Pin_0_Low();
+		_2_Communication_RX_Reponse_Infos(trame);
+		//Nb_PONG_recus++;
+		//Set_Debug_Pin_0_Low();
+		break;
 
-			case PING:
-				//A la demande d'une carte, on répond par un PONG
-				_2_Comm_Send_PONG(RS485_port);
+	case PING:
+		//A la demande d'une carte, on répond par un PONG
+		_2_Comm_Send_PONG(RS485_port);
 
-			case PONG:
-				//Reception d'un Pong
-				Nb_PONG_recus++;
-				//Set_Debug_Pin_0_Low();
-				break;
+	case PONG:
+		//Reception d'un Pong
+		Nb_PONG_recus++;
+		//Set_Debug_Pin_0_Low();
+		break;
 
-			default:
-				break;
-			}
-
-			Debug_Trace_Texte("Fin_Interpretation");
-		}
+	default:
+		break;
 	}
+
+	Debug_Trace_Texte("Fin_Interpretation");
 }
 
 

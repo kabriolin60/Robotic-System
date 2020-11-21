@@ -148,7 +148,6 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
 byte relese_sent = 0;
 extern long Nb_Messages_recus;
 extern long Nb_Erreurs_com;
-extern long Nb_Rx_Fifo_Full;
 static char str[70];
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
@@ -186,10 +185,9 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 {
-	sprintf(str, "IA mess= %ld // erreurs= %ld // FIFO FULL= %ld\n",
+	sprintf(str, "IA mess= %ld // erreurs= %ld\n",
 			Nb_Messages_recus,
-			Nb_Erreurs_com,
-			Nb_Rx_Fifo_Full);
+			Nb_Erreurs_com);
 
 	if(Nb_Erreurs_com < 5)
 	{

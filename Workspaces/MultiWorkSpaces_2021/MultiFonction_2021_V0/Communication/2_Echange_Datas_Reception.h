@@ -14,6 +14,8 @@ void _2_Communication_RX_Init();
 
 void _2_Communication_RX_Lectures_Messages(void *pvParameters);
 
+void _2_Communication_Interprete_message(struct Communication_Trame* trame);
+
 void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas);
 
 void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas);

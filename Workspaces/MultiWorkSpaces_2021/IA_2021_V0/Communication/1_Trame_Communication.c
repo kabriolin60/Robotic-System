@@ -14,14 +14,12 @@
 #include <cr_section_macros.h>
 #include <Init.h>
 
-QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
 long Nb_Messages_recus = 0;
 static long Nb_Messages_adresses_corrects = 0;
 long Nb_Erreurs_com = 0;
-long Nb_Rx_Fifo_Full = 0;
 
 //Canal de tracalyser
 traceString MyChannel_Recompo;
@@ -41,7 +39,7 @@ void _1_Communication_Init(void)
 	_1_Communication_Create_Queues_Semaphores();
 
 	//Tache de décodage des donnees recues par differentes FIFO
-	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 100, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 	MyChannel_Recompo = xTraceRegisterString("Recompo_Mess");
@@ -60,11 +58,6 @@ void _1_Communication_Init(void)
  *****************************************************************************/
 void _1_Communication_Create_Queues_Semaphores(void)
 {
-	//Création de la Queue de reception pour les datas
-	_1_xQueue_Message_Receive = xQueueCreate( 10, sizeof( struct Communication_Trame )); //Queue contenant les messages reçus
-	vQueueAddToRegistry( _1_xQueue_Message_Receive, "_1_xQue_Mess_Receive");
-
-
 	//Mise à dispo du bit de liberation de la trame d'envoi et de reception
 	xEventGroupSetBits(_0_Comm_EventGroup, eGROUP_SYNCH_TxTrameDispo | eGROUP_SYNCH_RxTrameDispo);
 }
@@ -256,9 +249,6 @@ static TO_AHBS_RAM3 struct Communication_Trame received_trame;
 static TO_AHBS_RAM3 byte Data_rx[COMMUNICATION_TRAME_MAX_DATA + 11];
 __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff, xQueueHandle pQueue_To_Send)
 {
-	if(pQueue_To_Send == NULL)
-		return pdFAIL;
-
 	if(RingBuff == NULL)
 		return pdFAIL;
 
@@ -430,29 +420,10 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		//Vérifie le CRC
 		if (crc == rx_crc)
 		{
-			BaseType_t res;
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			res = _1_Communication_Check_Rx_Adresse(&received_trame, pQueue_To_Send);
-			if(res)
-			{
-				//Message correctement adresse et ajoute à la pile
-				_1_Communication_Free_Receive_Bit();
-				Nb_Messages_adresses_corrects++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Data Queued!");
-#endif
-				return pdPASS;
-			}else
-			{
-				//Message non mis en Queue
-				Nb_Rx_Fifo_Full++;
-				_1_Communication_Free_Receive_Bit();
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Rx FIFO Full");
-#endif
-				return pdFAIL;
-			}
+			_1_Communication_Check_Rx_Adresse(&received_trame, pQueue_To_Send);
+			_1_Communication_Free_Receive_Bit();
 		}else
 		{
 			_1_Communication_Free_Receive_Bit();
@@ -489,19 +460,9 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 {
 	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
 	{
-		//Le message est adressé à cette carte (ou à toutes les cartes)
-
-		//Check si le message est considéré comme prioritaire et doit passer en haut de la pile
-		if(_1_Communication_Check_Priority_Messages(received_trame))
-		{
-			//Message prioritaire à passer en haut de la Queue
-			//Push le message en Queue de reception pour être interprete
-			return xQueueSendToFront(pQueue_To_Send, received_trame, portMAX_DELAY);
-		}
-
-		//Message non prioritaire, passé en fin de Queue
-		//Push le message en Queue de reception pour être interprete
-		return xQueueSend(pQueue_To_Send, received_trame, portMAX_DELAY);
+		//Interprete directement le message sans le mettre en Queue
+		_2_Communication_Interprete_message(received_trame);
+		return true;
 	}
 
 	return pdFALSE;
@@ -542,11 +503,6 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 	NVIC_EnableIRQ(RS485_IRQ_SELECTION);
 
 	EventBits_t uxBits;
-
-	if(pvParameters == NULL)
-	{
-		Task_Delete_Current;
-	}
 
 	while (1)
 	{
