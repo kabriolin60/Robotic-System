@@ -334,8 +334,9 @@ void _2_Communication_Boards_Status(void* pvParameters)
 {
 	Init_Timing_Tache;
 
-	Task_Delay(100);
+	Task_Delay_Until(100);
 	_2_Comm_Send_PONG(RS485_port); //premier pong initial avec la version de la carte IA
+	Task_Delay_Until(1);
 
 	//Demande un ping sur les autres cartes
 	for(int i = 0; i < 4; i++)
@@ -344,7 +345,8 @@ void _2_Communication_Boards_Status(void* pvParameters)
 		Task_Delay_Until(5.0F);
 	}
 
-	Task_Delay(100);
+
+	Task_Delay_Until(100);
 	int boucle = 0;
 	while(true)
 	{
@@ -368,23 +370,6 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			}
 			boucle = 0;
 		}
-	}
-
-
-
-
-
-	_2_Comm_Send_Demande_Info(1, RS485_port);
-	while(true)
-	{
-		_2_Comm_Send_PONG(RS485_port);
-		Task_Delay(2);
-		for(int i = 0; i < 4; i++)
-		{
-			//Task_Delay(2);
-			_2_Comm_Send_PING(i+1, RS485_port);
-		}
-		Task_Delay_Until(5000);
 	}
 }
 

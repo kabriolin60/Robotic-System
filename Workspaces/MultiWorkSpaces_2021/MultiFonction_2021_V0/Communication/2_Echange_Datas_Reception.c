@@ -134,6 +134,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	case PING:
 		//A la demande d'une carte, on répond par un PONG
 		_2_Comm_Send_PONG(RS485_port);
+		_0_Communication_Give_Sending_Clearance();
 		break;
 
 

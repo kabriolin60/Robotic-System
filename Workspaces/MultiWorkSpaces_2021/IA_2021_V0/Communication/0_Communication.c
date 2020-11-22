@@ -99,7 +99,7 @@ void _0_Communication_Init(void)
 #endif
 
 	//Tache d'envoi des messages pour tous les cannaux
-	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 130, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 130, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 
@@ -355,15 +355,11 @@ void _0_Communication_Send_Data(void *pvParameters)
 				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 				break;
 			}
-			//Task_Delay(1);
 
-			/*if(uxQueueMessagesWaiting(pvParameters) == 0)
+			if(Message.Data[0] == PING || Message.Data[8] == DEMANDE_INFO)
 			{
-				//Envoi la fin de transmission pour authoriser les réponses
-				Message = (struct Communication_Message)*_2_Comm_Envoi_Fin_Communication();
-				RingBuffer_InsertMult(&txring, &Message.Data[0], (int)Message.length);
-				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
-			}*/
+				Task_Delay(1);
+			}
 		}
 	}
 }
