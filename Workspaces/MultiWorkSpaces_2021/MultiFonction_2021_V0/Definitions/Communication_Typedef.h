@@ -519,4 +519,14 @@ struct st_Graph_Datas
 };
 
 
+/**************************************************
+Declaration de la definition de la Structure contenant les valeurs du ASTAR
+ **************************************************/
+struct st_ASTAR_Data
+{
+	short line_id;
+	byte Node_Data[120/2];
+};
+
+
 #endif /* COMMUNICATION_TYPEDEF_H_ */

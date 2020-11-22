@@ -283,7 +283,6 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 static TO_AHBS_RAM3 char str_ASTAR[70];
 void _0_Deplacement_ASTAR(void* pvParameter)
 {
-
 	Init_Timing_Tache;
 
 	struct Point found_destination;
@@ -412,7 +411,9 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		/*
 		 * Step 5: Debug, display Pathfinding Map
 		 */
+		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), RS485_port);
 		//Astar_Debug_Display_Map(Astar_Get_Map());
+
 
 		Set_Debug_Pin_0_Low();
 		/*

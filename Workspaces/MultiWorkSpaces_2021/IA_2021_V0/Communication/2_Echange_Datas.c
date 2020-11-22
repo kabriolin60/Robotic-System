@@ -553,7 +553,15 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 /*****************************************************************************/
 
 
-
+/*****************************************************************************
+ ** Function name:		_2_Comm_Envoi_Fin_Communication
+ **
+ ** Descriptions:		Fonction d'envoie de la fin d'une communication
+ **
+ ** parameters:			none
+ ** Returned value:		None
+ **
+ *****************************************************************************/
 struct Communication_Message* _2_Comm_Envoi_Fin_Communication(void)
 {
 	trame_echange.Instruction = END_COMMUNICATION;
@@ -563,4 +571,48 @@ struct Communication_Message* _2_Comm_Envoi_Fin_Communication(void)
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
 	return _1_Communication_Create_Message(&trame_echange);
+}
+
+
+
+#include "Astar.h"
+void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communication canal)
+{
+	struct st_ASTAR_Data data_to_send;
+
+	for(int x = 0; x < Astar_Node_Nb_X; x+=2)
+	{
+		if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+		{
+			//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+			//Abandon
+			return;
+		}
+
+		trame_echange.Instruction = ASTAR_CONTENU;
+		trame_echange.Slave_Adresse = PC;
+		trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+
+		data_to_send.line_id = x;
+		//Pour chaque ligne
+		//1ère ligne
+		for(int y = 0; y < Astar_Node_Nb_Y; y+=2)
+		{
+			//Pour chaque noeud de la ligne
+			data_to_send.Node_Data[y/2] = (map->Nodes[x][y].Astar_Node_Access) | (map->Nodes[x][y+1].Astar_Node_Access << 4);
+		}
+
+		//2ème ligne
+		for(int y = 0; y < Astar_Node_Nb_Y; y+=2)
+		{
+			//Pour chaque noeud de la ligne
+			data_to_send.Node_Data[y/2 + Astar_Node_Nb_Y/2] = (map->Nodes[x+1][y].Astar_Node_Access) | (map->Nodes[x+1][y+1].Astar_Node_Access << 4);
+		}
+
+		trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
+		_1_Communication_Create_Trame(&trame_echange, canal);
+
+		Task_Delay(2);
+	}
 }

@@ -102,6 +102,7 @@ void TEST_Deplacement(void * pvParameter)
 
 	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
 
+	/*
 	//while(1)
 	{
 		Task_Delay(2000);

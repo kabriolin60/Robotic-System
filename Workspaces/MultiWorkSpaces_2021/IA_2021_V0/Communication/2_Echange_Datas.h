@@ -13,6 +13,7 @@
 #include "Type_Declaration.h"
 #include "Communication_Typedef.h"
 #include "queue.h"
+#include "Astar.h"
 
 //Copie des donnees d'une struct a l'autre
 #define COPYDATA(X, Y)	sizeof(X) > sizeof(Y) ? sizeof(Y) : sizeof(X); memcpy(&Y, &X, sizeof(Y));
@@ -49,5 +50,7 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
 void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_communication canal);
 
 struct Communication_Message* _2_Comm_Envoi_Fin_Communication(void);
+
+void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communication canal);
 
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */
