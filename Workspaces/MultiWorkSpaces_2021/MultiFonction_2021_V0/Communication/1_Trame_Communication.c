@@ -14,6 +14,7 @@
 #include <cr_section_macros.h>
 #include <Init.h>
 
+QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 
 long Nb_Messages_recus = 0;
@@ -37,7 +38,7 @@ void _1_Communication_Init(void)
 	_1_Communication_Create_Queues_Semaphores();
 
 	//Tache de décodage des donnees recues par differentes FIFO
-	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 320, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 320, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 	MyChannel_Recompo = xTraceRegisterString("Recompo_Mess");
@@ -56,6 +57,10 @@ void _1_Communication_Init(void)
  *****************************************************************************/
 void _1_Communication_Create_Queues_Semaphores(void)
 {
+	//Création de la Queue de reception pour les datas
+	_1_xQueue_Message_Receive = xQueueCreate( 5, sizeof( struct Communication_Trame )); //Queue contenant les messages reçus
+	vQueueAddToRegistry( _1_xQueue_Message_Receive, "_1_xQue_Mess_Receive");
+
 	//Mise à dispo du bit de liberation de la trame d'envoi et de reception
 	xEventGroupSetBits(_0_Comm_EventGroup, eGROUP_SYNCH_TxTrameDispo | eGROUP_SYNCH_RxTrameDispo);
 }
@@ -246,10 +251,13 @@ static TO_AHBS_RAM3 struct Communication_Trame received_trame;
 static TO_AHBS_RAM3 byte Data_rx[COMMUNICATION_TRAME_MAX_DATA + 11];
 __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff)
 {
+	if(_1_xQueue_Message_Receive == NULL)
+		return pdFAIL;
+
 	if(RingBuff == NULL)
 		return pdFAIL;
 
-	_1_Communication_Wait_To_Receive(ms_to_tick(50));
+	//_1_Communication_Wait_To_Receive(ms_to_tick(50));
 
 	byte API_start = 0;
 	static short API_LENGTH = 0;
@@ -457,8 +465,7 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 {
 	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
 	{
-		//Interprete directement le message
-		_2_Communication_Interprete_message(received_trame);
+		xQueueSend(_1_xQueue_Message_Receive, received_trame, portMAX_DELAY);
 		return true;
 	}
 
@@ -501,7 +508,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 
 	EventBits_t uxBits;
 
-	while (1)
+	while (true)
 	{
 		//Attente de l'info qu'une data est dispo dans un buffer
 		uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
@@ -527,7 +534,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 
 		//Temps qu'il y a des datas à lire dans le buffer en question
 		//Creation de la trame à partir des data reçues
-		while(RingBuffer_Count(Falged_ringBuffer) > 11)
+		while(RingBuffer_Count(Falged_ringBuffer))
 		{
 			_1_Communication_Create_Trame_From_Buffer(Falged_ringBuffer);
 		}
