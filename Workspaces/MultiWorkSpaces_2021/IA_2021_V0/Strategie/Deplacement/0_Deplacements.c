@@ -251,14 +251,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 		return true;
 
 	bool result;
-
 	result = _0_Deplacement_Wait_For_Arrival(&coord);
-	if(result == false)
-	{
-		//No deplacement possible
-		//Delete the Astar task
-		//vTaskDelete(Astar_Task_Handler);
-	}
 
 	//Delete the Astar task
 	vTaskDelete(Astar_Task_Handler);

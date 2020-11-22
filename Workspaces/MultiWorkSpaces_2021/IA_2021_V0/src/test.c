@@ -102,7 +102,7 @@ void TEST_Deplacement(void * pvParameter)
 
 	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
 
-	while(1)
+	//while(1)
 	{
 		Task_Delay(2000);
 
@@ -161,7 +161,7 @@ void TEST_Deplacement(void * pvParameter)
 		GOTO_XY_ARRIERE_WAIT(800, 260);
 	}/**/
 
-	/*
+	/**/
 	while(1)
 	{
 		GOTO_XY_AVANT_WAIT(500, 500);
@@ -194,7 +194,7 @@ void TEST_Deplacement(void * pvParameter)
 		sprintf(str, "Test strategie: 6 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
-		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
+		GOTO_XY_ARRIERE_WAIT(1000, 600);
 
 		sprintf(str, "Test strategie: 7 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
