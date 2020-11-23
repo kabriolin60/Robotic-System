@@ -8,6 +8,7 @@ public class Small_Table_Double_Click : MonoBehaviour
     public GameObject Big_Table_View;
 
     public Camera Table_View_Camera;
+    public Camera Camera_Orbitale;
 
     public bool isSmall;
 
@@ -56,15 +57,15 @@ public class Small_Table_Double_Click : MonoBehaviour
         if(isSmall)
         {
             //On passe sur la grande Image
-            Table_View_Camera.GetComponent<camera_render>().Change_Rendering_Panel(Big_Rendering_Image);
+            //Table_View_Camera.GetComponent<camera_render>().Change_Rendering_Panel(Big_Rendering_Image);
 
             Big_Table_View.SetActive(true);
             Small_Table_View.SetActive(false);
         }
         else
         {
-            //On passe sur la grande Image
-            Table_View_Camera.GetComponent<camera_render>().Change_Rendering_Panel(Small_Rendering_Image);
+            //On passe sur la petite Image
+            //Table_View_Camera.GetComponent<camera_render>().Change_Rendering_Panel(Small_Rendering_Image);
 
             Big_Table_View.SetActive(false);
             Small_Table_View.SetActive(true);
