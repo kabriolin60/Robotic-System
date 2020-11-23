@@ -145,7 +145,7 @@ public class ASTAR_COMMUNICATION
     }
 
 
-    //Classe contenant les données APRES decode
+    //Classe contenant les données APRES decodées
     public class Nodes_Values
     {
         public short line_id;

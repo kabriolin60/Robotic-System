@@ -29,33 +29,6 @@ public class Interprete_Message : MonoBehaviour
 		this.StartCoroutine(Interpreteur_Message());		
 	}
 
-
-	private void Update2()
-	{
-		int nb_mess = 0;
-		Communication.Communication_Message message;
-
-		for (int j = 0; j < 10; j++)
-		{
-			for (int i = 0; i < Decodeurs.Length; i++)
-			{
-				Decodeurs[i].Pick_Message(out message);
-				if (message != null)
-				{
-					nb_mess++;
-					//Pour chaque décodeur (chacun son tour)
-					//Enregistre pour le log
-					//compte le nombre de messages recus
-					Decodage_and_Save_Message(message);
-				}
-			}
-		}
-
-		Debug.Log($"nb_mess: {nb_mess}");
-	}
-
-
-
     IEnumerator Interpreteur_Message()
 	{
 		int nb_mess = 0;
@@ -117,6 +90,10 @@ public class Interprete_Message : MonoBehaviour
 			case Communication.Com_Instruction.ASTAR_CONTENU:
 				Decode_ASTAR_Contenu(message);
 				break;
+
+			case Communication.Com_Instruction.ASTAR_VECTEURS:
+				Decode_ASTAR_Vector(message);
+				break;
 		}
 
 		//compte le nombre de messages recus
@@ -124,14 +101,10 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-
-	private void Save_Message(Communication.Communication_Message message)
+    private void Save_Message(Communication.Communication_Message message)
     {
 		file_Logger.Write_Logging_Data(message);
 	}
-
-
-
 
 
 
@@ -183,4 +156,10 @@ public class Interprete_Message : MonoBehaviour
     {
 		ASTAR.Reception_Message_Astar(message.Trame);
     }
+
+
+	private void Decode_ASTAR_Vector(Communication.Communication_Message message)
+	{
+		ASTAR_VECT.Reception_Message_Astar_Vector(message.Trame);
+	}
 }

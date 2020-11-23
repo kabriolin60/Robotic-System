@@ -53,9 +53,7 @@ MonoBehaviour:
   port_opened: 0
   portName: 
   portSpeed: 2000000
-  InputBuffer: 
-  OutputBuffer: 
-  Logger: {fileID: 0}
+  data_in_port_read_buffer: 0
 --- !u!114 &5949162717639177788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0762be5fb281d774da045b6b1fac786b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Received_Messages: []
+  serialport: {fileID: 0}
+  Buffer_Lower_Limit: 70
   Error_Number: 0
   Messages_Number: 0
 --- !u!114 &5949162717639177795
