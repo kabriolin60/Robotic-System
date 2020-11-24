@@ -214,9 +214,9 @@ void TEST_envoi_Ping(void *pvParameters)
 
 	for(long i = 0; i < nb_to_send; i++)
 	{
-		_2_Comm_Send_Demande_Info(1, RS485_port);
+		_2_Comm_Send_Demande_Info(1, Xbee_port);
 
-		Task_Delay_Until(2.0F);
+		Task_Delay_Until(2000.0F);
 	}
 
 	if(Nb_PONG_recus >= nb_to_send)

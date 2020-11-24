@@ -128,8 +128,14 @@ Declaration des Reglages liés à la Communication RS485
 #define BAUDRATE_RS485				2000000
 #define RS484_UART					LPC_UART1
 
+#define BAUDRATE_XBEE				57600
+#define XBEE_UART					LPC_UART2
+
 #define RS485_IRQ_SELECTION 		UART1_IRQn
 #define RS485_HANDLER_NAME 			UART1_IRQHandler
+
+#define XBEE_IRQ_SELECTION 			UART2_IRQn
+#define XBEE_HANDLER_NAME 			UART2_IRQHandler
 
 #define RS485_DIR_PORT 				2
 #define RS485_DIR_BIT  				3

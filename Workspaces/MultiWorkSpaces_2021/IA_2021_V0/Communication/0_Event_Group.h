@@ -15,6 +15,8 @@
 
 #define eGROUP_SYNCH_RS485_Rx_Data_Avail ( 1 << 2 ) //Flag indiquant que des datas sont dispo dans le Buffer RX du canal RS485
 #define eGROUP_SYNCH_USB_Rx_Data_Avail ( 1 << 3 ) //Flag indiquant que des datas sont dispo dans le Buffer RX du canal USB
+#define eGROUP_SYNCH_XBEE_Rx_Data_Avail ( 1 << 4 ) //Flag indiquant que des datas sont dispo dans le Buffer RX du XBEE
+
 
 //#define BIT_4 ( 1 << 4 )
 

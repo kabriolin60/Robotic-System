@@ -178,7 +178,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 	Message_To_Send.Data[2] = (byte)(length & 0xFF);                //length low
 
 	Message_To_Send.Data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
-	Message_To_Send.Data[4] = 0x01;                         //Frame ID
+	Message_To_Send.Data[4] = 0x01;                         //Frame ID: 0x01 = demande d'ack
 
 	Message_To_Send.Data[5] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR >> 8);        //add high
 	Message_To_Send.Data[6] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR & 0xFF);      //add low
@@ -306,7 +306,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 	//Packet Type
 	crc += Data_rx[2];
-	if (Data_rx[2] == 0x89)
+	if (Data_rx[2] == 0x89) //Accuse de reception d'un message XBEE
 	{
 		RingBuffer_PopMult(RingBuff, &Data_rx, 3);
 		/*
@@ -328,8 +328,10 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		//Dummy Read 3 bytes
 
 		_1_Communication_Free_Receive_Bit();
-		Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
+
+
+
+		#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 		vTracePrint(MyChannel_Recompo, "Packet 0x89");
 #endif
 		return pdFAIL;
@@ -500,6 +502,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 
 	//Active les ISR du RS485 après l'initialisation des taches
 	NVIC_EnableIRQ(RS485_IRQ_SELECTION);
+	NVIC_EnableIRQ(XBEE_IRQ_SELECTION);
 
 	EventBits_t uxBits;
 
@@ -508,7 +511,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		//Attente de l'info qu'une data est dispo dans un buffer
 		//Sans effacer le bit de Flag
 		uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
-				eGROUP_SYNCH_RS485_Rx_Data_Avail | eGROUP_SYNCH_USB_Rx_Data_Avail, /* The bits within the event group to wait for. */
+				eGROUP_SYNCH_RS485_Rx_Data_Avail | eGROUP_SYNCH_USB_Rx_Data_Avail | eGROUP_SYNCH_XBEE_Rx_Data_Avail, /* The bits within the event group to wait for. */
 				pdTRUE,        /* Clear bits before returning. */
 				pdFALSE,        /* Wait for ALL bits to be set */
 				portMAX_DELAY );/* Wait a maximum of xTicksToWait for either bit to be set. */
@@ -526,6 +529,10 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 #else
 			Falged_ringBuffer = NULL;
 #endif
+		}else if(uxBits & (eGROUP_SYNCH_XBEE_Rx_Data_Avail ))
+		{
+			//Un message est dispo dans le buffer XBEE
+			Falged_ringBuffer = &rxring_XBEE;
 		}
 
 		//Temps qu'il y a des datas à lire dans le buffer en question

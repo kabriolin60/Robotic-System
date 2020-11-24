@@ -29,7 +29,7 @@
 
 /* FreeRTOS TRACE */
 #define ID_ISR_RX_RS485 1       // lowest valid ID is 1
-#define ID_ISR_RX_USB 2       	// lowest valid ID is 1
+#define ID_ISR_RX_USB 	2       	// lowest valid ID is 1
 traceHandle Trace_Timer_USB_Handle;
 traceHandle Trace_Timer_RS485_Handle;
 
@@ -44,6 +44,11 @@ traceHandle Trace_Timer_RS485_Handle;
 RINGBUFF_T rxring_RS485;
 /* Receive buffer for RS485*/
 static TO_AHBS_RAM3 uint8_t rxbuff_RS485[RS485_RX_RB_SIZE];
+
+/* Receive ring buffer for XBEE*/
+RINGBUFF_T rxring_XBEE;
+/* Receive buffer for XBEE*/
+static TO_AHBS_RAM3 uint8_t rxbuff_XBEE[RS485_RX_RB_SIZE];
 
 
 /* Receive ring buffer for USB*/
@@ -86,6 +91,8 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_USB();
 
 	_0_Communication_Init_RS485();
+
+	_0_Communication_Init_XBEE();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
 	_1_xQueue_Message_TO_Send = xQueueCreate( 5, sizeof( struct Communication_Message ));
@@ -178,6 +185,47 @@ void _0_Communication_Init_RS485(void)
 
 
 /*****************************************************************************
+ ** Function name:		_0_Communication_Init_XBEE
+ **
+ ** Descriptions:		Fonction d'initialisation des actions de communication pour le RS485
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Init_XBEE(void)
+{
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 10, IOCON_MODE_INACT, IOCON_FUNC1);	// P0.10 TXD1
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 11, IOCON_MODE_INACT, IOCON_FUNC1); // P0.11 RXD1
+
+	NVIC_DisableIRQ(XBEE_IRQ_SELECTION);
+
+	/* Setup UART for 115.2K8N1 */
+	Chip_UART_Init(XBEE_UART);
+	Chip_UART_SetBaud(XBEE_UART, BAUDRATE_XBEE);
+	Chip_UART_ConfigData(XBEE_UART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
+	Chip_UART_TXEnable(XBEE_UART);
+
+	/* Before using the ring buffers, initialize them using the ring buffer init function */
+	/* XBEE RX ring buffer init */
+	RingBuffer_Init(&rxring_XBEE, rxbuff_XBEE, 1, RS485_RX_RB_SIZE);
+
+	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
+	Chip_UART_SetupFIFOS(XBEE_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
+
+	/* Enable receive data and line status interrupt */
+	Chip_UART_IntEnable(XBEE_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
+
+	/* Disable transmit status interrupt */
+	Chip_UART_IntDisable(XBEE_UART, UART_IER_THREINT);
+
+	/* preemption = 1, sub-priority = 1 */
+	NVIC_ClearPendingIRQ(XBEE_IRQ_SELECTION);
+	NVIC_SetPriority(XBEE_IRQ_SELECTION, 6);
+}
+
+
+/*****************************************************************************
  ** Function name:		RS485_HANDLER_NAME
  **
  ** Descriptions:		Handler de reception RS485
@@ -229,6 +277,52 @@ void RS485_HANDLER_NAME(void)
 
 	//Trace tracking of ISR exit
 	vTraceStoreISREnd(0);
+}
+
+
+/*****************************************************************************
+ ** Function name:		XBEE_HANDLER_NAME
+ **
+ ** Descriptions:		Handler de reception XBEE
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void XBEE_HANDLER_NAME(void)
+{
+	static bool already_flaged = pdFALSE;
+	BaseType_t pxHigherPriorityTaskWoken = false;
+
+	if(RingBuffer_Count(&rxring_XBEE) <= 10)
+	{
+		already_flaged = pdFALSE;
+	}
+
+	//Manage ISR, and read datas
+	Chip_UART_IRQRBHandler(XBEE_UART, &rxring_XBEE, &txring);
+
+	//If received data count > 10, notify the reception task
+	if(RingBuffer_Count(&rxring_XBEE) > 10 && !already_flaged)
+	{
+		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
+				eGROUP_SYNCH_XBEE_Rx_Data_Avail,		 /* The bits being set. */
+				&pxHigherPriorityTaskWoken);
+
+		already_flaged = pdTRUE;
+	}else if(RingBuffer_Count(&rxring_XBEE) >= RS485_RX_RB_SIZE/2)
+	{
+		//Assure le coup en forçant un reset du Flag si la moitié du Buffer est atteinte
+		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
+				eGROUP_SYNCH_XBEE_Rx_Data_Avail,		 /* The bits being set. */
+				&pxHigherPriorityTaskWoken);
+	}
+
+	//Force un changement de tache
+	portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
+
+	//Clear ISR flag
+	NVIC_ClearPendingIRQ(XBEE_IRQ_SELECTION);
 }
 
 
@@ -348,17 +442,20 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 			case RS485_port:
 				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
+				if(Message.Data[0] == PING || Message.Data[8] == DEMANDE_INFO)
+				{
+					Task_Delay(1);
+				}
+				break;
+
+			case Xbee_port:
+				_0_Communication_Send_XBEE(XBEE_UART, &txring, (int)Message.length);
 				break;
 
 			default:
 				//Dans le doute, vide le buffer de TX de tout ce qu'il contient
 				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 				break;
-			}
-
-			if(Message.Data[0] == PING || Message.Data[8] == DEMANDE_INFO)
-			{
-				Task_Delay(1);
 			}
 		}
 	}
@@ -401,6 +498,25 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	Set_Debug_Pin_0_Low();
+}
+
+
+__attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUART, RINGBUFF_T *data, int length)
+{
+	uint8_t ch;
+
+	while (RingBuffer_Pop(data, &ch))
+	{
+		Chip_UART_SendByte(pUART, ch);
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
 }
 
 

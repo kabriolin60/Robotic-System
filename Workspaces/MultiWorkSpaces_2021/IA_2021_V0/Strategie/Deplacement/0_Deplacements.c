@@ -411,7 +411,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		/*
 		 * Step 5: Debug, display Pathfinding Map
 		 */
-		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), RS485_port);
+		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 		//Astar_Debug_Display_Map(Astar_Get_Map());
 
 

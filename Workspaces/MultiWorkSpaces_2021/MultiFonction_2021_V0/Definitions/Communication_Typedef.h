@@ -147,11 +147,11 @@ Definition des adresses des modules Xbee
  **************************************************/
 enum Adress_Xbee
 {
-	XBee_PC,
-	Gros_Robot,
+	Gros_Robot = 0x01,
 	Petit_Robot,
 	Balise_Gros_Robot,
 	Balise_Petit_Robot,
+	XBee_PC = 0x0A,
 	ALL_XBEE = 0xFFFF
 };
 
@@ -534,14 +534,13 @@ Declaration de la definition de la Structure contenant les valeurs des vecteurs 
  **************************************************/
 #define NB_ASTAR_Vecteur_Par_Message 8
 
-
 struct st_ASTAR_Vecteur
 {
-	byte Color : 8;
-	ushort Start_X : 12;
-	ushort Start_Y : 12;
-	ushort End_X : 12;
-	ushort End_Y : 12;
+	//byte Color : 8;
+	unsigned short Start_X : 12;
+	unsigned short Start_Y : 12;
+	unsigned short End_X : 12;
+	unsigned short End_Y : 12;
 };
 
 struct st_ASTAR_VECTEURS

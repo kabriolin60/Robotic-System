@@ -35,8 +35,8 @@
 
 struct Point
 {
-	short x;       			       //Coordonnee X du point
-	short y;       			       //Coordonnee Y du point
+	unsigned short x;       			       //Coordonnee X du point
+	unsigned short y;       			       //Coordonnee Y du point
 };
 
 
@@ -89,23 +89,23 @@ struct Astar_Index
 /**************************************************
 Astar_Vector_Color : 1 octet
  **************************************************/
-enum Astar_Vector_Color
+/*enum Astar_Vector_Color
 {
 	Astar_Vector_Color_Black,
 	Astar_Vector_Color_Blue,
 	Astar_Vector_Color_Green,
 	Astar_Vector_Color_Red,
-	Astar_Vector_Color_White
-};
+	Astar_Vector_Color_White,
+};*/
 
 /**************************************************
-Astar_Vector : 4 octets de coordonnées + 1 octet de couleur
+Astar_Vector : 4 octets de coordonnï¿½es + 1 octet de couleur
  **************************************************/
 struct Astar_Vector
 {
-	enum Astar_Vector_Color Color;
 	struct Point Start_Point;
 	struct Point End_Point;
+	//enum Astar_Vector_Color Color;
 };
 
 
@@ -137,7 +137,7 @@ struct Astar_smoothing_vector
 	//Smoothing vectors array
 	struct Astar_Vector Vectors[Astar_Vector_Max_Nb];
 	//Number of vector in the array
-	unsigned char Nb_Vectors:7;
+	unsigned char Nb_Vectors;
 };
 
 

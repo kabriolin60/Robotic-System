@@ -18,7 +18,7 @@ void _1_TEST_Obstacles_Opponent_Robots(void)
 void _1_Obstacles_Create_Terrain_Border(void)
 {
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 0, 180, 2950, false);
-	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 1780, 1950, 2950, false);
+	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 2780, 1950, 2950, false);
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 0, 1950, 170, false);
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1820, 0, 1950, 2950, false);
 
