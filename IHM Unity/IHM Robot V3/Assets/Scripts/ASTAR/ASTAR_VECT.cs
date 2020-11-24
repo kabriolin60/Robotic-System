@@ -118,10 +118,10 @@ public class ASTAR_VECTOR_COMMUNICATION
     private class Vectors_Values_array
     {
         [MarshalAs(UnmanagedType.I1)]
-        public byte Effacement_Nb_Messages;     //1 bit pour l'effacement (MSB) 
+        public byte Effacement;                 //1 octet pour l'effacement 
 
         [MarshalAs(UnmanagedType.I1)]
-        public byte Nb_vecteurs;                //Nombre de vecteurs dans le message (LSB)
+        public byte Nb_vecteurs;                //Nombre de vecteurs dans le message
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_Vector_par_mess * 7)]
         public byte[] vectors_values;           //7 octets par vecteurs 1 couleur + 6 de données (4*12bits)
@@ -155,7 +155,7 @@ public class ASTAR_VECTOR_COMMUNICATION
         output_temp = (Vectors_Values_array)Communication.GetStructFromArray<Vectors_Values_array>(input_trame.Data);
 
         Vectors_Values output = new Vectors_Values();
-        output.Effacement = (byte)(output_temp.Effacement_Nb_Messages);
+        output.Effacement = (byte)(output_temp.Effacement);
         output.Nb_vecteurs = (byte)(output_temp.Nb_vecteurs);
 
         output.vectors = new ASTAR_Vector[output.Nb_vecteurs];

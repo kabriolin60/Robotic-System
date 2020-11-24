@@ -64,6 +64,240 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Chart And Graph\ChartParser\ChartParser.cs" />
+    <Compile Include="Assets\Chart And Graph\ChartParser\JsonParser.cs" />
+    <Compile Include="Assets\Chart And Graph\ChartParser\XMLParser.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\IInternalPyramidData.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\IPyramidGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\PyramidAnimation.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\PyramidCanvasGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\PyramidChart.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\PyramidData.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\PyramidChart\PyramidMesh.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\CandleChart.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\CandleChartData.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\CanvasCandle.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\CanvasCandleChart.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\CanvasCandleGraphic.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\ICandleCreator.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\IInternalCandleData.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Candle Chart\WorldSpaceCandle.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\InfoBox.Candle.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Script\Utils\HoverText.Extension.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Tutorials\Candle\CandleChartFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\InBeta\Tutorials\Pyramid\PyramidFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddBarCategoryAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddCategoriesFromTemplate\BarCategoryFromTemplate.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddCategoriesFromTemplate\GraphCategoryFromTemplate.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddCategoriesFromTemplate\PieCategoryFromTemplate.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddGraphCategory2D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddGraphCategory3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddGroupAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddPieCategory2D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddPieCategory3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddRadarCategory2D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AddRadarCategory3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\AppendGraphPointAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\CheckCategoryAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\CheckGroupAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\ClearGraphCategoryAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\RemoveCategoryAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\RemoveGroupAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\SetValueBarAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\SetValuePieAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Playmaker\SetValueRadarAction.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\AbstractChartData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\AnyChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Attributes\CanvasAttribute.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Attributes\ChartFillerEditorAttribute.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Attributes\NonCanvasAttribute.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Attributes\SimpleAttribute.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\AutoFloat.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\AxisBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\AxisFormat.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\AxisGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\AxisGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\CanvasAxisGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\ChartDivisionInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\ChartMainDivisionInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\ChartSubDivisionInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\HorizontalAxis.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\IAxisGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Axis\VerticalAxis.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\AxisChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarChart.Extra.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarContentFitter.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarMaterialFit.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarMesh2D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarMesh3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\BarMeshGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\CanvasBarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\IBarGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\BarChart\WorldSpaceBarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Canvas\CanvasLines.Bubble.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Canvas\CanvasLines.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Canvas\CanvasLinesHover.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Canvas\EventHandlingGraphic.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Canvas\SensitivityControl.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartAdancedSettings.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartCommon.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartData\BaseScrollableCategoryData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartData\BaseSlider.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartData\IChartData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartData\ScrollableChartData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartDateUtility.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartDivisionSide.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartDynamicMaterial.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\CharItemEffectController.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemEffect.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemEvents.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemGrowEffect.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemLerpEffect.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemMaterialLerpEffect.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartItem\ChartItemTextBlend.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartMargin.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartMaterialController.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartOrientation.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ChartOrientedSize.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\ChartItem.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\ChartItemIndex.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\ChartItemNoDelete.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\DoubleRect.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\DoubleVector2.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\DoubleVector3.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\DoubleVector4.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\GameObjectPool.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Common\ICanvas.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\CustomChartPointer.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataFillers\BarDataFiller.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataFillers\GraphDataFiller.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataFillers\PieDataFiller.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataFillers\RadarDataFiller.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartColumnCollection.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartDataColumn.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartDataItemBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartDataRow.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartDataSourceBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartDataSourceBaseCollection.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartRowCollection.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\ChartSparseDataSource.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\DataSource\IDataItem.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Exceptions\ChartDuplicateNameException.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Exceptions\ChartException.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Exceptions\ChartItemNotExistException.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\GraphChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\GraphChartBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\GraphData.3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\GraphData.Realtime.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\GraphData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphChart\WorldSpaceGraphChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\GraphFileManager.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\IInternalUse.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\IInternalBarData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\IInternalCandleData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\IInternalGraphData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\IInternalPieData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\IInternalSettings.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\InternalUseInterfaces\InternalItemEvents.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Legened\CanvasLegend.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Legened\CanvasLegendItem.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\LegenedInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MaterialTiling.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Mesh\CanvasChartMesh.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Mesh\ChartMeshBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Mesh\IChartMesh.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Mesh\WorldSpaceChartMesh.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MeshDimention.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MixedSeriesChart\IMixedChartDelegate.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MixedSeriesChart\IMixedSeriesProxy.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MixedSeriesChart\MixedSeriesGenericValue.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\MonoBehaviours\ChartSettingItemBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\BoxPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\BoxPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\CustomPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\CustomPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\CylinderPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\CylinderPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\FillPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\FillPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\LineRendererPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\LineRendererPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\PathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\PathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\PathMultiplier.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\PathMultiplier.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\SmoothPathGenerator.Empty.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Path\SmoothPathGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\CanvasPieChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\IPieGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieCanvasGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieInfo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieMesh2D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\PieMesh3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\WorldSpacePieChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\PieChart\WorldSpacePieGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\CanvasRadarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\IInternalRadarData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\RadarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\RadarChartData.3D.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\RadarChartData.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\RadarFill.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\RadarFillGenerator.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\RadarChart\WorldSpaceRadarChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\ScrollableAxisChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\SimpleJSON-master\SimpleJSON-master\SimpleJSON.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\SimpleJSON-master\SimpleJSON-master\SimpleJSONBinary.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\SimpleJSON-master\SimpleJSON-master\SimpleJSONUnity.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\AlignedItemLabels.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\BillboardText.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\CategoryLabels.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\ChartLabelAlignment.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\ChartText.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\GroupLabelAlignment.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\GroupLabels.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\ItemLabels.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\ItemLabelsBase.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\TextController.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\TextDirection.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Text\TextFormatting.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\Animation\BarAnimation.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\Animation\GraphAnimation.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\Animation\PieAnimation.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\AxisCoordinates.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\GraphDataVisualEditor.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\HoverText.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\InfoBox\InfoBox.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\Multiple Graph Demo\MultipleGraphDemo.cs" />
+    <Compile Include="Assets\Chart And Graph\Script\Utils\Simple Graph Demo\SimpleGraphDemo.cs" />
+    <Compile Include="Assets\Chart And Graph\Themes\2d\Radar\testMarker.cs" />
+    <Compile Include="Assets\Chart And Graph\Themes\Demo\SelectScene.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Bar\BarChartFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Bar\BarRunChart.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Bar\ChangeOrder.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Bubble Graph\BubbleGraphFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Graph\GraphChartFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Large Data Graph\LargeDataFeed.Realtime.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Large Data Graph\LargeDataFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\Marker.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\MarkerSampleDataInitializer.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\MarkerText.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\MarkerTextLine.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\PointHighlight.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\TrackerLine.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Marker\highlightTest.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Mixed Charts\MixedCharts.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Pie\PieChartFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Radar\RadarChartFeed.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Radar\RadarMaxValueCategory.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Stream Graph\StreamingGraph.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Wave Graph\WaveGraph.cs" />
+    <Compile Include="Assets\Chart And Graph\Tutorials\Zoom\GraphZoom.cs" />
     <Compile Include="Assets\Scripts\ASTAR\ASTAR.cs" />
     <Compile Include="Assets\Scripts\ASTAR\ASTAR_VECT.cs" />
     <Compile Include="Assets\Scripts\Application\Common_settings.cs" />
@@ -116,21 +350,38 @@
     <Compile Include="Assets\StandaloneFileBrowser\StandaloneFileBrowserWindows.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Chart And Graph\Shaders\GradientCanvas.shader" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Materials\pie-3d-3\StandardCullOff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Materials\pie-1\StandardCullOff.shader" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\bebas_neue\OFL-FAQ.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Chart And Graph\3rd party notices.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Meshes\cc0-license\License.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\comprehension\SIL Open Font License.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\Exo2\Scada - SIL Open Font License.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\bebas_neue\About.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\petit-formal-script\OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Chart And Graph\Shaders\SolidCanvasShader.shader" />
+    <None Include="Assets\Chart And Graph\Themes\3d\Pie\Theme 5\Materials\StandardCullOff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\Charis-SIL\SIL Open Font License.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Materials\bar-3\StandardCullOff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\bebas_neue\Try_BebasNeuePro.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Fonts\bebas_neue\OFL.txt" />
+    <None Include="Assets\Chart And Graph\Themes\Common\Materials\bar-1\StandardCullOff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -316,10 +567,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="Ookii.Dialogs">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Assets/StandaloneFileBrowser/Plugins/Ookii.Dialogs.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Assets/StandaloneFileBrowser/Plugins/Ookii.Dialogs.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Assets/StandaloneFileBrowser/Plugins/System.Windows.Forms.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Assets/StandaloneFileBrowser/Plugins/System.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -676,31 +927,31 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Developpement_Robot/Robotic-System/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V3/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
