@@ -38,7 +38,7 @@ public class ASTAR_VECT : MonoBehaviour
             //Un message contient 8 vecteurs maximum
             foreach(ASTAR_VECTOR_COMMUNICATION.ASTAR_Vector vect in data.vectors)
             {
-                Create_New_Vector(vect.Color, vect.Start, vect.End);
+                Create_New_Vector(/*vect.Color,*/ vect.Start, vect.End);
             }
         }
         catch
@@ -52,9 +52,9 @@ public class ASTAR_VECT : MonoBehaviour
         Vector_List.Clear();
     }
 
-    static private void Create_New_Vector(ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color, Vector2 Start, Vector2 End)
+    static private void Create_New_Vector(/*ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color,*/ Vector2 Start, Vector2 End)
     {
-        UnityEngine.Color color = new Color();
+        /*UnityEngine.Color color = new Color();
         switch(Color)
         {
             case ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color.Black:
@@ -76,7 +76,7 @@ public class ASTAR_VECT : MonoBehaviour
             case ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color.White:
                 color = UnityEngine.Color.white;
                 break;
-        }
+        }*/
 
 
         Vector_List.Add(Instantiate(static_Astar_Vector_Prefab, this_go.transform));
@@ -87,14 +87,14 @@ public class ASTAR_VECT : MonoBehaviour
         start.y = -Start.x / 1000;
         start.z = -0.045f;
         Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().SetPosition(0, start);
-        Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().startColor = color;
+        //Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().startColor = color;
 
         Vector3 end = new Vector3();
         end.x = End.y / 1000;
         end.y = -End.x / 1000;
         end.z = -0.045f;        
         Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().SetPosition(1, end);
-        Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().endColor = color;
+        //Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().endColor = color;
     }
 }
 
@@ -103,14 +103,14 @@ public class ASTAR_VECTOR_COMMUNICATION
 {
     private const byte NB_Vector_par_mess = 8;
 
-    public enum Astar_Vector_Color : byte
+    /*public enum Astar_Vector_Color : byte
     {
         Black,
         Blue,
         Green,
         Red,
         White
-    }
+    }*/
 
 
     //Ensemble des vecteurs contenus dans un message
@@ -131,7 +131,7 @@ public class ASTAR_VECTOR_COMMUNICATION
     //Classe contenant les données d'un vecteur décodées
     public class ASTAR_Vector
     {
-        public Astar_Vector_Color Color;
+        //public Astar_Vector_Color Color;
         public Vector3 Start;
         public Vector3 End;
     }
@@ -164,7 +164,7 @@ public class ASTAR_VECTOR_COMMUNICATION
         for(byte vecteur_index = 0; vecteur_index < output.Nb_vecteurs; vecteur_index++)
         {
             //Pour chaque vecteur reçu
-            output.vectors[vecteur_index].Color = (Astar_Vector_Color)(output_temp.vectors_values[index++]);
+            //output.vectors[vecteur_index].Color = (Astar_Vector_Color)(output_temp.vectors_values[index++]);
 
             //Start coord //3 octets
             int value = output_temp.vectors_values[index++];
