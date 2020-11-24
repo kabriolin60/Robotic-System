@@ -87,10 +87,23 @@ struct Astar_Index
 
 
 /**************************************************
-Astar_Vector
+Astar_Vector_Color : 1 octet
+ **************************************************/
+enum Astar_Vector_Color
+{
+	Astar_Vector_Color_Black,
+	Astar_Vector_Color_Blue,
+	Astar_Vector_Color_Green,
+	Astar_Vector_Color_Red,
+	Astar_Vector_Color_White
+};
+
+/**************************************************
+Astar_Vector : 4 octets de coordonnées + 1 octet de couleur
  **************************************************/
 struct Astar_Vector
 {
+	enum Astar_Vector_Color Color;
 	struct Point Start_Point;
 	struct Point End_Point;
 };

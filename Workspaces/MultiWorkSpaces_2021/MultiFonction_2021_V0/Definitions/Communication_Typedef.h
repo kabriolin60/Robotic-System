@@ -529,4 +529,29 @@ struct st_ASTAR_Data
 };
 
 
+/**************************************************
+Declaration de la definition de la Structure contenant les valeurs des vecteurs du ASTAR
+ **************************************************/
+#define NB_ASTAR_Vecteur_Par_Message 8
+
+
+struct st_ASTAR_Vecteur
+{
+	byte Color : 8;
+	ushort Start_X : 12;
+	ushort Start_Y : 12;
+	ushort End_X : 12;
+	ushort End_Y : 12;
+};
+
+struct st_ASTAR_VECTEURS
+{
+	byte Effacement;
+	byte Nb_vecteurs;
+
+
+	struct st_ASTAR_Vecteur Vecteurs[NB_ASTAR_Vecteur_Par_Message];
+};
+
+
 #endif /* COMMUNICATION_TYPEDEF_H_ */
