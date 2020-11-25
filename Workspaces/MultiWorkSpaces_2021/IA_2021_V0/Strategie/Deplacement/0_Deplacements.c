@@ -253,6 +253,11 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	bool result;
 	result = _0_Deplacement_Wait_For_Arrival(&coord);
 
+	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+		X,
+		Y);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
+
 	//Delete the Astar task
 	vTaskDelete(Astar_Task_Handler);
 

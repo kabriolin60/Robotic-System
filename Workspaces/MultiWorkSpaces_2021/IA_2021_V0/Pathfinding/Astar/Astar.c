@@ -113,13 +113,21 @@ struct Astar_smoothing_vector* Astar_Get_Vector_Map(void)
 #include "2_Echange_Datas.h"
 __attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
 {
+	static byte Already_Blocked = 0;
 	//Check if Starting point is not in a blocked node
 	if(map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access == Blocked)
 	{
-		//Starting node blocked, no path possible
-		_2_Comm_Send_Log_Message("ASTAR: Start node Blocked!\n", Channel_Debug_ASTAR, Color_Red, RS485_port);
+		//Starting node blocked
+		Already_Blocked = 1;
+		if(!Already_Blocked)
+			_2_Comm_Send_Log_Message("ASTAR: Start node Blocked!\n", Channel_Debug_ASTAR, Color_Red, RS485_port);
+
 		map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access = Walkable;
 		//return -2; //Le point de départ, le robot y est, donc il est considéré comme accessible
+	}
+	else
+	{
+		Already_Blocked = 0;
 	}
 
 	if(map->Nodes[map->End_Node_index.x][map->End_Node_index.y].Astar_Node_Access == Blocked)

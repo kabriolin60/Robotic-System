@@ -47,6 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2019.3.15f1</UnityVersion>
@@ -63,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ADC.cs" />
     <Compile Include="Assets\ADC_elementaire.cs" />
     <Compile Include="Assets\AX12.cs" />
     <Compile Include="Assets\AX12_elementaire.cs" />
@@ -71,15 +71,11 @@
     <Compile Include="Assets\Cartes_MultiFct_Panel.cs" />
     <Compile Include="Assets\Communication_Send_Instructions.cs" />
     <Compile Include="Assets\Envoi_PID.cs" />
-    <Compile Include="Assets\Envoi_deplacement.cs" />
     <Compile Include="Assets\Scripts\Communication\Communication.cs" />
     <Compile Include="Assets\Scripts\Communication\Communication_TX_RX_Trames.cs" />
-    <Compile Include="Assets\Scripts\Communication\Interpretation_Rx_Com.cs" />
     <Compile Include="Assets\Scripts\Communication\UDP_Communication.cs" />
-    <Compile Include="Assets\Scripts\Communication\Virtual_Com_Port.cs" />
     <Compile Include="Assets\Scripts\Robot\Robot_Position.cs" />
     <Compile Include="Assets\Scripts\Robot\Trajectory_Traceur.cs" />
-    <Compile Include="Assets\SimpleGraph\Graph\Grapher.cs" />
     <Compile Include="Assets\SimpleGraph\Graph\GrapherMenu.cs" />
     <Compile Include="Assets\SimpleGraph\Sample_Scene\ScriptedData.cs" />
     <Compile Include="Assets\SimpleGraph\Sample_Scene\SimpleGraphSample_Filler.cs" />
@@ -89,7 +85,6 @@
     <Compile Include="Assets\exit.cs" />
     <Compile Include="Assets\servo_elementaire.cs" />
     <Compile Include="Assets\servos.cs" />
-    <Compile Include="Assets\test.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -646,34 +641,34 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Developpement_Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Robot/Robotic-System.git/trunk/IHM Unity/IHM Robot V2/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
