@@ -210,6 +210,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
  ** 					false: error
  **
  *****************************************************************************/
+static TO_AHBS_RAM3 char str_ASTAR[70];
 bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool direction, void* obstacle_creation_fct)
 {
 	struct st_DESTINATION_ROBOT dest = { 0 };
@@ -285,7 +286,6 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
  * Private task!!!!
  * Use _0_Deplacement_Tourne_Avance_ASTAR for external calls
  */
-static TO_AHBS_RAM3 char str_ASTAR[70];
 void _0_Deplacement_ASTAR(void* pvParameter)
 {
 	Init_Timing_Tache;
@@ -416,7 +416,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		/*
 		 * Step 5: Debug, display Pathfinding Map
 		 */
-		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
+		//_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 		//Astar_Debug_Display_Map(Astar_Get_Map());
 
 

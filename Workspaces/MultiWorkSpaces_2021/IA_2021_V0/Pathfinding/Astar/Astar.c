@@ -13,7 +13,7 @@
 
 
 static struct Astar_Map Map;
-static TO_AHBS_RAM3 struct Astar_smoothing_vector Astar_Vector;
+static /*TO_AHBS_RAM3*/ struct Astar_smoothing_vector Astar_Vector;
 
 /*****************************************************************************
  ** Function name:		Astar_Map_Init
@@ -111,9 +111,13 @@ struct Astar_smoothing_vector* Astar_Get_Vector_Map(void)
  **
  *****************************************************************************/
 #include "2_Echange_Datas.h"
-__attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
+__attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* m, struct Astar_smoothing_vector* vect)
 {
+	struct Astar_Map* map = m;
+	struct Astar_smoothing_vector* vectors_map = vect;
+
 	static byte Already_Blocked = 0;
+
 	//Check if Starting point is not in a blocked node
 	if(map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access == Blocked)
 	{
@@ -170,7 +174,13 @@ __attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* map, str
 	if(result == 1)
 	{
 		//We have found the End Node
-		return Astar_Generate_Trajectory(map, vectors_map);
+		Astar_Generate_Trajectory(map, vectors_map);
+
+		//Smooth the path
+		map->First_Destination = Astar_Smoothing(map, vectors_map);
+
+		//we reached the End node
+		return map->Nodes[map->End_Node_index.x][map->End_Node_index.y].G_cost; //travel cost
 	}
 
 	return -1; // no path found
@@ -180,15 +190,15 @@ __attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* map, str
 /*****************************************************************************
  ** Function name:		Astar_Generate_Trajectory
  **
- ** Descriptions:		Create the liste of nodes to pass through
+ ** Descriptions:		Create the list of nodes to pass through
  **
  ** parameters:			Pointer to the Map
  ** 					Pointer to the vectors map
  **
- ** Returned value:		Trajectory cost
+ ** Returned value:		None
  **
  *****************************************************************************/
-short Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
+void Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
 {
 	struct Astar_Node* node = &map->Nodes[map->End_Node_index.x][map->End_Node_index.y];
 	struct Astar_Node* parent_node = &map->Nodes[node->Parent_Node_index_X][node->Parent_Node_index_Y];
@@ -213,12 +223,6 @@ short Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_ve
 			parent_node = &map->Nodes[node->Parent_Node_index_X][node->Parent_Node_index_Y];
 		}
 	}
-
-	//Smooth the path
-	map->First_Destination = Astar_Smoothing(map, vectors_map);
-
-	//we reached the End node
-	return map->Nodes[map->End_Node_index.x][map->End_Node_index.y].G_cost; //travel cost
 }
 
 
@@ -526,6 +530,13 @@ struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vecto
 		tested_vector.End_Point.x = (tested_node->Parent_Node_index_X * Map_Resolution) + (Map_Resolution >> 1);
 		tested_vector.End_Point.y = (tested_node->Parent_Node_index_Y * Map_Resolution) + (Map_Resolution >> 1);
 
+		//If vector too small, keep the previous one
+		if(Dijkstra_Vector_Length(tested_vector.Start_Point.x, tested_vector.Start_Point.y, tested_vector.End_Point.x, tested_vector.End_Point.y) < Map_Resolution*2)
+		{
+			tested_node = &map->Nodes[tested_node->Parent_Node_index_X][tested_node->Parent_Node_index_Y];
+			return tested_vector.End_Point;
+		}
+
 		tested_node = &map->Nodes[tested_node->Parent_Node_index_X][tested_node->Parent_Node_index_Y];
 	}
 
@@ -587,6 +598,17 @@ short Dijkstra_Intersect_Any_Segment(struct Astar_Vector* tested_vector, struct 
 
 	//No Intersection
 	return false;
+}
+
+
+float Dijkstra_Vector_Length(short start_x, short start_y, short end_x, short end_y)
+{
+	short delta_x, delta_y;
+
+	delta_x = start_x - end_x;
+	delta_y = start_y - end_y;
+
+	return sqrtf((delta_x*delta_x)+(delta_y*delta_y));
 }
 
 
@@ -933,17 +955,17 @@ void Astar_Debug_Display_Map(struct Astar_Map* map)
 {
 	vTaskSuspendAll();
 
-		//Passe en TX
-		_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+	//Passe en TX
+	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 
 	Astar_DEBUG_Display_Map_Node_Status(map);
 	Astar_DEBUG_Display_Map_Node_Access(map);
 
 	//Passe en RX
-		_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
-		xTaskResumeAll();
+	xTaskResumeAll();
 }
 
 

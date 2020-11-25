@@ -107,8 +107,8 @@ struct servo_destination _0_Get_Servo_Position(byte ID)
 	{
 		//AX12	
 		values.ID = ID;
-		values.Destination = Infos_Cartes[ID / 10 - 1].Position_AX12.Position[ID % 10];
-		values.Torque = Infos_Cartes[ID / 10 - 1].Position_AX12.Torque[ID % 10];
+		values.Destination = Infos_Cartes[ID / 10 - 1].Position_AX12.Position[ID % 10 - 6];
+		values.Torque = Infos_Cartes[ID / 10 - 1].Position_AX12.Torque[ID % 10 - 6];
 	}
 
 	return values;

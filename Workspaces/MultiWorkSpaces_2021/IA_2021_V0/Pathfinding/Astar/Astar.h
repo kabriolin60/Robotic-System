@@ -151,7 +151,7 @@ struct Astar_smoothing_vector* Astar_Get_Vector_Map(void);
 
 short Astar_Find_Path(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map);
 
-short Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map);
+void Astar_Generate_Trajectory(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map);
 
 int8_t Astar_Find_Best_Node_To_Compute(struct Astar_Map* map, short * best_index_x, short * best_index_y);
 
@@ -165,6 +165,8 @@ bool Astar_Compute_Node(struct Astar_Map* map, struct Astar_Node* calling_node, 
 struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map);
 
 short Dijkstra_Intersect_Any_Segment(struct Astar_Vector* tested_vector, struct Astar_smoothing_vector* vectors_map);
+
+float Dijkstra_Vector_Length(short start_x, short start_y, short end_x, short end_y);
 
 unsigned char Dijkstra_intersect_segment(struct Point *s1, struct Point *s2, struct Point *t1, struct Point *t2, struct Point *p);
 
