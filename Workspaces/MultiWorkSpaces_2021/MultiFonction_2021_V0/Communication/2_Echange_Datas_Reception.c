@@ -131,6 +131,11 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		break;
 
 
+	case VITESSE_ROBOT:
+		_2_Communication_RX_Vitesse(trame);
+		break;
+
+
 	case PING:
 		//A la demande d'une carte, on répond par un PONG
 		_2_Comm_Send_PONG(RS485_port);
@@ -270,6 +275,74 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 	default:
 		break;
 	}
+}
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Communication_RX_Vitesse
+ **
+ ** Descriptions:		Receive a speed set of parameters
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
+{
+	struct reglage_speed speed;
+
+	COPYDATA2(datas->Data, speed);
+
+	//Get Robot asserv Param
+	struct st_ROBOT_PARAMETRES* param = _1_Odometrie_Get_Parameters();
+
+	//Convert to Robot_System
+	//m/s*100 => pas/it
+	float consigne_speed = ((float)speed.Vitesse_Avance)*10; //mm/s = /100*1000
+	consigne_speed *= param->COEF_D; //pas/s
+	consigne_speed /= 1000;	//pas/ms
+	consigne_speed *= PERIODE_PID_VITESSE; //pas/IT
+
+	float consigne_accel = ((float)speed.Accel_Avance)*10; //mm/s² = /100*1000
+	consigne_accel *= param->COEF_D; //pas/s²
+	consigne_accel /= 1000;	//pas/ms²
+	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_accel /= 1000;	//pas/ms²
+	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
+
+	float consigne_Deccel = ((float)speed.Deccel_Avance)*10; //mm/s² = /100*1000
+	consigne_Deccel *= param->COEF_D; //pas/s²
+	consigne_Deccel /= 1000;	//pas/ms²
+	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_Deccel /= 1000;	//pas/ms²
+	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
+
+	_2_Asservissement_Set_Distance_Speed_Accel(consigne_speed,consigne_accel, consigne_Deccel);
+
+
+
+
+	float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
+	consigne_rotation *= param->COEF_ROT; //pas/s
+	consigne_rotation /= 1000;	//pas/ms
+	consigne_rotation *= PERIODE_PID_VITESSE; //pas/IT
+
+	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s² = /100*1000
+	consigne_accel_rotation *= param->COEF_ROT; //pas/s²
+	consigne_accel_rotation /= 1000;	//pas/ms²
+	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_accel_rotation /= 1000;	//pas/ms²
+	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+
+	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //ras/s² = /100*1000
+	consigne_Deccel_rotation *= param->COEF_ROT; //pas/s²
+	consigne_Deccel_rotation /= 1000;	//pas/ms²
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_Deccel_rotation /= 1000;	//pas/ms²
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+
+	_2_Asservissement_Set_Rotation_Speed_Accel(consigne_rotation, consigne_accel_rotation, consigne_Deccel_rotation);
 }
 
 

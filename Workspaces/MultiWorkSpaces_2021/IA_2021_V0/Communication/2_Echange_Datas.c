@@ -703,3 +703,43 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 		_1_Communication_Create_Trame(&trame_echange, canal);
 	}
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_ASTAR_Vectors
+ **
+ ** Descriptions:		Fonction d'envoie du status des noeuds du ASTAR
+ **
+ ** parameters:			Pointeur vers la carte des vecteurs
+ **						Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, float Acceleration_Avance, float Decceleration_Avance, float Acceleration_Rotation, float Decceleration_Rotation, enum enum_canal_communication canal)
+{
+	struct reglage_speed speed;
+
+	speed.Vitesse_Avance = Vitesse_avance*100;
+	speed.Accel_Avance = Acceleration_Avance*100;
+	speed.Deccel_Avance = Decceleration_Avance*100;
+
+	speed.Vitesse_Rotation = Vitesse_Rotation*100;
+	speed.Accel_Rotation = Acceleration_Rotation*100;
+	speed.Deccel_Rotation = Decceleration_Rotation*100;
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = VITESSE_ROBOT;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(speed, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}

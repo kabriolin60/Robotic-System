@@ -175,6 +175,8 @@ void TEST_Deplacement(void * pvParameter)
 		sprintf(str, "Test strategie: 2 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
+		_2_Comm_Send_Robot_Speed(1,1,1,1,1,1,RS485_port);
+
 		GOTO_XY_AVANT_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 3 OK\n");
@@ -184,6 +186,8 @@ void TEST_Deplacement(void * pvParameter)
 
 		sprintf(str, "Test strategie: 4 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+
+		_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 2900);
 
@@ -256,3 +260,7 @@ void TEST_envoi_Ping2(void *pvParameters)
 
 	Task_Delete_Current;
 }
+
+
+
+
