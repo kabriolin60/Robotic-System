@@ -742,4 +742,14 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
+
+	static char str[70];
+	sprintf(str, "Robot speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
+			Vitesse_avance,
+			Acceleration_Avance,
+			Decceleration_Avance,
+			Vitesse_Rotation,
+			Acceleration_Rotation,
+			Decceleration_Rotation);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
 }
