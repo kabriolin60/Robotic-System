@@ -37,7 +37,7 @@ public class ASTAR : MonoBehaviour
         {
             for(int y = 0; y< Field_Size_Y / Node_Size; y++)
             {
-                Nodes[x, y] = new Astar_Node();
+                Nodes[x, y] = (Astar_Node)ScriptableObject.CreateInstance(typeof(Astar_Node));
                 Nodes[x, y].go = Instantiate(Node_Prefab, Astar_Panel_Holder.transform);
                 Nodes[x, y].Set_Status(Astar_Node_Status.Walkable);
             }
@@ -75,7 +75,7 @@ public class ASTAR : MonoBehaviour
 
 
 
-    public class Astar_Node : MonoBehaviour
+    public class Astar_Node : ScriptableObject
     {
         Astar_Node_Status Status = Astar_Node_Status.Walkable;
 
