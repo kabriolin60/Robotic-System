@@ -49,13 +49,19 @@ public class ASTAR_VECT : MonoBehaviour
 
     static private void Clear_Vectors()
     {
+        foreach(GameObject vect in Vector_List)
+        {
+            DestroyImmediate(vect);
+        }
         Vector_List.Clear();
     }
 
     static private void Create_New_Vector(/*ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color,*/ Vector2 Start, Vector2 End)
     {
-        /*UnityEngine.Color color = new Color();
-        switch(Color)
+        UnityEngine.Color color = new Color();
+        color = UnityEngine.Color.black;
+        /*
+        switch (Color)
         {
             case ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color.Black:
                 color = UnityEngine.Color.black;
@@ -85,23 +91,23 @@ public class ASTAR_VECT : MonoBehaviour
         Vector3 start = new Vector3();
         start.x = Start.y / 1000;
         start.y = -Start.x / 1000;
-        start.z = -0.045f;
+        start.z = -0.05f;
         Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().SetPosition(0, start);
-        //Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().startColor = color;
+        Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().startColor = color;
 
         Vector3 end = new Vector3();
         end.x = End.y / 1000;
         end.y = -End.x / 1000;
-        end.z = -0.045f;        
+        end.z = -0.05f;        
         Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().SetPosition(1, end);
-        //Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().endColor = color;
+        Vector_List[Vector_List.Count - 1].GetComponent<LineRenderer>().endColor = color;
     }
 }
 
 
 public class ASTAR_VECTOR_COMMUNICATION
 {
-    private const byte NB_Vector_par_mess = 8;
+    private const byte NB_Vector_par_mess = 7;
 
     /*public enum Astar_Vector_Color : byte
     {
@@ -123,8 +129,8 @@ public class ASTAR_VECTOR_COMMUNICATION
         [MarshalAs(UnmanagedType.I1)]
         public byte Nb_vecteurs;                //Nombre de vecteurs dans le message
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_Vector_par_mess * 7)]
-        public byte[] vectors_values;           //7 octets par vecteurs 1 couleur + 6 de données (4*12bits)
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = NB_Vector_par_mess * 8)]
+        public byte[] vectors_values;           //8 octets par vecteurs
     }
 
 
@@ -150,7 +156,7 @@ public class ASTAR_VECTOR_COMMUNICATION
     {
         Vectors_Values_array output_temp = new Vectors_Values_array();
 
-        output_temp.vectors_values = new byte[NB_Vector_par_mess * 7];
+        output_temp.vectors_values = new byte[NB_Vector_par_mess * 8];
 
         output_temp = (Vectors_Values_array)Communication.GetStructFromArray<Vectors_Values_array>(input_trame.Data);
 
@@ -163,29 +169,32 @@ public class ASTAR_VECTOR_COMMUNICATION
         byte index = 0;
         for(byte vecteur_index = 0; vecteur_index < output.Nb_vecteurs; vecteur_index++)
         {
+            output.vectors[vecteur_index] = new ASTAR_Vector();
             //Pour chaque vecteur reçu
             //output.vectors[vecteur_index].Color = (Astar_Vector_Color)(output_temp.vectors_values[index++]);
 
-            //Start coord //3 octets
+            //Start coord //4 octets
             int value = output_temp.vectors_values[index++];
-            value = value << 8;
-            value += output_temp.vectors_values[index++];
-            value = value << 8;
-            value += output_temp.vectors_values[index++];
+            value += ((short)(output_temp.vectors_values[index++])<<8);
+            value = value & 0x0FFF;
+            output.vectors[vecteur_index].Start.x = (float)(value);
 
-            output.vectors[vecteur_index].Start.x = (float)((value & 0b11111111_1111_0000_00000000) >> 12);
-            output.vectors[vecteur_index].Start.y = (float)((value & 0b00000000_0000_1111_11111111));
-
-
-            //End coord //3 octets
             value = output_temp.vectors_values[index++];
-            value = value << 8;
-            value += output_temp.vectors_values[index++];
-            value = value << 8;
-            value += output_temp.vectors_values[index++];
+            value += ((short)(output_temp.vectors_values[index++]) << 8);
+            value = value & 0x0FFF;
+            output.vectors[vecteur_index].Start.y = (float)(value);
 
-            output.vectors[vecteur_index].End.x = (float)((value & 0b11111111_1111_0000_00000000) >> 12);
-            output.vectors[vecteur_index].End.y = (float)((value & 0b00000000_0000_1111_11111111));
+
+            //End coord //4 octets
+            value = output_temp.vectors_values[index++];
+            value += ((short)(output_temp.vectors_values[index++]) << 8);
+            value = value & 0x0FFF;
+            output.vectors[vecteur_index].End.x = (float)(value);
+
+            value = output_temp.vectors_values[index++];
+            value += ((short)(output_temp.vectors_values[index++]) << 8);
+            value = value & 0x0FFF;
+            output.vectors[vecteur_index].End.y = (float)(value);
         }
 
         return output;

@@ -450,6 +450,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 			case Xbee_port:
 				_0_Communication_Send_XBEE(XBEE_UART, &txring, (int)Message.length);
+				Task_Delay(0.2f);
 				break;
 
 			default:

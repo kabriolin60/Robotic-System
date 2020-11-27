@@ -255,8 +255,8 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	result = _0_Deplacement_Wait_For_Arrival(&coord);
 
 	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
-		X,
-		Y);
+			X,
+			Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
 
 	//Delete the Astar task
@@ -385,6 +385,11 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					_0_Deplacement_Get_ptr_Current_Destination()->coord = parameters.destination.coord;
 
 					//Astar_Debug_Display_Map(Astar_Get_Map());
+					/*
+					 * Step 5: Debug, display Pathfinding Map
+					 */
+					//_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
+					_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), RS485_port);
 				}else
 				{
 					//No Intersection, the previous destination is still a good choose
@@ -393,7 +398,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		}else
 		{
 			//No path has been found
-			//Rise the correspond Flag
+			//Rise the corresponding Flag
 			xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
 					eGROUP_DEPLA_path_NOT_FOUND );/* The bits being set. */
 
@@ -402,6 +407,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					eGROUP_DEPLA_pathFOUND );/* The bits being set. */
 
 			//Send a no mouvement order to the Robot, with replacement to flush all existing deplacement, and stop the Robot
+			parameters.destination.Replace = true;
 			parameters.destination.coord.Type_Deplacement = aucun_mouvement;
 			_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
 
@@ -411,15 +417,15 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
 			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+
+			/*
+			 * Step 5: Debug, display Pathfinding Map
+			 */
+			_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 		}
 
-		/*
-		 * Step 5: Debug, display Pathfinding Map
-		 */
-		//_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
+
 		//Astar_Debug_Display_Map(Astar_Get_Map());
-
-
 		Set_Debug_Pin_0_Low();
 		/*
 		 * Step 6: Wait for the next Astar Loop

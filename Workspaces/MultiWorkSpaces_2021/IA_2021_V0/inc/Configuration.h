@@ -19,7 +19,7 @@
 #include "task.h"
 
 #define MAJOR_RELEASE "4"
-#define MINOR_RELEASE "1a"
+#define MINOR_RELEASE "2a"
 
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
@@ -128,7 +128,7 @@ Declaration des Reglages liés à la Communication RS485
 #define BAUDRATE_RS485				2000000
 #define RS484_UART					LPC_UART1
 
-#define BAUDRATE_XBEE				57600
+#define BAUDRATE_XBEE				115200
 #define XBEE_UART					LPC_UART2
 
 #define RS485_IRQ_SELECTION 		UART1_IRQn

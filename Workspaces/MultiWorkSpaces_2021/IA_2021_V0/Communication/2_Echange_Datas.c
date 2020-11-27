@@ -604,7 +604,6 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
 		trame_echange.Slave_Adresse = PC;
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
-
 		data_to_send.line_id = x;
 		//Pour chaque ligne
 		//1ère ligne
@@ -661,8 +660,8 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 
 		if (index_vecteur_to_send == NB_ASTAR_Vecteur_Par_Message)
 		{
-			//Il est temps d'envoyer ce paquer
-
+			//Il est temps d'envoyer ce paquet
+			Vectors_to_Send.Nb_vecteurs = index_vecteur_to_send;
 			if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
 			{
 				//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
@@ -679,11 +678,28 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 
 			Task_Delay(2);
 
-
 			//Pour les prochains messages, il n'est plus utile de demander un effacement
 			Vectors_to_Send.Effacement = 0;
 			index_vecteur_to_send = 0; //On recommence au début du tableau des infos à envoyer
-
 		}
+	}
+
+	if(index_vecteur_to_send != 0)
+	{
+		//Dernier paquet
+		Vectors_to_Send.Nb_vecteurs = index_vecteur_to_send;
+		if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+		{
+			//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+			//Abandon
+			return;
+		}
+
+		trame_echange.Instruction = ASTAR_VECTEURS;
+		trame_echange.Slave_Adresse = PC;
+		trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+		trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
+		_1_Communication_Create_Trame(&trame_echange, canal);
 	}
 }
