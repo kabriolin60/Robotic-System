@@ -26,10 +26,10 @@ public class Interprete_Message : MonoBehaviour
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
-		this.StartCoroutine(Interpreteur_Message());		
+		this.StartCoroutine(Interpreteur_Message());
 	}
 
-    IEnumerator Interpreteur_Message()
+	IEnumerator Interpreteur_Message()
 	{
 		int nb_mess = 0;
 		Communication.Communication_Message message;
@@ -94,6 +94,10 @@ public class Interprete_Message : MonoBehaviour
 			case Communication.Com_Instruction.ASTAR_VECTEURS:
 				Decode_ASTAR_Vector(message);
 				break;
+
+			case Communication.Com_Instruction.STRATEGIE_CHANGEMENT_ETAT:
+				Decode_Strategie_Changement_Etat(message);
+				break;
 		}
 
 		//compte le nombre de messages recus
@@ -101,15 +105,15 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-    private void Save_Message(Communication.Communication_Message message)
-    {
+	private void Save_Message(Communication.Communication_Message message)
+	{
 		file_Logger.Write_Logging_Data(message);
 	}
 
 
 
 	private void Decode_Logger_Debug(Communication.Communication_Message message)
-    {
+	{
 		Logger_Debug debugger = new Logger_Debug();
 		//décompose les datas du message recu
 		Logger_Debug.Logger_Debug_Data data = debugger.Trame_To_Data(message.Trame);
@@ -141,7 +145,7 @@ public class Interprete_Message : MonoBehaviour
 
 
 	private void Decode_Reponse_Info(Communication.Communication_Message message)
-    {
+	{
 		Infos_Carte temp = new Infos_Carte();
 		//Interprete un message de type "Infos des cartes
 		//Transforme la trame en un message interpretable
@@ -153,13 +157,24 @@ public class Interprete_Message : MonoBehaviour
 
 
 	private void Decode_ASTAR_Contenu(Communication.Communication_Message message)
-    {
+	{
 		ASTAR.Reception_Message_Astar(message.Trame);
-    }
+	}
 
 
 	private void Decode_ASTAR_Vector(Communication.Communication_Message message)
 	{
 		ASTAR_VECT.Reception_Message_Astar_Vector(message.Trame);
+	}
+
+	private void Decode_Strategie_Changement_Etat(Communication.Communication_Message message)
+	{
+		Action decoder = new Action();
+		Action.Action_Datas data = new Action.Action_Datas();
+		//décompose les datas du message recu
+		data = decoder.Trame_To_Data(message.Trame);
+
+		//Met à jour le tableau avec l'ensemble des actions
+		Action_Liste.Update_Action(data);
 	}
 }

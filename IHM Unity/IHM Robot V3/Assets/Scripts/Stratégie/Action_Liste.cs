@@ -9,7 +9,7 @@ public class Action_Liste : MonoBehaviour
 
     private byte Nombre_Maximum_Actions;
 
-    private Dictionary<byte, Action_Line> Dictionnaire_Action = new Dictionary<byte, Action_Line>();
+    private static Dictionary<byte, Action_Line> Dictionnaire_Action = new Dictionary<byte, Action_Line>();
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class Action_Liste : MonoBehaviour
     }
 
 
-    public void Update_Action(Action.Action_Datas data)
+    public static void Update_Action(Action.Action_Datas data)
     {
         Action_Line updated_line;
         if (!Dictionnaire_Action.TryGetValue(data.ID, out updated_line))
@@ -43,6 +43,4 @@ public class Action_Liste : MonoBehaviour
         //Activation
         updated_line.gameObject.SetActive(true);
     }
-
-
 }

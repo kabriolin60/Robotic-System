@@ -53,9 +53,9 @@ public class Action_Line : MonoBehaviour
 
         Text_Action_Qui_Peut.GetComponent<TextMeshProUGUI>().text = Action_Data.Datas.Qui_Peut.ToString();
 
-        Text_Action_Temps_mini.GetComponent<TextMeshProUGUI>().text = Action_Data.Datas.Temps_mini.ToString();
+        Text_Action_Temps_mini.GetComponent<TextMeshProUGUI>().text = ((int)(Action_Data.Datas.Temps_mini) * 10).ToString();
 
-        Text_Action_Temps_maxi.GetComponent<TextMeshProUGUI>().text = Action_Data.Datas.Temps_maxi.ToString();
+        Text_Action_Temps_maxi.GetComponent<TextMeshProUGUI>().text = ((int)(Action_Data.Datas.Temps_maxi) * 10).ToString();
     }
 }
 
