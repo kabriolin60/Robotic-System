@@ -6,7 +6,9 @@ public class Common_settings : MonoBehaviour
 {
     public byte Nombre_Robots;
     public byte Nombre_Cartes_MultiFct_Par_Robot;
+    public byte Nombre_Maximum_Actions;
 
+    static public byte static_Nombre_Maximum_Actions;
     static public byte static_Nombre_Robots;
     static public byte static_Nombre_Cartes_MultiFct_Par_Robot;
 
@@ -20,6 +22,7 @@ public class Common_settings : MonoBehaviour
     {
         static_Nombre_Robots = Nombre_Robots;
         static_Nombre_Cartes_MultiFct_Par_Robot = Nombre_Cartes_MultiFct_Par_Robot;
+        static_Nombre_Maximum_Actions = Nombre_Maximum_Actions;
 
         static_Id_Robot = (Infos_Carte.Com_Position_Robot_Identification[])typeof(Infos_Carte.Com_Position_Robot_Identification).GetEnumValues();
     }
