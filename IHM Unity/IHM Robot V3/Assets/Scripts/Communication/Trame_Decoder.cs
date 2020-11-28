@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Trame_Decoder : MonoBehaviour
 {
-	public List<Communication.Communication_Message> Received_Messages = new List<Communication.Communication_Message>();
+	public Queue<Communication.Communication_Message> Received_Messages = new Queue<Communication.Communication_Message>();
 	public Virtual_SerialPort serialport;
 
 	public int Buffer_Lower_Limit;
@@ -43,7 +43,7 @@ public class Trame_Decoder : MonoBehaviour
 						if (dataReceived != null)
 						{
 							//Un message a ete reçu correctement
-							Received_Messages.Add(dataReceived);
+							Received_Messages.Enqueue(dataReceived);
 							Messages_Number++;
 							mess_par_salve++;
 						}
@@ -70,8 +70,7 @@ public class Trame_Decoder : MonoBehaviour
 	{
 		if (Received_Messages.Count > 0 && index_lecture < Received_Messages.Count)
 		{
-			message = Received_Messages[0];
-			Received_Messages.RemoveAt(0);
+			message = Received_Messages.Dequeue();
 			return;
 		}
 
