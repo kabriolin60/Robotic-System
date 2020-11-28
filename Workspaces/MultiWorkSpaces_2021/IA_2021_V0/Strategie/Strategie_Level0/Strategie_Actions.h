@@ -14,11 +14,11 @@
 
 enum Action_State
 {
-	En_Attente,
-	En_cours,
-	Terminee,
-	Annulee,
-	Impossible
+	Action_En_Attente,
+	Action_En_cours,
+	Action_Terminee,
+	Action_Annulee,
+	Action_Impossible
 };
 
 enum Qui
@@ -38,7 +38,7 @@ struct Action_Datas
 
 	byte Name_Length;					//Longueur du nom
 
-	char Name[Max_Action_Name_Length];	//Nom
+	char* Name;	//Nom
 
 	enum Action_State State;			//Status
 
@@ -52,15 +52,22 @@ struct Action_Datas
 
 	enum Qui Qui_Peut;					//Qui peut réaliser cette action
 
-	ushort Temps_mini;					//Tps mini pour débuter l'action
+	long Temps_mini;					//Tps mini pour débuter l'action
 
-	ushort Temps_maxi;					//Tps maxi pour débuter l'action
+	long Temps_maxi;					//Tps maxi pour débuter l'action
 
 	void (*Fct)(byte);					//Pointeur vers l'action
 	void *Param;						//Pointeur vers un parametre utilise par l'action
 
 	ushort StartPoint_X;				//Coordonnées du point de départ de l'action sur X
 	ushort StartPoint_Y;				//Coordonnées du point de départ de l'action sur Y
+};
+
+
+struct Actions_List
+{
+	struct Action_Datas Actions[16];
+	byte Nombre_Actions;
 };
 
 #endif /* STRATEGIE_LEVEL0_STRATEGIE_ACTIONS_H_ */

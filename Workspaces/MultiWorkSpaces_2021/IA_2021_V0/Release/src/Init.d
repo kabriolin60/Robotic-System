@@ -79,7 +79,15 @@ src/Init.o src/Init.d: ../src/Init.c \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas_Reception.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0\Deplacement/0_Deplacements.h
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0\Deplacement/0_Deplacements.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie/Strategie.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Data_Strategie.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Communication_Typedef.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Actions.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Actions.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/1_Trame_Communication.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/0_Event_Group.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas.h
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h:
 
@@ -242,3 +250,19 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas_Reception.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0\Deplacement/0_Deplacements.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie/Strategie.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Data_Strategie.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Communication_Typedef.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Actions.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/Strategie_Actions.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/1_Trame_Communication.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/0_Event_Group.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication/2_Echange_Datas.h:

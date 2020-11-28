@@ -19,6 +19,8 @@
 
 #include "0_Deplacements.h"
 
+#include "Strategie.h"
+
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
 traceString MyChannel_Debug_pins;
 traceString MyChannel_Debug_texte;
@@ -108,8 +110,11 @@ void Init_Carte_IA(void)
 	/* Envoie l'ID du Robot vers les cartes sur le réseau */
 	Init_Send_Robot_ID();
 
-	/* Demande de presence des cartes */
-	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
+	/* Init de la communication partie Strategie */
+	_2_Comm_Strategie_Init();
+
+	/* Creation de la Task de la strategie */
+	xTaskCreate(_Strategie_Init_Strategie_2021, "Init_Strategie", 600, NULL, 1, NULL);
 }
 
 

@@ -10,6 +10,7 @@
 #include "stdio.h"
 
 #include "0_Infos.h"
+#include "0_Event_Group.h"
 
 static TO_AHBS_RAM3 struct Communication_Trame trame_echange;// TO_AHBS_RAM0;
 
@@ -41,7 +42,7 @@ void _2_Communication_Init()
 void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -54,7 +55,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 	static char str[70];
 	static char* dir;
@@ -90,7 +91,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -103,7 +104,7 @@ void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communicat
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 
@@ -119,7 +120,7 @@ void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communicat
 void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -132,7 +133,7 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 
@@ -152,7 +153,7 @@ static char str[70];
 void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -165,7 +166,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 	//Send the revision of this board firmware
 
@@ -214,7 +215,7 @@ static struct Com_Position_Robot Com_Position_Robot;
 void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -232,7 +233,7 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 #ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
@@ -260,7 +261,7 @@ static struct Logger_Debug_Data log_message;// TO_AHBS_RAM0;
 void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Channel, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -285,7 +286,7 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 		trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
-		_1_Communication_Create_Trame(&trame_echange, canal);
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 #ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
@@ -304,7 +305,7 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 			trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
 			trame_echange.XBEE_DEST_ADDR = 0;
 
-			_1_Communication_Create_Trame(&trame_echange, canal);
+			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 #ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
@@ -387,7 +388,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -400,7 +401,7 @@ void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination,
 	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 
@@ -417,7 +418,7 @@ void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination,
 void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -432,7 +433,7 @@ void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal)
 
 	trame_echange.Data[0] = ID;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 
@@ -452,7 +453,7 @@ void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal)
 	simulation.simulation = sim;
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -465,7 +466,7 @@ void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal)
 	trame_echange.Length = COPYDATA(simulation, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 /*****************************************************************************/
@@ -488,7 +489,7 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
 	pow.power_Droite = power;
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -501,7 +502,7 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
 	trame_echange.Length = COPYDATA(pow, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 }
 
 /*****************************************************************************/
@@ -527,7 +528,7 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	pos.Angle_rad = Convert_Deg_Rad(Angle);
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -540,7 +541,7 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	trame_echange.Length = COPYDATA(pos, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 	static char str[70];
 	sprintf(str, "Set Robot position= X%.1fmm Y%.1fmm A%.2f°\n",
@@ -593,7 +594,7 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
 
 	for(int x = 0; x < Astar_Node_Nb_X; x+=2)
 	{
-		if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+		if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 		{
 			//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 			//Abandon
@@ -621,7 +622,7 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
 		}
 
 		trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
-		_1_Communication_Create_Trame(&trame_echange, canal);
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 		Task_Delay(2);
 	}
@@ -662,7 +663,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 		{
 			//Il est temps d'envoyer ce paquet
 			Vectors_to_Send.Nb_vecteurs = index_vecteur_to_send;
-			if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+			if (_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo) == pdFAIL)
 			{
 				//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 				//Abandon
@@ -674,7 +675,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 			trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
-			_1_Communication_Create_Trame(&trame_echange, canal);
+			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
 			Task_Delay(2);
 
@@ -688,7 +689,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 	{
 		//Dernier paquet
 		Vectors_to_Send.Nb_vecteurs = index_vecteur_to_send;
-		if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+		if (_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo) == pdFAIL)
 		{
 			//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 			//Abandon
@@ -700,7 +701,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 		trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
-		_1_Communication_Create_Trame(&trame_echange, canal);
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 	}
 }
 
@@ -728,7 +729,7 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	speed.Deccel_Rotation = Decceleration_Rotation*100;
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -741,9 +742,9 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	trame_echange.Length = COPYDATA(speed, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal);
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
 
-	static char str[70];
+	/*static char str[70];
 	sprintf(str, "Robot speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
 			Vitesse_avance,
 			Acceleration_Avance,
@@ -751,5 +752,5 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 			Vitesse_Rotation,
 			Acceleration_Rotation,
 			Decceleration_Rotation);
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);*/
 }

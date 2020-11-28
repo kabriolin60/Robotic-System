@@ -24,9 +24,9 @@ void _1_Communication_Create_Queues_Semaphores(void);
 
 
 
-BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait);
+BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, byte bit_to_check);
 
-void _1_Communication_Free_Send_Bit(void);
+void _1_Communication_Free_Send_Bit(byte bit_to_check);
 
 
 
@@ -37,7 +37,7 @@ void _1_Communication_Free_Receive_Bit(void);
 
 struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send);
 
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal);
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check);
 
 BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff);
 

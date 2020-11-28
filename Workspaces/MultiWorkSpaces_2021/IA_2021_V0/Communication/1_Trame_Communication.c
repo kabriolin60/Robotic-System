@@ -73,16 +73,16 @@ void _1_Communication_Create_Queues_Semaphores(void)
  ** Returned value:		None
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait)
+BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, byte bit_to_check)
 {
 	EventBits_t uxBits;
 	uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
-			eGROUP_SYNCH_TxTrameDispo, /* The bits within the event group to wait for. */
+			bit_to_check, /* The bits within the event group to wait for. */
 			pdTRUE,        /* Clear bits before returning. */
 			pdTRUE,        /* Wait for ALL bits to be set */
 			xTicksToWait );/* Wait a maximum of xTicksToWait for either bit to be set. */
 
-	if( ( uxBits & (eGROUP_SYNCH_TxTrameDispo ) ) == ( eGROUP_SYNCH_TxTrameDispo ) )
+	if( ( uxBits & (bit_to_check ) ) == ( bit_to_check ) )
 	{
 		return pdTRUE;
 	}
@@ -100,10 +100,10 @@ BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait)
  ** Returned value:		None
  **
  *****************************************************************************/
-void _1_Communication_Free_Send_Bit(void)
+void _1_Communication_Free_Send_Bit(byte bit_to_check)
 {
 	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
-			eGROUP_SYNCH_TxTrameDispo );/* The bits being set. */
+			bit_to_check );/* The bits being set. */
 }
 
 
@@ -213,7 +213,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 }
 
 
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal)
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check)
 {
 	//Mise en forme des datas
 	(void)_1_Communication_Create_Message(pMessage_to_send);
@@ -225,11 +225,11 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	if(xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
 	{
 		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit();
+		_1_Communication_Free_Send_Bit(bit_to_check);
 		return pdPASS;
 	}
 	//Libère le bit de synchro pour pouvoir envoyer un autre message
-	_1_Communication_Free_Send_Bit();
+	_1_Communication_Free_Send_Bit(bit_to_check);
 	return pdFAIL;
 }
 

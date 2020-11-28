@@ -1,5 +1,11 @@
-Communication/2_Echange_Datas.o Communication/2_Echange_Datas.d: \
- ../Communication/2_Echange_Datas.c ../Communication/2_Echange_Datas.h \
+Strategie/Strategie_Level0/0_Infos.o Strategie/Strategie_Level0/0_Infos.d: \
+ ../Strategie/Strategie_Level0/0_Infos.c \
+ ../Strategie/Strategie_Level0/0_Infos.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/FreeRTOS.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos/FreeRTOSConfig.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/chip.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/lpc_types.h \
@@ -43,11 +49,6 @@ Communication/2_Echange_Datas.o Communication/2_Echange_Datas.d: \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/lpc_types.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/lpc_phy.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/FreeRTOS.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos/FreeRTOSConfig.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\FreeRTOS_Trace/trcRecorder.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\FreeRTOS_Trace/trcConfig.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\FreeRTOS_Trace/trcPortDefines.h \
@@ -63,19 +64,19 @@ Communication/2_Echange_Datas.o Communication/2_Echange_Datas.d: \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/task.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/list.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/task.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h \
- ../Communication/1_Trame_Communication.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/semphr.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/0_Infos.h \
- ../Communication/0_Event_Group.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/event_groups.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/timers.h
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h
 
-../Communication/2_Echange_Datas.h:
+../Strategie/Strategie_Level0/0_Infos.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/FreeRTOS.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos/FreeRTOSConfig.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h:
 
@@ -163,16 +164,6 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lp
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h:
 
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/FreeRTOS.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos/FreeRTOSConfig.h:
-
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\FreeRTOS_Trace/trcRecorder.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\FreeRTOS_Trace/trcConfig.h:
@@ -204,23 +195,3 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/list.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/task.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h:
-
-../Communication/1_Trame_Communication.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/semphr.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/0_Infos.h:
-
-../Communication/0_Event_Group.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/event_groups.h:
-
-D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/timers.h:
