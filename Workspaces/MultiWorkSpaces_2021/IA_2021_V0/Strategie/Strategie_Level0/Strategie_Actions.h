@@ -12,6 +12,9 @@
 #include "Communication_Typedef.h"
 
 
+
+
+
 enum Action_State
 {
 	Action_En_Attente,
@@ -38,7 +41,7 @@ struct Action_Datas
 
 	byte Name_Length;					//Longueur du nom
 
-	char* Name;	//Nom
+	char* Name;							//Nom
 
 	enum Action_State State;			//Status
 
@@ -69,5 +72,9 @@ struct Actions_List
 	struct Action_Datas Actions[16];
 	byte Nombre_Actions;
 };
+
+
+
+void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum Action_State new_state);
 
 #endif /* STRATEGIE_LEVEL0_STRATEGIE_ACTIONS_H_ */

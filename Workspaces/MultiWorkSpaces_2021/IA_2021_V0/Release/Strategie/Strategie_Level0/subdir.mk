@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Strategie/Strategie_Level0/0_Infos.c 
+../Strategie/Strategie_Level0/0_Infos.c \
+../Strategie/Strategie_Level0/Strategie_Actions.c 
 
 OBJS += \
-./Strategie/Strategie_Level0/0_Infos.o 
+./Strategie/Strategie_Level0/0_Infos.o \
+./Strategie/Strategie_Level0/Strategie_Actions.o 
 
 C_DEPS += \
-./Strategie/Strategie_Level0/0_Infos.d 
+./Strategie/Strategie_Level0/0_Infos.d \
+./Strategie/Strategie_Level0/Strategie_Actions.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

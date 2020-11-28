@@ -51,12 +51,67 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 
 
 
+	temp_action.ID = Actions_2021.Nombre_Actions;
+	temp_action.Name = "Second Action";
+	temp_action.State = Action_En_Attente;
+	temp_action.Step = 0;
+	temp_action.Priority = 12;
+	temp_action.Points = 45;
+	temp_action.Qui_Fait = Action_Personne;
+	temp_action.Qui_Peut = Action_Gros_Robot;
+	temp_action.Temps_mini = 5000;
+	temp_action.Temps_maxi = 109000;
+	temp_action.Fct = NULL;
+	temp_action.Param = NULL;
+	temp_action.StartPoint_X = 1000;
+	temp_action.StartPoint_Y = 1500;
+
+	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
+
+	//Envoie au PC cette action
+	_2_Comm_Strategie_Send_Action_State_Update(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+
+
+
+	temp_action.ID = Actions_2021.Nombre_Actions;
+	temp_action.Name = "Third Action Bleu Gobelets Centre";
+	temp_action.State = Action_En_Attente;
+	temp_action.Step = 0;
+	temp_action.Priority = 3;
+	temp_action.Points = 4;
+	temp_action.Qui_Fait = Action_Personne;
+	temp_action.Qui_Peut = Action_Gros_Robot;
+	temp_action.Temps_mini = 12000;
+	temp_action.Temps_maxi = 90000;
+	temp_action.Fct = NULL;
+	temp_action.Param = NULL;
+	temp_action.StartPoint_X = 1000;
+	temp_action.StartPoint_Y = 1500;
+
+	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
+
+	//Envoie au PC cette action
+	_2_Comm_Strategie_Send_Action_State_Update(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+
+
+
 	/* Demande de presence des cartes à la fin de l'init de la stratégie*/
 	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
 
 
 
 	//Do strategic stuff
+	Task_Delay(2000);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_En_cours);
+
+	Task_Delay(2000);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_Terminee);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_En_cours);
+
+	Task_Delay(2000);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_Terminee);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[2], Action_Annulee);
+
 
 
 	//Never reach
