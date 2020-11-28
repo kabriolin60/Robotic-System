@@ -71,7 +71,8 @@ enum Com_Instruction
 
 	//Info sur la carte
 	DEFINITION_ID_ROBOT = 34,		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
-	DEMANDE_INFO,
+
+	DEMANDE_INFO = 35,
 	REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
 
 	//Power
@@ -91,9 +92,9 @@ enum Com_Instruction
 
 	//Bloc 50 a 54 reserve pour la strategie
 	STRATEGIE_CHANGEMENT_ETAT = 51,
-	STRATEGIE_ENSEMBLE_ACTIONS,
+	/*STRATEGIE_ENSEMBLE_ACTIONS,
 	STRATEGIE_DIALOGUE_ENTREROBOTS,
-	STRATEGIE_ETAT_INTERNE,
+	STRATEGIE_ETAT_INTERNE,*/
 
 	//Logger
 	LOGGER_DEBUG = 56,
