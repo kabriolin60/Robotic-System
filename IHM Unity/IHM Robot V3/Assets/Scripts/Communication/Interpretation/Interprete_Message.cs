@@ -15,6 +15,8 @@ public class Interprete_Message : MonoBehaviour
 
 	File_Logger file_Logger;
 
+	private GameObject Action_History_go;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -24,6 +26,11 @@ public class Interprete_Message : MonoBehaviour
 
 		Last_Data_Received = this.GetComponent<Last_Infos>();
 
+
+		
+
+
+
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
 		this.StartCoroutine(Interpreteur_Message());
@@ -31,6 +38,14 @@ public class Interprete_Message : MonoBehaviour
 
 	IEnumerator Interpreteur_Message()
 	{
+		yield return new WaitForSeconds(.01f);
+
+		//Identifie l'affichage de l'historique des actions, puis masque-le
+		Action_History_go = GameObject.FindWithTag("Action_History");
+		Action_History_go.SetActive(false);
+
+
+
 		int nb_mess = 0;
 		Communication.Communication_Message message;
 		while (true)
@@ -176,5 +191,9 @@ public class Interprete_Message : MonoBehaviour
 
 		//Met à jour le tableau avec l'ensemble des actions
 		Action_Liste.Update_Action(data);
+
+		//Ajoute une ligne à l'historique des changements d'états de la Strategie
+		if (Action_History_go != null)
+			Action_History_go.GetComponent<Action_History>().Update_Action(data);
 	}
 }

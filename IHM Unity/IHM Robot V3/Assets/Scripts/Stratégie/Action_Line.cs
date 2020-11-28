@@ -29,6 +29,13 @@ public class Action_Line : MonoBehaviour
 
     public void Update_Action(Action.Action_Datas data)
     {
+        if(Action_Data == null)
+        {
+            Action_Data = new Action();
+            Action_Data.Datas = new Action.Action_Datas();
+        }
+
+
         Action_Data.Datas = data;
 
         Text_Action_ID.GetComponent<TextMeshProUGUI>().text = Action_Data.Datas.ID.ToString();

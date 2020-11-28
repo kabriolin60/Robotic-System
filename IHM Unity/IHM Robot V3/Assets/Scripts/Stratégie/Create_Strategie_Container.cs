@@ -48,16 +48,18 @@ public class Create_Strategie_Container : MonoBehaviour
         //Le premier contenu
         GameObject go_Strategie_History = Instantiate(Actions_History_Prefab, Contenu_Panel.transform) as GameObject;
         list_Panels_Robots.Add(go_Strategie_History);
-        go_Strategie_History.SetActive(false);
+
+        //Initialement Active ce panel afin de le trouver dans l'interpreter de message qui ensuite le desactivera dans son Start
+        go_Strategie_History.SetActive(true);
 
         //Associe le panel à cet onglet
         go_Panel_Action_History.GetComponent<Toggle>().onValueChanged.AddListener(go_Strategie_History.SetActive);
 
         //Set le nom de l'onglet
-        go_Panel_Action_History.name = $"Actions History";
+        go_Panel_Action_History.name = $"Actions Historique";
         //Set onglet button name
-        go_Panel_Action_History.GetComponentInChildren<TextMeshProUGUI>().text = "History";
+        go_Panel_Action_History.GetComponentInChildren<TextMeshProUGUI>().text = "Historique";
         //Set le nom du panel
-        go_Strategie_History.name = $"Tab Action History";
+        go_Strategie_History.name = $"Tab Action Historique";
     }
 }
