@@ -1244,6 +1244,18 @@ void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothin
 	uint8_t index_x_max;
 	uint8_t index_y_max;
 
+	if(X_min == 0)
+		X_min = 1;
+
+	if(X_max >= Map_size_X)
+		X_max = Map_size_X -1;
+
+	if(Y_min == 0)
+		Y_min = 1;
+
+	if(Y_max >= Map_size_Y)
+		Y_max = Map_size_Y -1;
+
 	index_x_mini = Astar_Coord_To_Index_X(X_min);
 	index_y_mini = Astar_Coord_To_Index_Y(Y_min);
 

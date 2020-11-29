@@ -246,7 +246,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED );/* The bits being set. */
 
 	//Create the Astar deplacement task
-	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 320, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
+	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 400, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
 
 	if(!Attente)
 		return true;

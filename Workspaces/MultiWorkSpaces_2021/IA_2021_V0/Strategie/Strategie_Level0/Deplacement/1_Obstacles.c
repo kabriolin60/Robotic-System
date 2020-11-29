@@ -23,5 +23,14 @@ void _1_Obstacles_Create_Terrain_Border(void)
 
 	Astar_Add_Obstacle_Vector(Astar_Get_Vector_Map(), 180, 180,	1820, 2820, Astar_Vector_Color_Blue);
 
+	//Grand port Jaune
+	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 320, 2420, 1280, 3000, true, Astar_Vector_Color_Blue);
+
+	//Petit port Jaune
+	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1520, 709, 2000, 1691, true, Astar_Vector_Color_Blue);
+
+	//Taquet Bleu
+	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1670, 1909, 2000, 2291, true, Astar_Vector_Color_Blue);
+
 	_1_TEST_Obstacles_Opponent_Robots();
 }

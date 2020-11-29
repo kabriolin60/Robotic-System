@@ -22,7 +22,9 @@
 
 
 
-#define Astar_Recherche_Periode		100
+#define Astar_Recherche_Periode						150
+
+
 
 #define eGROUP_DEPLA_pathFOUND ( 1 << 0 ) 			//Flag indicating that a path to the destination has been found
 #define eGROUP_DEPLA_path_NOT_FOUND ( 1 << 1 ) 		//Flag indicating that NO path to the destination has been found

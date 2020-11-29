@@ -182,7 +182,7 @@ void TEST_Deplacement(void * pvParameter)
 		sprintf(str, "Test strategie: 3 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
-		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2700, &_1_Obstacles_Create_Terrain_Border);
+		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2380, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 4 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
@@ -194,7 +194,7 @@ void TEST_Deplacement(void * pvParameter)
 		sprintf(str, "Test strategie: 5 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
 
-		GOTO_XY_ARRIERE_WAIT(1000, 2700);
+		GOTO_XY_ARRIERE_WAIT(1000, 2380);
 
 		sprintf(str, "Test strategie: 6 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
