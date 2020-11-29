@@ -61,6 +61,7 @@ public class Add_MeshCollider_To_Terrain : MonoBehaviour
         try
         {
             go.gameObject.AddComponent<MeshCollider>().convex = true;
+
         }
         catch (Exception ex)
         {
@@ -75,6 +76,9 @@ public class Add_MeshCollider_To_Terrain : MonoBehaviour
             try
             {
                 go.gameObject.AddComponent<Rigidbody>().isKinematic = true;
+                Rigidbody rigi = go.gameObject.GetComponent<Rigidbody>();
+
+                rigi.constraints = RigidbodyConstraints.FreezeAll;
             }
             catch (Exception ex)
             {
