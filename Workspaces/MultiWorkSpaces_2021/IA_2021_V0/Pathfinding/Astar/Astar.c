@@ -1233,10 +1233,11 @@ void Astar_Debug_Send_char(char ch)
  ** 					Obstacle X max position (mm)
  ** 					Obstacle Y max position (mm)
  ** 					Add corresponding vectors (bool)
+ ** 					Couleur des vecteurs
  ** Returned value:		None
  **
  *****************************************************************************/
-void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, bool use_vectors)
+void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, bool use_vectors, enum Astar_Vector_Color color)
 {
 	uint8_t index_x_mini;
 	uint8_t index_y_mini;
@@ -1254,7 +1255,7 @@ void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothin
 				X_min,
 				Y_min,
 				X_max,
-				Y_max);
+				Y_max, color);
 
 	//for each node from index X_min to index X_max
 	for(int x = index_x_mini; x <= index_x_max; x++)
@@ -1279,15 +1280,18 @@ void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothin
  ** 					Obstacle Y min position (mm)
  ** 					Obstacle X max position (mm)
  ** 					Obstacle Y max position (mm)
+ ** 					Couleur des vecteurs
  ** Returned value:		None
  **
  *****************************************************************************/
-void Astar_Add_Obstacle_Vector(struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max)
+void Astar_Add_Obstacle_Vector(struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, enum Astar_Vector_Color color)
 {
 	struct Astar_Vector Vect;
 
 	if(vectors_map->Nb_Vectors + 4 >= Astar_Vector_Max_Nb)
 		return;
+
+	Vect.Color = color;
 
 	Vect.Start_Point.x = (uint16_t)X_min;
 	Vect.Start_Point.y = (uint16_t)Y_min;
@@ -1295,20 +1299,17 @@ void Astar_Add_Obstacle_Vector(struct Astar_smoothing_vector* vectors_map, short
 	Vect.End_Point.y = (uint16_t)Y_min;
 	vectors_map->Vectors[vectors_map->Nb_Vectors++] = Vect;
 
-
 	Vect.Start_Point.x = X_max;
 	Vect.Start_Point.y = Y_min;
 	Vect.End_Point.x = X_max;
 	Vect.End_Point.y = Y_max;
 	vectors_map->Vectors[vectors_map->Nb_Vectors++] = Vect;
 
-
 	Vect.Start_Point.x = X_max;
 	Vect.Start_Point.y = Y_max;
 	Vect.End_Point.x = X_min;
 	Vect.End_Point.y = Y_max;
 	vectors_map->Vectors[vectors_map->Nb_Vectors++] = Vect;
-
 
 	Vect.Start_Point.x = X_min;
 	Vect.Start_Point.y = Y_max;

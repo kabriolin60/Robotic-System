@@ -651,7 +651,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 	byte index_vecteur_to_send = 0;
 	for (int index_vecteur = 0; index_vecteur < vectors->Nb_Vectors; index_vecteur++)
 	{
-		//loc_vector.Color = vectors->Vectors[index_vecteur].Color;
+		loc_vector.Color = vectors->Vectors[index_vecteur].Color;
 		loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
 		loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
 		loc_vector.End_X = vectors->Vectors[index_vecteur].End_Point.x;

@@ -89,14 +89,14 @@ struct Astar_Index
 /**************************************************
 Astar_Vector_Color : 1 octet
  **************************************************/
-/*enum Astar_Vector_Color
+enum Astar_Vector_Color
 {
 	Astar_Vector_Color_Black,
 	Astar_Vector_Color_Blue,
 	Astar_Vector_Color_Green,
 	Astar_Vector_Color_Red,
 	Astar_Vector_Color_White,
-};*/
+};
 
 /**************************************************
 Astar_Vector : 4 octets de coordonn�es + 1 octet de couleur
@@ -105,7 +105,7 @@ struct Astar_Vector
 {
 	struct Point Start_Point;
 	struct Point End_Point;
-	//enum Astar_Vector_Color Color;
+	enum Astar_Vector_Color Color;
 };
 
 
@@ -237,9 +237,9 @@ static inline void Astar_Set_Node_as_Trajectory(struct Astar_Node* node)
 
 
 
-void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, bool use_vectors);
+void Astar_Add_Rectangular_Obstacle(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, bool use_vectors, enum Astar_Vector_Color color);
 
-void Astar_Add_Obstacle_Vector(struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max);
+void Astar_Add_Obstacle_Vector(struct Astar_smoothing_vector* vectors_map, short X_min, short Y_min, short X_max, short Y_max, enum Astar_Vector_Color color);
 
 
 
