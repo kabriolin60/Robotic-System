@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Last_Infos : MonoBehaviour
 {
-
     private int Nombre_robots;
     private int Nombre_Cartes_MultiFct_Par_Robot;
 

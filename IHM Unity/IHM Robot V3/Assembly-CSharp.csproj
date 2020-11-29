@@ -710,9 +710,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ShaderProperty.Editor.csproj">
+      <Project>{70FC53A5-A293-5260-B804-3A9AC802D738}</Project>
+      <Name>ShaderProperty.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniUnlit.Editor.csproj">
+      <Project>{B71D7094-06B6-B9A5-A0BD-162728710CD9}</Project>
+      <Name>UniUnlit.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="UniHumanoid.csproj">
       <Project>{2B47DC3B-68D8-6BD6-30B3-2CA3431E7E34}</Project>
       <Name>UniHumanoid</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniJSON.csproj">
+      <Project>{32F838C0-C77F-AAD0-30F7-B979A89F7D44}</Project>
+      <Name>UniJSON</Name>
     </ProjectReference>
     <ProjectReference Include="DepthFirstScheduler.csproj">
       <Project>{BC785117-3E3F-83C7-4841-651ECA6BD59C}</Project>
@@ -726,6 +738,10 @@
       <Project>{C8C890E2-49BF-2F58-6E4C-65221F286234}</Project>
       <Name>MeshUtility.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="MToon.Editor.csproj">
+      <Project>{F5D56CC7-B738-58DF-87A5-723CF46BB4F8}</Project>
+      <Name>MToon.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="UniHumanoid.Editor.csproj">
       <Project>{A20521B2-1248-53B8-92CC-45ADC90B7862}</Project>
       <Name>UniHumanoid.Editor</Name>
@@ -738,17 +754,9 @@
       <Project>{892EC4D0-FE94-0B25-4935-0BE4AE86491D}</Project>
       <Name>VRM</Name>
     </ProjectReference>
-    <ProjectReference Include="ShaderProperty.Editor.csproj">
-      <Project>{70FC53A5-A293-5260-B804-3A9AC802D738}</Project>
-      <Name>ShaderProperty.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UniUnlit.Editor.csproj">
-      <Project>{B71D7094-06B6-B9A5-A0BD-162728710CD9}</Project>
-      <Name>UniUnlit.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="MToon.Editor.csproj">
-      <Project>{F5D56CC7-B738-58DF-87A5-723CF46BB4F8}</Project>
-      <Name>MToon.Editor</Name>
+    <ProjectReference Include="UniVRM.Editor.csproj">
+      <Project>{CD3A69CD-C1E4-5FB9-7EDF-4FBD48D64DA6}</Project>
+      <Name>UniVRM.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UniUnlit.csproj">
       <Project>{0150EA18-0B03-FF07-BC1B-5C789F530E22}</Project>
@@ -761,14 +769,6 @@
     <ProjectReference Include="ShaderProperty.Runtime.csproj">
       <Project>{17B1E29B-0925-5619-66E2-E0947EE26FDA}</Project>
       <Name>ShaderProperty.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="UniJSON.csproj">
-      <Project>{32F838C0-C77F-AAD0-30F7-B979A89F7D44}</Project>
-      <Name>UniJSON</Name>
-    </ProjectReference>
-    <ProjectReference Include="UniVRM.Editor.csproj">
-      <Project>{CD3A69CD-C1E4-5FB9-7EDF-4FBD48D64DA6}</Project>
-      <Name>UniVRM.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
