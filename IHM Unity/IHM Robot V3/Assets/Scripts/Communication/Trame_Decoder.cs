@@ -7,12 +7,12 @@ using UnityEngine;
 public class Trame_Decoder : MonoBehaviour
 {
 	public Queue<Communication.Communication_Message> Received_Messages = new Queue<Communication.Communication_Message>();
+
 	public Virtual_SerialPort serialport;
 
 	public int Buffer_Lower_Limit;
 	public uint Error_Number = 0;
 	public uint Messages_Number = 0;
-	private int index_lecture = 0;
 
 	List<Task> tasks = new List<Task>();
 
@@ -68,7 +68,7 @@ public class Trame_Decoder : MonoBehaviour
 
 	public void Pick_Message(out Communication.Communication_Message message)
 	{
-		if (Received_Messages.Count > 0 && index_lecture < Received_Messages.Count)
+		if (Received_Messages.Count > 0)
 		{
 			message = Received_Messages.Dequeue();
 			return;

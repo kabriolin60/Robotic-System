@@ -15,6 +15,8 @@ public class Logger_New_Line : MonoBehaviour
 
     public GameObject Channel_Toggle;
 
+    private Dictionary<int, Toggle> Logger_Channel_Dictionnary = new Dictionary<int, Toggle>();
+
 
     public class Logger_Message
     {
@@ -41,8 +43,12 @@ public class Logger_New_Line : MonoBehaviour
         //utilisé pour le logger, accessible en static
         Logger_Viewer = this.gameObject.GetComponent<Logger_New_Line>();
 
-        //string time = $"{System.DateTime.Now.Hour}:{System.DateTime.Now.Minute}:{System.DateTime.Now.Second}:{System.DateTime.Now.Millisecond}";
-        //Add_New_Logger_Line(time, 3, Color.green, "Toto est passé par ici");
+
+        Logger_Channel[] channels = Channel_Toggle.GetComponentsInChildren<Logger_Channel>();
+        foreach(Logger_Channel chan in channels)
+        {
+            Logger_Channel_Dictionnary.Add(chan.Channel_id, chan.GetComponentInParent<Toggle>());
+        }
     }
 
 
@@ -54,27 +60,16 @@ public class Logger_New_Line : MonoBehaviour
 
     public void Add_New_Logger_Line(string time, int Channel, Color color, string text)
     {
-        Logger_Channel[] channels = Channel_Toggle.GetComponentsInChildren<Logger_Channel>();
-
         GameObject go = Instantiate(Line_Prefab, Line_Contener.transform) as GameObject;
         go.GetComponent<Logger_Line>().SetNewLine(time, Channel, color, text);
 
-        foreach (Logger_Channel _channel in channels)
-        {
-            if (_channel.Channel_id == Channel)
-            {
-                try
-                {
-                    if (_channel.GetComponentInParent<Toggle>().isOn == false)
-                    {
-                        //Debug.Log("Channel disabled");
-                        go.SetActive(false);
-                    }
-                }
-                catch
-                {
 
-                }
+        if(Logger_Channel_Dictionnary.TryGetValue(Channel, out var _channel))
+        {
+            if (_channel.isOn == false)
+            {
+                //Debug.Log("Channel disabled");
+                go.SetActive(false);
             }
         }
     }

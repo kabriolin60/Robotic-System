@@ -26,15 +26,14 @@ public class Interprete_Message : MonoBehaviour
 
 		Last_Data_Received = this.GetComponent<Last_Infos>();
 
-
 		
-
-
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
 		this.StartCoroutine(Interpreteur_Message());
 	}
+
+	
 
 	IEnumerator Interpreteur_Message()
 	{
@@ -43,8 +42,6 @@ public class Interprete_Message : MonoBehaviour
 		//Identifie l'affichage de l'historique des actions, puis masque-le
 		Action_History_go = GameObject.FindWithTag("Action_History");
 		Action_History_go.SetActive(false);
-
-
 
 		int nb_mess = 0;
 		Communication.Communication_Message message;
