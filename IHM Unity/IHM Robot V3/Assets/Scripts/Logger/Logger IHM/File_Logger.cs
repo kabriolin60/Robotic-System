@@ -24,6 +24,7 @@ public class File_Logger : MonoBehaviour
     private bool Pause_Reading_Token = true;
     private bool Stop_Reading_Token = false;
     private bool Is_Reading = false;
+    private bool Has_been_Reading = false;
 
     public GameObject Button_Start_Pause;
 
@@ -60,7 +61,7 @@ public class File_Logger : MonoBehaviour
     {
         if(Use_XML)
         {
-            if(!Is_Reading)
+            if(!Has_been_Reading)
             XMLSerializer(typeof(Serialized_Datas), serialized_data);
         }
         else
@@ -235,6 +236,7 @@ public class File_Logger : MonoBehaviour
         else
         {
             Is_Reading = true;
+            Has_been_Reading = true;
             this.Pause_Reading_Token = false;
             Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = "Pause";
         }
