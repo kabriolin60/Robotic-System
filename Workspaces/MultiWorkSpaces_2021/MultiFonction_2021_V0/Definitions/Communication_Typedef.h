@@ -148,10 +148,10 @@ Definition des adresses des modules Xbee
  **************************************************/
 enum Adress_Xbee
 {
-	Gros_Robot = 0x01,
-	Petit_Robot,
-	Balise_Gros_Robot,
-	Balise_Petit_Robot,
+	Xbee_address_Gros_Robot = 0x01,
+	Xbee_address_Petit_Robot,
+	Xbee_address_Balise_Gros_Robot,
+	Xbee_address_Balise_Petit_Robot,
 	XBee_PC = 0x0A,
 	ALL_XBEE = 0xFFFF
 };

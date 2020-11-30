@@ -75,6 +75,8 @@ struct Actions_List
 
 
 
-void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum Action_State new_state);
+void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum Action_State new_state, char* commentaire);
+
+void _Strategie_Change_Action_Step(struct Action_Datas* action_to_change, byte new_step, char* commentaire);
 
 #endif /* STRATEGIE_LEVEL0_STRATEGIE_ACTIONS_H_ */

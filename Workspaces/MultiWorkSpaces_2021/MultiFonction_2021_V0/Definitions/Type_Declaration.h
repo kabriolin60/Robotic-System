@@ -8,6 +8,12 @@
 #ifndef TYPE_DECLARATION_H_
 #define TYPE_DECLARATION_H_
 
+#include <stdio.h>
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+#define AT_FILE_LINE __FILE__ ":" TOSTRING(__LINE__)
+#define AT_LINE TOSTRING(__LINE__)
+
 typedef uint8_t byte;
 
 /**************************************************

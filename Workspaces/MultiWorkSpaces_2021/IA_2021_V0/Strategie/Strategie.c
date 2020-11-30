@@ -47,7 +47,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
 
 
 
@@ -69,7 +69,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
 
 
 
@@ -91,7 +91,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
 
 
 
@@ -102,15 +102,32 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 
 	//Do strategic stuff
 	Task_Delay(2000);
-	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_En_cours);
+	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_En_cours, "Start");
 
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[0], 1, "Step 1");
 	Task_Delay(2000);
-	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_Terminee);
-	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_En_cours);
 
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[0], 2, "Step 2");
 	Task_Delay(2000);
-	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_Terminee);
-	_Strategie_Change_Action_State(&Actions_2021.Actions[2], Action_Annulee);
+
+	_Strategie_Change_Action_State(&Actions_2021.Actions[0], Action_Terminee, "End");
+	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_En_cours, "Start");
+	Task_Delay(2000);
+
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[1], 1, "Step 1");
+	Task_Delay(2000);
+
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[1], 2, "Step 2");
+	Task_Delay(2000);
+
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[1], 1, "Step 1");
+	Task_Delay(2000);
+
+	_Strategie_Change_Action_Step(&Actions_2021.Actions[1], 3, AT_FILE_LINE);
+	Task_Delay(2000);
+
+	_Strategie_Change_Action_State(&Actions_2021.Actions[1], Action_Terminee, "End");
+	_Strategie_Change_Action_State(&Actions_2021.Actions[2], Action_Annulee, "Cancel");
 
 
 
