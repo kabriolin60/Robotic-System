@@ -118,7 +118,7 @@ public class Interprete_Message : MonoBehaviour
 
 			case Communication.Com_Instruction.STRATEGIE_CHANGEMENT_ETAT:
 				Decode_Strategie_Changement_Etat(message);
-				break;
+				break;			
 		}
 
 		//compte le nombre de messages recus
@@ -193,13 +193,13 @@ public class Interprete_Message : MonoBehaviour
 		Action decoder = new Action();
 		Action.Action_Datas data = new Action.Action_Datas();
 		//décompose les datas du message recu
-		data = decoder.Trame_To_Data(message.Trame);
-
-		//Met à jour le tableau avec l'ensemble des actions
-		Action_Liste.Update_Action(data);
+		data = decoder.Trame_To_Data(message.Trame);		
 
 		//Ajoute une ligne à l'historique des changements d'états de la Strategie
 		if (Action_History_go != null)
 			Action_History_go.GetComponent<Action_History>().Update_Action(data);
+
+		//Met à jour le tableau avec l'ensemble des actions
+		Action_Liste.Update_Action(data);
 	}
 }

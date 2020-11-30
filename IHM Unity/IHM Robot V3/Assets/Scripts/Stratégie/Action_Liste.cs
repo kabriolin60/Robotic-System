@@ -25,6 +25,18 @@ public class Action_Liste : MonoBehaviour
         }
     }
 
+    public static Action_Line Get_Existing_Line(byte key)
+    {
+        Action_Line updated_line;
+        if (!Dictionnaire_Action.TryGetValue(key, out updated_line))
+        {
+            // the key isn't in the dictionary.
+            return null; // or whatever you want to do
+        }
+
+        return updated_line;
+    }
+
 
     public static void Update_Action(Action.Action_Datas data)
     {

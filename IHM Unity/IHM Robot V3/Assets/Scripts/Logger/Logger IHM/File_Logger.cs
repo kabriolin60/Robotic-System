@@ -223,8 +223,11 @@ public class File_Logger : MonoBehaviour
 
     public void Request_Stop_Reading()
     {
-        this.Stop_Reading_Token = true;
-        Is_Reading = false;
+        if (Logger_File_Path != null)
+        {
+            this.Stop_Reading_Token = true;
+            Is_Reading = false;
+        }
     }
 
 
@@ -234,7 +237,6 @@ public class File_Logger : MonoBehaviour
         {
             //On demande la mise en pause
             this.Pause_Reading_Token = true;
-            //Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = "Run";
             Pause_Reading_Image.SetActive(false);
             Start_Reading_Image.SetActive(true);
 
@@ -245,7 +247,6 @@ public class File_Logger : MonoBehaviour
             Is_Reading = true;
             Has_been_Reading = true;
             this.Pause_Reading_Token = false;
-            //Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = "Pause";
             Pause_Reading_Image.SetActive(true);
             Start_Reading_Image.SetActive(false);
         }
@@ -310,9 +311,9 @@ public class File_Logger : MonoBehaviour
 
     public void Update()
     {
-        if(Is_Reading)
+        if (Logger_File_Path != null)
         {
-            if(Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
+            if (Input.GetKeyUp(KeyCode.Plus) || Input.GetKeyUp(KeyCode.KeypadPlus))
             {
                 this.Reading_Speed *= 2;
                 Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = $"{this.Reading_Speed}x";
@@ -322,6 +323,11 @@ public class File_Logger : MonoBehaviour
             {
                 this.Reading_Speed /= 2;
                 Button_Start_Pause.GetComponent<TextMeshProUGUI>().text = $"{this.Reading_Speed}x";
+            }
+
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                Request_Pause_Reading();
             }
         }
     }
