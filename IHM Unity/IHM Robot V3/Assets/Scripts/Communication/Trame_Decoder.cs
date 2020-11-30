@@ -66,6 +66,12 @@ public class Trame_Decoder : MonoBehaviour
 	}
 
 
+	public void Pop_Message(Communication.Communication_Message message)
+    {
+		Received_Messages.Enqueue(message);
+	}
+
+
 	public void Pick_Message(out Communication.Communication_Message message)
 	{
 		if (Received_Messages.Count > 0)

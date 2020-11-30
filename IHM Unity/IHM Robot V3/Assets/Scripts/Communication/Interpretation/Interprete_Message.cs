@@ -33,6 +33,15 @@ public class Interprete_Message : MonoBehaviour
 		this.StartCoroutine(Interpreteur_Message());
 	}
 
+
+	public void Add_Message_To_Queue(Communication.Communication_Message message)
+    {
+		if(Decodeurs[0] != null)
+        {
+			Decodeurs[0].Pop_Message(message);
+		}
+    }
+
 	
 
 	IEnumerator Interpreteur_Message()

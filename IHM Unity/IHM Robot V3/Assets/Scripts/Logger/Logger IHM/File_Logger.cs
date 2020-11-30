@@ -117,6 +117,7 @@ public class File_Logger : MonoBehaviour
         writer.Close();
     }
 
+
     private void BinaryDeSerializer()
     {
         //Ouvre le fichier
@@ -129,6 +130,7 @@ public class File_Logger : MonoBehaviour
         deserialized_data = new Serialized_Datas();
         deserialized_data = (Serialized_Datas)_deserialized_data;
     }
+
 
     private void XMLDeSerializer(Type dataType)
     {
@@ -222,6 +224,7 @@ public class File_Logger : MonoBehaviour
         Is_Reading = false;
     }
 
+
     public void Request_Pause_Reading()
     {
         if (!this.Pause_Reading_Token)
@@ -271,7 +274,7 @@ public class File_Logger : MonoBehaviour
                 await Task.Delay((int)(delay.TotalMilliseconds / Reading_Speed));
 
                 //interprete ce message
-                Interpreter.Decodage_Message(message);
+                Interpreter.Add_Message_To_Queue(message);
 
                 last_hour = message.Heure;
 
