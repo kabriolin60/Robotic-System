@@ -4478,7 +4478,8 @@ TCB_t *pxTCB;
 	{
 	TaskStatus_t *pxTaskStatusArray;
 	UBaseType_t uxArraySize, x;
-	uint32_t ulTotalTime, ulStatsAsPercentage;
+	uint32_t ulTotalTime;
+	float ulStatsAsPercentage;
 
 		#if( configUSE_TRACE_FACILITY != 1 )
 		{
@@ -4551,13 +4552,13 @@ TCB_t *pxTCB;
 					{
 						#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
 						{
-							sprintf( pcWriteBuffer, "\t%lu\t\t%lu%%\t%lu\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage, pxTaskStatusArray[ x ].usStackHighWaterMark );
+							sprintf( pcWriteBuffer, "\t%lu\t\t%2.1f%%\t%lu\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage, pxTaskStatusArray[ x ].usStackHighWaterMark );
 						}
 						#else
 						{
 							/* sizeof( int ) == sizeof( long ) so a smaller
 							printf() library can be used. */
-							sprintf( pcWriteBuffer, "\t%u\t\t%u%%\t%lu\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ( unsigned int ) ulStatsAsPercentage, (unsigned int)pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+							sprintf( pcWriteBuffer, "\t%d\t\t%2.1f%%\t%d\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage, (unsigned int)pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
 						}
 						#endif
 					}
@@ -4573,7 +4574,7 @@ TCB_t *pxTCB;
 						{
 							/* sizeof( int ) == sizeof( long ) so a smaller
 							printf() library can be used. */
-							sprintf( pcWriteBuffer, "\t%u\t\t<1%%\t%lu\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+							sprintf( pcWriteBuffer, "\t%d\t\t<1%%\t%d\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
 						}
 						#endif
 					}

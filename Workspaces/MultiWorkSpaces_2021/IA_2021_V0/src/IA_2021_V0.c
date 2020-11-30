@@ -125,8 +125,12 @@ static void vTask_Stats(void *pvParameters)
 	Task_Delay(300000);
 	vTaskGetRunTimeStats(&task_stat);
 
+	vTaskSuspendAll();
+	Task_Delay(1000);
 
 	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
 
 	for(int i = 0; i < 3; i++)
 	{
