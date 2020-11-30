@@ -11,6 +11,7 @@
 #include <stdio.h>
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
+
 #define AT_FILE_LINE __FILE__ ":" TOSTRING(__LINE__)
 #define AT_LINE TOSTRING(__LINE__)
 

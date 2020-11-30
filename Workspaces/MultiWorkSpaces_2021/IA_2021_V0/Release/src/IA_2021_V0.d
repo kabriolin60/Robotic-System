@@ -84,7 +84,8 @@ src/IA_2021_V0.o src/IA_2021_V0.d: ../src/IA_2021_V0.c \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/test.h
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/test.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication\RS485/0_RS485.h
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/chip.h:
 
@@ -257,3 +258,5 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/test.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Communication\RS485/0_RS485.h:

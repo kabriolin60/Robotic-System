@@ -16,6 +16,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "FreeRTOSConfig.h"
 
 #include "cdc_usb_main.h"
 #include "cdc_vcom.h"
@@ -24,6 +25,8 @@
 
 #include <Init.h>
 #include "test.h"
+
+#include "0_RS485.h"
 
 #include <cr_section_macros.h>
 
@@ -114,6 +117,61 @@ static void vTask_HartBeat(void *pvParameters) {
 	}
 }
 
+
+#if configGENERATE_RUN_TIME_STATS == 1
+char task_stat[1024];
+static void vTask_Stats(void *pvParameters)
+{
+	Task_Delay(300000);
+	vTaskGetRunTimeStats(&task_stat);
+
+
+	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	for(int i = 0; i < 3; i++)
+	{
+		Chip_UART_SendByte(RS484_UART, '\r');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, '\n');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	int index = 0;
+	while (index < 1000)
+	{
+		Chip_UART_SendByte(RS484_UART, task_stat[index++]);
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
+
+	//Passe en RX
+	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	Task_Delay(10);
+	vTaskSuspendAll();
+
+	for(;;)
+	{
+
+	}
+}
+#endif
+
+
+
+
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
@@ -136,6 +194,10 @@ int main(void)
 
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 70, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+
+#if configGENERATE_RUN_TIME_STATS == 1
+	xTaskCreate(vTask_Stats, (char *) "vTask_Stats", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+#endif
 
 	//TEST
 	TEST_init_parametres();

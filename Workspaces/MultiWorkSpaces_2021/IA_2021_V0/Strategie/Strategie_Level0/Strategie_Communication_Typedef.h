@@ -33,9 +33,9 @@ struct Communication_Action_Datas
 
 	enum Qui Qui_Peut;
 
-	ushort Temps_mini;
+	unsigned short Temps_mini;
 
-	ushort Temps_maxi;
+	unsigned short Temps_maxi;
 };
 
 

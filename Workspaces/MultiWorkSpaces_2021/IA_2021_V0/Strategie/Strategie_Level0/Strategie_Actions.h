@@ -62,8 +62,8 @@ struct Action_Datas
 	void (*Fct)(byte);					//Pointeur vers l'action
 	void *Param;						//Pointeur vers un parametre utilise par l'action
 
-	ushort StartPoint_X;				//Coordonnées du point de départ de l'action sur X
-	ushort StartPoint_Y;				//Coordonnées du point de départ de l'action sur Y
+	unsigned short StartPoint_X;				//Coordonnées du point de départ de l'action sur X
+	unsigned short StartPoint_Y;				//Coordonnées du point de départ de l'action sur Y
 };
 
 
