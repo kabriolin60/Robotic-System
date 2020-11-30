@@ -228,9 +228,15 @@ public class Bootloader_Burner : MonoBehaviour
         }
         trame.Trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
+
+        int page_length = 0;
         //start listening for messages and copy the messages back to the client
         foreach (string _line in _lines)
         {
+            byte _line_length = TwoChar_To_Byte(_line[1], _line[2]);
+
+            page_length += _line_length;
+
             data_to_send = ReadHexLine_to_ByteArray(_line);
 
             trame.Trame.Length = (byte)data_to_send.Length;
@@ -247,8 +253,10 @@ public class Bootloader_Burner : MonoBehaviour
 
             await Task.Delay(2);
 
-            if ((line_number_position - 1) % 256 == 0 && line_number_position != 1)
+            //if ((line_number_position - 1) % 256 == 0 && line_number_position != 1)
+            if(page_length >= 4096)
             {
+                page_length = 0;
                 //Ecritude d'un bloc
                 await Task.Delay(200);
             }
