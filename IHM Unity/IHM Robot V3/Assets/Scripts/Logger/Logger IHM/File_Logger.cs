@@ -23,9 +23,10 @@ public class File_Logger : MonoBehaviour
 
     private bool Pause_Reading_Token = true;
     private bool Stop_Reading_Token = false;
-    private bool Is_Reading = false;
+    //private bool Is_Reading = false;
     private bool Has_been_Reading = false;
 
+    public GameObject Button_Save;
     public GameObject Button_Start_Pause;
     public GameObject Start_Reading_Image;
     public GameObject Pause_Reading_Image;
@@ -51,11 +52,21 @@ public class File_Logger : MonoBehaviour
             {
                 Logger_File_Path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "", "txt");
             }
+
+            if (Logger_File_Path != null)
+            {
+                Button_Save.GetComponent<TextMeshProUGUI>().text = "Stop saving";
+            }
         }
         else
         {
             //On a deja commence à écrire, il s'agit de la demande d'arret d'écriture
             Serialize_And_Close();
+
+
+            //prepare for new saving
+            Logger_File_Path = null;
+            Button_Save.GetComponent<TextMeshProUGUI>().text = "Save Datas";
         }
     }
 
@@ -226,7 +237,7 @@ public class File_Logger : MonoBehaviour
         if (Logger_File_Path != null)
         {
             this.Stop_Reading_Token = true;
-            Is_Reading = false;
+            //Is_Reading = false;
         }
     }
 
@@ -244,7 +255,7 @@ public class File_Logger : MonoBehaviour
         else
         {
             //On demande la lecture
-            Is_Reading = true;
+            //Is_Reading = true;
             Has_been_Reading = true;
             this.Pause_Reading_Token = false;
             Pause_Reading_Image.SetActive(true);
@@ -293,7 +304,7 @@ public class File_Logger : MonoBehaviour
                 //si on demande l'arret de la lecture
                 if (Stop_Reading_Token)
                 {
-                    Is_Reading = false;
+                    //Is_Reading = false;
                     throw new TaskCanceledException();
                 }
 
@@ -304,7 +315,7 @@ public class File_Logger : MonoBehaviour
                 }
             }
 
-            Is_Reading = false;
+            //Is_Reading = false;
         }));
     }
 
