@@ -20,6 +20,8 @@ public class CarteMultiFct_maj : MonoBehaviour
 		ANA.GetComponent<ANA_maj>().Maj_Analogique(infos.Mesures_Analogiques);
 		Mesures_Digitales.GetComponent<MesuresDigitales_maj>().Maj_Mesures_Digitales(infos.Etat_Alim);
 		Mesures_Digitales.GetComponent<MesuresDigitales_maj>().Maj_Contacteurs(infos.Etat_Contacteurs);
+		Mesures_Digitales.GetComponent<MesuresDigitales_maj>().Maj_IO(infos.Etat_IO);
+
 
 		float tension = infos.Tension_Batterie;
 		tension = tension / 100;

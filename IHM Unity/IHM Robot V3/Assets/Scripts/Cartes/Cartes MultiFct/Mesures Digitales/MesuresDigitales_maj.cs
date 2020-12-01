@@ -19,6 +19,11 @@ public class MesuresDigitales_maj : MonoBehaviour
     public GameObject CTC_2;
     public GameObject CTC_3;
 
+    public GameObject IO_0;
+    public GameObject IO_1;
+    public GameObject IO_2;
+    public GameObject IO_3;
+
     public void Maj_Mesures_Digitales(byte values)
     {
         //0= motor power; 1 = motor aux power; 2 = servos power; 3 = ax12 power; 4 = AUX 1 power; 5 = Aux 2 power
@@ -39,5 +44,14 @@ public class MesuresDigitales_maj : MonoBehaviour
         this.CTC_1.GetComponent<Toggle>().isOn = ((values & 0b00001000) > 0 ? true : false);
         this.CTC_2.GetComponent<Toggle>().isOn = ((values & 0b00010000) > 0 ? true : false);
         this.CTC_3.GetComponent<Toggle>().isOn = ((values & 0b00100000) > 0 ? true : false);
+    }
+
+    public void Maj_IO(byte values)
+    {
+        //0= IO 0; 1 = IO 1; 2 = IO 2; 3 = IO 3
+        this.IO_0.GetComponent<Toggle>().isOn = ((values & 0b00000001) > 0 ? true : false);
+        this.IO_1.GetComponent<Toggle>().isOn = ((values & 0b00000010) > 0 ? true : false);
+        this.IO_2.GetComponent<Toggle>().isOn = ((values & 0b00000100) > 0 ? true : false);
+        this.IO_3.GetComponent<Toggle>().isOn = ((values & 0b00001000) > 0 ? true : false);
     }
 }

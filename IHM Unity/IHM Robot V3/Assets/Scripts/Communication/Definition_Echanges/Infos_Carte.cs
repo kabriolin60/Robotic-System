@@ -89,6 +89,9 @@ public partial class Infos_Carte
 		[MarshalAs(UnmanagedType.U1)]
 		public byte Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
 
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Etat_IO;          //0= IO 0; 1 = IO 1; 2 = IO 2; 3 = IO 3
+
 		[MarshalAs(UnmanagedType.Struct)]
 		public Com_Position_Robot_Data PositionRobot;               //6 octets
 
