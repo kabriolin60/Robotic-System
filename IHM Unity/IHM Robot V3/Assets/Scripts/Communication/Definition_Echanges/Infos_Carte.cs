@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class Infos_Carte
+public partial class Infos_Carte
 {
 	//Instruction 36
 	//Infos cartes
@@ -75,7 +75,7 @@ public class Infos_Carte
 	[StructLayout(LayoutKind.Sequential)]
 	public class Com_Reponse_Info
 	{
-		//instruction 101		//59 + alignement = 60 octets
+		//instruction 		//59 + alignement = 60 octets
 
 		[MarshalAs(UnmanagedType.U1)]
 		public Com_Position_Robot_Identification Numero_Robot;
@@ -121,3 +121,31 @@ public class Infos_Carte
 	}
 }
 
+public partial class Infos_Carte
+{	
+	[StructLayout(LayoutKind.Sequential)]
+	public class Com_Reponse_Info_IA
+    {
+		//instruction 	
+		[MarshalAs(UnmanagedType.U1)]
+		public Com_Position_Robot_Identification Numero_Robot;
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Strategie;
+
+		[MarshalAs(UnmanagedType.U2)]
+		public ushort Temps_Match;                             //Temps /10		//2 octets
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
+
+	}
+
+	public Com_Reponse_Info_IA Trame_To_Data_IA(Communication.Communication_Trame input_trame)
+	{
+		Com_Reponse_Info_IA output = new Com_Reponse_Info_IA();		
+
+		output = (Com_Reponse_Info_IA)Communication.GetStructFromArray<Com_Reponse_Info_IA>(input_trame.Data);
+		return output;
+	}
+}

@@ -24,9 +24,7 @@ public class Interprete_Message : MonoBehaviour
 		Decodeurs = this.GetComponentsInChildren<Trame_Decoder>();
 		file_Logger = this.GetComponent<File_Logger>();
 
-		Last_Data_Received = this.GetComponent<Last_Infos>();
-
-		
+		Last_Data_Received = this.GetComponent<Last_Infos>();		
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
@@ -108,6 +106,10 @@ public class Interprete_Message : MonoBehaviour
 				Decode_Reponse_Info(message);
 				break;
 
+			case Communication.Com_Instruction.REPONSE_INFO_IA:
+				Decode_Reponse_Info_IA(message);
+				break;
+
 			case Communication.Com_Instruction.ASTAR_CONTENU:
 				Decode_ASTAR_Contenu(message);
 				break;
@@ -168,12 +170,25 @@ public class Interprete_Message : MonoBehaviour
 	private void Decode_Reponse_Info(Communication.Communication_Message message)
 	{
 		Infos_Carte temp = new Infos_Carte();
-		//Interprete un message de type "Infos des cartes
+		//Interprete un message de type "Infos des cartes"
 		//Transforme la trame en un message interpretable
 		Infos_Carte.Com_Reponse_Info data = temp.Trame_To_Data(message.Trame);
 
 		//Maj de la classe contenant les dernieres infos pour toutes les cartes
 		Last_Data_Received.Update_Last_Data_Received(data);
+	}
+
+
+	private void Decode_Reponse_Info_IA(Communication.Communication_Message message)
+    {
+		Infos_Carte temp = new Infos_Carte();
+
+		//Interprete un message de type "Infos des cartes IA"
+		//Transforme la trame en un message interpretable
+		Infos_Carte.Com_Reponse_Info_IA data = temp.Trame_To_Data_IA(message.Trame);
+
+		//Maj de la classe contenant les dernieres infos pour toutes les cartes
+		Last_Data_Received.Update_Last_Data_Received_IA(data);
 	}
 
 

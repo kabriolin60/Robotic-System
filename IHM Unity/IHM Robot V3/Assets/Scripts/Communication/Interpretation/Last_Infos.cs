@@ -31,12 +31,19 @@ public class Last_Infos : MonoBehaviour
         Robots_Last_Info[(int)data.Numero_Robot].Set_Last_Infos(data.Numero_Carte, data);
     }
 
+    public void Update_Last_Data_Received_IA(Infos_Carte.Com_Reponse_Info_IA data)
+    {
+        Robots_Last_Info[(int)data.Numero_Robot].Set_Last_Infos_IA(data);
+    }
+
 
     public class Robot_Last_Infos
     {
         private int Nombre_Cartes_MultiFct_Par_Robot;
 
         private Infos_Carte.Com_Reponse_Info[] Last_Cartes_MultiFct;
+
+        private Infos_Carte.Com_Reponse_Info_IA Last_Carte_IA = new Infos_Carte.Com_Reponse_Info_IA();
 
         public Robot_Last_Infos(int nb_multifct)
         {
@@ -60,9 +67,26 @@ public class Last_Infos : MonoBehaviour
             }
         }
 
+        public void Set_Last_Infos_IA(Infos_Carte.Com_Reponse_Info_IA data)
+        {
+            try
+            {
+                Last_Carte_IA = data;
+            }
+            catch
+            {
+                Debug.Log("Pas de carte IA définie");
+            }
+        }
+
         public Infos_Carte.Com_Reponse_Info Get_Last_Infos(int card_number)
         {
             return Last_Cartes_MultiFct[card_number];
+        }
+
+        public Infos_Carte.Com_Reponse_Info_IA Get_Last_Infos_IA()
+        {
+            return Last_Carte_IA;
         }
     }
 }

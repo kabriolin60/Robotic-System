@@ -60,6 +60,7 @@ public class Communication
 		DEFINITION_ID_ROBOT = 34,       //Permet à la carte ID de donner l'ID du robot sur les autres cartes
 		DEMANDE_INFO = 35,
 		REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
+		REPONSE_INFO_IA,				//Toutes les infos de la carte IA
 
 		//Power
 		DEMANDE_MOTEURS_POWER = 38,
