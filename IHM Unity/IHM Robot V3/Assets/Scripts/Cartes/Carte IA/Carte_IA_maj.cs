@@ -18,7 +18,7 @@ public class Carte_IA_maj : MonoBehaviour
 
 	public void MaJ_Carte(Infos_Carte.Com_Reponse_Info_IA infos)
 	{
-		Choix_Strategie.GetComponent<TextMeshProUGUI>().text = $"Strategie: {infos.Strategie}";
+		Choix_Strategie.GetComponent<TextMeshProUGUI>().text = $"Stratégie: {infos.Strategie}";
 
 		Temps_Match.GetComponent<TextMeshProUGUI>().text = $"{infos.Temps_Match * 10}ms";
 
