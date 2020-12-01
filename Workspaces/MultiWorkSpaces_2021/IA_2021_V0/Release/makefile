@@ -16,6 +16,7 @@ RM := rm -rf
 -include Strategie/Strategie_Level0/subdir.mk
 -include Strategie/subdir.mk
 -include Pathfinding/Astar/subdir.mk
+-include Level_0/Drivers/0_ADC/subdir.mk
 -include Communication/USB/src/subdir.mk
 -include Communication/RS485/subdir.mk
 -include Communication/subdir.mk

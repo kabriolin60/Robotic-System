@@ -92,6 +92,15 @@ void _1_Update_Task(void * pvParameter)
 
 		Updated_Infos.Etat_Contacteurs = Etat_Contacteurs;
 
+		//Info sur les IO
+		byte Etat_IO;          //0= IO 0; 1 = IO 1; 2 = IO 2; 3 = IO 3
+		Etat_IO = Chip_GPIO_ReadPortBit(LPC_GPIO, IO_0_PORT, IO_0_BIT);
+		Etat_IO |= Chip_GPIO_ReadPortBit(LPC_GPIO, IO_1_PORT, IO_1_BIT) << 1;
+		Etat_IO |= Chip_GPIO_ReadPortBit(LPC_GPIO, IO_2_PORT, IO_2_BIT) << 2;
+		Etat_IO |= Chip_GPIO_ReadPortBit(LPC_GPIO, IO_3_PORT, IO_3_BIT) << 3;
+
+		Updated_Infos.Etat_IO = Etat_IO;
+
 		//Mise à jour de la position du Robot
 		pos_robot = _1_Odometrie_GetRobot_Position();
 

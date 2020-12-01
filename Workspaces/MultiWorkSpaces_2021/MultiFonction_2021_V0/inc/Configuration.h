@@ -188,6 +188,9 @@ Declaration des parametres pour la conversion ADC
 #define ADC_CHANNEL_3_PORT			0
 #define ADC_CHANNEL_3_BIT			26
 
+#define ADC_CHANNEL_7_PORT			0
+#define ADC_CHANNEL_7_BIT			2
+
 #define ADC_CHANNEL_BATTERIE_PORT	0
 #define ADC_CHANNEL_BATTERIE_BIT	3
 
@@ -212,6 +215,20 @@ Declaration des Inputs des contacteurs ToR
 
 #define CTC_3_PORT					3
 #define CTC_3_BIT					26
+
+
+
+#define IO_0_PORT					0
+#define IO_0_BIT					22
+
+#define IO_1_PORT					0
+#define IO_1_BIT					21
+
+#define IO_2_PORT					0
+#define IO_2_BIT					20
+
+#define IO_3_PORT					0
+#define IO_3_BIT					19
 
 
 /**************************************************

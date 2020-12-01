@@ -301,6 +301,8 @@ struct Com_Reponse_Info
 
 	byte Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
 
+	byte Etat_IO;          //0= IO 0; 1 = IO 1; 2 = IO 2; 3 = IO 3
+
 	struct Com_Position_Robot PositionRobot;					//8 octets
 
 	struct Com_Position_Servos Position_Servos;					//12 octets
@@ -311,10 +313,8 @@ struct Com_Reponse_Info
 
 	unsigned short Tension_Batterie;							//Tension * 100		//2 octets
 
-	/*struct Com_Position_Moteurs_Aux_Light PositionMoteursAux;	//4 octets
+	//struct Com_Position_Moteurs_Aux_Light PositionMoteursAux;	//4 octets
 
-	UInt16 Timer;												//Temps du match en 10*ms //2 octets
-	 */
 };
 
 /*************************************************/
@@ -334,7 +334,7 @@ struct Com_Reponse_Info_IA
 	unsigned short Temps_Match;                             //Temps /10		//2 octets
 
 	byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
-}
+};
 
 /*************************************************/
 

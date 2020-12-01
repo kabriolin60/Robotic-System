@@ -17,6 +17,7 @@ SUBDIRS := \
 Communication \
 Communication/RS485 \
 Communication/USB/src \
+Level_0/Drivers/0_ADC \
 Pathfinding/Astar \
 Strategie \
 Strategie/Strategie_Level0 \

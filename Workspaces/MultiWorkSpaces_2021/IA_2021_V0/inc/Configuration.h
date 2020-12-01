@@ -177,6 +177,10 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 #define LED_EXTERNE_GREEN_PORT		2
 #define LED_EXTERNE_GREEN_BIT		6
 
+//Pin demesure de la tension 'strategie'
+#define ADC_CHANNEL_7_PORT			0
+#define ADC_CHANNEL_7_BIT			2
+
 #else
 
 #define ADRESSE_0_PORT				1

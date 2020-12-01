@@ -12,6 +12,8 @@
 #include "0_Infos.h"
 #include "0_Event_Group.h"
 
+#include "Strategie.h"
+
 static TO_AHBS_RAM3 struct Communication_Trame trame_echange;// TO_AHBS_RAM0;
 
 /*****************************************************************************
@@ -357,6 +359,10 @@ void _2_Communication_Boards_Status(void* pvParameters)
 
 			Task_Delay_Until(5.0F);
 		}
+
+		//Envoi l'état de la carte IA
+		_2_Comm_Send_Info_Carte_IA(RS485_port);
+		Task_Delay_Until(5.0F);
 
 		boucle++;
 
@@ -768,7 +774,7 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+	if (_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo) == pdFAIL)
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -783,9 +789,9 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	Infos.Temps_Match = (unsigned short)(_Strategie_Get_Temps_Match() / 10);                             //Temps /10		//2 octets
 
 	//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green
-	Infos.Etat_Inputs = _Strategie_Get_JACK_Status();
-	Infos.Etat_Inputs |= _Strategie_Get_COLOR_Status() << 1;
-	Infos.Etat_Inputs |= _Strategie_Get_SWITCH_Status() << 2;
+	Infos.Etat_Inputs = _Strategie_Get_Jack_Status();
+	Infos.Etat_Inputs |= _Strategie_Get_Color_Status() << 1;
+	Infos.Etat_Inputs |= _Strategie_Get_Switch_Status() << 2;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_RED_Status() << 3;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_YELLOW_Status() << 4;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_GREEN_Status() << 5;
@@ -794,7 +800,7 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	trame_echange.Instruction = REPONSE_INFO_IA;
 	trame_echange.Slave_Adresse = PC;
 
-	trame_echange.Length = COPYDATA(*Infos, trame_echange.Data);
+	trame_echange.Length = COPYDATA(Infos, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
