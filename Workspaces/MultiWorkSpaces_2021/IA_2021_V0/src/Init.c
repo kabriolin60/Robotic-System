@@ -11,6 +11,7 @@
 #include "0_Event_Group.h"
 #include "0_RS485.h"
 #include "0_Infos.h"
+#include "0_ADC.h"
 
 #include "1_Trame_Communication.h"
 #include "2_Echange_Datas.h"
@@ -83,6 +84,12 @@ void Init_Carte_IA(void)
 	Chip_GPIO_WriteDirBit(LPC_GPIO, DEBUG_0_PORT, DEBUG_0_BIT, true);
 	Chip_GPIO_WriteDirBit(LPC_GPIO, DEBUG_1_PORT, DEBUG_1_BIT, true);
 
+	/* Init External LEDs output pin*/
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_EXTERNE_RED_PORT, LED_EXTERNE_RED_BIT, true);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_EXTERNE_YELLOW_PORT, LED_EXTERNE_YELLOW_BIT, true);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_EXTERNE_GREEN_PORT, LED_EXTERNE_GREEN_BIT, true);
+
+
 	Set_Debug_Pin_0_Low();
 	Set_Debug_Pin_1_Low();
 
@@ -91,6 +98,9 @@ void Init_Carte_IA(void)
 
 	/* Init de la communication Niveau 0 */
 	_0_Communication_Init();
+
+	/* Init ADC pour la lecture de la strategie choisie */
+	_0_ADC_Init();
 
 	/* Init des infos des cartes de niveau 0 */
 	_0_Infos_Init();
@@ -120,5 +130,5 @@ void Init_Carte_IA(void)
 
 void Init_Send_Robot_ID()
 {
-	_2_Comm_Robot_ID(Chip_GPIO_GetPinState(LPC_GPIO, GROS_PETIT_PIN_PORT, GROS_PETIT_PIN_BIT), RS485_port);
+	_2_Comm_Robot_ID(_Strategie_Get_Robot_ID(), RS485_port);
 }

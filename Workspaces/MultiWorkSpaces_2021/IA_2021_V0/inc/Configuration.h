@@ -155,6 +155,28 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 #define GROS_PETIT_PIN_PORT			2
 #define GROS_PETIT_PIN_BIT			11
 
+
+#define JACK_PORT					1
+#define JACK_BIT					4
+
+#define COLOR_PORT					1
+#define COLOR_BIT					8
+
+#define SWITCH_PORT					1
+#define SWITCH_BIT					10
+
+#define STRATEGIE_PORT				1
+#define STRATEGIE_BIT				9
+
+#define LED_EXTERNE_RED_PORT		2
+#define LED_EXTERNE_RED_BIT			4
+
+#define LED_EXTERNE_YELLOW_PORT		2
+#define LED_EXTERNE_YELLOW_BIT		5
+
+#define LED_EXTERNE_GREEN_PORT		2
+#define LED_EXTERNE_GREEN_BIT		6
+
 #else
 
 #define ADRESSE_0_PORT				1

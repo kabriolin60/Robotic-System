@@ -754,3 +754,48 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 			Decceleration_Rotation);
 	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);*/
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Info_Carte_IA
+ **
+ ** Descriptions:		Fonction d'envoi de l'état de la carte IA vers le PC
+ **
+ ** parameters:			Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	struct Com_Reponse_Info_IA Infos;
+	Infos.Numero_Robot = _Strategie_Get_Robot_ID();
+
+	Infos.Strategie = _Strategie_Get_Chosen_Strategie();
+
+	Infos.Temps_Match = (unsigned short)(_Strategie_Get_Temps_Match() / 10);                             //Temps /10		//2 octets
+
+	//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green
+	Infos.Etat_Inputs = _Strategie_Get_JACK_Status();
+	Infos.Etat_Inputs |= _Strategie_Get_COLOR_Status() << 1;
+	Infos.Etat_Inputs |= _Strategie_Get_SWITCH_Status() << 2;
+	Infos.Etat_Inputs |= _Strategie_Get_External_LED_RED_Status() << 3;
+	Infos.Etat_Inputs |= _Strategie_Get_External_LED_YELLOW_Status() << 4;
+	Infos.Etat_Inputs |= _Strategie_Get_External_LED_GREEN_Status() << 5;
+
+
+	trame_echange.Instruction = REPONSE_INFO_IA;
+	trame_echange.Slave_Adresse = PC;
+
+	trame_echange.Length = COPYDATA(*Infos, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+}

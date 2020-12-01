@@ -74,6 +74,7 @@ enum Com_Instruction
 
 	DEMANDE_INFO = 35,
 	REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
+	REPONSE_INFO_IA,
 
 	//Power
 	DEMANDE_MOTEURS_POWER = 38,
@@ -290,7 +291,7 @@ Declaration de la definition de la Structure de communication permettant de fair
  **************************************************/
 struct Com_Reponse_Info
 {
-	//instruction 35		//58 + alignement = 60 octets
+	//instruction 36		//58 + alignement = 60 octets
 
 	byte Numero_Robot;											//0 = PR, 1 = GR
 
@@ -315,6 +316,25 @@ struct Com_Reponse_Info
 	UInt16 Timer;												//Temps du match en 10*ms //2 octets
 	 */
 };
+
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos de la carte IA vers le PC
+ **************************************************/
+
+struct Com_Reponse_Info_IA
+{
+	//instruction 	37
+	byte Numero_Robot;
+
+	byte Strategie;
+
+	unsigned short Temps_Match;                             //Temps /10		//2 octets
+
+	byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
+}
 
 /*************************************************/
 
