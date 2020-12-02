@@ -1,0 +1,58 @@
+/*
+ * IA_2021_V1.c
+ *
+ *  Created on: 2 déc. 2020
+ *      Author: PC-INOVA
+ */
+
+#if defined (__USE_LPCOPEN)
+#include "chip.h"
+#endif
+
+#include "board.h"
+#include <cr_section_macros.h>
+/*****************************************************************************
+ * Private types/enumerations/variables
+ ****************************************************************************/
+
+
+/*****************************************************************************
+ * Public types/enumerations/variables
+ ****************************************************************************/
+
+/*****************************************************************************
+ * Private functions
+ ****************************************************************************/
+/* Sets up system hardware */
+static void prvSetupHardware(void)
+{
+#ifdef CARTE_LPCXPRESSO
+	Chip_SetupXtalClocking(configCPU_CLOCK_HZ, 12000000);
+	Set_Clock_in(12000000);
+#else
+	Chip_SetupXtalClocking(configCPU_CLOCK_HZ, 16000000);
+	Set_Clock_in(16000000);
+#endif
+
+	SystemCoreClockUpdate();
+	Board_Init();
+
+	vPortDefineHeapRegions(xHeapRegions); // Pass the array into vPortDefineHeapRegions(). Must be called first!
+}
+
+/*****************************************************************************
+ * Public functions
+ ****************************************************************************/
+
+/**
+ * @brief	main routine for FreeRTOS blinky example
+ * @return	Nothing, function should not exit
+ */
+
+int main(void)
+{
+	prvSetupHardware();
+
+	/* Should never arrive here */
+	return 1;
+}
