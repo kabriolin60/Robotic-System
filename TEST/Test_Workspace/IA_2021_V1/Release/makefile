@@ -29,7 +29,7 @@ all: IA_2021_V1.axf
 IA_2021_V1.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\Release" -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release" -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\libs" -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\Release" -Xlinker -Map="IA_2021_V1.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "IA_2021_V1_Release.ld" -u _printf_float -o "IA_2021_V1.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\Release" -L"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\0_lpc_chip\libs" -Xlinker -Map="IA_2021_V1.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "IA_2021_V1_Release.ld" -u _printf_float -o "IA_2021_V1.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

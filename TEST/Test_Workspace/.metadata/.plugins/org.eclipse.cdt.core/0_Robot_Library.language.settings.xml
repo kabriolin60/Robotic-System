@@ -3194,21 +3194,21 @@
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.crt.advproject.GCCBuildCommandParser">
 				<language id="org.eclipse.cdt.core.gcc">
-					<resource project-relative-path="src/main.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+					<resource project-relative-path="0_lpc_chip/src/gpdma_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3231,21 +3231,354 @@
 						<entry kind="macro" name="__NEWLIB__" value="1"/>
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
-					<resource project-relative-path="FreeRTOS/src/FreeRTOSCommonHooks.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+					<resource project-relative-path="0_lpc_chip/src/sdmmc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/event_groups.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/gpioint_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/pwm_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/FreeRTOS_Trace/trcSnapshotRecorder.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/ssp_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/i2s_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/enet_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="src/main.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/sysctl_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3305,21 +3638,21 @@
 						<entry kind="macro" name="__NEWLIB__" value="1"/>
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
-					<resource project-relative-path="FreeRTOS/src/event_groups.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+					<resource project-relative-path="0_lpc_chip/src/crc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3343,20 +3676,20 @@
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
 					<resource project-relative-path="FreeRTOS/FreeRTOS_Trace/trcKernelPort.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3379,95 +3712,21 @@
 						<entry kind="macro" name="__NEWLIB__" value="1"/>
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
-					<resource project-relative-path="FreeRTOS/src/tasks.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+					<resource project-relative-path="0_lpc_chip/src/eeprom_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/inc">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="macro" name="CORE_M3" value="1"/>
-						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
-						<entry kind="macro" name="DEBUG" value="1"/>
-						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
-						<entry kind="macro" name="__CODE_RED" value="1"/>
-						<entry kind="macro" name="__LPC17XX__" value="1"/>
-						<entry kind="macro" name="__NEWLIB__" value="1"/>
-						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
-					</resource>
-					<resource project-relative-path="FreeRTOS/FreeRTOS_Trace/trcHardwarePort.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
 							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="macro" name="CORE_M3" value="1"/>
-						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
-						<entry kind="macro" name="DEBUG" value="1"/>
-						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
-						<entry kind="macro" name="__CODE_RED" value="1"/>
-						<entry kind="macro" name="__LPC17XX__" value="1"/>
-						<entry kind="macro" name="__NEWLIB__" value="1"/>
-						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
-					</resource>
-					<resource project-relative-path="FreeRTOS/src/port.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3491,20 +3750,20 @@
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
 					<resource project-relative-path="FreeRTOS/src/croutine.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3527,21 +3786,21 @@
 						<entry kind="macro" name="__NEWLIB__" value="1"/>
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
-					<resource project-relative-path="FreeRTOS/src/list.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+					<resource project-relative-path="0_lpc_board/src/board_sysinit.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3564,132 +3823,21 @@
 						<entry kind="macro" name="__NEWLIB__" value="1"/>
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
-					<resource project-relative-path="FreeRTOS/FreeRTOS_Trace/trcSnapshotRecorder.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+					<resource project-relative-path="0_lpc_chip/src/rtc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/${ProjName}/inc">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="macro" name="CORE_M3" value="1"/>
-						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
-						<entry kind="macro" name="DEBUG" value="1"/>
-						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
-						<entry kind="macro" name="__CODE_RED" value="1"/>
-						<entry kind="macro" name="__LPC17XX__" value="1"/>
-						<entry kind="macro" name="__NEWLIB__" value="1"/>
-						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
-					</resource>
-					<resource project-relative-path="FreeRTOS/src/stream_buffer.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
 							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="macro" name="CORE_M3" value="1"/>
-						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
-						<entry kind="macro" name="DEBUG" value="1"/>
-						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
-						<entry kind="macro" name="__CODE_RED" value="1"/>
-						<entry kind="macro" name="__LPC17XX__" value="1"/>
-						<entry kind="macro" name="__NEWLIB__" value="1"/>
-						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
-					</resource>
-					<resource project-relative-path="FreeRTOS/src/heap_5.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/inc">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="macro" name="CORE_M3" value="1"/>
-						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
-						<entry kind="macro" name="DEBUG" value="1"/>
-						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
-						<entry kind="macro" name="__CODE_RED" value="1"/>
-						<entry kind="macro" name="__LPC17XX__" value="1"/>
-						<entry kind="macro" name="__NEWLIB__" value="1"/>
-						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
-					</resource>
-					<resource project-relative-path="FreeRTOS/src/queue.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
-						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>
@@ -3713,20 +3861,1204 @@
 						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
 					</resource>
 					<resource project-relative-path="FreeRTOS/src/timers.c">
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/inc/usbd">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_chip_175x_6x/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
-						<entry kind="includePath" name="/0_lpc_board_nxp_lpcxpresso_1769/Release">
-							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_board/src/board.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_board/src/lpc_phy_smsc87x0.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/adc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/stopwatch_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/FreeRTOSCommonHooks.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/cmp_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/port.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/iap.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/timer_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/list.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/lcd_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/gpio_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/i2c_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/iocon_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/sysinit_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/sdc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/uart_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/wwdt_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/tasks.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/FreeRTOS_Trace/trcHardwarePort.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/clock_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/pmu_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/ritimer_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/spi_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/emc_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/can_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/chip_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/stream_buffer.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/dac_17xx_40xx.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="0_lpc_chip/src/ring_buffer.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/heap_5.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/FreeRTOS/FreeRTOS_Trace">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="macro" name="CORE_M3" value="1"/>
+						<entry kind="macro" name="CR_INTEGER_PRINTF" value="1"/>
+						<entry kind="macro" name="DEBUG" value="1"/>
+						<entry kind="macro" name="NO_BOARD_LIB" value="1"/>
+						<entry kind="macro" name="__CODE_RED" value="1"/>
+						<entry kind="macro" name="__LPC17XX__" value="1"/>
+						<entry kind="macro" name="__NEWLIB__" value="1"/>
+						<entry kind="macro" name="__USE_LPCOPEN" value="1"/>
+					</resource>
+					<resource project-relative-path="FreeRTOS/src/queue.c">
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/inc/usbd">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_chip/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
+						</entry>
+						<entry kind="includePath" name="/${ProjName}/0_lpc_board/Release">
+							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/${ProjName}/FreeRTOS">
 							<flag value="VALUE_WORKSPACE_PATH"/>

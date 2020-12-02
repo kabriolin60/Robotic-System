@@ -1,6 +1,15 @@
-15:28:16 **** Incremental Build of configuration Release for project 0_lpc_board_nxp_lpcxpresso_1769 ****
+15:36:47 **** Incremental Build of configuration Release for project 0_lpc_board_nxp_lpcxpresso_1769 ****
 make -r all 
-make: Nothing to be done for 'all'.
+Building file: ../src/board.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/board.d" -MT"src/board.o" -MT"src/board.d" -o "src/board.o" "../src/board.c"
+In file included from ../src/board.c:32:
+C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h:35:10: fatal error: chip.h: No such file or directory
+   35 | #include "chip.h"
+      |          ^~~~~~~~
+compilation terminated.
+make: *** [src/subdir.mk:26: src/board.o] Error 1
+"make -r all" terminated with exit code 2. Build might be incomplete.
 
-15:28:16 Build Finished. 0 errors, 0 warnings. (took 138ms)
+15:36:48 Build Failed. 2 errors, 0 warnings. (took 309ms)
 

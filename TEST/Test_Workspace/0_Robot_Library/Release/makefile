@@ -11,6 +11,10 @@ RM := rm -rf
 -include src/subdir.mk
 -include FreeRTOS/src/subdir.mk
 -include FreeRTOS/FreeRTOS_Trace/subdir.mk
+-include 0_lpc_chip/src/subdir.mk
+-include 0_lpc_chip/Release/src/subdir.mk
+-include 0_lpc_board/src/subdir.mk
+-include 0_lpc_board/Release/src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
