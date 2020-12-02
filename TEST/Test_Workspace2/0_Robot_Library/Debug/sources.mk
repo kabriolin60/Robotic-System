@@ -16,4 +16,5 @@ C_DEPS :=
 SUBDIRS := \
 FreeRTOS/FreeRTOS_Trace \
 FreeRTOS/src \
+src \
 

@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/subdir.mk
 -include FreeRTOS/src/subdir.mk
 -include FreeRTOS/FreeRTOS_Trace/subdir.mk
 -include subdir.mk
