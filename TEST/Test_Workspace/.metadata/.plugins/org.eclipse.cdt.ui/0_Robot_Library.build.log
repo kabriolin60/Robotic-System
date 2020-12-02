@@ -1,5 +1,14 @@
-11:13:06 **** Incremental Build of configuration Release for project 0_Robot_Library ****
+15:27:40 **** Incremental Build of configuration Release for project 0_Robot_Library ****
 make -r all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -D__LPC17XX__ -DCR_INTEGER_PRINTF -D__USE_LPCOPEN -DNO_BOARD_LIB -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc\usbd" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\Release" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\FreeRTOS_Trace" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\inc" -Og -fno-common -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/main.d" -MT"src/main.o" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'vTask_HartBeat':
+../src/main.c:82:3: warning: implicit declaration of function 'vTaskDelay' [-Wimplicit-function-declaration]
+   82 |   vTaskDelay(configTICK_RATE_HZ / 1);
+      |   ^~~~~~~~~~
+Finished building: ../src/main.c
+ 
 Building file: ../FreeRTOS/src/FreeRTOSCommonHooks.c
 Invoking: MCU C Compiler
 arm-none-eabi-gcc -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -D__LPC17XX__ -DCR_INTEGER_PRINTF -D__USE_LPCOPEN -DNO_BOARD_LIB -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc\usbd" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\Release" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\FreeRTOS_Trace" -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\inc" -Og -fno-common -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../FreeRTOS/src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"FreeRTOS/src/FreeRTOSCommonHooks.d" -MT"FreeRTOS/src/FreeRTOSCommonHooks.o" -MT"FreeRTOS/src/FreeRTOSCommonHooks.d" -o "FreeRTOS/src/FreeRTOSCommonHooks.o" "../FreeRTOS/src/FreeRTOSCommonHooks.c"
@@ -67,7 +76,7 @@ Finished building: ../FreeRTOS/FreeRTOS_Trace/trcSnapshotRecorder.c
  
 Building target: lib0_Robot_Library.a
 Invoking: MCU Archiver
-arm-none-eabi-ar -r  "lib0_Robot_Library.a"  ./FreeRTOS/src/FreeRTOSCommonHooks.o ./FreeRTOS/src/croutine.o ./FreeRTOS/src/event_groups.o ./FreeRTOS/src/heap_5.o ./FreeRTOS/src/list.o ./FreeRTOS/src/port.o ./FreeRTOS/src/queue.o ./FreeRTOS/src/stream_buffer.o ./FreeRTOS/src/tasks.o ./FreeRTOS/src/timers.o  ./FreeRTOS/FreeRTOS_Trace/trcHardwarePort.o ./FreeRTOS/FreeRTOS_Trace/trcKernelPort.o ./FreeRTOS/FreeRTOS_Trace/trcSnapshotRecorder.o   
+arm-none-eabi-ar -r  "lib0_Robot_Library.a"  ./src/main.o  ./FreeRTOS/src/FreeRTOSCommonHooks.o ./FreeRTOS/src/croutine.o ./FreeRTOS/src/event_groups.o ./FreeRTOS/src/heap_5.o ./FreeRTOS/src/list.o ./FreeRTOS/src/port.o ./FreeRTOS/src/queue.o ./FreeRTOS/src/stream_buffer.o ./FreeRTOS/src/tasks.o ./FreeRTOS/src/timers.o  ./FreeRTOS/FreeRTOS_Trace/trcHardwarePort.o ./FreeRTOS/FreeRTOS_Trace/trcKernelPort.o ./FreeRTOS/FreeRTOS_Trace/trcSnapshotRecorder.o   
 arm-none-eabi-ar: creating lib0_Robot_Library.a
 Finished building target: lib0_Robot_Library.a
  
@@ -75,6 +84,7 @@ make --no-print-directory post-build
 Performing post-build steps
 arm-none-eabi-size "lib0_Robot_Library.a" ; # arm-none-eabi-objdump -h -S "lib0_Robot_Library.a" >"lib0_Robot_Library.lss"
    text	   data	    bss	    dec	    hex	filename
+    206	     16	  12288	  12510	   30de	main.o (ex lib0_Robot_Library.a)
      66	      0	      0	     66	     42	FreeRTOSCommonHooks.o (ex lib0_Robot_Library.a)
       0	      0	      0	      0	      0	croutine.o (ex lib0_Robot_Library.a)
     590	      0	      0	    590	    24e	event_groups.o (ex lib0_Robot_Library.a)
@@ -90,5 +100,5 @@ arm-none-eabi-size "lib0_Robot_Library.a" ; # arm-none-eabi-objdump -h -S "lib0_
       0	      0	      0	      0	      0	trcSnapshotRecorder.o (ex lib0_Robot_Library.a)
  
 
-11:13:13 Build Finished. 0 errors, 0 warnings. (took 6s.154ms)
+15:27:46 Build Finished. 0 errors, 1 warnings. (took 5s.836ms)
 

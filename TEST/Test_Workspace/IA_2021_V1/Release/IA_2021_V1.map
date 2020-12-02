@@ -151,6 +151,21 @@ Discarded input sections
  .debug_frame   0x00000000       0x28 ./src/sysinit.o
  .ARM.attributes
                 0x00000000       0x2d ./src/sysinit.o
+ .text          0x00000000        0x0 ./src/test.o
+ .data          0x00000000        0x0 ./src/test.o
+ .bss           0x00000000        0x0 ./src/test.o
+ .text.TEST     0x00000000        0xc ./src/test.o
+ .debug_info    0x00000000      0x9dc ./src/test.o
+ .debug_abbrev  0x00000000      0x1de ./src/test.o
+ .debug_aranges
+                0x00000000       0x20 ./src/test.o
+ .debug_ranges  0x00000000       0x10 ./src/test.o
+ .debug_line    0x00000000      0x2fa ./src/test.o
+ .debug_str     0x00000000      0x66a ./src/test.o
+ .comment       0x00000000       0x7a ./src/test.o
+ .debug_frame   0x00000000       0x28 ./src/test.o
+ .ARM.attributes
+                0x00000000       0x2d ./src/test.o
  .text          0x00000000        0x0 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
  .data          0x00000000        0x0 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
  .bss           0x00000000        0x0 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
@@ -785,6 +800,7 @@ LOAD ./src/IA_2021_V1.o
 LOAD ./src/cr_startup_lpc175x_6x.o
 LOAD ./src/crp.o
 LOAD ./src/sysinit.o
+LOAD ./src/test.o
 LOAD C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a
 LOAD C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a
 LOAD C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\libs\libusbd_175x_6x_lib.a
@@ -1746,6 +1762,7 @@ SystemCoreClock                                   C:\Robot\Robotic-System.git\tr
 SystemCoreClockUpdate                             C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
                                                   ./src/IA_2021_V1.o
 SystemInit                                        ./src/sysinit.o
+TEST                                              ./src/test.o
 TIMER0_IRQHandler                                 ./src/cr_startup_lpc175x_6x.o
 TIMER1_IRQHandler                                 ./src/cr_startup_lpc175x_6x.o
 TIMER2_IRQHandler                                 ./src/cr_startup_lpc175x_6x.o
@@ -1758,6 +1775,7 @@ USBActivity_IRQHandler                            ./src/cr_startup_lpc175x_6x.o
 USB_IRQHandler                                    ./src/cr_startup_lpc175x_6x.o
 UsageFault_Handler                                ./src/cr_startup_lpc175x_6x.o
 WDT_IRQHandler                                    ./src/cr_startup_lpc175x_6x.o
+_0_RS485_Init                                     ./src/test.o
 _Balloc                                           c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
                                                   c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
 _Bfree                                            c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)

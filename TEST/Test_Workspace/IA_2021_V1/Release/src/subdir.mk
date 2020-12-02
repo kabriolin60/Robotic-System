@@ -7,19 +7,22 @@ C_SRCS += \
 ../src/IA_2021_V1.c \
 ../src/cr_startup_lpc175x_6x.c \
 ../src/crp.c \
-../src/sysinit.c 
+../src/sysinit.c \
+../src/test.c 
 
 OBJS += \
 ./src/IA_2021_V1.o \
 ./src/cr_startup_lpc175x_6x.o \
 ./src/crp.o \
-./src/sysinit.o 
+./src/sysinit.o \
+./src/test.o 
 
 C_DEPS += \
 ./src/IA_2021_V1.d \
 ./src/cr_startup_lpc175x_6x.d \
 ./src/crp.d \
-./src/sysinit.d 
+./src/sysinit.d \
+./src/test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

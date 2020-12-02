@@ -1,6 +1,238 @@
-11:13:13 **** Incremental Build of configuration Release for project 0_lpc_chip_175x_6x ****
+15:29:27 **** Build of configuration Release for project 0_lpc_chip_175x_6x ****
 make -r all 
-make: Nothing to be done for 'all'.
+Building file: ../src/adc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/adc_17xx_40xx.d" -MT"src/adc_17xx_40xx.o" -MT"src/adc_17xx_40xx.d" -o "src/adc_17xx_40xx.o" "../src/adc_17xx_40xx.c"
+../src/adc_17xx_40xx.c: In function 'Chip_ADC_ReadByte':
+../src/adc_17xx_40xx.c:253:10: warning: 'temp' may be used uninitialized in this function [-Wmaybe-uninitialized]
+  253 |  *data = (uint8_t) temp;
+      |          ^~~~~~~~~~~~~~
+Finished building: ../src/adc_17xx_40xx.c
+ 
+Building file: ../src/can_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/can_17xx_40xx.d" -MT"src/can_17xx_40xx.o" -MT"src/can_17xx_40xx.d" -o "src/can_17xx_40xx.o" "../src/can_17xx_40xx.c"
+../src/can_17xx_40xx.c: In function 'Chip_CAN_Init':
+../src/can_17xx_40xx.c:751:20: warning: variable 'i' set but not used [-Wunused-but-set-variable]
+  751 |  volatile uint32_t i;
+      |                    ^
+Finished building: ../src/can_17xx_40xx.c
+ 
+Building file: ../src/chip_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/chip_17xx_40xx.d" -MT"src/chip_17xx_40xx.o" -MT"src/chip_17xx_40xx.d" -o "src/chip_17xx_40xx.o" "../src/chip_17xx_40xx.c"
+Finished building: ../src/chip_17xx_40xx.c
+ 
+Building file: ../src/clock_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/clock_17xx_40xx.d" -MT"src/clock_17xx_40xx.o" -MT"src/clock_17xx_40xx.d" -o "src/clock_17xx_40xx.o" "../src/clock_17xx_40xx.c"
+../src/clock_17xx_40xx.c: In function 'Chip_Clock_GetSYSCLKRate':
+../src/clock_17xx_40xx.c:320:2: warning: enumeration value 'SYSCTL_PLLCLKSRC_RESERVED2' not handled in switch [-Wswitch]
+  320 |  switch (Chip_Clock_GetMainPLLSource()) {
+      |  ^~~~~~
+Finished building: ../src/clock_17xx_40xx.c
+ 
+Building file: ../src/cmp_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/cmp_17xx_40xx.d" -MT"src/cmp_17xx_40xx.o" -MT"src/cmp_17xx_40xx.d" -o "src/cmp_17xx_40xx.o" "../src/cmp_17xx_40xx.c"
+Finished building: ../src/cmp_17xx_40xx.c
+ 
+Building file: ../src/crc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/crc_17xx_40xx.d" -MT"src/crc_17xx_40xx.o" -MT"src/crc_17xx_40xx.d" -o "src/crc_17xx_40xx.o" "../src/crc_17xx_40xx.c"
+Finished building: ../src/crc_17xx_40xx.c
+ 
+Building file: ../src/dac_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/dac_17xx_40xx.d" -MT"src/dac_17xx_40xx.o" -MT"src/dac_17xx_40xx.d" -o "src/dac_17xx_40xx.o" "../src/dac_17xx_40xx.c"
+Finished building: ../src/dac_17xx_40xx.c
+ 
+Building file: ../src/eeprom_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/eeprom_17xx_40xx.d" -MT"src/eeprom_17xx_40xx.o" -MT"src/eeprom_17xx_40xx.d" -o "src/eeprom_17xx_40xx.o" "../src/eeprom_17xx_40xx.c"
+Finished building: ../src/eeprom_17xx_40xx.c
+ 
+Building file: ../src/emc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/emc_17xx_40xx.d" -MT"src/emc_17xx_40xx.o" -MT"src/emc_17xx_40xx.d" -o "src/emc_17xx_40xx.o" "../src/emc_17xx_40xx.c"
+Finished building: ../src/emc_17xx_40xx.c
+ 
+Building file: ../src/enet_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/enet_17xx_40xx.d" -MT"src/enet_17xx_40xx.o" -MT"src/enet_17xx_40xx.d" -o "src/enet_17xx_40xx.o" "../src/enet_17xx_40xx.c"
+Finished building: ../src/enet_17xx_40xx.c
+ 
+Building file: ../src/gpdma_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/gpdma_17xx_40xx.d" -MT"src/gpdma_17xx_40xx.o" -MT"src/gpdma_17xx_40xx.d" -o "src/gpdma_17xx_40xx.o" "../src/gpdma_17xx_40xx.c"
+Finished building: ../src/gpdma_17xx_40xx.c
+ 
+Building file: ../src/gpio_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/gpio_17xx_40xx.d" -MT"src/gpio_17xx_40xx.o" -MT"src/gpio_17xx_40xx.d" -o "src/gpio_17xx_40xx.o" "../src/gpio_17xx_40xx.c"
+Finished building: ../src/gpio_17xx_40xx.c
+ 
+Building file: ../src/gpioint_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/gpioint_17xx_40xx.d" -MT"src/gpioint_17xx_40xx.o" -MT"src/gpioint_17xx_40xx.d" -o "src/gpioint_17xx_40xx.o" "../src/gpioint_17xx_40xx.c"
+Finished building: ../src/gpioint_17xx_40xx.c
+ 
+Building file: ../src/i2c_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/i2c_17xx_40xx.d" -MT"src/i2c_17xx_40xx.o" -MT"src/i2c_17xx_40xx.d" -o "src/i2c_17xx_40xx.o" "../src/i2c_17xx_40xx.c"
+Finished building: ../src/i2c_17xx_40xx.c
+ 
+Building file: ../src/i2s_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/i2s_17xx_40xx.d" -MT"src/i2s_17xx_40xx.o" -MT"src/i2s_17xx_40xx.d" -o "src/i2s_17xx_40xx.o" "../src/i2s_17xx_40xx.c"
+Finished building: ../src/i2s_17xx_40xx.c
+ 
+Building file: ../src/iap.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/iap.d" -MT"src/iap.o" -MT"src/iap.d" -o "src/iap.o" "../src/iap.c"
+Finished building: ../src/iap.c
+ 
+Building file: ../src/iocon_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/iocon_17xx_40xx.d" -MT"src/iocon_17xx_40xx.o" -MT"src/iocon_17xx_40xx.d" -o "src/iocon_17xx_40xx.o" "../src/iocon_17xx_40xx.c"
+Finished building: ../src/iocon_17xx_40xx.c
+ 
+Building file: ../src/lcd_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/lcd_17xx_40xx.d" -MT"src/lcd_17xx_40xx.o" -MT"src/lcd_17xx_40xx.d" -o "src/lcd_17xx_40xx.o" "../src/lcd_17xx_40xx.c"
+Finished building: ../src/lcd_17xx_40xx.c
+ 
+Building file: ../src/pmu_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/pmu_17xx_40xx.d" -MT"src/pmu_17xx_40xx.o" -MT"src/pmu_17xx_40xx.d" -o "src/pmu_17xx_40xx.o" "../src/pmu_17xx_40xx.c"
+Finished building: ../src/pmu_17xx_40xx.c
+ 
+Building file: ../src/pwm_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/pwm_17xx_40xx.d" -MT"src/pwm_17xx_40xx.o" -MT"src/pwm_17xx_40xx.d" -o "src/pwm_17xx_40xx.o" "../src/pwm_17xx_40xx.c"
+Finished building: ../src/pwm_17xx_40xx.c
+ 
+Building file: ../src/ring_buffer.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/ring_buffer.d" -MT"src/ring_buffer.o" -MT"src/ring_buffer.d" -o "src/ring_buffer.o" "../src/ring_buffer.c"
+Finished building: ../src/ring_buffer.c
+ 
+Building file: ../src/ritimer_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/ritimer_17xx_40xx.d" -MT"src/ritimer_17xx_40xx.o" -MT"src/ritimer_17xx_40xx.d" -o "src/ritimer_17xx_40xx.o" "../src/ritimer_17xx_40xx.c"
+Finished building: ../src/ritimer_17xx_40xx.c
+ 
+Building file: ../src/rtc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/rtc_17xx_40xx.d" -MT"src/rtc_17xx_40xx.o" -MT"src/rtc_17xx_40xx.d" -o "src/rtc_17xx_40xx.o" "../src/rtc_17xx_40xx.c"
+Finished building: ../src/rtc_17xx_40xx.c
+ 
+Building file: ../src/sdc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/sdc_17xx_40xx.d" -MT"src/sdc_17xx_40xx.o" -MT"src/sdc_17xx_40xx.d" -o "src/sdc_17xx_40xx.o" "../src/sdc_17xx_40xx.c"
+Finished building: ../src/sdc_17xx_40xx.c
+ 
+Building file: ../src/sdmmc_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/sdmmc_17xx_40xx.d" -MT"src/sdmmc_17xx_40xx.o" -MT"src/sdmmc_17xx_40xx.d" -o "src/sdmmc_17xx_40xx.o" "../src/sdmmc_17xx_40xx.c"
+Finished building: ../src/sdmmc_17xx_40xx.c
+ 
+Building file: ../src/spi_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/spi_17xx_40xx.d" -MT"src/spi_17xx_40xx.o" -MT"src/spi_17xx_40xx.d" -o "src/spi_17xx_40xx.o" "../src/spi_17xx_40xx.c"
+../src/spi_17xx_40xx.c: In function 'Chip_SPI_Int_FlushData':
+../src/spi_17xx_40xx.c:138:20: warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+  138 |  volatile uint32_t tmp;
+      |                    ^~~
+Finished building: ../src/spi_17xx_40xx.c
+ 
+Building file: ../src/ssp_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/ssp_17xx_40xx.d" -MT"src/ssp_17xx_40xx.o" -MT"src/ssp_17xx_40xx.d" -o "src/ssp_17xx_40xx.o" "../src/ssp_17xx_40xx.c"
+Finished building: ../src/ssp_17xx_40xx.c
+ 
+Building file: ../src/stopwatch_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/stopwatch_17xx_40xx.d" -MT"src/stopwatch_17xx_40xx.o" -MT"src/stopwatch_17xx_40xx.d" -o "src/stopwatch_17xx_40xx.o" "../src/stopwatch_17xx_40xx.c"
+Finished building: ../src/stopwatch_17xx_40xx.c
+ 
+Building file: ../src/sysctl_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/sysctl_17xx_40xx.d" -MT"src/sysctl_17xx_40xx.o" -MT"src/sysctl_17xx_40xx.d" -o "src/sysctl_17xx_40xx.o" "../src/sysctl_17xx_40xx.c"
+Finished building: ../src/sysctl_17xx_40xx.c
+ 
+Building file: ../src/sysinit_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/sysinit_17xx_40xx.d" -MT"src/sysinit_17xx_40xx.o" -MT"src/sysinit_17xx_40xx.d" -o "src/sysinit_17xx_40xx.o" "../src/sysinit_17xx_40xx.c"
+../src/sysinit_17xx_40xx.c: In function 'Chip_SetupXtalClocking':
+../src/sysinit_17xx_40xx.c:215:2: warning: 'clkdiv' may be used uninitialized in this function [-Wmaybe-uninitialized]
+  215 |  Chip_Clock_SetCPUClockDiv(clkdiv);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/sysinit_17xx_40xx.c:210:2: warning: 'nsel' may be used uninitialized in this function [-Wmaybe-uninitialized]
+  210 |  Chip_Clock_SetupPLL(SYSCTL_MAIN_PLL, msel, nsel);
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/sysinit_17xx_40xx.c:210:2: warning: 'msel' may be used uninitialized in this function [-Wmaybe-uninitialized]
+Finished building: ../src/sysinit_17xx_40xx.c
+ 
+Building file: ../src/timer_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/timer_17xx_40xx.d" -MT"src/timer_17xx_40xx.o" -MT"src/timer_17xx_40xx.d" -o "src/timer_17xx_40xx.o" "../src/timer_17xx_40xx.c"
+Finished building: ../src/timer_17xx_40xx.c
+ 
+Building file: ../src/uart_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/uart_17xx_40xx.d" -MT"src/uart_17xx_40xx.o" -MT"src/uart_17xx_40xx.d" -o "src/uart_17xx_40xx.o" "../src/uart_17xx_40xx.c"
+Finished building: ../src/uart_17xx_40xx.c
+ 
+Building file: ../src/wwdt_17xx_40xx.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DNDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_lpc_chip_175x_6x\inc" -Os -g -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/wwdt_17xx_40xx.d" -MT"src/wwdt_17xx_40xx.o" -MT"src/wwdt_17xx_40xx.d" -o "src/wwdt_17xx_40xx.o" "../src/wwdt_17xx_40xx.c"
+Finished building: ../src/wwdt_17xx_40xx.c
+ 
+Building target: lib0_lpc_chip_175x_6x.a
+Invoking: MCU Archiver
+arm-none-eabi-ar -r  "lib0_lpc_chip_175x_6x.a"  ./src/adc_17xx_40xx.o ./src/can_17xx_40xx.o ./src/chip_17xx_40xx.o ./src/clock_17xx_40xx.o ./src/cmp_17xx_40xx.o ./src/crc_17xx_40xx.o ./src/dac_17xx_40xx.o ./src/eeprom_17xx_40xx.o ./src/emc_17xx_40xx.o ./src/enet_17xx_40xx.o ./src/gpdma_17xx_40xx.o ./src/gpio_17xx_40xx.o ./src/gpioint_17xx_40xx.o ./src/i2c_17xx_40xx.o ./src/i2s_17xx_40xx.o ./src/iap.o ./src/iocon_17xx_40xx.o ./src/lcd_17xx_40xx.o ./src/pmu_17xx_40xx.o ./src/pwm_17xx_40xx.o ./src/ring_buffer.o ./src/ritimer_17xx_40xx.o ./src/rtc_17xx_40xx.o ./src/sdc_17xx_40xx.o ./src/sdmmc_17xx_40xx.o ./src/spi_17xx_40xx.o ./src/ssp_17xx_40xx.o ./src/stopwatch_17xx_40xx.o ./src/sysctl_17xx_40xx.o ./src/sysinit_17xx_40xx.o ./src/timer_17xx_40xx.o ./src/uart_17xx_40xx.o ./src/wwdt_17xx_40xx.o   
+arm-none-eabi-ar: creating lib0_lpc_chip_175x_6x.a
+Finished building target: lib0_lpc_chip_175x_6x.a
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "lib0_lpc_chip_175x_6x.a" ; # arm-none-eabi-objdump -h -S "lib0_lpc_chip_175x_6x.a" >"lib0_lpc_chip_175x_6x.lss"
+   text	   data	    bss	    dec	    hex	filename
+    366	      0	      0	    366	    16e	adc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+   4146	      0	      0	   4146	   1032	can_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+     80	      0	      0	     80	     50	chip_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    696	      0	      0	    696	    2b8	clock_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	cmp_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	crc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+     50	      0	      0	     50	     32	dac_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	eeprom_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	emc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    497	      0	      4	    501	    1f5	enet_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+   1226	     96	      8	   1330	    532	gpdma_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	gpio_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	gpioint_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+   1459	     84	    120	   1663	    67f	i2c_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    648	      0	      0	    648	    288	i2s_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    348	      0	      0	    348	    15c	iap.o (ex lib0_lpc_chip_175x_6x.a)
+     96	      0	      0	     96	     60	iocon_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	lcd_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    144	      0	      0	    144	     90	pmu_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    220	      0	      0	    220	     dc	pwm_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    388	      0	      0	    388	    184	ring_buffer.o (ex lib0_lpc_chip_175x_6x.a)
+     86	      0	      0	     86	     56	ritimer_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    330	      0	      0	    330	    14a	rtc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	sdc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+      0	      0	      0	      0	      0	sdmmc_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    406	      0	      0	    406	    196	spi_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    872	      0	      0	    872	    368	ssp_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    156	      0	     12	    168	     a8	stopwatch_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+     20	      0	      0	     20	     14	sysctl_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    740	      0	      0	    740	    2e4	sysinit_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    148	      0	      0	    148	     94	timer_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+    878	      0	      1	    879	    36f	uart_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+     36	      0	      0	     36	     24	wwdt_17xx_40xx.o (ex lib0_lpc_chip_175x_6x.a)
+ 
 
-11:13:13 Build Finished. 0 errors, 0 warnings. (took 152ms)
+15:29:38 Build Finished. 0 errors, 7 warnings. (took 10s.964ms)
 

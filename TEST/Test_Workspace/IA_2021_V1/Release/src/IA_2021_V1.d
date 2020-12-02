@@ -56,7 +56,8 @@ src/IA_2021_V1.o src/IA_2021_V1.d: ../src/IA_2021_V1.c \
  C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/portable.h \
  C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/deprecated_definitions.h \
  C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/portmacro.h \
- C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/mpu_wrappers.h
+ C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/mpu_wrappers.h \
+ C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\inc/Commun_Configuration.h
 
 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\inc/Lib_Includes.h:
 
@@ -173,3 +174,5 @@ C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\i
 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/portmacro.h:
 
 C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\FreeRTOS\inc/mpu_wrappers.h:
+
+C:\Robot\Robotic-System.git\trunk\TEST\Test_Workspace\0_Robot_Library\inc/Commun_Configuration.h:

@@ -14,5 +14,7 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 
+#include "Commun_Configuration.h"
+
 
 #endif /* LIB_INCLUDES_H_ */

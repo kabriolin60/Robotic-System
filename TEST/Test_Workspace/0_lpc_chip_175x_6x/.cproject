@@ -6,8 +6,11 @@
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/lpc_chip_175x_6x"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/0_lpc_chip_175x_6x"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_175x_6x/Debug"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/0_lpc_chip_175x_6x/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="lpc_chip_175x_6x" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="0_lpc_chip_175x_6x" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -75,8 +78,11 @@
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/lpc_chip_175x_6x"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/0_lpc_chip_175x_6x"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/lpc_chip_175x_6x/Release"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/0_lpc_chip_175x_6x/Release"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="lpc_chip_175x_6x" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="0_lpc_chip_175x_6x" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -96,9 +102,9 @@
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.lib.release.736132021" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.lib.release"/>
 							<builder buildPath="${workspace_loc:/lpc_chip_175x_6x}/Release" id="com.crt.advproject.builder.lib.release.138585972" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.lib.release"/>
 							<tool id="com.crt.advproject.cpp.lib.release.1757629049" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release">
-								<option id="com.crt.advproject.cpp.hdrlib.45665625" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
-								<option id="com.crt.advproject.cpp.fpu.877846981" superClass="com.crt.advproject.cpp.fpu" useByScannerDiscovery="true"/>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1584345073" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.hdrlib.45665625" name="Library headers" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.fpu.877846981" name="Floating point" superClass="com.crt.advproject.cpp.fpu" useByScannerDiscovery="true"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1584345073" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
 							</tool>
 							<tool id="com.crt.advproject.gcc.lib.release.474949157" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.release">
 								<option id="com.crt.advproject.gcc.arch.1920026325" name="Architecture" superClass="com.crt.advproject.gcc.arch" useByScannerDiscovery="true" value="com.crt.advproject.gcc.target.cm3" valueType="enumerated"/>
@@ -116,7 +122,7 @@
 								</option>
 								<option id="com.crt.advproject.gcc.lib.release.option.optimization.level.579854573" name="Optimization Level" superClass="com.crt.advproject.gcc.lib.release.option.optimization.level" useByScannerDiscovery="true" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.hdrlib.138857683" name="Library headers" superClass="com.crt.advproject.gcc.hdrlib" useByScannerDiscovery="false" value="Redlib" valueType="enumerated"/>
-								<option id="com.crt.advproject.gcc.fpu.107348374" superClass="com.crt.advproject.gcc.fpu" useByScannerDiscovery="true"/>
+								<option id="com.crt.advproject.gcc.fpu.107348374" name="Floating point" superClass="com.crt.advproject.gcc.fpu" useByScannerDiscovery="true"/>
 								<inputType id="com.crt.advproject.compiler.input.1534967477" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.lib.release.1568034180" name="MCU Assembler" superClass="com.crt.advproject.gas.lib.release">
@@ -124,7 +130,7 @@
 								<option id="com.crt.advproject.gas.thumb.1206272642" name="Thumb mode" superClass="com.crt.advproject.gas.thumb" value="true" valueType="boolean"/>
 								<option id="gnu.both.asm.option.flags.crt.1319485670" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -D__REDLIB__ -DNDEBUG -D__CODE_RED" valueType="string"/>
 								<option id="com.crt.advproject.gas.hdrlib.328516326" name="Library headers" superClass="com.crt.advproject.gas.hdrlib" value="Redlib" valueType="enumerated"/>
-								<option id="com.crt.advproject.gas.fpu.671751622" superClass="com.crt.advproject.gas.fpu"/>
+								<option id="com.crt.advproject.gas.fpu.671751622" name="Floating point" superClass="com.crt.advproject.gas.fpu"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1024480185" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.1648340189" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
 							</tool>
