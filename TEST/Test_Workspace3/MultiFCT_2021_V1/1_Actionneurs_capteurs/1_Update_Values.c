@@ -13,7 +13,7 @@
 #include "0_ADC.h"
 #include "0_Motors.h"
 
-//#include "1_Odometrie.h"
+#include "1_Odometrie.h"
 #include "1_Servos.h"
 #include "1_AX12.h"
 
@@ -103,7 +103,7 @@ void _1_Update_Task(void * pvParameter)
 		Updated_Infos.Etat_IO = Etat_IO;
 
 		//Mise à jour de la position du Robot
-		//pos_robot = _1_Odometrie_GetRobot_Position();
+		pos_robot = _1_Odometrie_GetRobot_Position();
 
 		Updated_Infos.PositionRobot.Position_X = (short)(pos_robot.Position_X * 10);
 		Updated_Infos.PositionRobot.Position_Y = (short)(pos_robot.Position_Y * 10);

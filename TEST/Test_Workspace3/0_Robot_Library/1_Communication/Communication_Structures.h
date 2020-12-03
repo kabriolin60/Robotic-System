@@ -183,21 +183,6 @@ struct Logger_Debug_Data
 
 
 
-/**************************************************
-Declaration de la definition de la Structure contenant la position du Robot à mettre à jour
- **************************************************/
-struct st_POSITION_ROBOT
-{
-	float Position_X;
-	float Position_Y;
-	float Angle_rad;
-	float Angle_Deg;
-
-	float orient_init;
-};
-
-/*************************************************/
-
 
 
 
