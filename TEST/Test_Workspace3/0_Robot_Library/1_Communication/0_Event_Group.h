@@ -20,6 +20,11 @@
 #define eGROUP_SYNCH_AX12_ACK__OK 			( 1 << 5 ) //Flag indiquant un ACK des AX-12
 #define eGROUP_SYNCH_AX12_ERROR 			( 1 << 6 ) //Flag indiquant une erreur sur la COM des AX12
 
+#define eGROUP_SYNCH_XBEE_Rx_Data_Avail 	( 1 << 7 ) //Flag indiquant que des datas sont dispo dans le Buffer RX du XBEE
+
+#define eGROUP_SYNCH_STRATEGIE_TxTrameDispo ( 1 << 8 ) //Flag indiquant que la trame permettant d'envoyer un message est dispo depuis la page de strategie
+
+
 
 #define eGROUP_SYNCH_TxClearance			(1 << 31 ) //Flag indiquant que la carte a reçu l'autorisation d'envoyer un message
 

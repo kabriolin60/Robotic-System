@@ -38,7 +38,9 @@
 /* Includes sources communes */
 #include "0_Communication.h"
 #include "0_Event_Group.h"
+#include "1_Trame_Communication.h"
 
+/* Includes drivers */
 #include "0_RS485.h"
 
 #endif /* LIB_INCLUDES_H_ */

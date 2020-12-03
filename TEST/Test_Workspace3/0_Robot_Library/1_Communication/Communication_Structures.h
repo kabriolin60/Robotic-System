@@ -8,6 +8,13 @@
 #ifndef COMMUNICATION_STRUCTURES_H_
 #define COMMUNICATION_STRUCTURES_H_
 
+
+//Copie des donnees d'une struct a l'autre
+#define COPYDATA(X, Y)	sizeof(X) > sizeof(Y) ? sizeof(Y) : sizeof(X); memcpy(&Y, &X, sizeof(Y));
+#define COPYDATA2(X, Y)	memcpy(&Y, &X, sizeof(Y));
+#define COPYSTRING(X, Y) strlen(X)> sizeof(Y) ? sizeof(Y) : strlen(X); memcpy(&Y, X, strlen(X)> sizeof(Y) ? sizeof(Y) : strlen(X));
+
+
 /**************************************************
 Definition des commandes de communication
  **************************************************/
@@ -138,5 +145,151 @@ struct Communication_Message
 	enum enum_canal_communication canal_communication;			//Indique quel port de communication utiliser pour envoyer ce message
 };
 
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant d'envoyer un message de log
+ **************************************************/
+enum Logger_Debug_Color
+{
+	Color_Black,
+	Color_Blue,
+	Color_Red
+};
+
+enum Channel_Debug
+{
+	Channel_Debug_Communication,
+	Channel_Debug_Deplacement,
+	Channel_Debug_ASTAR,
+	Channel_Debug_Test,
+	Channel_Debug_Divers,
+	TBD,
+	Channel_Debug_Error
+};
+
+
+#define Max_Char_per_Log 59
+struct Logger_Debug_Data
+{
+	uint8_t Nombre_Carateres;								//Nombre d'octets de la chaine de commentaires à suivre						//1 octet
+
+	uint8_t Channel;										//Cannal de Debug utilisé													//1 octet
+
+	enum Logger_Debug_Color Color;                      //Couleur du texte à afficher												//1 octet
+
+	char Text[Max_Char_per_Log];						//Chaine de commentaire limitée au nombre ci-dessus, maximum 60 caratcers 	//60 octets
+};
+
+
+
+
+#define NB_SERVO	6
+#define NB_AX_12	4
+#define NB_MES_ANA	4
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter la position du Robot vers la carte IA ou vers le PC
+ **************************************************/
+struct Com_Position_Robot
+{
+	//Instruction 10		//7 octets + alignement = 8
+	//Position du Robot
+
+	int16_t Position_X;			//*10
+	int16_t Position_Y;			//*10
+	int16_t Angle;				//*100 //Orientation du Robot (° *100)
+	//byte Bloquage;
+	//byte Fin_Deplacement;
+};
+
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter les positions des servos
+ **************************************************/
+struct Com_Position_Servos
+{
+	unsigned short Position[NB_SERVO];
+};
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter les positions des AX-12
+ **************************************************/
+struct Com_Position_AX12
+{
+	//4 Octets par AX_12
+
+	unsigned short Position[NB_AX_12];
+	short Torque[NB_AX_12];
+};
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter les mesures analogiques
+ **************************************************/
+struct Com_Mesures_Analogiques
+{
+	//Instruction 52	//2 Octets par mesure, soit 8 octets
+	//Reponse aux mesures analogiques
+
+	unsigned short Mesure[NB_MES_ANA];
+};
+
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos de la carte vers la carte IA ou vers le PC
+ **************************************************/
+struct Com_Reponse_Info
+{
+	//instruction 36		//58 + alignement = 60 octets
+
+	uint8_t Numero_Robot;											//0 = PR, 1 = GR
+
+	uint8_t Numero_Carte;											//Numero de la carte emettant le message // 1 octet
+
+	uint8_t Etat_Alim; //0= motor power; 1 = motor aux power; 2 = servos power; 3 = ax12 power; 4 = AUX 1 power; 5 = Aux 2 power					 //1 octet
+
+	uint8_t Etat_Contacteurs; //0= FDC 0; 1 = FDC 1; 2 = CTC 0; 3 = CTC 1; 4 = CTC 2; 5 = CTC 3					 //1 octet
+
+	uint8_t Etat_IO;          //0= IO 0; 1 = IO 1; 2 = IO 2; 3 = IO 3
+
+	struct Com_Position_Robot PositionRobot;					//8 octets
+
+	struct Com_Position_Servos Position_Servos;					//12 octets
+
+	struct Com_Position_AX12 Position_AX12;						//16 octets
+
+	struct Com_Mesures_Analogiques Mesures_Analogiques;			//8 octets
+
+	unsigned short Tension_Batterie;							//Tension * 100		//2 octets
+};
+
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos de la carte IA vers le PC
+ **************************************************/
+
+struct Com_Reponse_Info_IA
+{
+	//instruction 	37
+	uint8_t Numero_Robot;
+
+	uint8_t Strategie;
+
+	unsigned short Temps_Match;                             //Temps /10		//2 octets
+
+	uint8_t Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
+};
+
+/*************************************************/
 
 #endif /* COMMUNICATION_STRUCTURES_H_ */

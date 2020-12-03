@@ -86,3 +86,26 @@ void prvSetupHardware(uint8_t Use_LPCXPRESSO_BOARD){
 }
 
 
+
+void Common_Communication_Init(uint8_t Use_LPCXPRESSO_BOARD, uint8_t Carte_type)
+{
+	static_IS_LPCXPRESSO_BOARD = Use_LPCXPRESSO_BOARD;
+	static_BOARD_TYPE = Carte_type;
+
+	//CPU Init
+	prvSetupHardware(static_IS_LPCXPRESSO_BOARD);
+
+	/* Init du Groupe d'event de synchronisation */
+	_0_Communication_Init_Event_Group();
+
+	/* Init de la communication Niveau 0 */
+	_0_Communication_Init();
+
+	/* Init de la communication Niveau 1 */
+	_1_Communication_Init();
+
+	/* Init de la communication Niveau 2 */
+	_2_Communication_Init();
+}
+
+

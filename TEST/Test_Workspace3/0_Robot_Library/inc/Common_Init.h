@@ -14,4 +14,6 @@ void vTask_HartBeat(void *pvParameters);
 
 void prvSetupHardware(uint8_t Use_LPCXPRESSO_BOARD);
 
+void Common_Communication_Init(uint8_t Use_LPCXPRESSO_BOARD, uint8_t Carte_type);
+
 #endif /* COMMON_INIT_H_ */
