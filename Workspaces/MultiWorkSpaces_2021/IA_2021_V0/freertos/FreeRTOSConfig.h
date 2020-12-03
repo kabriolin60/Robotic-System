@@ -82,10 +82,11 @@
 #define configUSE_RECURSIVE_MUTEXES		0
 #define configQUEUE_REGISTRY_SIZE		10
 
-//#ifdef DEBUG
-#define configGENERATE_RUN_TIME_STATS	0
+
+#define configGENERATE_RUN_TIME_STATS	1
 #define configUSE_TRACE_FACILITY		configGENERATE_RUN_TIME_STATS
-//#endif
+
+
 
 #define configRECORD_STACK_HIGH_ADDRESS 1
 

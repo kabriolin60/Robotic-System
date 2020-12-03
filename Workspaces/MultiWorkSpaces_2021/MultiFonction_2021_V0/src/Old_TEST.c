@@ -8,21 +8,6 @@
 #include "Test.h"
 
 
-void TEST_Send_Board_Infos(void *pvParameters)
-{
-	Task_Delay(5);
-	//vTraceEnable( TRC_START );
-	Init_Timing_Tache;
-
-	while (1)
-	{
-		_2_Comm_Send_Infos((struct Com_Reponse_Info *)Get_ptr_Reponse_info(), RS485_port);
-
-		//_2_Comm_Send_Log_Message("Toto est ici en rouge RS485\n\r", Color_Red, RS485_port);
-		Task_Delay_Until(10);
-	}
-}
-
 
 void Do_Odometrie_Calibration(void)
 {

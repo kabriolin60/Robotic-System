@@ -19,11 +19,13 @@
 #include "cdc_usb_main.h"
 #include "cdc_vcom.h"
 #include "Configuration.h"
+#include "FreeRTOSConfig.h"
 
 #include <Init.h>
 
 #include "0_Codeurs.h"
 #include "0_Motors.h"
+#include "0_RS485.h"
 
 #include "1_Trame_Communication.h"
 
@@ -44,12 +46,12 @@ static TO_AHBS_RAM3 uint8_t heap_sram_lower[configTOTAL_HEAP_SIZE]; // placed in
 
 static HeapRegion_t xHeapRegions[] =
 {
-    {
-        &heap_sram_lower[0], sizeof(heap_sram_lower)
-    },
-    {
-        NULL, 0 // << Terminates the array.
-    }
+		{
+				&heap_sram_lower[0], sizeof(heap_sram_lower)
+		},
+		{
+				NULL, 0 // << Terminates the array.
+		}
 };
 
 
@@ -100,6 +102,130 @@ static void vTask_HartBeat(void *pvParameters) {
 }
 
 
+#if configGENERATE_RUN_TIME_STATS == 1
+char task_stat[1024];
+static void vTask_Stats(void *pvParameters)
+{
+	Task_Delay(300000);
+	vTaskGetRunTimeStats(&task_stat);
+
+	vTaskSuspendAll();
+	Task_Delay(1000);
+
+	Task_Delay(ADRESSE_CARTE*100);
+
+	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+
+	for(int i = 0; i < 3; i++)
+	{
+		Chip_UART_SendByte(RS484_UART, '\r');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, '\n');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	Chip_UART_SendByte(RS484_UART, 'M');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 'u');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 'ul');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 't');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 'i');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 'F');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 'c');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, 't');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, '@');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, ADRESSE_CARTE_CHAR);
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, ':');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, '\r');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+	Chip_UART_SendByte(RS484_UART, '\n');
+	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+	{
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+	}
+
+	int index = 0;
+	while (index < 1000)
+	{
+		Chip_UART_SendByte(RS484_UART, task_stat[index++]);
+		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+	}
+
+	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
+
+	//Passe en RX
+	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+
+	Task_Delay(10);
+	vTaskSuspendAll();
+
+	for(;;)
+	{
+
+	}
+}
+#endif
+
+
 
 /*****************************************************************************
  * Public functions
@@ -114,12 +240,10 @@ int main(void)
 	prvSetupHardware();
 	vTraceEnable( TRC_INIT );
 
-#ifdef TYPE_CARTE_MULTIFCT
 	Init_Carte_MultiFonctions();
-#endif
 
-#ifdef USE_USB
-	usb_main();
+#if configGENERATE_RUN_TIME_STATS == 1
+	xTaskCreate(vTask_Stats, (char *) "vTask_Stats", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 #endif
 
 	/* LED1 toggle thread */

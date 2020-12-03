@@ -54,12 +54,15 @@
 #define configCPU_CLOCK_HZ			( ( unsigned long ) 128000000 )
 #define configTICK_RATE_HZ			( ( TickType_t ) 10000 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 50 )
-#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 10 * 1024 ) )
+#define configTOTAL_HEAP_SIZE		( ( size_t ) ( 14 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 20 )
 
-#ifdef DEBUG
-#define configUSE_TRACE_FACILITY	1
-#endif
+
+
+#define configGENERATE_RUN_TIME_STATS	1
+#define configUSE_TRACE_FACILITY		configGENERATE_RUN_TIME_STATS
+
+
 
 #define configUSE_16_BIT_TICKS		0
 #define configIDLE_SHOULD_YIELD		1
@@ -75,8 +78,6 @@
 #define configTIMER_QUEUE_LENGTH				5
 #define configTIMER_TASK_STACK_DEPTH			( 100 )
 
-
-
 #define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
 
 #define configUSE_COUNTING_SEMAPHORES 	0
@@ -85,9 +86,6 @@
 #define configUSE_RECURSIVE_MUTEXES		0
 #define configQUEUE_REGISTRY_SIZE		10
 
-#ifdef DEBUG
-#define configGENERATE_RUN_TIME_STATS	1
-#endif
 
 #define configRECORD_STACK_HIGH_ADDRESS 1
 

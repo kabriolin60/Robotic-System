@@ -152,12 +152,9 @@ void Init_Carte_MultiFonctions(void)
 	/* Init de l'asserv de niveau 3 */
 	_3_Deplacement_Init();
 
-
 	/* Init de la tache de mise à jour des infos */
 	_1_Update_Init();
 
-	//Quand l'init est terminée, envoie un message d'identification
-	//_2_Comm_Send_PONG(RS485_port);
 }
 
 

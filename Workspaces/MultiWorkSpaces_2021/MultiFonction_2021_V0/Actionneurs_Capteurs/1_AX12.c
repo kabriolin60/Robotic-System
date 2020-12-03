@@ -42,7 +42,7 @@ void _1_Init_AX12(void)
 
 
 	//Tache d'interpretation des messages reçus par les AX12
-	xTaskCreate(_1_AX12_Interpretation_RX, (char *) "1_Interp_Rx", 100, _1_xQueue_AX12_Receive, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_AX12_Interpretation_RX, (char *) "1_Interp_Rx_AX12", 100, _1_xQueue_AX12_Receive, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 

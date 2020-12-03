@@ -146,6 +146,32 @@ static void vTask_Stats(void *pvParameters)
 		}
 	}
 
+	Chip_UART_SendByte(RS484_UART, 'I');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, 'A');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, ':');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, '\r');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+		Chip_UART_SendByte(RS484_UART, '\n');
+		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		}
+
 	int index = 0;
 	while (index < 1000)
 	{

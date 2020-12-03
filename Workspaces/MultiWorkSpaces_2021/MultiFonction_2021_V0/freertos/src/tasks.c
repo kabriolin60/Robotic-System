@@ -4475,126 +4475,127 @@ TCB_t *pxTCB;
 #if ( ( configGENERATE_RUN_TIME_STATS == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 
 	void vTaskGetRunTimeStats( char *pcWriteBuffer )
-	{
-	TaskStatus_t *pxTaskStatusArray;
-	UBaseType_t uxArraySize, x;
-	uint32_t ulTotalTime, ulStatsAsPercentage;
-
-		#if( configUSE_TRACE_FACILITY != 1 )
 		{
-			#error configUSE_TRACE_FACILITY must also be set to 1 in FreeRTOSConfig.h to use vTaskGetRunTimeStats().
-		}
-		#endif
+		TaskStatus_t *pxTaskStatusArray;
+		UBaseType_t uxArraySize, x;
+		uint32_t ulTotalTime;
+		float ulStatsAsPercentage;
 
-		/*
-		 * PLEASE NOTE:
-		 *
-		 * This function is provided for convenience only, and is used by many
-		 * of the demo applications.  Do not consider it to be part of the
-		 * scheduler.
-		 *
-		 * vTaskGetRunTimeStats() calls uxTaskGetSystemState(), then formats part
-		 * of the uxTaskGetSystemState() output into a human readable table that
-		 * displays the amount of time each task has spent in the Running state
-		 * in both absolute and percentage terms.
-		 *
-		 * vTaskGetRunTimeStats() has a dependency on the sprintf() C library
-		 * function that might bloat the code size, use a lot of stack, and
-		 * provide different results on different platforms.  An alternative,
-		 * tiny, third party, and limited functionality implementation of
-		 * sprintf() is provided in many of the FreeRTOS/Demo sub-directories in
-		 * a file called printf-stdarg.c (note printf-stdarg.c does not provide
-		 * a full snprintf() implementation!).
-		 *
-		 * It is recommended that production systems call uxTaskGetSystemState()
-		 * directly to get access to raw stats data, rather than indirectly
-		 * through a call to vTaskGetRunTimeStats().
-		 */
-
-		/* Make sure the write buffer does not contain a string. */
-		*pcWriteBuffer = ( char ) 0x00;
-
-		/* Take a snapshot of the number of tasks in case it changes while this
-		function is executing. */
-		uxArraySize = uxCurrentNumberOfTasks;
-
-		/* Allocate an array index for each task.  NOTE!  If
-		configSUPPORT_DYNAMIC_ALLOCATION is set to 0 then pvPortMalloc() will
-		equate to NULL. */
-		pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation allocates a struct that has the alignment requirements of a pointer. */
-
-		if( pxTaskStatusArray != NULL )
-		{
-			/* Generate the (binary) data. */
-			uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, &ulTotalTime );
-
-			/* For percentage calculations. */
-			ulTotalTime /= 100UL;
-
-			/* Avoid divide by zero errors. */
-			if( ulTotalTime > 0UL )
+			#if( configUSE_TRACE_FACILITY != 1 )
 			{
-				/* Create a human readable table from the binary data. */
-				for( x = 0; x < uxArraySize; x++ )
+				#error configUSE_TRACE_FACILITY must also be set to 1 in FreeRTOSConfig.h to use vTaskGetRunTimeStats().
+			}
+			#endif
+
+			/*
+			 * PLEASE NOTE:
+			 *
+			 * This function is provided for convenience only, and is used by many
+			 * of the demo applications.  Do not consider it to be part of the
+			 * scheduler.
+			 *
+			 * vTaskGetRunTimeStats() calls uxTaskGetSystemState(), then formats part
+			 * of the uxTaskGetSystemState() output into a human readable table that
+			 * displays the amount of time each task has spent in the Running state
+			 * in both absolute and percentage terms.
+			 *
+			 * vTaskGetRunTimeStats() has a dependency on the sprintf() C library
+			 * function that might bloat the code size, use a lot of stack, and
+			 * provide different results on different platforms.  An alternative,
+			 * tiny, third party, and limited functionality implementation of
+			 * sprintf() is provided in many of the FreeRTOS/Demo sub-directories in
+			 * a file called printf-stdarg.c (note printf-stdarg.c does not provide
+			 * a full snprintf() implementation!).
+			 *
+			 * It is recommended that production systems call uxTaskGetSystemState()
+			 * directly to get access to raw stats data, rather than indirectly
+			 * through a call to vTaskGetRunTimeStats().
+			 */
+
+			/* Make sure the write buffer does not contain a string. */
+			*pcWriteBuffer = ( char ) 0x00;
+
+			/* Take a snapshot of the number of tasks in case it changes while this
+			function is executing. */
+			uxArraySize = uxCurrentNumberOfTasks;
+
+			/* Allocate an array index for each task.  NOTE!  If
+			configSUPPORT_DYNAMIC_ALLOCATION is set to 0 then pvPortMalloc() will
+			equate to NULL. */
+			pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation allocates a struct that has the alignment requirements of a pointer. */
+
+			if( pxTaskStatusArray != NULL )
+			{
+				/* Generate the (binary) data. */
+				uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, &ulTotalTime );
+
+				/* For percentage calculations. */
+				ulTotalTime /= 100UL;
+
+				/* Avoid divide by zero errors. */
+				if( ulTotalTime > 0UL )
 				{
-					/* What percentage of the total run time has the task used?
-					This will always be rounded down to the nearest integer.
-					ulTotalRunTimeDiv100 has already been divided by 100. */
-					ulStatsAsPercentage = pxTaskStatusArray[ x ].ulRunTimeCounter / ulTotalTime;
-
-					/* Write the task name to the string, padding with
-					spaces so it can be printed in tabular form more
-					easily. */
-					pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
-
-					if( ulStatsAsPercentage > 0UL )
+					/* Create a human readable table from the binary data. */
+					for( x = 0; x < uxArraySize; x++ )
 					{
-						#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
-						{
-							sprintf( pcWriteBuffer, "\t%lu\t\t%lu%%\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage );
-						}
-						#else
-						{
-							/* sizeof( int ) == sizeof( long ) so a smaller
-							printf() library can be used. */
-							sprintf( pcWriteBuffer, "\t%u\t\t%u%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ( unsigned int ) ulStatsAsPercentage ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
-						}
-						#endif
-					}
-					else
-					{
-						/* If the percentage is zero here then the task has
-						consumed less than 1% of the total run time. */
-						#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
-						{
-							sprintf( pcWriteBuffer, "\t%lu\t\t<1%%\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter );
-						}
-						#else
-						{
-							/* sizeof( int ) == sizeof( long ) so a smaller
-							printf() library can be used. */
-							sprintf( pcWriteBuffer, "\t%u\t\t<1%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
-						}
-						#endif
-					}
+						/* What percentage of the total run time has the task used?
+						This will always be rounded down to the nearest integer.
+						ulTotalRunTimeDiv100 has already been divided by 100. */
+						ulStatsAsPercentage = pxTaskStatusArray[ x ].ulRunTimeCounter / ulTotalTime;
 
-					pcWriteBuffer += strlen( pcWriteBuffer ); /*lint !e9016 Pointer arithmetic ok on char pointers especially as in this case where it best denotes the intent of the code. */
+						/* Write the task name to the string, padding with
+						spaces so it can be printed in tabular form more
+						easily. */
+						pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
+
+						if( ulStatsAsPercentage > 0UL )
+						{
+							#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
+							{
+								sprintf( pcWriteBuffer, "\t%lu\t\t%2.1f%%\t%lu\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage, pxTaskStatusArray[ x ].usStackHighWaterMark );
+							}
+							#else
+							{
+								/* sizeof( int ) == sizeof( long ) so a smaller
+								printf() library can be used. */
+								sprintf( pcWriteBuffer, "\t%d\t\t%2.1f%%\t%d\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage, (unsigned int)pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+							}
+							#endif
+						}
+						else
+						{
+							/* If the percentage is zero here then the task has
+							consumed less than 1% of the total run time. */
+							#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
+							{
+								sprintf( pcWriteBuffer, "\t%lu\t\t<1%%\t%lu\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, pxTaskStatusArray[ x ].usStackHighWaterMark );
+							}
+							#else
+							{
+								/* sizeof( int ) == sizeof( long ) so a smaller
+								printf() library can be used. */
+								sprintf( pcWriteBuffer, "\t%d\t\t<1%%\t%d\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, pxTaskStatusArray[ x ].usStackHighWaterMark ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+							}
+							#endif
+						}
+
+						pcWriteBuffer += strlen( pcWriteBuffer ); /*lint !e9016 Pointer arithmetic ok on char pointers especially as in this case where it best denotes the intent of the code. */
+					}
 				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+
+				/* Free the array again.  NOTE!  If configSUPPORT_DYNAMIC_ALLOCATION
+				is 0 then vPortFree() will be #defined to nothing. */
+				vPortFree( pxTaskStatusArray );
 			}
 			else
 			{
 				mtCOVERAGE_TEST_MARKER();
 			}
-
-			/* Free the array again.  NOTE!  If configSUPPORT_DYNAMIC_ALLOCATION
-			is 0 then vPortFree() will be #defined to nothing. */
-			vPortFree( pxTaskStatusArray );
 		}
-		else
-		{
-			mtCOVERAGE_TEST_MARKER();
-		}
-	}
 
 #endif /* ( ( configGENERATE_RUN_TIME_STATS == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) ) */
 /*-----------------------------------------------------------*/

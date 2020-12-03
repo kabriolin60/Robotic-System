@@ -24,7 +24,6 @@
 
 #include "0_Motors.h"
 
-extern QueueHandle_t _1_xQueue_Message_Receive; 				//Queue Recevant les messages des canaux de communication
 static long Nb_Messages_Interpretes = 0;
 
 static byte ID_Robot;	//Id du Robot sur lequel est monté cette carte
@@ -40,34 +39,7 @@ static byte ID_Robot;	//Id du Robot sur lequel est monté cette carte
  *****************************************************************************/
 void _2_Communication_RX_Init()
 {
-	//Tache de décodage des donnees messages reçus
-	xTaskCreate(_2_Communication_RX_Lectures_Messages, (char *) "1_Com_Lecture_RX", 150, _1_xQueue_Message_Receive, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-}
 
-
-/*****************************************************************************
- ** Function name:		_2_Communication_RX_Lectures_Messages
- **
- ** Descriptions:		Lecture des messages en reception
- **
- ** parameters:			None
- ** Returned value:		None
- **
- *****************************************************************************/
-static TO_AHBS_RAM3 struct Communication_Trame received_trame;
-__attribute__((optimize("O0"))) void _2_Communication_RX_Lectures_Messages(void *pvParameters)
-{
-	if(pvParameters == NULL)
-		Task_Delete_Current;
-
-	for(;;)
-	{
-		//Reception d'un message depuis une Queue
-		if(xQueueReceive(_1_xQueue_Message_Receive, &received_trame, portMAX_DELAY))
-		{
-			_2_Communication_Interprete_message(&received_trame);
-		}
-	}
 }
 
 

@@ -333,6 +333,7 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
  ** Returned value:		None
  **
  *****************************************************************************/
+const float delai_demande_info = 4.0f;
 void _2_Communication_Boards_Status(void* pvParameters)
 {
 	Init_Timing_Tache;
@@ -345,7 +346,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 	for(int i = 0; i < 4; i++)
 	{
 		_2_Comm_Send_PING(i+1, RS485_port);
-		Task_Delay_Until(5.0F);
+		Task_Delay_Until(delai_demande_info);
 	}
 
 
@@ -357,12 +358,12 @@ void _2_Communication_Boards_Status(void* pvParameters)
 		{
 			_2_Comm_Send_Demande_Info(i+1, RS485_port);
 
-			Task_Delay_Until(5.0F);
+			Task_Delay_Until(delai_demande_info);
 		}
 
 		//Envoi l'état de la carte IA
 		_2_Comm_Send_Info_Carte_IA(RS485_port);
-		Task_Delay_Until(5.0F);
+		Task_Delay_Until(delai_demande_info);
 
 		boucle++;
 
@@ -373,7 +374,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			for(int i = 0; i < 4; i++)
 			{
 				_2_Comm_Send_PING(i+1, RS485_port);
-				Task_Delay_Until(5.0F);
+				Task_Delay_Until(delai_demande_info);
 			}
 			boucle = 0;
 		}

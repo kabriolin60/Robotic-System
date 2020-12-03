@@ -477,7 +477,7 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 {
 	uint8_t ch;
 
-	Set_Debug_Pin_0_High();
+	//Set_Debug_Pin_0_High();
 
 	//Passe en TX
 	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
@@ -498,7 +498,7 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	//Passe en RX
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
-	Set_Debug_Pin_0_Low();
+	//Set_Debug_Pin_0_Low();
 }
 
 

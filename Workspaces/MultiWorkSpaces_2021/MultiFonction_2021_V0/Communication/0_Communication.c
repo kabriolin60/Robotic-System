@@ -46,17 +46,6 @@ RINGBUFF_T rxring_RS485;
 static TO_AHBS_RAM3 uint8_t rxbuff_RS485[RS485_RX_RB_SIZE];
 
 
-/* Receive ring buffer for USB*/
-#ifdef USE_USB
-RINGBUFF_T rxring_USB;
-
-/* Receive buffer for USB*/
-static TO_AHBS_RAM3 uint8_t rxbuff_USB[USB_RX_RB_SIZE];
-
-traceString MyChannel_RX_USB;
-#endif
-
-
 /* Transmit buffer */
 RINGBUFF_T txring;
 static TO_AHBS_RAM3 uint8_t txbuff[TX_RB_SIZE];
@@ -81,8 +70,6 @@ void _0_Communication_Init(void)
 	/* Tx ring Buffer Init */
 	RingBuffer_Init(&txring, txbuff, 1, TX_RB_SIZE);
 
-	_0_Communication_Init_USB();
-
 	_0_Communication_Init_RS485();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
@@ -100,29 +87,6 @@ void _0_Communication_Init(void)
 	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 100, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
-
-/*****************************************************************************
- ** Function name:		_0_Communication_Init_USB
- **
- ** Descriptions:		Fonction d'initialisation des actions de communication de l'USB
- **
- ** parameters:			None
- ** Returned value:		None
- **
- *****************************************************************************/
-void _0_Communication_Init_USB(void)
-{
-#ifdef USE_USB
-
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-	//Identifie l'interruption USB pour FreeRTOS+Trace
-	Trace_Timer_USB_Handle = xTraceSetISRProperties("ID_ISR_RX_USB", configUSB_INTERRUPT_PRIORITY);
-#endif
-
-	//Create USB rx Ring Buffer
-	RingBuffer_Init(&rxring_USB, rxbuff_USB, 1, USB_RX_RB_SIZE);
-#endif
-}
 
 
 /*****************************************************************************
@@ -244,61 +208,7 @@ void RS485_HANDLER_NAME(void)
  ** Returned value:		None
  **
  *****************************************************************************/
-extern USBD_HANDLE_T g_hUsb;
 
-void USB_IRQHandler(void)
-{
-#ifdef USE_USB
-	static bool already_flaged = pdFALSE;
-	BaseType_t pxHigherPriorityTaskWoken = false;
-#endif
-
-	//Trace tracking of ISR entry
-	vTraceStoreISRBegin(Trace_Timer_USB_Handle);
-
-	USBD_API->hw->ISR(g_hUsb);
-
-#ifdef USE_USB
-	uint32_t rdCnt = 0;
-	static uint8_t g_rxBuff[64];
-
-	if(RingBuffer_Count(&rxring_USB) <= 10)
-	{
-		already_flaged = pdFALSE;
-	}
-
-	//Lecture des données USB
-	rdCnt = vcom_bread(&g_rxBuff[0], 64);
-	if(rdCnt)
-	{
-		RingBuffer_InsertMult(&rxring_USB, &g_rxBuff[0], rdCnt);
-
-		//If received data count > 10, notify the reception task
-		if(RingBuffer_Count(&rxring_USB) > 10 && !already_flaged)
-		{
-			xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
-					eGROUP_SYNCH_USB_Rx_Data_Avail,		 /* The bits being set. */
-					&pxHigherPriorityTaskWoken);
-
-			already_flaged = pdTRUE;
-		}else if(RingBuffer_Count(&rxring_USB) >= USB_RX_RB_SIZE/2)
-		{
-			//Assure le coup en forçant un reset du Flag si la moitié du Buffer est atteinte
-			xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
-					eGROUP_SYNCH_USB_Rx_Data_Avail,		 /* The bits being set. */
-					&pxHigherPriorityTaskWoken);
-		}
-
-		//Force un changement de tache
-		portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
-	}
-	//Trace un user Event pour debug
-	vTracePrintF(MyChannel_RX_USB, "USB_Buff_usage = %d", RingBuffer_Count(&rxring_USB));
-#endif
-
-	//Trace tracking of ISR exit
-	vTraceStoreISREnd(0);
-}
 
 
 /*****************************************************************************
@@ -341,26 +251,6 @@ void _0_Communication_Send_Data(void *pvParameters)
 				//Envoi de la Datas sur le Canal concerné
 				switch(Message.canal_communication)
 				{
-#ifdef USE_USB
-				case USB_port:
-					//Au depart le nombre de datas à envoyer = nombre de data initial
-					length_remaining_to_send = Message.length;
-					while(length_remaining_to_send)
-					{
-						//Temps qu'il reste des datas à envoyer
-						//Prend un paquet de datas dans le buffer de TX, si >= 64, envoi 64 octets, sinon envoi le nombre de data restantes
-						RingBuffer_PopMult(&txring, &g_txBuff[0], length_remaining_to_send >= 64 ? 64 : length_remaining_to_send);
-
-						//Le message doit être envoyé par USB
-						_0_Communication_Send_USB(&g_txBuff[0], length_remaining_to_send >= 64 ? 64 : length_remaining_to_send);
-
-						//Mise à jour du nombre de datas à envoyer
-						length_remaining_to_send = RingBuffer_Count(&txring);
-						Task_Delay(0.5F);
-					}
-					break;
-#endif
-
 				case RS485_port:
 					_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
 					break;
@@ -411,26 +301,6 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	Set_Debug_Pin_0_Low();
-}
-
-
-/*****************************************************************************
- ** Function name:		_0_Communication_Send_USB
- **
- ** Descriptions:		Fonction d'envoi d'un message par USB
- **
- ** parameters:			Pointeur vers le buffer contenant des datas "uint8_t data[]"
- ** 					Nombre d'octets à envoyer
- ** Returned value:		None
- **
- *****************************************************************************/
-void _0_Communication_Send_USB(uint8_t *data, uint8_t length)
-{
-	if (vcom_connected())
-	{
-		vcom_write(data, length);
-		Task_Delay(1);
-	}
 }
 
 
