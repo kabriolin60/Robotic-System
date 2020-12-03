@@ -60,7 +60,10 @@ void _0_Communication_Init(void)
 
 	_0_Communication_Init_RS485();
 
-	_0_Communication_Init_XBEE();
+	if(static_BOARD_TYPE == TYPE_IA_BOARD)
+	{
+		_0_Communication_Init_XBEE();
+	}
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
 	_1_xQueue_Message_TO_Send = xQueueCreate( 5, sizeof( struct Communication_Message ));

@@ -98,7 +98,7 @@ Declaration des Reglages liés à la Communication
 #define XBEE_UART					LPC_UART2
 
 #define XBEE_IRQ_SELECTION 			UART2_IRQn
-#define XBEE_HANDLER_NAME 			UART2_IRQHandler
+#define XBEE_HANDLER_NAME 			/*static_BOARD_TYPE == TYPE_IA_BOARD? UART2_IRQHandler: */XBEE_HANDLER
 
 /**************************************************
 Declaration de l'adresse de la carte

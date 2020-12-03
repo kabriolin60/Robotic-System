@@ -86,6 +86,30 @@ void prvSetupHardware(uint8_t Use_LPCXPRESSO_BOARD){
 }
 
 
+void Set_Debug_Pin_0_High(void)
+{
+	Chip_GPIO_WritePortBit(LPC_GPIO, DEBUG_0_PORT, DEBUG_0_BIT, true);
+}
+
+
+void Set_Debug_Pin_0_Low(void)
+{
+	Chip_GPIO_WritePortBit(LPC_GPIO, DEBUG_0_PORT, DEBUG_0_BIT, false);
+}
+
+
+void Set_Debug_Pin_1_High(void)
+{
+	Chip_GPIO_WritePortBit(LPC_GPIO, DEBUG_1_PORT, DEBUG_1_BIT, true);
+}
+
+
+void Set_Debug_Pin_1_Low(void)
+{
+	Chip_GPIO_WritePortBit(LPC_GPIO, DEBUG_1_PORT, DEBUG_1_BIT, false);
+}
+
+
 
 void Common_Communication_Init(uint8_t Use_LPCXPRESSO_BOARD, uint8_t Carte_type)
 {
@@ -94,6 +118,16 @@ void Common_Communication_Init(uint8_t Use_LPCXPRESSO_BOARD, uint8_t Carte_type)
 
 	//CPU Init
 	prvSetupHardware(static_IS_LPCXPRESSO_BOARD);
+
+	/* Init Debug Output pins */
+	Chip_IOCON_PinMux(LPC_IOCON, DEBUG_0_PORT, DEBUG_0_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+	Chip_IOCON_PinMux(LPC_IOCON, DEBUG_1_PORT, DEBUG_1_BIT, IOCON_MODE_INACT, IOCON_FUNC0);
+
+	Chip_GPIO_WriteDirBit(LPC_GPIO, DEBUG_0_PORT, DEBUG_0_BIT, true);
+	Chip_GPIO_WriteDirBit(LPC_GPIO, DEBUG_1_PORT, DEBUG_1_BIT, true);
+
+	Set_Debug_Pin_0_Low();
+	Set_Debug_Pin_1_Low();
 
 	/* Init du Groupe d'event de synchronisation */
 	_0_Communication_Init_Event_Group();
