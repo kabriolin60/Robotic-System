@@ -96,12 +96,15 @@ public class TEST : MonoBehaviour
                 message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
                 message.Trame.Data = com.COPYDATA(data_test);
 
+
+                Decodeurs[0].Push_Message_Out(message);
+
                 //Decodeurs[0].Message_Received?.Invoke(message);
                 //Decodeurs[1].Received_Messages.Enqueue(message);
                 //Decodeurs[0].Received_Messages.Enqueue(message);
                 //Decodeurs[1].Received_Messages.Enqueue(message);
 
-                await Task.Delay(10);
+                await Task.Delay(150);
             }
         }));
     }

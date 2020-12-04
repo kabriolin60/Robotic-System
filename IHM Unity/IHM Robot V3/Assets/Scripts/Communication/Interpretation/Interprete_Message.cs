@@ -67,7 +67,7 @@ public class Interprete_Message : MonoBehaviour
 						//Pour chaque décodeur (chacun son tour)
 						//Enregistre pour le log
 						//compte le nombre de messages recus
-						Decodage_and_Save_Message(message);
+						Decodage_and_Save_Message(message, Decodeurs[i]);
 					}
 				}
 			}
@@ -77,12 +77,12 @@ public class Interprete_Message : MonoBehaviour
 
 
 
-	public void Decodage_and_Save_Message(Communication.Communication_Message message)
+	public void Decodage_and_Save_Message(Communication.Communication_Message message, Trame_Decoder decoder)
 	{
 		if (message == null)
 			return;
 		//Pour chaque décodeur (chacun son tour)
-		Decodage_Message(message);
+		Decodage_Message(message, decoder);
 
 		//Enregistre pour le log
 		Save_Message(message);
@@ -90,7 +90,7 @@ public class Interprete_Message : MonoBehaviour
 
 
 
-	public void Decodage_Message(Communication.Communication_Message message)
+	public void Decodage_Message(Communication.Communication_Message message, Trame_Decoder decoder)
 	{
 		if (message == null)
 			return;
@@ -125,6 +125,10 @@ public class Interprete_Message : MonoBehaviour
 
 			case Communication.Com_Instruction.GRAPHIQUES_ADD_DATA:
 				Decode_Graphique_Datas(message);
+				break;
+
+			case Communication.Com_Instruction.DEMANDE_INFO:
+				Decode_Demande_Info(message, decoder);
 				break;
 		}
 
@@ -234,4 +238,13 @@ public class Interprete_Message : MonoBehaviour
 		if (Graph_viewer != null)
 			Graph_viewer.GetComponent<Graphique>().Ajoute_Data(datas);
 	}
+
+
+	private void Decode_Demande_Info(Communication.Communication_Message message, Trame_Decoder decoder)
+    {
+		if(message.Trame.Slave_Adresse == Communication.Slave_Adresses.PC)
+        {
+			decoder.Allow_To_Send();
+        }
+    }
 }

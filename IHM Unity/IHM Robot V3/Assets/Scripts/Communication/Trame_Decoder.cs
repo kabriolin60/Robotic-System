@@ -84,6 +84,17 @@ public class Trame_Decoder : MonoBehaviour
 		//Aucun message à lire
 		return;
 	}
+
+
+	public void Push_Message_Out(Communication.Communication_Message message)
+    {
+		this.serialport.OutputMessages.Enqueue(message);
+	}
+
+	public void Allow_To_Send()
+    {
+		serialport.Allow_To_Send();
+	}
 }
 
 
@@ -210,8 +221,8 @@ public class Reception_Data
 		boucle = 0;
 		while (_SerialPort.Number_Byte_To_Read() < API_LENGTH - 1)
 		{
-			//boucle++;
-			if (boucle > 5)
+			boucle++;
+			if (boucle > 50)
 			{
 				Debug.Log($"_SerialPort.InputBuffer.Count < API_LENGTH - 1; boucle {_SerialPort.Number_Byte_To_Read()}/{API_LENGTH + 1}");
 				return null;
@@ -258,9 +269,8 @@ public class Reception_Data
 		boucle = 0;
 		while (_SerialPort.Number_Byte_To_Read() < received_message.Trame.Length + 1)
 		{
-			//boucle++;
-
-			if (boucle > 5)
+			boucle++;
+			if (boucle > 50)
 			{
 				Debug.Log("SerialPort.InputBuffer.Count < received_message.Trame.Length + 1; boucle");
 				return null;

@@ -14,7 +14,9 @@ public class Virtual_SerialPort : MonoBehaviour
     public int portSpeed;
     public int data_in_port_read_buffer = 0;
 
-    private List<byte> OutputBuffer = new List<byte>();  
+    private bool isAllowedToSend = false;
+    
+    public Queue<Communication.Communication_Message> OutputMessages = new Queue<Communication.Communication_Message>();
 
     private bool Comport_cancellationToken = false;
 
@@ -54,7 +56,19 @@ public class Virtual_SerialPort : MonoBehaviour
                 if (serialPort != null && serialPort.IsOpen)
                 {
                     port_opened = true;
-                    SendBytes(serialPort, OutputBuffer);
+
+                    if (this.isAllowedToSend)
+                    {
+                        byte boucle = 0;
+                        while (OutputMessages.Count > 0)
+                        {
+                            Send_Message(OutputMessages.Dequeue());                            
+                            boucle++;
+                            if (boucle > 5)
+                                break;
+                        }
+                        this.isAllowedToSend = false;
+                    }
                 }
                 else
                 {
@@ -67,6 +81,16 @@ public class Virtual_SerialPort : MonoBehaviour
             }
         }));
     }
+
+
+    private void Send_Message(Communication.Communication_Message message_to_Send)
+    {
+        List<byte> OutputBuffer = new List<byte>();
+
+        Sending_Data encoder = new Sending_Data();
+        SendBytes(serialPort, encoder.Send_Trame(message_to_Send));
+    }
+
 
     public void Connect(string name)
     {
@@ -122,24 +146,6 @@ public class Virtual_SerialPort : MonoBehaviour
         }
     }
 
-
-    private byte[] Read_Rx_Bytes(System.IO.Ports.SerialPort port)
-    {       
-        if(port == null || port.IsOpen == false)
-        {
-            return null;
-        }
-
-        //Receptions des datas	
-        int intBuffer;
-        intBuffer = port.BytesToRead;
-        byte[] byteBuffer = new byte[intBuffer];
-        port.Read(byteBuffer, 0, intBuffer);    
-
-        return byteBuffer;
-    }
-
-
     private void SendBytes(System.IO.Ports.SerialPort port, List<byte> datas)
     {
         if (port != null && port.IsOpen == false)
@@ -148,6 +154,20 @@ public class Virtual_SerialPort : MonoBehaviour
             byte[] datas_to_send = datas.ToArray();
             port.Write(datas_to_send, 0, datas_to_send.Length);
         }
+    }
+
+    private void SendBytes(System.IO.Ports.SerialPort port, byte[] datas)
+    {
+        if (port != null && port.IsOpen == true)
+        {
+            //S'il y a des infos à envoyer
+            port.Write(datas, 0, datas.Length);
+        }
+    }
+
+    public void Allow_To_Send()
+    {
+        this.isAllowedToSend = true;
     }
 
 

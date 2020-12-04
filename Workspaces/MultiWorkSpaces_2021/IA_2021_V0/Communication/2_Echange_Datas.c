@@ -365,6 +365,14 @@ void _2_Communication_Boards_Status(void* pvParameters)
 		_2_Comm_Send_Info_Carte_IA(RS485_port);
 		Task_Delay_Until(delai_demande_info);
 
+		//Demande les infos du PC s'il a des trucs à envoyer
+		if(boucle % 50 == 0)
+		{
+			//Toutes les 1 secondes
+			_2_Comm_Send_Demande_Info(PC, RS485_port);
+			Task_Delay_Until(delai_demande_info);
+		}
+
 		boucle++;
 
 		if(boucle == 1000)
