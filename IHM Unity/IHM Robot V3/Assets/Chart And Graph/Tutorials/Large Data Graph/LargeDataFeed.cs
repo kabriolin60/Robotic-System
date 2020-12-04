@@ -15,10 +15,20 @@ public partial class LargeDataFeed : MonoBehaviour, IComparer<DoubleVector2>
     double currentZoom = 0f;
     GraphChartBase graph;
     double mCurrentPageSizeFactor = double.NegativeInfinity;
+
+
+    public LargeDataFeed(string name)
+    {
+        this.Category = name;
+        graph = GetComponent<GraphChartBase>();
+        //SetInitialData();
+    }
+
+
     void Start()
     {
         graph = GetComponent<GraphChartBase>();
-        SetInitialData();
+        //SetInitialData();
     }
 
     /// <summary>
@@ -239,6 +249,13 @@ public partial class LargeDataFeed : MonoBehaviour, IComparer<DoubleVector2>
         if (x.x > y.x)
             return 1;
         return 0;
+    }
+
+
+    public void Add_Data(DoubleVector2 data)
+    {
+        mData.Add(data);
+        SetData(mData);
     }
 }
 

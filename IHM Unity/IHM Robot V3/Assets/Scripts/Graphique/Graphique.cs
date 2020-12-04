@@ -28,6 +28,8 @@ public partial class Graphique : MonoBehaviour
 
             //Puis ajoute-le au dictionnaire
             CategoryDictionnary.Add(id, name);
+
+            this.chart.gameObject.AddComponent<LargeDataFeed>().Category = name;
         }
     }
 
@@ -62,7 +64,16 @@ public partial class Graphique : MonoBehaviour
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.Datas[i].Data);            
+            //chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.Datas[i].Data);
+            var largedatassets = chart.GetComponents<LargeDataFeed>();
+            foreach(LargeDataFeed ldset in largedatassets)
+            {
+                if(ldset.Category == $"Channel_{channel_id}")
+                {
+                    //ldset.Add_Data(new DoubleVector2(position_X, datas.Datas[i].Data));
+                    break;
+                }
+            }
         }
 
         if (position_X > 200)
