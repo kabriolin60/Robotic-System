@@ -15,14 +15,20 @@ public class Test_Graphqiue : MonoBehaviour
     {
         data.Datas[0] = new Graphique.st_Graph_Data();
         data.Datas[1] = new Graphique.st_Graph_Data();
+        data.Datas[2] = new Graphique.st_Graph_Data();
+        data.Datas[3] = new Graphique.st_Graph_Data();
 
-        data.nb_datas_to_send = 2;
+        data.nb_datas_to_send = 4;
         data.Datas[0].Channel = 0;
-        data.Datas[1].Channel = 1;        
+        data.Datas[1].Channel = 1;
+        data.Datas[2].Channel = 2;
+        data.Datas[3].Channel = 3;
+
+        this.StartCoroutine(Add_Data());
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         data.Datas[0].Data = UnityEngine.Random.value * 1000;
         data.Datas[1].Data = UnityEngine.Random.value * 1000;
@@ -31,5 +37,22 @@ public class Test_Graphqiue : MonoBehaviour
         Graph.Ajoute_Data(data.Datas[1].Channel, X, data.Datas[1].Data);
 
         X++;
+    }*/
+
+    IEnumerator Add_Data()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(.01f);
+
+            data.Datas[0].Data = UnityEngine.Random.value * 1000;
+            data.Datas[1].Data = UnityEngine.Random.value * 1000;
+            data.Datas[2].Data = UnityEngine.Random.value * 1000;
+            data.Datas[3].Data = UnityEngine.Random.value * 1000;
+
+            Graph.Ajoute_Data(data, X);
+
+            X++;
+        }
     }
 }

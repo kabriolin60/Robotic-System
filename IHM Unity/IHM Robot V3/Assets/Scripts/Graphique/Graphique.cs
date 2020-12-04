@@ -22,7 +22,7 @@ public partial class Graphique : MonoBehaviour
         if (!CategoryDictionnary.TryGetValue(id, out found_name))
         {
             //crée-le
-            chart.DataSource.AddCategory(name, linematerial_Prefab, 4f, lineMaterialTiling_Prefab, infillMaterial_Prefab, true, pointMaterial_Prefab, 13f);
+            chart.DataSource.AddCategory(name, linematerial_Prefab, 4f, lineMaterialTiling_Prefab, infillMaterial_Prefab, false, pointMaterial_Prefab, 0f);
 
             //Puis ajoute-le au dictionnaire
             CategoryDictionnary.Add(id, name);
@@ -34,18 +34,43 @@ public partial class Graphique : MonoBehaviour
         //Check if this channel already exist or create it
         Create_New_Channel($"Channel_{channel_id}", channel_id);
 
-        chart.DataSource.StartBatch();
+        //chart.DataSource.StartBatch();
         //Then add the datas to this channel
         chart.DataSource.AddPointToCategoryRealtime($"Channel_{channel_id}", position_X, value);
 
         if (position_X > 200)
         {
             chart.DataSource.HorizontalViewOrigin++;
-            chart.DataSource.HorizontalViewSize++;
+            //chart.DataSource.HorizontalViewSize++;
+        }
+
+        //chart.DataSource.EndBatch();
+    }
+
+    public void Ajoute_Data(st_Graph_Datas datas, int position_X)
+    {
+        chart.DataSource.StartBatch();
+        byte channel_id;
+
+        for (byte i = 0; i < datas.nb_datas_to_send; i++)
+        {
+            channel_id = datas.Datas[i].Channel;
+
+            //Check if this channel already exist or create it
+            Create_New_Channel($"Channel_{channel_id}", channel_id);
+
+            //Then add the datas to this channel
+            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.Datas[i].Data);            
+        }
+
+        if (position_X > 200)
+        {
+            chart.DataSource.HorizontalViewOrigin++;
+            //chart.DataSource.HorizontalViewSize++;
         }
 
         chart.DataSource.EndBatch();
-    }   
+    }
 }
 
 public partial class Graphique
