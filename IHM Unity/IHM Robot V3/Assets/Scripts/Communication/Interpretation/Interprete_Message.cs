@@ -16,6 +16,7 @@ public class Interprete_Message : MonoBehaviour
 	File_Logger file_Logger;
 
 	private GameObject Action_History_go;
+	private GameObject Graph_viewer;
 
 
 	// Start is called before the first frame update
@@ -24,7 +25,7 @@ public class Interprete_Message : MonoBehaviour
 		Decodeurs = this.GetComponentsInChildren<Trame_Decoder>();
 		file_Logger = this.GetComponent<File_Logger>();
 
-		Last_Data_Received = this.GetComponent<Last_Infos>();		
+		Last_Data_Received = this.GetComponent<Last_Infos>();
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
@@ -33,14 +34,14 @@ public class Interprete_Message : MonoBehaviour
 
 
 	public void Add_Message_To_Queue(Communication.Communication_Message message)
-    {
-		if(Decodeurs[0] != null)
-        {
+	{
+		if (Decodeurs[0] != null)
+		{
 			Decodeurs[0].Pop_Message(message);
 		}
-    }
+	}
 
-	
+
 
 	IEnumerator Interpreteur_Message()
 	{
@@ -49,6 +50,8 @@ public class Interprete_Message : MonoBehaviour
 		//Identifie l'affichage de l'historique des actions, puis masque-le
 		Action_History_go = GameObject.FindWithTag("Action_History");
 		Action_History_go.SetActive(false);
+
+		Graph_viewer = GameObject.FindWithTag("Graph");
 
 		int nb_mess = 0;
 		Communication.Communication_Message message;
@@ -120,7 +123,11 @@ public class Interprete_Message : MonoBehaviour
 
 			case Communication.Com_Instruction.STRATEGIE_CHANGEMENT_ETAT:
 				Decode_Strategie_Changement_Etat(message);
-				break;			
+				break;
+
+			case Communication.Com_Instruction.GRAPHIQUES_ADD_DATA:
+				Decode_Graphique_Datas(message);
+				break;
 		}
 
 		//compte le nombre de messages recus
@@ -180,7 +187,7 @@ public class Interprete_Message : MonoBehaviour
 
 
 	private void Decode_Reponse_Info_IA(Communication.Communication_Message message)
-    {
+	{
 		Infos_Carte temp = new Infos_Carte();
 
 		//Interprete un message de type "Infos des cartes IA"
@@ -208,7 +215,7 @@ public class Interprete_Message : MonoBehaviour
 		Action_Strategie decoder = new Action_Strategie();
 		Action_Strategie.Action_Datas data = new Action_Strategie.Action_Datas();
 		//décompose les datas du message recu
-		data = decoder.Trame_To_Data(message.Trame);		
+		data = decoder.Trame_To_Data(message.Trame);
 
 		//Ajoute une ligne à l'historique des changements d'états de la Strategie
 		if (Action_History_go != null)
@@ -216,5 +223,18 @@ public class Interprete_Message : MonoBehaviour
 
 		//Met à jour le tableau avec l'ensemble des actions
 		Action_Liste.Update_Action(data);
+	}
+
+
+	private void Decode_Graphique_Datas(Communication.Communication_Message message)
+	{
+		Graphique decodeur = new Graphique();
+		Graphique.st_Graph_Datas datas = new Graphique.st_Graph_Datas();
+		//décompose les datas du message recu
+		datas = decodeur.Trame_To_Data(message.Trame);
+
+		//Ajoute les data au graphique
+		if (Graph_viewer != null)
+			Graph_viewer.GetComponent<Graphique>().Ajoute_Data(datas);
 	}
 }

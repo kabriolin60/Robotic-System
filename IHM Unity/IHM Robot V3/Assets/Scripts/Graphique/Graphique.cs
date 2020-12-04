@@ -14,6 +14,8 @@ public partial class Graphique : MonoBehaviour
 
     private Dictionary<byte, string> CategoryDictionnary = new Dictionary<byte, string>();
 
+    private int index_position_X;
+
 
     private void Create_New_Channel(string name, byte id)
     {
@@ -70,6 +72,11 @@ public partial class Graphique : MonoBehaviour
         }
 
         chart.DataSource.EndBatch();
+    }
+
+    public void Ajoute_Data(st_Graph_Datas datas)
+    {
+        Ajoute_Data(datas, index_position_X++);
     }
 }
 
