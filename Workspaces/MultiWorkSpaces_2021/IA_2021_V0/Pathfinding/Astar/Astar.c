@@ -13,7 +13,7 @@
 
 
 static struct Astar_Map Map;
-static /*TO_AHBS_RAM3*/ struct Astar_smoothing_vector Astar_Vector;
+static TO_AHBS_RAM3 struct Astar_smoothing_vector Astar_Vector;
 
 /*****************************************************************************
  ** Function name:		Astar_Map_Init

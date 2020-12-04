@@ -36,7 +36,7 @@ traceHandle Trace_Timer_RS485_Handle;
 
 /* Transmit and receive ring buffer sizes */
 #define TX_RB_SIZE 				128		/* Send */
-#define RS485_RX_RB_SIZE 		256		/* Receive RS485*/
+#define RS485_RX_RB_SIZE 		512		/* Receive RS485*/
 #define USB_RX_RB_SIZE 			128		/* Receive USB */
 
 
@@ -73,7 +73,7 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_RS485();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
-	_1_xQueue_Message_TO_Send = xQueueCreate( 5, sizeof( struct Communication_Message ));
+	_1_xQueue_Message_TO_Send = xQueueCreate( 10, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
@@ -174,6 +174,8 @@ void RS485_HANDLER_NAME(void)
 		already_flaged = pdTRUE;
 	}else if(RingBuffer_Count(&rxring_RS485) >= RS485_RX_RB_SIZE/2)
 	{
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
+
 		//Assure le coup en forçant un reset du Flag si la moitié du Buffer est atteinte
 		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
 				eGROUP_SYNCH_RS485_Rx_Data_Avail,		 /* The bits being set. */

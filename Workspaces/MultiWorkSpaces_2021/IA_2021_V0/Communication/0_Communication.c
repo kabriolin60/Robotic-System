@@ -28,7 +28,7 @@
 #include "0_Event_Group.h"
 
 /* FreeRTOS TRACE */
-#define ID_ISR_RX_RS485 1       // lowest valid ID is 1
+#define ID_ISR_RX_RS485 1       	// lowest valid ID is 1
 #define ID_ISR_RX_USB 	2       	// lowest valid ID is 1
 traceHandle Trace_Timer_USB_Handle;
 traceHandle Trace_Timer_RS485_Handle;
@@ -36,7 +36,7 @@ traceHandle Trace_Timer_RS485_Handle;
 
 /* Transmit and receive ring buffer sizes */
 #define TX_RB_SIZE 				128		/* Send */
-#define RS485_RX_RB_SIZE 		256		/* Receive RS485*/
+#define RS485_RX_RB_SIZE 		512		/* Receive RS485*/
 #define USB_RX_RB_SIZE 			128		/* Receive USB */
 
 
@@ -260,6 +260,9 @@ void RS485_HANDLER_NAME(void)
 		already_flaged = pdTRUE;
 	}else if(RingBuffer_Count(&rxring_RS485) >= RS485_RX_RB_SIZE/2)
 	{
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
+
+
 		//Assure le coup en forçant un reset du Flag si la moitié du Buffer est atteinte
 		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
 				eGROUP_SYNCH_RS485_Rx_Data_Avail,		 /* The bits being set. */
@@ -444,7 +447,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
 				if(Message.Data[0] == PING || Message.Data[8] == DEMANDE_INFO)
 				{
-					Task_Delay(1);
+					Task_Delay(2.5f);
 				}
 				break;
 

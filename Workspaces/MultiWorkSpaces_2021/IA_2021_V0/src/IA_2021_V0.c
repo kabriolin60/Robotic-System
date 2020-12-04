@@ -119,7 +119,7 @@ static void vTask_HartBeat(void *pvParameters) {
 
 
 #if configGENERATE_RUN_TIME_STATS == 1
-char task_stat[1024];
+char TO_AHBS_RAM3 task_stat[1024];
 static void vTask_Stats(void *pvParameters)
 {
 	Task_Delay(300000);
