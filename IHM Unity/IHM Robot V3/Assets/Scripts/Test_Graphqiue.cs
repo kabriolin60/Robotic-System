@@ -13,6 +13,9 @@ public class Test_Graphqiue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        data.Datas[0] = new Graphique.st_Graph_Data();
+        data.Datas[1] = new Graphique.st_Graph_Data();
+
         data.nb_datas_to_send = 2;
         data.Datas[0].Channel = 0;
         data.Datas[1].Channel = 1;        

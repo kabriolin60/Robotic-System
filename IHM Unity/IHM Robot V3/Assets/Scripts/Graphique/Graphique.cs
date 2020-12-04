@@ -34,8 +34,17 @@ public partial class Graphique : MonoBehaviour
         //Check if this channel already exist or create it
         Create_New_Channel($"Channel_{channel_id}", channel_id);
 
+        chart.DataSource.StartBatch();
         //Then add the datas to this channel
         chart.DataSource.AddPointToCategoryRealtime($"Channel_{channel_id}", position_X, value);
+
+        if (position_X > 200)
+        {
+            chart.DataSource.HorizontalViewOrigin++;
+            chart.DataSource.HorizontalViewSize++;
+        }
+
+        chart.DataSource.EndBatch();
     }   
 }
 
