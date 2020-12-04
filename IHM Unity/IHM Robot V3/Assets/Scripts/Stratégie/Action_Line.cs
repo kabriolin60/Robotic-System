@@ -17,22 +17,22 @@ public class Action_Line : MonoBehaviour
     public GameObject Text_Action_Temps_mini;
     public GameObject Text_Action_Temps_maxi;
 
-    private Action Action_Data;
+    private Action_Strategie Action_Data;
 
     // Start is called before the first frame update
     void Awake()
     {
-        Action_Data = new Action();
-        Action_Data.Datas = new Action.Action_Datas();
+        Action_Data = new Action_Strategie();
+        Action_Data.Datas = new Action_Strategie.Action_Datas();
     }
 
 
-    public void Update_Action(Action.Action_Datas data)
+    public void Update_Action(Action_Strategie.Action_Datas data)
     {
         if (Action_Data == null)
         {
-            Action_Data = new Action();
-            Action_Data.Datas = new Action.Action_Datas();
+            Action_Data = new Action_Strategie();
+            Action_Data.Datas = new Action_Strategie.Action_Datas();
         }
 
         Action_Data.Datas = data;
@@ -116,7 +116,7 @@ public class Action_Line : MonoBehaviour
 }
 
 
-public class Action
+public class Action_Strategie
 {
     public enum Action_State: byte
     {

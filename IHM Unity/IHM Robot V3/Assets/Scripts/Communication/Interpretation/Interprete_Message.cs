@@ -205,8 +205,8 @@ public class Interprete_Message : MonoBehaviour
 
 	private void Decode_Strategie_Changement_Etat(Communication.Communication_Message message)
 	{
-		Action decoder = new Action();
-		Action.Action_Datas data = new Action.Action_Datas();
+		Action_Strategie decoder = new Action_Strategie();
+		Action_Strategie.Action_Datas data = new Action_Strategie.Action_Datas();
 		//décompose les datas du message recu
 		data = decoder.Trame_To_Data(message.Trame);		
 

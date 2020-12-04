@@ -38,7 +38,7 @@ public class Action_Liste : MonoBehaviour
     }
 
 
-    public static void Update_Action(Action.Action_Datas data)
+    public static void Update_Action(Action_Strategie.Action_Datas data)
     {
         Action_Line updated_line;
         if (!Dictionnaire_Action.TryGetValue(data.ID, out updated_line))

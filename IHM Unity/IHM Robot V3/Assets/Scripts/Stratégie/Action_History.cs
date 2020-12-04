@@ -7,7 +7,7 @@ public class Action_History : MonoBehaviour
     public GameObject Action_Viewer;
     public GameObject Action_Line_Prefab;
 
-    public void Update_Action(Action.Action_Datas data)
+    public void Update_Action(Action_Strategie.Action_Datas data)
     {
         GameObject new_action = Instantiate(Action_Line_Prefab, Action_Viewer.transform) as GameObject;
 
