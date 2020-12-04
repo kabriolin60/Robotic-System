@@ -16,7 +16,7 @@ public class Interprete_Message : MonoBehaviour
 	File_Logger file_Logger;
 
 	private GameObject Action_History_go;
-	private GameObject Graph_viewer;
+	public GameObject Graph_viewer;
 
 
 	// Start is called before the first frame update
@@ -50,8 +50,6 @@ public class Interprete_Message : MonoBehaviour
 		//Identifie l'affichage de l'historique des actions, puis masque-le
 		Action_History_go = GameObject.FindWithTag("Action_History");
 		Action_History_go.SetActive(false);
-
-		Graph_viewer = GameObject.FindWithTag("Graph");
 
 		int nb_mess = 0;
 		Communication.Communication_Message message;
@@ -228,10 +226,9 @@ public class Interprete_Message : MonoBehaviour
 
 	private void Decode_Graphique_Datas(Communication.Communication_Message message)
 	{
-		Graphique decodeur = new Graphique();
 		Graphique.st_Graph_Datas datas = new Graphique.st_Graph_Datas();
 		//décompose les datas du message recu
-		datas = decodeur.Trame_To_Data(message.Trame);
+		datas = Graph_viewer.GetComponent<Graphique>().Trame_To_Data(message.Trame);
 
 		//Ajoute les data au graphique
 		if (Graph_viewer != null)

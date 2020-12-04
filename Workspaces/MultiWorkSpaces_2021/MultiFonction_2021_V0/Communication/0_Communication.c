@@ -223,44 +223,37 @@ void RS485_HANDLER_NAME(void)
 
 void _0_Communication_Send_Data(void *pvParameters)
 {
-
 	static struct Communication_Message Message;
 	static uint8_t g_txBuff[TX_RB_SIZE];
-#ifdef USE_USB
-	byte length_remaining_to_send = 0;
-#endif
 
 	Task_Delay(5);
 
 	while (1)
 	{
-#ifdef TYPE_CARTE_MULTIFCT
 		//Attente de l'autorisation d'envoyer un message par la Carte IA
 		_0_Communication_Wait_Sending_Clearance();
 
 		//Une fois l'autorisation accordée, envoi tous les messages dans la pile
 		while( xQueueReceive( pvParameters, &Message, 0 ) == pdPASS )
-#else
-			if( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
-#endif
+		{
+			//Un message est pret à être envoyé
+			//L'ajouter au Txring Buffer
+			RingBuffer_InsertMult(&txring, &Message.Data[0], (int)Message.length);
+
+			//Envoi de la Datas sur le Canal concerné
+			switch(Message.canal_communication)
 			{
-				//Un message est pret à être envoyé
-				//L'ajouter au Txring Buffer
-				RingBuffer_InsertMult(&txring, &Message.Data[0], (int)Message.length);
+			case RS485_port:
+				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
+				Task_Delay(0.1f);
+				break;
 
-				//Envoi de la Datas sur le Canal concerné
-				switch(Message.canal_communication)
-				{
-				case RS485_port:
-					_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
-					break;
-
-				default:
-					//Dans le doute, vide le buffer de TX de tout ce qu'il contient
-					RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
-					break;
-				}
+			default:
+				//Dans le doute, vide le buffer de TX de tout ce qu'il contient
+				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
+				break;
 			}
+		}
 	}
 }
 
@@ -320,7 +313,7 @@ void _0_Communication_Wait_Sending_Clearance(void)
 			eGROUP_SYNCH_TxClearance, /* The bits within the event group to wait for. */
 			pdTRUE,        /* Clear bits before returning. */
 			pdTRUE,        /* Wait for ALL bits to be set */
-			ms_to_tick(30) );/* Wait a maximum of xTicksToWait for either bit to be set. */
+			portMAX_DELAY/*ms_to_tick(30)*/ );/* Wait a maximum of xTicksToWait for either bit to be set. */
 }
 
 

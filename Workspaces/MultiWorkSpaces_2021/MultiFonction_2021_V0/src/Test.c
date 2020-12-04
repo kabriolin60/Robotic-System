@@ -210,7 +210,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	//xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -222,7 +222,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 void Test_Task_Graphique(void* pvParameter)
 {
-	Task_Delay(500);
+	Task_Delay(3000);
 	Init_Timing_Tache;
 
 	struct st_Graph_Datas Datas_To_Plot;
@@ -254,19 +254,19 @@ void Test_Task_Graphique(void* pvParameter)
 
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne*100;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value*100;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne*100;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value*100;
 		channel++;/**/
 
 

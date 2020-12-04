@@ -13,16 +13,16 @@ public class Test_Graphqiue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        data.Datas[0] = new Graphique.st_Graph_Data();
-        data.Datas[1] = new Graphique.st_Graph_Data();
-        data.Datas[2] = new Graphique.st_Graph_Data();
-        data.Datas[3] = new Graphique.st_Graph_Data();
+        data.datas.Datas[0] = new Graphique.st_Graph_Data();
+        data.datas.Datas[1] = new Graphique.st_Graph_Data();
+        data.datas.Datas[2] = new Graphique.st_Graph_Data();
+        data.datas.Datas[3] = new Graphique.st_Graph_Data();
 
-        data.nb_datas_to_send = 4;
-        data.Datas[0].Channel = 0;
-        data.Datas[1].Channel = 1;
-        data.Datas[2].Channel = 2;
-        data.Datas[3].Channel = 3;
+        data.datas.nb_datas_to_send = 4;
+        data.datas.Datas[0].Channel = 0;
+        data.datas.Datas[1].Channel = 1;
+        data.datas.Datas[2].Channel = 2;
+        data.datas.Datas[3].Channel = 3;
 
         this.StartCoroutine(Add_Data());
     }
@@ -45,10 +45,10 @@ public class Test_Graphqiue : MonoBehaviour
         {
             yield return new WaitForSeconds(.01f);
 
-            data.Datas[0].Data = UnityEngine.Random.value * 1000;
-            data.Datas[1].Data = UnityEngine.Random.value * 1000;
-            data.Datas[2].Data = UnityEngine.Random.value * 1000;
-            data.Datas[3].Data = UnityEngine.Random.value * 1000;
+            data.datas.Datas[0].Data = (int)(UnityEngine.Random.value * 1000);
+            data.datas.Datas[1].Data = (int)(UnityEngine.Random.value * 1000);
+            data.datas.Datas[2].Data = (int)(UnityEngine.Random.value * 1000);
+            data.datas.Datas[3].Data = (int)(UnityEngine.Random.value * 1000);
 
             Graph.Ajoute_Data(data, X);
 

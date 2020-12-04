@@ -16,7 +16,7 @@ public partial class Graphique : MonoBehaviour
 
     private int index_position_X;
 
-
+ 
     private void Create_New_Channel(string name, byte id)
     {
         string found_name;
@@ -29,7 +29,7 @@ public partial class Graphique : MonoBehaviour
             //Puis ajoute-le au dictionnaire
             CategoryDictionnary.Add(id, name);
 
-            this.chart.gameObject.AddComponent<LargeDataFeed>().Category = name;
+            //this.chart.gameObject.AddComponent<LargeDataFeed>().Category = name;
         }
     }
 
@@ -38,7 +38,6 @@ public partial class Graphique : MonoBehaviour
         //Check if this channel already exist or create it
         Create_New_Channel($"Channel_{channel_id}", channel_id);
 
-        //chart.DataSource.StartBatch();
         //Then add the datas to this channel
         chart.DataSource.AddPointToCategoryRealtime($"Channel_{channel_id}", position_X, value);
 
@@ -47,8 +46,6 @@ public partial class Graphique : MonoBehaviour
             chart.DataSource.HorizontalViewOrigin++;
             //chart.DataSource.HorizontalViewSize++;
         }
-
-        //chart.DataSource.EndBatch();
     }
 
     public void Ajoute_Data(st_Graph_Datas datas, int position_X)
@@ -56,27 +53,21 @@ public partial class Graphique : MonoBehaviour
         chart.DataSource.StartBatch();
         byte channel_id;
 
-        for (byte i = 0; i < datas.nb_datas_to_send; i++)
+        for (byte i = 0; i < datas.datas.nb_datas_to_send; i++)
         {
-            channel_id = datas.Datas[i].Channel;
+
+            //Debug.Log($"Graph Add: Channel {datas.datas.Datas[i].Channel}, pos: {position_X}, value: {(float)(datas.datas.Datas[i].Data) / 100}");
+
+            channel_id = datas.datas.Datas[i].Channel;
 
             //Check if this channel already exist or create it
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            //chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.Datas[i].Data);
-            var largedatassets = chart.GetComponents<LargeDataFeed>();
-            foreach(LargeDataFeed ldset in largedatassets)
-            {
-                if(ldset.Category == $"Channel_{channel_id}")
-                {
-                    //ldset.Add_Data(new DoubleVector2(position_X, datas.Datas[i].Data));
-                    break;
-                }
-            }
+            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);           
         }
 
-        if (position_X > 200)
+        if (position_X > chart.DataSource.HorizontalViewSize)
         {
             chart.DataSource.HorizontalViewOrigin++;
             //chart.DataSource.HorizontalViewSize++;
@@ -96,30 +87,44 @@ public partial class Graphique
     /**************************************************
 Declaration de la definition de la Structure contenant les valeurs à afficher dans le graphique
  **************************************************/
+    const byte Nb_Max_Graph_Data = 7;
     [StructLayout(LayoutKind.Sequential)]
-    public class st_Graph_Data
+    public struct st_Graph_Data
     {
         [MarshalAs(UnmanagedType.U1)]
         public byte Channel;
 
-        [MarshalAs(UnmanagedType.R4)]
-        public float Data;
+        [MarshalAs(UnmanagedType.I4)]
+        public int Data;
+    };
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct st_Graph_Data_temp
+    {
+        [MarshalAs(UnmanagedType.U1)]
+        public byte nb_datas_to_send;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Nb_Max_Graph_Data)]
+        public st_Graph_Data[] Datas;
     };
 
     [StructLayout(LayoutKind.Sequential)]
     public class st_Graph_Datas
     {
-        [MarshalAs(UnmanagedType.U1)]
-        public byte nb_datas_to_send;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
-        public st_Graph_Data[] Datas = new st_Graph_Data[12];
-    };
+        [MarshalAs(UnmanagedType.Struct)]
+        public st_Graph_Data_temp datas;
+    }
 
 
     public st_Graph_Datas Trame_To_Data(Communication.Communication_Trame input_trame)
     {
         st_Graph_Datas output = new st_Graph_Datas();
+
+        output.datas = new st_Graph_Data_temp();
+        output.datas.Datas = new st_Graph_Data[Nb_Max_Graph_Data];
+
+        for (int i = 0; i < Nb_Max_Graph_Data; i++)
+            output.datas.Datas[i] = new st_Graph_Data();
 
         output = (st_Graph_Datas)Communication.GetStructFromArray<st_Graph_Datas>(input_trame.Data);
         return output;

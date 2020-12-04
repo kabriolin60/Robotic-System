@@ -221,7 +221,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	Message_To_Send.canal_communication = canal;
 
 	//Envoi de la trame
-	if(xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
+	if(xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(50)))
 	{
 		//Libère le bit de synchro pour pouvoir envoyer un autre message
 		_1_Communication_Free_Send_Bit();
