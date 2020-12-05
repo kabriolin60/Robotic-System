@@ -10,6 +10,8 @@ public class Virtual_SerialPort : MonoBehaviour
 
     public bool port_opened = false;
 
+    public bool wait_for_Sending_Clearance;
+
     public string portName;
     public int portSpeed;
     public int data_in_port_read_buffer = 0;
@@ -59,7 +61,7 @@ public class Virtual_SerialPort : MonoBehaviour
                 {
                     port_opened = true;
 
-                    if (this.isAllowedToSend)
+                    if (this.isAllowedToSend ||!wait_for_Sending_Clearance)
                     {
                         byte boucle = 0;
                         while (OutputMessages.Count > 0)

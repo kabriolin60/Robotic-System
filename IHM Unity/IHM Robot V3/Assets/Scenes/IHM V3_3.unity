@@ -33326,7 +33326,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000012050335254, guid: 44c162440cb5f1842bcb040f8fb66783, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000012050335254, guid: 44c162440cb5f1842bcb040f8fb66783, type: 3}
       propertyPath: m_Layer
@@ -36812,6 +36812,7 @@ GameObject:
   - component: {fileID: 1556134660}
   - component: {fileID: 1556134659}
   - component: {fileID: 1556134658}
+  - component: {fileID: 1556134662}
   m_Layer: 11
   m_Name: GraphChart
   m_TagString: Untagged
@@ -37062,9 +37063,25 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 35.057, y: 24.2}
+  m_AnchoredPosition: {x: 35.056885, y: 24.199951}
   m_SizeDelta: {x: -72.50659, y: -53.179688}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1556134662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556134656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc21a745b760064c816e20fb5a7f709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMargin: 5
+  ZoomSpeed: 20
+  MaxViewSize: 10
+  MinViewSize: 0.1
 --- !u!1 &1559140811
 GameObject:
   m_ObjectHideFlags: 43
@@ -47606,7 +47623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2068627797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48489,7 +48506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Board Type
+  m_text: Port selection
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
