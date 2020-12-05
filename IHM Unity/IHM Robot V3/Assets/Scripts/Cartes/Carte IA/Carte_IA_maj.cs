@@ -15,6 +15,7 @@ public class Carte_IA_maj : MonoBehaviour
 	public GameObject LED_Red;
 	public GameObject LED_Yellow;
 	public GameObject LED_Green;
+	public GameObject Tension_Batterie;
 
 	public void MaJ_Carte(Infos_Carte.Com_Reponse_Info_IA infos)
 	{
@@ -29,6 +30,12 @@ public class Carte_IA_maj : MonoBehaviour
 		LED_Red.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00001000) > 0 ? true : false);
 		LED_Yellow.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00010000) > 0 ? true : false);
 		LED_Green.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00100000) > 0 ? true : false);
+
+		float tension_batterie = Last_Infos.Robots_Last_Info[(int)(infos.Numero_Robot)].Get_Last_Infos(0).Tension_Batterie;
+
+		tension_batterie /= 100;
+
+		Tension_Batterie.GetComponent<TextMeshProUGUI>().text = $"{tension_batterie}V";
 	}
 }
 
