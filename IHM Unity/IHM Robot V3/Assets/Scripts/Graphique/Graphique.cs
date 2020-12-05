@@ -14,6 +14,8 @@ public partial class Graphique : MonoBehaviour
 
     private Dictionary<byte, string> CategoryDictionnary = new Dictionary<byte, string>();
 
+    private List<List<Vector2>> Data_Historique = new List<List<Vector2>>();
+
     private int index_position_X;
 
  
@@ -29,11 +31,12 @@ public partial class Graphique : MonoBehaviour
             //Puis ajoute-le au dictionnaire
             CategoryDictionnary.Add(id, name);
 
-            //this.chart.gameObject.AddComponent<LargeDataFeed>().Category = name;
+            //Ajoute une serie de data dans la liste
+            Data_Historique.Add(new List<Vector2>());
         }
     }
 
-    public void Ajoute_Data(byte channel_id, int position_X, float value)
+    /*public void Ajoute_Data(byte channel_id, int position_X, float value)
     {
         //Check if this channel already exist or create it
         Create_New_Channel($"Channel_{channel_id}", channel_id);
@@ -41,12 +44,17 @@ public partial class Graphique : MonoBehaviour
         //Then add the datas to this channel
         chart.DataSource.AddPointToCategoryRealtime($"Channel_{channel_id}", position_X, value);
 
+     this.Data_Historique[channel_id].Add(value);
+
+            if (this.Data_Historique[channel_id].Count > chart.DataSource.HorizontalViewSize)
+                this.Data_Historique[channel_id].RemoveAt(0);
+
         if (position_X > 200)
         {
             chart.DataSource.HorizontalViewOrigin++;
             //chart.DataSource.HorizontalViewSize++;
         }
-    }
+    }*/
 
     public void Ajoute_Data(st_Graph_Datas datas, int position_X)
     {
@@ -55,7 +63,6 @@ public partial class Graphique : MonoBehaviour
 
         for (byte i = 0; i < datas.datas.nb_datas_to_send; i++)
         {
-
             //Debug.Log($"Graph Add: Channel {datas.datas.Datas[i].Channel}, pos: {position_X}, value: {(float)(datas.datas.Datas[i].Data) / 100}");
 
             channel_id = datas.datas.Datas[i].Channel;
@@ -64,13 +71,27 @@ public partial class Graphique : MonoBehaviour
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);  
+            //chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);
+
+            //ajoute les datas
+            this.Data_Historique[channel_id].Add(new Vector2(position_X, (float)(datas.datas.Datas[i].Data) / 100));
+
+            if (this.Data_Historique[channel_id].Count > chart.DataSource.HorizontalViewSize)
+                this.Data_Historique[channel_id].RemoveAt(0);
+
+            //efface la catégorie
+            chart.DataSource.ClearCategory($"Channel_{channel_id}");
+
+            //dessine les nouvelles datas
+            foreach(Vector2 vect in this.Data_Historique[channel_id])
+            {
+                chart.DataSource.AddPointToCategoryRealtime($"Channel_{channel_id}", vect.x, vect.y);
+            }
         }
 
         if (position_X > chart.DataSource.HorizontalViewSize)
         {
             chart.DataSource.HorizontalViewOrigin++;
-            //chart.DataSource.HorizontalViewSize++;
         }
 
         chart.DataSource.EndBatch();
@@ -84,7 +105,10 @@ public partial class Graphique : MonoBehaviour
 
     public void Ajoute_Data(st_Graph_Datas datas)
     {
-        this.StartCoroutine(Interpreteur_Message(datas));
+        Ajoute_Data(datas, index_position_X++);
+
+        /*if (chart.gameObject.activeSelf)
+            this.StartCoroutine(Interpreteur_Message(datas));*/
     }
 }
 

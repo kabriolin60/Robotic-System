@@ -28,7 +28,7 @@ public partial class LargeDataFeed : MonoBehaviour, IComparer<DoubleVector2>
     void Start()
     {
         graph = GetComponent<GraphChartBase>();
-        //SetInitialData();
+        SetInitialData();
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public partial class LargeDataFeed : MonoBehaviour, IComparer<DoubleVector2>
         List<DoubleVector2> data = new List<DoubleVector2>(250000);
         double x = 0f;
         double y = 200f;
-        for (int i = 0; i < 25000; i++)    // initialize with random data
+        for (int i = 0; i < 250000; i++)    // initialize with random data
         {
             data.Add(new DoubleVector2(x, y));
             y += UnityEngine.Random.value * 10f - 5f;
