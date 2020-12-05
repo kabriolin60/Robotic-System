@@ -50,6 +50,8 @@ public class Virtual_SerialPort : MonoBehaviour
                 await Task.Delay(100);
             }
 
+
+
             Logger_New_Line.Log("Serial Port:" + serialPort.PortName + " Opened! Starting sending!", 6, Color.black);
             while (true)
             {
@@ -73,7 +75,7 @@ public class Virtual_SerialPort : MonoBehaviour
                 else
                 {
                     port_opened = false;
-                    await Task.Delay(20);
+                    await Task.Delay(1);
                 }
 
                 if (Comport_cancellationToken)

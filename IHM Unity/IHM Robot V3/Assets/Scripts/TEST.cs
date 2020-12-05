@@ -86,7 +86,7 @@ public class TEST : MonoBehaviour
 
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(5000);
+            await Task.Delay(15000);
 
 
             for (int i = 0; i < 4000; i++)

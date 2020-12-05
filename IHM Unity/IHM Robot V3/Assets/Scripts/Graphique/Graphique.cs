@@ -64,7 +64,7 @@ public partial class Graphique : MonoBehaviour
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);           
+            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);  
         }
 
         if (position_X > chart.DataSource.HorizontalViewSize)
@@ -76,9 +76,15 @@ public partial class Graphique : MonoBehaviour
         chart.DataSource.EndBatch();
     }
 
-    public void Ajoute_Data(st_Graph_Datas datas)
+    IEnumerator Interpreteur_Message(st_Graph_Datas datas)
     {
         Ajoute_Data(datas, index_position_X++);
+        yield return null;
+    }
+
+    public void Ajoute_Data(st_Graph_Datas datas)
+    {
+        this.StartCoroutine(Interpreteur_Message(datas));
     }
 }
 
