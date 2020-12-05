@@ -42,6 +42,14 @@ public class Envoi_Commandes : MonoBehaviour
         trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
         GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
+
+        if (!power)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
+            }
+        }
     }
 
 

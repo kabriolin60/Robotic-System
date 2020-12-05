@@ -53,7 +53,7 @@ public class Consignes_Deplacement
         if (Destination_Theta.text != "") coord.Angle = short.Parse(Destination_Theta.text, culture); coord.Angle *= 100;
 
         if (Vitesse_Roue_Gauche.text != "") coord.Vitesse_Roue_Gauche = short.Parse(Vitesse_Roue_Gauche.text, culture);
-        if (Vitesse_Roue_Droite.text != "") coord.Vitesse_Roue_Gauche = short.Parse(Vitesse_Roue_Droite.text, culture);
+        if (Vitesse_Roue_Droite.text != "") coord.Vitesse_Roue_Droite = short.Parse(Vitesse_Roue_Droite.text, culture);
 
         coord.Type_Deplacement = (enum_TYPE_MOVE_)FindChildByRecursion(deplacement_panel.transform, "type deplacement").GetComponent<TMP_Dropdown>().value;
         coord.Type_Arret = (enum_TYPE_ARRET_)FindChildByRecursion(deplacement_panel.transform, "Freinage").GetComponent<TMP_Dropdown>().value;
@@ -100,8 +100,7 @@ public class Consignes_Deplacement
         tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
         deplacement_libre,           //Permet de faire des tests en déplacement linéaires
         rotation_libre,              //Permet de faire des tests en rotaion
-        consigne_vitesse_independantes,
-        consigne_vitesse_combinees
+        consigne_vitesse_independantes //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
     };
 
     /*************************************************/

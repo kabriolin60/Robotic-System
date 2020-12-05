@@ -38,15 +38,13 @@ public partial class Graphique : MonoBehaviour
 
         for (byte i = 0; i < datas.datas.nb_datas_to_send; i++)
         {
-            //Debug.Log($"Graph Add: Channel {datas.datas.Datas[i].Channel}, pos: {position_X}, value: {(float)(datas.datas.Datas[i].Data) / 100}");
-
             channel_id = datas.datas.Datas[i].Channel;
 
             //Check if this channel already exist or create it
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data)/100);           
+            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data));           
         }
 
         if (position_X > chart.DataSource.HorizontalViewSize)
@@ -75,8 +73,8 @@ public partial class Graphique
         [MarshalAs(UnmanagedType.U1)]
         public byte Channel;
 
-        [MarshalAs(UnmanagedType.I4)]
-        public int Data;
+        [MarshalAs(UnmanagedType.R4)]
+        public float Data;
     };
 
     [StructLayout(LayoutKind.Sequential)]

@@ -550,7 +550,7 @@ Declaration de la definition de la Structure contenant les valeurs à afficher d
 struct st_Graph_Data
 {
 	byte Channel;
-	long Data;
+	float Data;
 };
 
 struct st_Graph_Datas

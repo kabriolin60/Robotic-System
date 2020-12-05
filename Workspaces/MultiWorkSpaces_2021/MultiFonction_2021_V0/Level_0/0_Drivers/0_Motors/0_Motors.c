@@ -123,6 +123,9 @@ __attribute__((optimize("O0"))) void _0_Set_Motor_PWM_Value(LPC_TIMER_T *pTMP, i
 	if(matchvalue < 5)
 		matchvalue = 0;
 
+	if(MOTOR_POWER_ENABLE == false)
+		matchvalue = 0;
+
 	value = matchvalue * pTMP->MR[2];//pTMP->PR; //Le compteur [2] correspond à la reference 100% de PWM
 	value /= 100;
 

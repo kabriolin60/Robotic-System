@@ -233,41 +233,33 @@ void Test_Task_Graphique(void* pvParameter)
 		Task_Delay_Until(20);
 		channel = 0;
 
-
-		/*Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Consigne;
+		Datas_To_Plot.Datas[channel].Channel = channel;
+		Datas_To_Plot.Datas[channel].Data = _1_Get_prt_PID_Vit_Gauche()->Current_Value;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = _1_Get_prt_PID_Vit_Droite()->Current_Value;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Rot()->Consigne;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Rot()->Current_Value;
-		channel++;*/
-
-
-
-		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne*100;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value*100;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne*100;
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value*100;
-		channel++;/**/
-
+		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value;
+		channel++;
 
 		Datas_To_Plot.nb_datas_to_send = channel;
 		_2_Comm_Send_Graph(&Datas_To_Plot, RS485_port);
@@ -282,7 +274,7 @@ void TEST_PID_Tunning(void* pvParameter)
 	//disable asserv level 2
 	_2_Disable_Asserv();
 
-/*
+	/*
 	//Init PID en vitesse
 	struct st_pid_filter* ptr_PID_Vitesse_Position = _1_Asserv_GetPtr_PID_Vit_Pos();
 	struct st_pid_filter* ptr_PID_Vitesse_Rotation = _1_Asserv_GetPtr_PID_Vit_Rot();

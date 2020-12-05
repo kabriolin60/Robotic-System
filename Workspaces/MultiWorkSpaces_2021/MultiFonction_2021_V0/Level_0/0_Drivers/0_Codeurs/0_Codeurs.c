@@ -91,8 +91,11 @@ struct Codeurs_Values _0_Codeurs_Get_CodeursValues()
  *****************************************************************************/
 void _0_Codeurs_Increment_Simulation(long increment_D, long increment_G)
 {
-	Valeurs_Codeurs.Codeur_Droit += increment_D;
-	Valeurs_Codeurs.Codeur_Gauche += increment_G;
+	if(_0_Get_Motor_Power() == true)
+	{
+		Valeurs_Codeurs.Codeur_Droit += increment_D;
+		Valeurs_Codeurs.Codeur_Gauche += increment_G;
+	}
 }
 
 
