@@ -33,6 +33,8 @@ public class File_Logger : MonoBehaviour
 
     public float Reading_Speed = 1.0F;
 
+    public int Nb_Lines_Read = 0;
+
     public void Save_Data_Select_File_Button_OnClick()
     {
         /*
@@ -297,7 +299,15 @@ public class File_Logger : MonoBehaviour
                 await Task.Delay((int)(delay.TotalMilliseconds / Reading_Speed));
 
                 //interprete ce message
-                Interpreter.Add_Message_To_Queue(message);
+                try
+                {
+                    Interpreter.Add_Message_To_Queue(message);
+                }
+                catch
+                {
+                }
+
+                Nb_Lines_Read++;
 
                 last_hour = message.Heure;
 
@@ -370,6 +380,19 @@ public class Serialized_Datas
 
     public void Add_Data(Communication.Communication_Message message_to_add)
     {
+        if(message_to_add.Trame.Data.Length != Communication.COMMUNICATION_TRAME_MAX_DATA)
+        {
+            
+            byte[] new_data = new byte[Communication.COMMUNICATION_TRAME_MAX_DATA];
+            for(int index = 0; index < message_to_add.Trame.Data.Length; index++)
+            {
+                new_data[index] = message_to_add.Trame.Data[index];
+            }
+
+            message_to_add.Trame.Data = new_data;
+        }
+
+
         messages.Add(message_to_add);
         Nombre_Messages = messages.Count;
     }

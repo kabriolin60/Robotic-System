@@ -6,6 +6,16 @@ using UnityEngine;
 
 public class Envoi_Commandes : MonoBehaviour
 {
+    public void FixedUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Envoi_Emergency_Stop();
+        }
+    }
+
+
+
     public void Envoi_Commande_Simulation(bool simu)
     {
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
