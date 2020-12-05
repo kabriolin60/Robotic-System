@@ -19,7 +19,7 @@
 #include "task.h"
 
 #define MAJOR_RELEASE "4"
-#define MINOR_RELEASE "2a"
+#define MINOR_RELEASE "3a"
 
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso

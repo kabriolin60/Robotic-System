@@ -311,7 +311,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	//While we didn't reach the destination point
 	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
-		Set_Debug_Pin_0_High();
+		//Set_Debug_Pin_0_High();
 
 		/*
 		 * Step 1: Init the Map
@@ -426,7 +426,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 
 		//Astar_Debug_Display_Map(Astar_Get_Map());
-		Set_Debug_Pin_0_Low();
+		//Set_Debug_Pin_0_Low();
 		/*
 		 * Step 6: Wait for the next Astar Loop
 		 */

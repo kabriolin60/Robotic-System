@@ -318,12 +318,12 @@ void _1_Asserv_Boucle_Asserv_Vitesse_Polaire(void *pvParameters)
 	prev_Codeur_Droit = Valeurs_Codeurs.Codeur_Droit;
 	prev_Codeur_Gauche = Valeurs_Codeurs.Codeur_Gauche;
 
-	//Mise à jour des current Value des PID
+	//Mise à jour des current Value du PID en position
 	PID_update_Current_Value(&PID_Vitesse_Position, deplacement_distance);
 	//Execute le PID d'asserv en vitesse POSITION
 	pid_do_filter2(&PID_Vitesse_Position);
 
-	//Execute le PID d'asserv en vitesse ROTATION
+	//Mise à jour des current Value du PID en rotation
 	PID_update_Current_Value(&PID_Vitesse_Rotation, deplacement_Droit - deplacement_Gauche);
 	//Execute le PID d'asserv en vitesse ROTATION
 	pid_do_filter2(&PID_Vitesse_Rotation);

@@ -76,7 +76,7 @@ struct st_ROBOT_PARAMETRES
 	float COEF_D;
 	float COEF_CORRECTION_DIAMETRES;
 
-	byte Coef_Multiplicateur_Periode_asserv;	//0 = 1ms, 1 = 2ms, 2 = 3ms...
+	//byte Coef_Multiplicateur_Periode_asserv;	//0 = 1ms, 1 = 2ms, 2 = 3ms...
 
 	byte SIMULATION;		//Indique si les déplacements sont en simulation ou en réel
 

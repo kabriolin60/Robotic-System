@@ -20,12 +20,6 @@ public class Envoi_PID : MonoBehaviour
     public Toggle Enable;
 
     public PID_Id ID;
-    
-    private GameObject Communication_port;
-
-    CultureInfo culture = CultureInfo.CreateSpecificCulture("en-GB");
-
-
 
 
     [StructLayout(LayoutKind.Sequential)]
@@ -75,12 +69,12 @@ public class Envoi_PID : MonoBehaviour
 
         pid.id = ID;
 
-        if (coef_P.text != "") pid.P = float.Parse(coef_P.text, culture);
-        if (coef_I.text != "") pid.I = float.Parse(coef_I.text, culture);
-        if (coef_D.text != "") pid.D = float.Parse(coef_D.text, culture);
+        if (coef_P.text != "") pid.P = float.Parse(coef_P.text, Common_settings.culture);
+        if (coef_I.text != "") pid.I = float.Parse(coef_I.text, Common_settings.culture);
+        if (coef_D.text != "") pid.D = float.Parse(coef_D.text, Common_settings.culture);
 
-        if (Max_Min.text != "") pid.Min_Max = (byte)float.Parse(Max_Min.text, culture);
-        if (Cumul.text != "") pid.Cumul = (short)float.Parse(Cumul.text, culture);
+        if (Max_Min.text != "") pid.Min_Max = (byte)float.Parse(Max_Min.text, Common_settings.culture);
+        if (Cumul.text != "") pid.Cumul = (short)float.Parse(Cumul.text, Common_settings.culture);
 
         if(Sommation.isOn)
         {

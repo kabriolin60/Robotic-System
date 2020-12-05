@@ -16,7 +16,6 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	newparameters.COEF_D = 29.05F;	//29.2F
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = -0.0027F;	//-0.0018
-	newparameters.Coef_Multiplicateur_Periode_asserv = 9;	//(9+1)*1 = 10ms
 	newparameters.SIMULATION = 1;
 	newparameters._1_Odometrie_Type_Asserv = Polaire_Tourne_Avance_point_unique;
 	_1_Odometrie_Set_Parameters(&newparameters);
@@ -210,7 +209,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	//xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -231,7 +230,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(5);
+		Task_Delay_Until(20);
 		channel = 0;
 
 

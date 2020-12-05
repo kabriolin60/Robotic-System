@@ -386,6 +386,7 @@ enum enum_TYPE_MOVE_
 	tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
 	deplacement_libre,           //Permet de faire des tests en déplacement linéaires
 	rotation_libre,              //Permet de faire des tests en rotaion
+	consigne_vitesse_independantes  //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
 };
 
 /*************************************************/
@@ -428,6 +429,9 @@ struct st_COORDONNEES
 	short Y;                     //coordonnee Y
 	short Angle;                 //angle pour les rotations vers un cap absolu * 100
 	short Distance;              //Indique la distance a parcourir pour les deplacements en distance libre, ou le rayon des cercles
+
+	short Vitesse_Roue_Gauche;
+	short Vitesse_Roue_Droite;
 
 	enum enum_TYPE_MOVE_ Type_Deplacement; 	//choix du type de deplacement
 

@@ -169,7 +169,6 @@ void Test_Calibration_Odometrie(void * pvParameter)
 	newparameters.COEF_D = 29.05F;	//29.2F
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = 0.0F;	//-0.0027
-	newparameters.Coef_Multiplicateur_Periode_asserv = 9;	//(9+1)*1 = 10ms
 	newparameters.SIMULATION = 0;
 
 	newparameters._1_Odometrie_Type_Asserv = Vitesse_D_G__Distance_Angle;

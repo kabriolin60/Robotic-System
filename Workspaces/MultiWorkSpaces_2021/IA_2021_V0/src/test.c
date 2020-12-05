@@ -85,7 +85,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	Astar_Debug_Display_Map(Astar_Get_Map());
 	 */
 
-	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 

@@ -98,6 +98,10 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		break;
 
 
+	case PARAMETRES_ODOMETRIE:
+		_2_Comm_RX_Odometrie(trame);
+		break;
+
 	case PARAMETRES_PID:
 		_2_Communication_RX_Parametres_PID(trame);
 		break;
@@ -147,10 +151,52 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 		_2_Asservissement_DestinationBuffer_Clear();
 
 	//Add this new destination in the buffer
-	_2_Deplacement_Ajout_Point(&dest.coord);
+	if(dest.coord.Type_Deplacement != consigne_vitesse_independantes)
+	{
+		//Deplacement en coordonnées ou distance / angle
+		_2_Deplacement_Ajout_Point(&dest.coord);
+
+		//Dans ce cas, force un deplacement en type vitesse
+		struct st_ROBOT_PARAMETRES* newparameters;
+		newparameters = _1_Odometrie_Get_Parameters();
+		newparameters->_1_Odometrie_Type_Asserv = Polaire_Tourne_Avance_point_unique;
+		_1_Odometrie_Set_Parameters(newparameters);
+
+	}else
+	{
+		//Deplacement en vitesse uniquement
+		PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
+		PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
+
+		//Dans ce cas, force un deplacement en type vitesse
+		struct st_ROBOT_PARAMETRES* newparameters;
+		newparameters = _1_Odometrie_Get_Parameters();
+		newparameters->_1_Odometrie_Type_Asserv = Vitesse_Droite_Vitesse_Gauche_Indep;
+		_1_Odometrie_Set_Parameters(newparameters);
+	}
 
 	if(dest.Replace)
 		_2_Asservissement_Read_Next_Desti_Point_extern();
+}
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Odometrie
+ **
+ ** Descriptions:		Receive a set of parameter for odometrie
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Odometrie(struct Communication_Trame* datas)
+{
+	struct st_ROBOT_PARAMETRES newparameters;
+
+	COPYDATA2(datas->Data, newparameters);
+
+	_1_Odometrie_Set_Parameters(&newparameters);
 }
 
 
