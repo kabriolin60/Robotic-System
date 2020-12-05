@@ -108,17 +108,6 @@ public class Envoi_PID : MonoBehaviour
         trame.Instruction = Communication.Com_Instruction.PARAMETRES_PID;
         trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
-        /*
-        int size = Marshal.SizeOf(pid);
-        byte[] arr = new byte[size];
-
-        IntPtr ptr = Marshal.AllocHGlobal(size);
-        Marshal.StructureToPtr(pid, ptr, true);
-        Marshal.Copy(ptr, arr, 0, size);
-        Marshal.FreeHGlobal(ptr);
-        trame.Data = arr;
-        trame.Length = (byte)size;     */   
-
         GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
     }
 }
