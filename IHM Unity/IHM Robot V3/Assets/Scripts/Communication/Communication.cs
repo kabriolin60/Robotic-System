@@ -7,8 +7,8 @@ using System;
 [Serializable]
 public class Communication
 {
-    #region Definition messages de communication
-    public enum Com_Instruction : byte
+	#region Definition messages de communication
+	public enum Com_Instruction : byte
 	{
 		//Destination Robot
 		DESTINATION_ROBOT = 0,
@@ -60,7 +60,7 @@ public class Communication
 		DEFINITION_ID_ROBOT = 34,       //Permet à la carte ID de donner l'ID du robot sur les autres cartes
 		DEMANDE_INFO = 35,
 		REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
-		REPONSE_INFO_IA,				//Toutes les infos de la carte IA
+		REPONSE_INFO_IA,                //Toutes les infos de la carte IA
 
 		//Power
 		DEMANDE_MOTEURS_POWER = 38,
@@ -164,12 +164,12 @@ public class Communication
 
 	[Serializable]
 	public class Communication_Message
-    {
+	{
 		public Communication_Trame Trame;
 		public DateTime Heure;
 
 		public Communication_Message()
-        {
+		{
 			Trame = new Communication_Trame();
 			Heure = DateTime.Now;
 		}
@@ -225,6 +225,27 @@ public class Communication
 		}
 	}
 
-    #endregion    
+	/*
+		* Conversion d'une structure de donnée en tableau de byte
+		*/
+	public static Communication_Trame GetArrayFromStruct<T>(T data) where T : class
+    {
+		int size = Marshal.SizeOf(data);
+		byte[] arr = new byte[size];
+
+		IntPtr ptr = Marshal.AllocHGlobal(size);
+		Marshal.StructureToPtr(data, ptr, true);
+		Marshal.Copy(ptr, arr, 0, size);
+		Marshal.FreeHGlobal(ptr);
+
+		Communication.Communication_Trame trame = new Communication.Communication_Trame();
+
+		trame.Data = arr;
+		trame.Length = (byte)size;
+
+		return trame;
+	}
+
+	#endregion
 }
 

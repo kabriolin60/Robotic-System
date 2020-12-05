@@ -45,7 +45,7 @@ public class Interprete_Message : MonoBehaviour
 
 	IEnumerator Interpreteur_Message()
 	{
-		yield return new WaitForSeconds(.01f);
+		yield return new WaitForSeconds(.1f);
 
 		//Identifie l'affichage de l'historique des actions, puis masque-le
 		Action_History_go = GameObject.FindWithTag("Action_History");
@@ -137,7 +137,7 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-	private void Save_Message(Communication.Communication_Message message)
+	public void Save_Message(Communication.Communication_Message message)
 	{
 		file_Logger.Write_Logging_Data(message);
 	}

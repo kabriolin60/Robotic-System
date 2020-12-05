@@ -79,11 +79,15 @@ public class TEST : MonoBehaviour
         //this.StartCoroutine("test_logger_quantity");
         //this.StartCoroutine(test_logger_saver());
 
-        Trame_Decoder[] Decodeurs = Communication_GO.GetComponentsInChildren<Trame_Decoder>();
+
+        Trame_Decoder[] encoder = Communication_GO.GetComponentsInChildren<Trame_Decoder>();
+
+
 
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            await Task.Delay(5000);            
+            await Task.Delay(5000);
+
 
             for (int i = 0; i < 4000; i++)
             {
@@ -97,12 +101,7 @@ public class TEST : MonoBehaviour
                 message.Trame.Data = com.COPYDATA(data_test);
 
 
-                Decodeurs[0].Push_Message_Out(message);
-
-                //Decodeurs[0].Message_Received?.Invoke(message);
-                //Decodeurs[1].Received_Messages.Enqueue(message);
-                //Decodeurs[0].Received_Messages.Enqueue(message);
-                //Decodeurs[1].Received_Messages.Enqueue(message);
+                encoder[0].Push_Message_Out(message);
 
                 await Task.Delay(150);
             }
