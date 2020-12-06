@@ -23,7 +23,7 @@
 
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
-//#define TYPE_CARTE_IA
+#define TYPE_CARTE_IA
 
 #ifdef CARTE_LPCXPRESSO
 //#define USE_USB

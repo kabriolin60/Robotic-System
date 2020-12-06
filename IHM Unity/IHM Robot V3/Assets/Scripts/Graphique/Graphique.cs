@@ -12,7 +12,9 @@ public partial class Graphique : MonoBehaviour
     public Material infillMaterial_Prefab;
     public Material pointMaterial_Prefab;
 
-    private Dictionary<byte, string> CategoryDictionnary = new Dictionary<byte, string>();
+    public Dictionary<byte, string> CategoryDictionnary = new Dictionary<byte, string>();
+
+    public List<List<Vector2>> Data_Historique = new List<List<Vector2>>(); 
 
     private int index_position_X;
  
@@ -23,17 +25,20 @@ public partial class Graphique : MonoBehaviour
         if (!CategoryDictionnary.TryGetValue(id, out found_name))
         {
             //crée-le
-            chart.DataSource.AddCategory(name, linematerial_Prefab, 4f, lineMaterialTiling_Prefab, infillMaterial_Prefab, false, pointMaterial_Prefab, 0f);
+            if (chart.gameObject.activeSelf) chart.DataSource.AddCategory(name, linematerial_Prefab, 4f, lineMaterialTiling_Prefab, infillMaterial_Prefab, false, pointMaterial_Prefab, 0f);
 
             //Puis ajoute-le au dictionnaire
             CategoryDictionnary.Add(id, name);
+
+            Data_Historique.Add(new List<Vector2>());
         }
     }
     
 
     public void Ajoute_Data(st_Graph_Datas datas, int position_X)
     {
-        chart.DataSource.StartBatch();
+        if (chart.gameObject.activeSelf) chart.DataSource.StartBatch();
+
         byte channel_id;
 
         for (byte i = 0; i < datas.datas.nb_datas_to_send; i++)
@@ -44,15 +49,21 @@ public partial class Graphique : MonoBehaviour
             Create_New_Channel($"Channel_{channel_id}", channel_id);
 
             //Then add the datas to this channel
-            chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, (float)(datas.datas.Datas[i].Data));           
+            if(chart.gameObject.activeSelf)  chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.datas.Datas[i].Data);
+
+            //And to the history
+            Data_Historique[channel_id].Add(new Vector2(position_X, datas.datas.Datas[i].Data));
         }
 
-        if (position_X > chart.DataSource.HorizontalViewSize)
+        if (chart.gameObject.activeSelf)
         {
-            chart.DataSource.HorizontalViewOrigin++;
-        }
+            if (position_X > chart.DataSource.HorizontalViewSize)
+            {
+                chart.DataSource.HorizontalViewOrigin++;
+            }
 
-        chart.DataSource.EndBatch();
+            chart.DataSource.EndBatch();
+        }
     }
 
     public void Ajoute_Data(st_Graph_Datas datas)

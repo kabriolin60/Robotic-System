@@ -279,7 +279,7 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 		_0_Set_Motor_PWM_Value(LPC_TIMER2, 1, fabsf(consigne_perc_moteur_Droit));
 
 		//Applique le sens de rotation aux moteurs
-		_0_Set_Motor_Direction(consigne_perc_moteur_Gauche >= 0 ? false : true, consigne_perc_moteur_Droit >= 0 ? true : false);
+		_0_Set_Motor_Direction(consigne_perc_moteur_Gauche >= 0 ? true : false, consigne_perc_moteur_Droit >= 0 ? false : true);
 	}else
 	{
 		//Mise à jour des codeurs virtuels pour la simulation

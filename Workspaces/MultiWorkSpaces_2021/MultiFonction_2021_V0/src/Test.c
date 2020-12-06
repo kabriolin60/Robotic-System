@@ -230,7 +230,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(20);
+		Task_Delay_Until(5);
 		channel = 0;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
