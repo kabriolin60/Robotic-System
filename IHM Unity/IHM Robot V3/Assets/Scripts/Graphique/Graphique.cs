@@ -52,7 +52,14 @@ public partial class Graphique : MonoBehaviour
             if(chart.gameObject.activeSelf)  chart.DataSource.AddPointToCategory($"Channel_{channel_id}", position_X, datas.datas.Datas[i].Data);
 
             //And to the history
-            Data_Historique[channel_id].Add(new Vector2(position_X, datas.datas.Datas[i].Data));
+            try
+            {
+                Data_Historique[channel_id].Add(new Vector2(position_X, datas.datas.Datas[i].Data));
+            }
+            catch
+            {
+
+            }
         }
 
         if (chart.gameObject.activeSelf)

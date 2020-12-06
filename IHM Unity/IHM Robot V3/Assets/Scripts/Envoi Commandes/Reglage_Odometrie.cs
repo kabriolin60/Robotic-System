@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Reglage_Odometrie : MonoBehaviour
+public class Reglage_Odometrie: MonoBehaviour
 {
     internal static Transform FindChildByRecursion(Transform aParent, string aName)
     {

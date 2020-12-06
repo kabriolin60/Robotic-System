@@ -91,6 +91,8 @@ void _2_Asservissement_Distance_Angle(void *pvParameters);
 
 void _2_Asservissement_Distance_Angle_Avec_Vitesse(void);
 
+bool _2_Asservissement_Tourne_Vers_Cap(struct st_COORDONNEES * destination, struct st_POSITION_ROBOT * Current_Robot_Position, struct st_Parametre_Deplacement * Param_Depla, struct st_ROBOT_PARAMETRES * Param_Odometrie);
+
 bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, struct st_POSITION_ROBOT * Current_Robot_Position, struct st_Parametre_Deplacement * Param_Depla, struct st_ROBOT_PARAMETRES * Param_Odometrie);
 
 

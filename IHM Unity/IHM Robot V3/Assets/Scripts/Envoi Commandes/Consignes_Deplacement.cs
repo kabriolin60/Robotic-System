@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Consignes_Deplacement
 {
-    CultureInfo culture = CultureInfo.CreateSpecificCulture("en-GB");
     internal static Transform FindChildByRecursion(Transform aParent, string aName)
     {
         if (aParent == null) return null;
@@ -47,13 +46,20 @@ public class Consignes_Deplacement
         st_DESTINATION_ROBOT dest = new st_DESTINATION_ROBOT();
 
 
-        if (Destination_X.text != "") coord.X = short.Parse(Destination_X.text, culture);
-        if (Destination_Y.text != "") coord.Y = short.Parse(Destination_Y.text, culture);
-        if (Destination_Distance.text != "") coord.Distance = short.Parse(Destination_Distance.text, culture);
-        if (Destination_Theta.text != "") coord.Angle = short.Parse(Destination_Theta.text, culture); coord.Angle *= 100;
+        if (Destination_X.text != "") coord.X = short.Parse(Destination_X.text, Common_settings.culture);
+        if (Destination_Y.text != "") coord.Y = short.Parse(Destination_Y.text, Common_settings.culture);
+        if (Destination_Distance.text != "") coord.Distance = short.Parse(Destination_Distance.text, Common_settings.culture);
 
-        if (Vitesse_Roue_Gauche.text != "") coord.Vitesse_Roue_Gauche = short.Parse(Vitesse_Roue_Gauche.text, culture);
-        if (Vitesse_Roue_Droite.text != "") coord.Vitesse_Roue_Droite = short.Parse(Vitesse_Roue_Droite.text, culture);
+        if (Destination_Theta.text != "")
+        {
+            float temp_ang = float.Parse(Destination_Theta.text, Common_settings.culture); 
+            temp_ang *= 100;
+            coord.Angle = (short)temp_ang;
+        }
+         
+
+        if (Vitesse_Roue_Gauche.text != "") coord.Vitesse_Roue_Gauche = short.Parse(Vitesse_Roue_Gauche.text, Common_settings.culture);
+        if (Vitesse_Roue_Droite.text != "") coord.Vitesse_Roue_Droite = short.Parse(Vitesse_Roue_Droite.text, Common_settings.culture);
 
         coord.Type_Deplacement = (enum_TYPE_MOVE_)FindChildByRecursion(deplacement_panel.transform, "type deplacement").GetComponent<TMP_Dropdown>().value;
         coord.Type_Arret = (enum_TYPE_ARRET_)FindChildByRecursion(deplacement_panel.transform, "Freinage").GetComponent<TMP_Dropdown>().value;
