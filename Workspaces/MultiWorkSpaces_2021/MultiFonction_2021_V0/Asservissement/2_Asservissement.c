@@ -261,26 +261,140 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 	{
 		Task_Delay_Until(PERIODE_PID_DISTANCE_ANGLE);
 
+		switch(Current_Destination.Type_Deplacement)
+		{
+		case rotation_libre:
+			//Not yet implemented
+			//TODO
+			break;
+
+		case deplacement_libre:
+			//Not yet implemented
+			//TODO
+			break;
 
 
+		case consigne_vitesse_independantes:
+			//Pas d'asserv de niveau 2 dans ce cas
+			break;
+
+		default:
+		case aucun_mouvement:
+			//On est arrivée ou alors aucun mouvement n'est demandé, alors on s'arrete
+
+			//Mise à jour des consignes en distance et en angle
+			_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
+			_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
+
+			Deplacement_Distance.Coef = 0;
+			Deplacement_Rotation.Coef = 0;
+
+			//Gestion des accelerations et freinages
+			Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), depla_AVEC_freinage);
+			Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), depla_AVEC_freinage);
+
+			//Effectue le calcul des PID
+			pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
+			pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
+
+			//La sortie de ces PIDs corresponds à des consignes en vitesses (distance et Rotation)
+			//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
+			_2_Update_PID_Vitesse_Consignes(_2_Asserv_GetPtr_PID_Pos()->Commande, _2_Asserv_GetPtr_PID_Rot()->Commande);
+
+			//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
+			_1_Update_PID_Consigne_Vitesse_Roue_Gauche(0);
+			_1_Update_PID_Consigne_Vitesse_Roue_Droite(0);
+
+			_2_Asservissement_Read_Next_Desti_Point(&rb_Deplacement, &Current_Destination);
+			break;
 
 
+		case xy_tour_av_avant:            //Déplacement standard en marche avant
+		case xy_tour_av_arriere:          //Déplacement standard en marche arriere
+			//Asservissement polaire sur des coordonnées
+
+			//Récupère la position actuelle du Robot
+			Current_Robot_Position = _1_Odometrie_GetRobot_Position();
+
+			//Asservissement vers le point cible (Rotation puis deplacement)
+			if(Current_Destination.Type_Deplacement == xy_tour_av_avant || Current_Destination.Type_Deplacement == xy_tour_av_arriere)
+			{
+				Arrive = _2_Asservissement_Rotation_Avance(&Current_Destination, &Current_Robot_Position, &Current_Destination.ptrParameters, _1_Odometrie_Get_Parameters());
+			}
+
+			//Si on est arrivé, lecture du prochain point de destination
+			if(Arrive)
+			{
+				//On est arrivée ou alors aucun mouvement n'est demandé, alors on s'arrete
+
+				//Mise à jour des consignes en distance et en angle
+				_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
+				_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
+
+				Deplacement_Distance.Coef = 0;
+				Deplacement_Rotation.Coef = 0;
+
+				//Gestion des accelerations et freinages
+				Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), depla_AVEC_freinage);
+				Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), depla_AVEC_freinage);
+
+				//Effectue le calcul des PID
+				pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
+				pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
+
+				_2_Asservissement_Read_Next_Desti_Point(&rb_Deplacement, &Current_Destination);
+			}else
+			{
+				/*
+				 * Step 2: Calcule les rampes de vitesses
+				 */
+
+				//Dans ce mode d'asserv, les current Values des PID distance et angles doivent être à 0
+				PID_update_Current_Value(_2_Asserv_GetPtr_PID_Pos(), 0);
+				PID_update_Current_Value(_2_Asserv_GetPtr_PID_Rot(), 0);
+
+				//Gestion des accelerations et freinages
+				Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), Current_Destination.Type_Arret);
+				Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), Current_Destination.Type_Arret);
+
+				/*
+				 * Step 3: Asservissement sur les erreurs en distances et en angle
+				 */
+
+				//Effectue le calcul des PID
+				pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
+				pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
+
+				//La sortie de ces PIDs corresponds à des consignes en vitesses (distance et Rotation)
+			}
 
 
+			/*
+			 * Step 4: Envoyer les consignes de vitesse aux moteurs en fonction du type d'asserv de niveau 1
+			 */
+			switch(_1_Odometrie_Get_Parameters()->_1_Odometrie_Type_Asserv)
+			{
+			default:
+			case Polaire_Tourne_Avance_point_unique:
+				_2_Update_PID_Vitesse_Consignes(_2_Asserv_GetPtr_PID_Pos()->Commande, _2_Asserv_GetPtr_PID_Rot()->Commande);
+				break;
 
+			case Vitesse_Droite_Vitesse_Gauche_Indep:
+				//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
+				_1_Update_PID_Consigne_Vitesse_Roue_Gauche(_2_Asserv_GetPtr_PID_Pos()->Commande - _2_Asserv_GetPtr_PID_Rot()->Commande);
+				_1_Update_PID_Consigne_Vitesse_Roue_Droite(_2_Asserv_GetPtr_PID_Pos()->Commande + _2_Asserv_GetPtr_PID_Rot()->Commande);
 
+			case Vitesse_D_G__Distance_Angle:
+				//TODO
+				break;
 
+			case Moteurs_Aux:
+				//Pas d'asserv ici pour les moteurs aux
+				break;
+			}
+		}
 
-
-
-
-
-
-
-
-
-
-
+		/*
 		switch(_1_Odometrie_Get_Parameters()->_1_Odometrie_Type_Asserv)
 		{
 		case Polaire_Tourne_Avance_point_unique:
@@ -336,6 +450,7 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 		default:
 			break;
 		}
+		 */
 	}
 }
 
@@ -424,23 +539,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 		Erreur_Angle += PI;
 		if(Erreur_Angle > PI) Erreur_Angle -= 2*PI;
 		if(Erreur_Angle < -PI) Erreur_Angle += 2*PI;
-
 		break;
-
-	case aucun_mouvement:
-		//Mise à jour des consignes en distance et en angle
-		_2_Asservissement_Set_Distance_Displacement_Consign(0); // en pas
-		_2_Asservissement_Set_Rotation_Displacement_Consign(0); // en pas
-
-		//Effectue le calcul des PID
-		pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
-		pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
-
-		//La sortie de ces PIDs corresponds à des consignes en vitesses (distance et Rotation)
-
-		//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
-		_2_Update_PID_Vitesse_Consignes(_2_Asserv_GetPtr_PID_Pos()->Commande, _2_Asserv_GetPtr_PID_Rot()->Commande);
-		return false;
 
 	default:
 		break;
@@ -540,33 +639,6 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 			Deplacement_Rotation.Coef = 1;
 		}
 	}
-
-
-	/*
-	 * Step 2: Calcule les rampes de vitesses
-	 */
-
-	//Dans ce mode d'asserv, les current Values des PID distance et angles doivent être à 0
-	PID_update_Current_Value(_2_Asserv_GetPtr_PID_Pos(), 0);
-	PID_update_Current_Value(_2_Asserv_GetPtr_PID_Rot(), 0);
-
-	//Gestion des accelerations et freinages
-	Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), destination->Type_Arret);
-	Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), destination->Type_Arret);
-
-	/*
-	 * Step 3: Asservissement sur les erreurs en distances et en angle
-	 */
-
-	//Effectue le calcul des PID
-	pid_do_filter(_2_Asserv_GetPtr_PID_Pos());
-	pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
-
-	//La sortie de ces PIDs corresponds à des consignes en vitesses (distance et Rotation)
-
-	//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
-	_2_Update_PID_Vitesse_Consignes(_2_Asserv_GetPtr_PID_Pos()->Commande, _2_Asserv_GetPtr_PID_Rot()->Commande);
-
 	return arrive;
 }
 

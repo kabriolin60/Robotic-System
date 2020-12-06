@@ -72,11 +72,9 @@ Declaration de la definition de la Structure contenant les caracteristiques du r
 
 struct st_ROBOT_PARAMETRES
 {
-	float COEF_ROT;
 	float COEF_D;
+	float COEF_ROT;
 	float COEF_CORRECTION_DIAMETRES;
-
-	//byte Coef_Multiplicateur_Periode_asserv;	//0 = 1ms, 1 = 2ms, 2 = 3ms...
 
 	byte SIMULATION;		//Indique si les déplacements sont en simulation ou en réel
 
@@ -94,8 +92,8 @@ struct st_Codeurs
 	long Codeur_Gauche;                                  //valeur lue du codeur gauche
 	long Codeur_Droit;                                   //valeur lue du codeur droit
 
-	int Codeur_Moteur_1;                                 //valeur lue du codeur du moteur 3
-	int Codeur_Moteur_2;                                 //valeur lue du codeur du moteur 4
+	long Codeur_Moteur_1;                                //valeur lue du codeur du moteur 3
+	long Codeur_Moteur_2;                                //valeur lue du codeur du moteur 4
 
 	float Coef_Correction_codeur_Gauche;                 //coef permetant de corriger des defauts de position/diametre des roues codeuses
 	float Coef_Correction_codeur_Droit;                  //coef permetant de corriger des defauts de position/diametre des roues codeuses

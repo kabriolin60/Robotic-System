@@ -150,11 +150,21 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 	if(dest.Replace)
 		_2_Asservissement_DestinationBuffer_Clear();
 
+
+	_2_Deplacement_Ajout_Point(&dest.coord);
+
+	if(dest.coord.Type_Deplacement == consigne_vitesse_independantes)
+	{
+		PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
+		PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
+	}
+
+
 	//Add this new destination in the buffer
 	if(dest.coord.Type_Deplacement != consigne_vitesse_independantes)
 	{
 		//Deplacement en coordonnées ou distance / angle
-		_2_Deplacement_Ajout_Point(&dest.coord);
+		//_2_Deplacement_Ajout_Point(&dest.coord);
 
 		//Dans ce cas, force un deplacement en type vitesse
 		/*struct st_ROBOT_PARAMETRES* newparameters;
@@ -165,8 +175,8 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 	}else
 	{
 		//Deplacement en vitesse uniquement
-		PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
-		PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
+		//PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
+		//PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
 
 		//Dans ce cas, force un deplacement en type vitesse
 		/*struct st_ROBOT_PARAMETRES* newparameters;
