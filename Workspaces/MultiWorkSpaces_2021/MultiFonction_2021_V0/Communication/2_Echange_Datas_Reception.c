@@ -136,7 +136,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
  **
  ** Descriptions:		Receive a Robot destination
  **
- ** parameters:			Recieved message
+ ** parameters:			Received message
  ** Returned value:		None
  **
  *****************************************************************************/
@@ -157,10 +157,10 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 		_2_Deplacement_Ajout_Point(&dest.coord);
 
 		//Dans ce cas, force un deplacement en type vitesse
-		struct st_ROBOT_PARAMETRES* newparameters;
+		/*struct st_ROBOT_PARAMETRES* newparameters;
 		newparameters = _1_Odometrie_Get_Parameters();
 		newparameters->_1_Odometrie_Type_Asserv = Polaire_Tourne_Avance_point_unique;
-		_1_Odometrie_Set_Parameters(newparameters);
+		_1_Odometrie_Set_Parameters(newparameters);*/
 
 	}else
 	{
@@ -169,10 +169,10 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 		PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
 
 		//Dans ce cas, force un deplacement en type vitesse
-		struct st_ROBOT_PARAMETRES* newparameters;
+		/*struct st_ROBOT_PARAMETRES* newparameters;
 		newparameters = _1_Odometrie_Get_Parameters();
 		newparameters->_1_Odometrie_Type_Asserv = Vitesse_Droite_Vitesse_Gauche_Indep;
-		_1_Odometrie_Set_Parameters(newparameters);
+		_1_Odometrie_Set_Parameters(newparameters);*/
 	}
 
 	if(dest.Replace)
@@ -186,7 +186,7 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
  **
  ** Descriptions:		Receive a set of parameter for odometrie
  **
- ** parameters:			Recieved message
+ ** parameters:			Received message
  ** Returned value:		None
  **
  *****************************************************************************/
@@ -317,48 +317,75 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 
 	//Convert to Robot_System
 	//m/s*100 => pas/it
-	float consigne_speed = ((float)speed.Vitesse_Avance)*10; //mm/s = /100*1000
+	/*float consigne_speed = ((float)speed.Vitesse_Avance)*10; //mm/s = /100*1000
 	consigne_speed *= param->COEF_D; //pas/s
 	consigne_speed /= 1000;	//pas/ms
-	consigne_speed *= PERIODE_PID_VITESSE; //pas/IT
+	consigne_speed *= PERIODE_PID_VITESSE; //pas/IT*/
+	float consigne_speed = ((float)speed.Vitesse_Avance)/100; //m/s = mm/ms
+	consigne_speed *= PERIODE_PID_VITESSE; //mm/it
+	consigne_speed *= param->COEF_D; //pas/it
 
-	float consigne_accel = ((float)speed.Accel_Avance)*10; //mm/s² = /100*1000
+
+	/*float consigne_accel = ((float)speed.Accel_Avance)*10; //mm/s² = /100*1000
 	consigne_accel *= param->COEF_D; //pas/s²
 	consigne_accel /= 1000;	//pas/ms²
 	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_accel /= 1000;	//pas/ms²
-	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²*/
+	float consigne_accel = ((float)speed.Accel_Avance)/100; //mm/s²
+	consigne_accel /= 1000; //mm/ms²
+	consigne_accel *= PERIODE_PID_VITESSE;
+	consigne_accel *= PERIODE_PID_VITESSE; //mm/it
+	consigne_accel *= param->COEF_D; //pas/it
 
-	float consigne_Deccel = ((float)speed.Deccel_Avance)*10; //mm/s² = /100*1000
+	/*float consigne_Deccel = ((float)speed.Deccel_Avance)*10; //mm/s² = /100*1000
 	consigne_Deccel *= param->COEF_D; //pas/s²
 	consigne_Deccel /= 1000;	//pas/ms²
 	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_Deccel /= 1000;	//pas/ms²
-	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²*/
+	float consigne_Deccel = ((float)speed.Deccel_Avance)/100; //mm/s²
+	consigne_Deccel /= 1000; //mm/ms²
+	consigne_Deccel *= PERIODE_PID_VITESSE;
+	consigne_Deccel *= PERIODE_PID_VITESSE; //mm/it
+	consigne_Deccel *= param->COEF_D; //pas/it
 
 	_2_Asservissement_Set_Distance_Speed_Accel(consigne_speed,consigne_accel, consigne_Deccel);
 
 
 
 
-	float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
+	/*float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
 	consigne_rotation *= param->COEF_ROT; //pas/s
 	consigne_rotation /= 1000;	//pas/ms
-	consigne_rotation *= PERIODE_PID_VITESSE; //pas/IT
+	consigne_rotation *= PERIODE_PID_VITESSE; //pas/IT*/
+	float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
+	consigne_rotation *= PERIODE_PID_VITESSE; //mrad/it
+	consigne_rotation *= param->COEF_D; //pas/it
 
-	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s² = /100*1000
+	/*float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s² = /100*1000
 	consigne_accel_rotation *= param->COEF_ROT; //pas/s²
 	consigne_accel_rotation /= 1000;	//pas/ms²
 	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_accel_rotation /= 1000;	//pas/ms²
-	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
+	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s²
+	consigne_accel_rotation /= 1000; //mrad/ms²
+	consigne_accel_rotation *= PERIODE_PID_VITESSE;
+	consigne_accel_rotation *= PERIODE_PID_VITESSE; //mrad/it
+	consigne_accel_rotation *= param->COEF_ROT; //pas/it
 
-	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //ras/s² = /100*1000
+	/*float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //ras/s² = /100*1000
 	consigne_Deccel_rotation *= param->COEF_ROT; //pas/s²
 	consigne_Deccel_rotation /= 1000;	//pas/ms²
 	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_Deccel_rotation /= 1000;	//pas/ms²
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
+	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //rad/s²
+	consigne_Deccel_rotation /= 1000; //mrad/ms²
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE;
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //mrad/it
+	consigne_Deccel_rotation *= param->COEF_ROT; //pas/it
 
 	_2_Asservissement_Set_Rotation_Speed_Accel(consigne_rotation, consigne_accel_rotation, consigne_Deccel_rotation);
 }

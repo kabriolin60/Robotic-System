@@ -261,6 +261,26 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 	{
 		Task_Delay_Until(PERIODE_PID_DISTANCE_ANGLE);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		switch(_1_Odometrie_Get_Parameters()->_1_Odometrie_Type_Asserv)
 		{
 		case Polaire_Tourne_Avance_point_unique:
@@ -296,7 +316,6 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 				pid_do_filter(_2_Asserv_GetPtr_PID_Rot());
 
 				//La sortie de ces PIDs corresponds à des consignes en vitesses (distance et Rotation)
-
 				//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
 				_2_Update_PID_Vitesse_Consignes(_2_Asserv_GetPtr_PID_Pos()->Commande, _2_Asserv_GetPtr_PID_Rot()->Commande);
 

@@ -32,6 +32,30 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 	if(newparameters.SIMULATION == 1)
 	{
+		//Init PID en vitesse roues indep
+		struct st_pid_filter* ptr_PID_Vitesse_Gauche = _1_Get_prt_PID_Vit_Gauche();
+		struct st_pid_filter* ptr_PID_Vitesse_Droite = _1_Get_prt_PID_Vit_Droite();
+
+		ptr_PID_Vitesse_Gauche->Enable = 1;
+		ptr_PID_Vitesse_Gauche->gain_P = 1.0F;	//
+		ptr_PID_Vitesse_Gauche->gain_I = 0.0F;		//
+		ptr_PID_Vitesse_Gauche->gain_D = 0.0F;		//
+		ptr_PID_Vitesse_Gauche->Max_Erreur_Cumul = 0;	//0
+		ptr_PID_Vitesse_Gauche->commande_max = 30;
+		ptr_PID_Vitesse_Gauche->commande_min = -30;
+		ptr_PID_Vitesse_Gauche->Sommation_Sortie = 1; //1
+
+		ptr_PID_Vitesse_Droite->Enable = 1;
+		ptr_PID_Vitesse_Droite->gain_P = 1.0F;	//
+		ptr_PID_Vitesse_Droite->gain_I = 0.0F;		//
+		ptr_PID_Vitesse_Droite->gain_D = 0.0F;	//
+		ptr_PID_Vitesse_Droite->Max_Erreur_Cumul = 0;	//0
+		ptr_PID_Vitesse_Droite->commande_max = 30;
+		ptr_PID_Vitesse_Droite->commande_min = -30;
+		ptr_PID_Vitesse_Droite->Sommation_Sortie = 1;
+
+
+
 		//Init PID en vitesse
 		struct st_pid_filter* ptr_PID_Vitesse_Position = _1_Asserv_GetPtr_PID_Vit_Pos();
 		struct st_pid_filter* ptr_PID_Vitesse_Rotation = _1_Asserv_GetPtr_PID_Vit_Rot();
@@ -80,6 +104,30 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	}else
 	{
 		//Réglages PID pour deplacements reels
+
+		//Init PID en vitesse roues indep
+		struct st_pid_filter* ptr_PID_Vitesse_Gauche = _1_Get_prt_PID_Vit_Gauche();
+		struct st_pid_filter* ptr_PID_Vitesse_Droite = _1_Get_prt_PID_Vit_Droite();
+
+		ptr_PID_Vitesse_Gauche->Enable = 1;
+		ptr_PID_Vitesse_Gauche->gain_P = 0.085F;	//
+		ptr_PID_Vitesse_Gauche->gain_I = 0.0F;		//
+		ptr_PID_Vitesse_Gauche->gain_D = 0.55F;		//
+		ptr_PID_Vitesse_Gauche->Max_Erreur_Cumul = 0;	//0
+		ptr_PID_Vitesse_Gauche->commande_max = 30;
+		ptr_PID_Vitesse_Gauche->commande_min = -30;
+		ptr_PID_Vitesse_Gauche->Sommation_Sortie = 1; //1
+
+		ptr_PID_Vitesse_Droite->Enable = 1;
+		ptr_PID_Vitesse_Droite->gain_P = 0.085F;	//
+		ptr_PID_Vitesse_Droite->gain_I = 0.0F;		//
+		ptr_PID_Vitesse_Droite->gain_D = 0.055F;	//
+		ptr_PID_Vitesse_Droite->Max_Erreur_Cumul = 0;	//0
+		ptr_PID_Vitesse_Droite->commande_max = 30;
+		ptr_PID_Vitesse_Droite->commande_min = -30;
+		ptr_PID_Vitesse_Droite->Sommation_Sortie = 1;
+
+
 
 		//Init PID en vitesse
 		struct st_pid_filter* ptr_PID_Vitesse_Position = _1_Asserv_GetPtr_PID_Vit_Pos();
