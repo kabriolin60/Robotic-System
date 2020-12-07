@@ -103,7 +103,7 @@ public class Interprete_Message : MonoBehaviour
 				Decode_Logger_Debug(message);
 				break;
 
-			case Communication.Com_Instruction.REPONSE_INFO:
+			case Communication.Com_Instruction.REPONSE_INFO_Multi_FCT:
 				Decode_Reponse_Info(message);
 				break;
 

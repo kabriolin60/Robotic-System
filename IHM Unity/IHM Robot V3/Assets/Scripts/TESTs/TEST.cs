@@ -61,7 +61,7 @@ public class TEST : MonoBehaviour
         Communication com = new Communication();
         Communication.Communication_Message message = new Communication.Communication_Message();
         message.Heure = DateTime.Now;
-        message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
+        message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO_Multi_FCT;
         message.Trame.Data = com.COPYDATA(data_test);
 
         //Communication_GO.GetComponent<Interprete_Message>().Decodage_and_Save_Message(message);
@@ -97,7 +97,7 @@ public class TEST : MonoBehaviour
 
                 message = new Communication.Communication_Message();
                 message.Heure = DateTime.Now;
-                message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO;
+                message.Trame.Instruction = Communication.Com_Instruction.REPONSE_INFO_Multi_FCT;
                 message.Trame.Data = com.COPYDATA(data_test);
 
 
