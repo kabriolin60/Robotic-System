@@ -7,6 +7,7 @@
 
 #include "Strategie_Actions.h"
 #include "Strategie.h"
+#include "0_ADC.h"
 
 struct Actions_List Actions_2021;
 

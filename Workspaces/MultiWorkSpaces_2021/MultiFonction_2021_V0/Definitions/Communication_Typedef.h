@@ -23,8 +23,11 @@ Definition des commandes de communication
  **************************************************/
 enum Com_Instruction
 {
+	//Envoi un accusé de reception d'un ordre reçu
+	ACKNOWLEDGE = 0,
+
 	//Destination Robot
-	DESTINATION_ROBOT = 0,
+	DESTINATION_ROBOT = 2,
 	DEPLACEMENT_SPLINE,
 	DEPLACEMENT_CERCLE,
 	FLUSH_DEPLACEMENT,
@@ -195,11 +198,51 @@ enum enum_canal_communication
 };
 
 
+/**************************************************
+Declaration de la definition de la Structure de communication
+ **************************************************/
 struct Communication_Message
 {
 	byte length;												//Longueur du message à envoyer
 	byte Data[COMMUNICATION_TRAME_MAX_DATA + 11];				//Data = en-tête + trame ("Communication_Trame") + pied
 	enum enum_canal_communication canal_communication;			//Indique quel port de communication utiliser pour envoyer ce message
+};
+
+
+enum enum_ACK_Types
+{
+	ACK_POSITION_ROBOT,
+	ACK_POWER_MOTOR,
+	ACK_POWER_SERVO,
+	ACK_POWER_AX_12,
+	ACK_DEPLACEMENT,
+	ACK_MOVE_SERVOS,
+	ACK_DEMANDE_SIMULATION_MOTEURS,
+	ACK_PARAMETRES_ODOMETRIE,
+	ACK_PARAMETRES_PID,
+	ACK_VITESSE_ROBOT,
+	ACK_DEFINITION_ID_ROBOT,
+};
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter un ACK à un ordre reçu
+ **************************************************/
+struct Communication_ACK
+{
+	byte Adresse;		//Adresse de la carte envoyant l'ACK
+
+	enum enum_ACK_Types ACK_TYPE;	//Quel a été le type de message reçu auquel répondre
+};
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter un PONG
+ **************************************************/
+struct Communication_PONG
+{
+	byte Adresse;		//Adresse de la carte envoyant le PONG
+	long Nombre_Messages_Recus;		//Infos sur l'aspect communication de cette carte
+	long Nombre_Erreurs_Communication;
 };
 
 
@@ -334,6 +377,8 @@ struct Com_Reponse_Info_IA
 	unsigned short Temps_Match;                             //Temps /10		//2 octets
 
 	byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
+
+	long Boards_Comm_Status;			//== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
 };
 
 /*************************************************/

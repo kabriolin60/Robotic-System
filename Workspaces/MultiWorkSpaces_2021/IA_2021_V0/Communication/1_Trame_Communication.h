@@ -35,9 +35,15 @@ BaseType_t _1_Communication_Wait_To_Receive(TickType_t xTicksToWait);
 void _1_Communication_Free_Receive_Bit(void);
 
 
+
 struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send);
 
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check);
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK);
+
+short _1_Communication_WAIT_ACK(byte wait, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK);
+
+void _1_Communication_CLEAR_ACK(void);
+
 
 BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff);
 

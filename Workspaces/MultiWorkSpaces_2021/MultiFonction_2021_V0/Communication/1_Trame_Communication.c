@@ -14,6 +14,7 @@
 
 #include <cr_section_macros.h>
 #include <Init.h>
+#include "2_Echange_Datas.h"
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 

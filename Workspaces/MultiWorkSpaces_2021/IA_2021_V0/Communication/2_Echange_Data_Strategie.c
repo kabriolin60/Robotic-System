@@ -69,7 +69,8 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
 	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo);
+	//Pour la stratégie, pas d'attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 
@@ -116,5 +117,6 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
 	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo);
+	//Pour la stratégie, pas d'ACK, pas d'attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
 }

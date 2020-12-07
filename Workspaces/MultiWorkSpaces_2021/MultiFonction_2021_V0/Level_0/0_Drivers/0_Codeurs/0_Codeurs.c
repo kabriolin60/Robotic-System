@@ -5,6 +5,7 @@
  *      Author: kabri
  */
 #include "0_Codeurs.h"
+#include "0_Motors.h"
 
 static volatile struct Codeurs_Values Valeurs_Codeurs;
 static uint32_t mask_interrupt_Codeur_D, mask_interrupt_Codeur_G;

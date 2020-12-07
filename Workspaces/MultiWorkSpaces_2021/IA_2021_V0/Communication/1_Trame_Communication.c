@@ -13,6 +13,8 @@
 
 #include <cr_section_macros.h>
 #include <Init.h>
+#include "2_Echange_Datas_Reception.h"
+#include "2_Echange_Datas.h"
 
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
@@ -213,7 +215,22 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 }
 
 
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check)
+
+/*****************************************************************************
+ ** Function name:		_1_Communication_Create_Trame
+ **
+ ** Descriptions:		Fonction d'envoi d'un message
+ **
+ ** parameters:			Pointeur vers le Buffer contenant le message à envoyer
+ ** 					Canal de communication utilié
+ ** 					Bit de libération de la trame
+ ** 					Attente d'un ACK?
+ ** 					Quel type d'ACK attendre
+ ** 					Cartes devant renvoyer un ACK
+ ** Returned value:		Succes/Echec
+ **
+ *****************************************************************************/
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
 {
 	//Mise en forme des datas
 	(void)_1_Communication_Create_Message(pMessage_to_send);
@@ -221,17 +238,133 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	//Ajoute au message le cannal de communication à utilisre
 	Message_To_Send.canal_communication = canal;
 
-	//Envoi de la trame
-	if(xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
+	byte tentatives_envoi = 0;
+
+	if(WAIT_FOR_ACK)
 	{
+		_1_Communication_CLEAR_ACK();
+	}
+
+	do
+	{
+		//Commence par mettre le message en Queue d'envoi
+		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
+		{
+			//Le message n'a pas pu être mis en Queue d'envoie
+			//Libère le bit de synchro pour pouvoir envoyer un autre message
+			_1_Communication_Free_Send_Bit(bit_to_check);
+			return pdFALSE;
+		}
+
+		//Sinon, le message a bien été mis en Queue d'envoie
+		//Incrémente le nombre de tentatives effectuée
+		tentatives_envoi++;
+
+		//Puis vérifie son ACK
+	}while(!_1_Communication_WAIT_ACK(WAIT_FOR_ACK, ACK_TYPE, Cartes_Devant_ACK) && tentatives_envoi < 10);
+
+
+
+	//Vérifie si on a atteint le nombre maximum de tentatives
+	if(tentatives_envoi >= 10)
+	{
+		//On a dépassé le nombre maximum d'envoi de messages
 		//Libère le bit de synchro pour pouvoir envoyer un autre message
 		_1_Communication_Free_Send_Bit(bit_to_check);
+
+		static char str[25];
+		sprintf(str, "IA: ACK non recu!!");
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
+
+		//Renvoi un échec
+		return pdFAIL;
+	}else
+	{
+		//Le message est bien parti, et son ACK tel que attentu est arrivé
+		//Libère le bit de synchro pour pouvoir envoyer un autre message
+		_1_Communication_Free_Send_Bit(bit_to_check);
+
+		//Renvoi un succes
 		return pdPASS;
 	}
-	//Libère le bit de synchro pour pouvoir envoyer un autre message
-	_1_Communication_Free_Send_Bit(bit_to_check);
-	return pdFAIL;
 }
+
+
+/*****************************************************************************
+ ** Function name:		_1_Communication_WAIT_ACK
+ **
+ ** Descriptions:		Fonction d'attente (si besoin) de reception d'un ACK pour le message envoyé par l'ensemble des cartes concerné
+ **
+ ** parameters:			Wait for ACK?
+ ** 					Type d'ACK attendu
+ ** 					Flags des Cartes devant renvoyer un ACK
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+short _1_Communication_WAIT_ACK(byte wait, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
+{
+	//Vérifie si ce message nécéssite une attente
+	if(wait == false)
+		return pdPASS; //Pas d'attente, return SUCCESS
+
+	/*
+	 * Si un ACK est attentu
+	 * Commence par attendre que le Flag de type d'ACK soit levé
+	 */
+	EventBits_t uxBits_ACK_Type;
+	uxBits_ACK_Type = xEventGroupWaitBits(_0_ACK_Type_EventGroup, //Event Group
+			(1 << ACK_TYPE), //Bits to wait for
+			pdFALSE, //Clear on exit
+			pdTRUE, //xWaitForAllBits
+			ms_to_tick(30) ); //Delay
+
+	if(uxBits_ACK_Type != (1 << ACK_TYPE))
+	{
+		//Aucun ACK reçu
+		return pdFALSE;
+	}
+
+	//Un ACK du bon type a été reçu
+
+	/*
+	 * Si un ACK est attentu
+	 * Puis attend que l'ensemble des cartes y ai répondu
+	 */
+	EventBits_t uxBits_ACK_Adresses;
+	uxBits_ACK_Adresses = xEventGroupWaitBits(_0_ACK_Adresses, //Event Group
+			Cartes_Devant_ACK, //Bits to wait for
+			pdFALSE, //Clear on exit
+			pdTRUE, //xWaitForAllBits
+			ms_to_tick(30) ); //Delay
+
+	if(uxBits_ACK_Adresses != Cartes_Devant_ACK)
+	{
+		//Toutes les cartes n'ont pas répondu à la demande d'ACK
+		return pdFALSE;
+	}
+
+	//Un ACK a bien été reçu par toutes les cartes
+	return pdTRUE;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_1_Communication_CLEAR_ACK
+ **
+ ** Descriptions:		Fonction d'effacement des ACKs avant un envoi d'une consigne
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _1_Communication_CLEAR_ACK(void)
+{
+	//Commence par effacer les Flags des types d'ACK reçus et des adresses
+	xEventGroupClearBits(_0_ACK_Type_EventGroup, 0x0FFF);
+	xEventGroupClearBits(_0_ACK_Adresses, 0x0FFF);
+}
+
+
 
 
 static TO_AHBS_RAM3 struct Communication_Trame received_trame;
@@ -269,18 +402,12 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			boucle++;
 			if(boucle > 5)
 			{
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Start not Rx");
-#endif
 				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
 		}else
 		{
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "Start not Rx2");
-#endif
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
@@ -298,9 +425,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	{
 		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-		vTracePrint(MyChannel_Recompo, "API LENGTH ERROR");
-#endif
 		return pdFAIL;
 	}
 
@@ -329,11 +453,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 		_1_Communication_Free_Receive_Bit();
 
-
-
-		#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-		vTracePrint(MyChannel_Recompo, "Packet 0x89");
-#endif
 		return pdFAIL;
 	}
 
@@ -346,9 +465,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "Data missing");
-#endif
 			return pdFAIL;
 		}
 		Task_Delay(0.1F);
@@ -395,9 +511,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			{
 				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Data missing2");
-#endif
 				return pdFAIL;
 			}
 			Task_Delay(0.1F);
@@ -429,10 +542,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "CRC Error");
-#endif
-
 			_2_Comm_Send_Communication_Status(RS485_port);
 			return pdFAIL;
 		}

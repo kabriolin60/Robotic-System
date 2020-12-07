@@ -342,6 +342,7 @@ extern USBD_HANDLE_T g_hUsb;
 
 void USB_IRQHandler(void)
 {
+#ifdef USE_USB
 	static bool already_flaged = pdFALSE;
 	BaseType_t pxHigherPriorityTaskWoken = false;
 
@@ -350,7 +351,7 @@ void USB_IRQHandler(void)
 
 	USBD_API->hw->ISR(g_hUsb);
 
-#ifdef USE_USB
+
 	uint32_t rdCnt = 0;
 	static uint8_t g_rxBuff[64];
 
@@ -408,7 +409,9 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	static struct Communication_Message Message;
 	static uint8_t g_txBuff[TX_RB_SIZE];
+#ifdef USE_USB
 	byte length_remaining_to_send = 0;
+#endif
 
 	Task_Delay(5);
 

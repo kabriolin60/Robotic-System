@@ -951,6 +951,7 @@ unsigned char Dijkstra_intersect_segment(struct Point *s1, struct Point *s2, str
  ** Returned value:		None
  **
  *****************************************************************************/
+#include "0_RS485.h"
 void Astar_Debug_Display_Map(struct Astar_Map* map)
 {
 	vTaskSuspendAll();

@@ -10,8 +10,10 @@ public class Communication
 	#region Definition messages de communication
 	public enum Com_Instruction : byte
 	{
+		ACKNOWLEDGE = 0,
+
 		//Destination Robot
-		DESTINATION_ROBOT = 0,
+		DESTINATION_ROBOT,
 		DEPLACEMENT_SPLINE,
 		DEPLACEMENT_CERCLE,
 		FLUSH_DEPLACEMENT,

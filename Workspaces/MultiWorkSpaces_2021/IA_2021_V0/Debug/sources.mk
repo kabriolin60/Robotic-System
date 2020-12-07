@@ -17,10 +17,12 @@ SUBDIRS := \
 Communication \
 Communication/RS485 \
 Communication/USB/src \
+Level_0/Drivers/0_ADC \
 Pathfinding/Astar \
 Strategie \
-Strategie/Actionneurs \
-Strategie/Deplacement \
+Strategie/Strategie_Level0 \
+Strategie/Strategie_Level0/Actionneurs \
+Strategie/Strategie_Level0/Deplacement \
 freertos/FreeRTOS_Trace \
 freertos/src \
 src \

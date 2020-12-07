@@ -57,7 +57,11 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo,
+			pdTRUE, //Wait for ACK
+			ACK_DEPLACEMENT, //Type d'ACK attendu
+			eGROUP_STATUS_CARTE_MultiFCT_1); //Cartes devant renvoyer un ACK
 
 	static char str[70];
 	static char* dir;
@@ -106,7 +110,8 @@ void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communicat
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi sans attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 
@@ -135,7 +140,16 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	/*
+	 * Avant d'envoyer un PING
+	 * Efface le bit de sa presence sur le bus à l'interieur de l'Event_Group
+	 * Il sera remis à 1 lors de la reception du PONG
+	 */
+	xEventGroupClearBits(_0_Status_EventGroup,    /* The event group being updated. */
+			(1 << adresse_cible));		 /* The bits being set. */
+
+	//Envoi sans attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 
@@ -168,10 +182,10 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	trame_echange.Length = 0;
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi sans attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
 	//Send the revision of this board firmware
-
 	if(!relese_sent)
 	{
 		sprintf(str, "IA release= %s.%s; %s; %s\n",
@@ -235,13 +249,12 @@ void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_can
 	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POSITION_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
-#ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
 	//Renvoie le message pour etre enregistre dans la Flash
 	xQueueSend(QueueEnregistrementMessages, &Com_Position_Robot, 0);
-#endif
 #endif
 }
 
@@ -288,13 +301,12 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 		trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
-		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+		//Envoi sans attente d'ACK
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
-#ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
 		//Renvoie le message pour etre enregistre dans la Flash
 		xQueueSend(QueueEnregistrementMessages, &Com_Position_Robot, 0);
-#endif
 #endif
 
 	}else
@@ -307,13 +319,12 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 			trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
 			trame_echange.XBEE_DEST_ADDR = 0;
 
-			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+			//Envoi sans attente d'ACK
+			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
-#ifdef TYPE_CARTE_IA
 #ifdef ENREGISTREMENT_FLASH
 			//Renvoie le message pour etre enregistre dans la Flash
 			xQueueSend(QueueEnregistrementMessages, &Com_Position_Robot, 0);
-#endif
 #endif
 
 			//Suite du message
@@ -339,31 +350,33 @@ void _2_Communication_Boards_Status(void* pvParameters)
 	Init_Timing_Tache;
 
 	Task_Delay_Until(100);
-	_2_Comm_Send_PONG(RS485_port); //premier pong initial avec la version de la carte IA
-	Task_Delay_Until(1);
 
-	//Demande un ping sur les autres cartes
-	for(int i = 0; i < 4; i++)
-	{
-		_2_Comm_Send_PING(i+1, RS485_port);
-		Task_Delay_Until(delai_demande_info);
-	}
-
+	/*
+	 * Ping chaque carte pour vérifier et mettre à jour sa présence sur le bus
+	 */
+	_2_Comm_Check_Presence_Cartes(RS485_port);
 
 	Task_Delay_Until(100);
+
+
 	int boucle = 0;
 	while(true)
 	{
+		/*
+		 * Demande les infos de chaque carte attendue sur le bus
+		 */
 		for(int i = 0; i < 4; i++)
 		{
 			_2_Comm_Send_Demande_Info(i+1, RS485_port);
-
 			Task_Delay_Until(delai_demande_info);
 		}
 
-		//Envoi l'état de la carte IA
+		/*
+		 * Envoi l'état de la carte IA
+		 */
 		_2_Comm_Send_Info_Carte_IA(RS485_port);
 		Task_Delay_Until(delai_demande_info);
+
 
 		//Demande les infos du PC s'il a des trucs à envoyer
 		if(boucle % 50 == 0)
@@ -377,17 +390,40 @@ void _2_Communication_Boards_Status(void* pvParameters)
 
 		if(boucle == 1000)
 		{
-			_2_Comm_Send_PONG(RS485_port); //pongs suivants sans la version de la carte IA
-
-			for(int i = 0; i < 4; i++)
-			{
-				_2_Comm_Send_PING(i+1, RS485_port);
-				Task_Delay_Until(delai_demande_info);
-			}
+			/*
+			 * Ping chaque carte pour vérifier et mettre à jour sa présence sur le bus
+			 */
+			_2_Comm_Check_Presence_Cartes(RS485_port);
 			boucle = 0;
 		}
 	}
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Check_Presence_Cartes
+ **
+ ** Descriptions:		Fonction qui PING chaque carte puis compare le résultat à l'attendu
+ **
+ ** parameters:			Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Check_Presence_Cartes(enum enum_canal_communication canal)
+{
+	_2_Comm_Send_PONG(canal); //pongs suivants sans la version de la carte IA
+	Task_Delay(1.0f); //Pas besoin d'attendre longtemps entre 2 pings
+
+	for(int i = 0; i < 4; i++)
+	{
+		/*
+		 * Chaque bit de présence des cartes sera effacé avant l'envoi du PING, et remonté à Réception du PONG
+		 */
+		_2_Comm_Send_PING(i+1, canal);
+		Task_Delay(1.0f); //Pas besoin d'attendre longtemps entre 2 pings
+	}
+}
+
 
 
 /*****************************************************************************
@@ -416,7 +452,8 @@ void _2_Comm_Send_Servos_Destinations(struct st_Destination_Servos* destination,
 	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_MOVE_SERVOS, eGROUP_STATUS_CARTES_SERVO_ATTENDUES);
 }
 
 
@@ -448,7 +485,8 @@ void _2_Comm_Robot_ID(byte ID, enum enum_canal_communication canal)
 
 	trame_echange.Data[0] = ID;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_DEFINITION_ID_ROBOT, eGROUP_STATUS_CARTES_ATTENDUES);
 }
 
 
@@ -481,7 +519,8 @@ void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal)
 	trame_echange.Length = COPYDATA(simulation, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_DEMANDE_SIMULATION_MOTEURS, eGROUP_STATUS_CARTE_MultiFCT_1);
 }
 
 /*****************************************************************************/
@@ -517,7 +556,8 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
 	trame_echange.Length = COPYDATA(pow, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POWER_MOTOR, eGROUP_STATUS_CARTE_MultiFCT_1);
 }
 
 /*****************************************************************************/
@@ -556,7 +596,8 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	trame_echange.Length = COPYDATA(pos, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POSITION_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	static char str[70];
 	sprintf(str, "Set Robot position= X%.1fmm Y%.1fmm A%.2f°\n",
@@ -637,7 +678,9 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
 		}
 
 		trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
-		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+
+		//Envoi sans attente d'ACK
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
 		Task_Delay(2);
 	}
@@ -690,7 +733,9 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 			trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
-			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+
+			//Envoi sans attente d'ACK
+			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
 			Task_Delay(2);
 
@@ -716,8 +761,9 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 		trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
-		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
-	}
+
+		//Envoi sans attente d'ACK
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);	}
 }
 
 
@@ -757,7 +803,8 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	trame_echange.Length = COPYDATA(speed, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_VITESSE_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	/*static char str[70];
 	sprintf(str, "Robot speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
@@ -805,6 +852,9 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_YELLOW_Status() << 4;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_GREEN_Status() << 5;
 
+	//Envoi l'etat de présence des cartes sur le bus issues du dernier PING
+	Infos.Boards_Comm_Status = xEventGroupGetBits( _0_Status_EventGroup );
+
 
 	trame_echange.Instruction = REPONSE_INFO_IA;
 	trame_echange.Slave_Adresse = PC;
@@ -812,5 +862,6 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	trame_echange.Length = COPYDATA(Infos, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo);
+	//Envoi sans attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }

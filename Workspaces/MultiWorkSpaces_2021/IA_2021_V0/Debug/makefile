@@ -11,10 +11,12 @@ RM := rm -rf
 -include src/subdir.mk
 -include freertos/src/subdir.mk
 -include freertos/FreeRTOS_Trace/subdir.mk
--include Strategie/Deplacement/subdir.mk
--include Strategie/Actionneurs/subdir.mk
+-include Strategie/Strategie_Level0/Deplacement/subdir.mk
+-include Strategie/Strategie_Level0/Actionneurs/subdir.mk
+-include Strategie/Strategie_Level0/subdir.mk
 -include Strategie/subdir.mk
 -include Pathfinding/Astar/subdir.mk
+-include Level_0/Drivers/0_ADC/subdir.mk
 -include Communication/USB/src/subdir.mk
 -include Communication/RS485/subdir.mk
 -include Communication/subdir.mk
@@ -38,7 +40,7 @@ all: IA_2021_V0.axf
 IA_2021_V0.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release" -L"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs" -L"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release" -Xlinker -Map="IA_2021_V0.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "IA_2021_V0_Debug.ld" -o "IA_2021_V0.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release" -L"C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\libs" -L"C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release" -Xlinker -Map="IA_2021_V0.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "IA_2021_V0_Debug.ld" -o "IA_2021_V0.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

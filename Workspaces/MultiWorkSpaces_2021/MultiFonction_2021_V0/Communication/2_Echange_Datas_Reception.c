@@ -53,30 +53,42 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	{
 	case DESTINATION_ROBOT:
 		_2_Communication_RX_Destination_Robot(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_DEPLACEMENT, RS485_port);
 		break;
 
 
 	case DEMANDE_ROBOT_POSITION:
-#ifdef TYPE_CARTE_MULTIFCT
 		_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
-#endif
 		break;
 
 
 	case SET_ROBOT_POSITION:
 		_2_Comm_RX_Set_Position_Robot(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_POSITION_ROBOT, RS485_port);
 		break;
 
 
 	case DESTINATION_SERVOS_AND_AX12:
-#ifdef TYPE_CARTE_MULTIFCT
 		_2_Comm_RX_Destination_Servos(trame);
-#endif
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_MOVE_SERVOS, RS485_port);
 		break;
 
 
 	case DEFINITION_ID_ROBOT:		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
 		_2_Comm_RX_Id_Robot(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_DEFINITION_ID_ROBOT, RS485_port);
 		break;
 
 
@@ -90,25 +102,45 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 
 	case DEMANDE_MOTEURS_POWER:
 		_2_Comm_RX_Motor_Power(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_POWER_MOTOR, RS485_port);
 		break;
 
 
 	case DEMANDE_SIMULATION_MOTEURS:
 		_2_Comm_RX_Simulation_Deplacement(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_DEMANDE_SIMULATION_MOTEURS, RS485_port);
 		break;
 
 
 	case PARAMETRES_ODOMETRIE:
 		_2_Comm_RX_Odometrie(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_PARAMETRES_ODOMETRIE, RS485_port);
 		break;
 
 	case PARAMETRES_PID:
 		_2_Communication_RX_Parametres_PID(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_PARAMETRES_PID, RS485_port);
 		break;
 
 
 	case VITESSE_ROBOT:
 		_2_Communication_RX_Vitesse(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_VITESSE_ROBOT, RS485_port);
 		break;
 
 
