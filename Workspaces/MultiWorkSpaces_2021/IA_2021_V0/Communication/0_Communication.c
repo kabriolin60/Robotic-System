@@ -95,7 +95,7 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_XBEE();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
-	_1_xQueue_Message_TO_Send = xQueueCreate( 5, sizeof( struct Communication_Message ));
+	_1_xQueue_Message_TO_Send = xQueueCreate( 10, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)

@@ -120,11 +120,11 @@ void Init_Carte_IA(void)
 	/* Init de la communication partie Strategie */
 	_2_Comm_Strategie_Init();
 
+	/* Demande de presence des cartes à la fin de l'init de la stratégie*/
+	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 3, NULL);
+
 	/* Creation de la Task de la strategie */
 	xTaskCreate(_Strategie_Init_Strategie_2021, "Init_Strategie", 600, NULL, 1, NULL);
-
-	/* Demande de presence des cartes à la fin de l'init de la stratégie*/
-	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
 }
 
 
