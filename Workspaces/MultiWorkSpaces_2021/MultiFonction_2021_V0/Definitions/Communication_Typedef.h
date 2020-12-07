@@ -23,64 +23,26 @@ Definition des commandes de communication
  **************************************************/
 enum Com_Instruction
 {
-	//Envoi un accusé de reception d'un ordre reçu
 	ACKNOWLEDGE = 0,
 
 	//Destination Robot
-	DESTINATION_ROBOT = 2,
-	DEPLACEMENT_SPLINE,
-	DEPLACEMENT_CERCLE,
-	FLUSH_DEPLACEMENT,
-	DEPLACEMENT_SPLINE_CUBIQUE,
+	DESTINATION_ROBOT = 10,
 
 	//Position Robot
-	SET_ROBOT_POSITION = 8,
-	DEMANDE_ROBOT_POSITION,
-	REPONSE_ROBOT_POSITION,
+	SET_ROBOT_POSITION = 20,
 	REPONSE_AUTRE_ROBOT_POSITION,
 
-	//Robot Adverse
-	DEMANDE_POSITION_ROBOT_ADVERSE = 13,
-	REPONSE_POSITION_ROBOT_ADVERSE,
-
-	//Moteurs Aux
-	DESTINATION_MOTEURS_AUX,
-	DEMANDE_POSITION_MOTEURS_AUX,
-	REPONDE_POSITION_MOTEURS_AUX,
-	RECALAGE_MOTEUR_AUX,
-
-	DESTINATION_SERVOS_AND_AX12 = 20,
-
-	/*
-	//Servo
-	DESTINATION_SERVO = 20,
-	DEMANDE_POSITION_SERVO,
-	REPONSE_POSITION_SERVO,
-
-	//AX_12
-	DESTINATION_AX_12 = 24,
-	DEMANDE_POSITION_AX_12,
-	REPONSE_POSITION_AX_12,
-
-	//Mesures analogiques
-	DEMANDE_MESURES_ANALOGIQUES = 28,
-	REPONSE_MESURES_ANALOGIQUES,
-
-	//Mesures digitales
-	DEMANDE_MESURES_DIGITALES = 31,
-	REPONSE_MESURES_DIGITALES,
-	SET_SORTIES_DIGITALES,
-	 */
+	//Servos et AX12
+	DESTINATION_SERVOS_AND_AX12 = 30,
 
 	//Info sur la carte
-	DEFINITION_ID_ROBOT = 34,		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
-
-	DEMANDE_INFO = 35,
-	REPONSE_INFO,                   //Toutes les infos d'une carte dans un seul message
-	REPONSE_INFO_IA,
+	DEFINITION_ID_ROBOT = 40,       //Permet à la carte ID de donner l'ID du robot sur les autres cartes
+	DEMANDE_INFO,					//Demande les infos d'une carte
+	REPONSE_INFO_Multi_FCT,         //Toutes les infos d'une carte dans un seul message
+	REPONSE_INFO_IA,                //Toutes les infos de la carte IA
 
 	//Power
-	DEMANDE_MOTEURS_POWER = 38,
+	DEMANDE_MOTEURS_POWER = 50,
 	DEMANDE_MOTEURS_AUX_POWER,
 	DEMANDE_SERVO_POWER,
 	DEMANDE_AX_12_POWER,
@@ -88,48 +50,42 @@ enum Com_Instruction
 	DEMANDE_SIMULATION_MOTEURS_AUX,
 
 	//Parametres
-	PARAMETRES_ODOMETRIE = 45,
+	PARAMETRES_ODOMETRIE = 60,
 	PARAMETRES_PID,
-	VITESSE_ROBOT,
-	VITESSE_MOTEURS_AUX,
-	TYPE_ASSERV,                    //type d'asservissement: 0=Polaire; 1=Moteurs Aux
 
-	//Bloc 50 a 54 reserve pour la strategie
-	STRATEGIE_CHANGEMENT_ETAT = 51,
-	/*STRATEGIE_ENSEMBLE_ACTIONS,
-	STRATEGIE_DIALOGUE_ENTREROBOTS,
-	STRATEGIE_ETAT_INTERNE,*/
+	//Vitesse du robot
+	VITESSE_ROBOT = 70,
+	VITESSE_MOTEURS_AUX,
+
+	//Bloc 70 reserve pour la strategie
+	STRATEGIE_CHANGEMENT_ETAT = 80,
+	//STRATEGIE_ENSEMBLE_ACTIONS,
+	//STRATEGIE_DIALOGUE_ENTREROBOTS,
+	//STRATEGIE_ETAT_INTERNE,
 
 	//Logger
-	LOGGER_DEBUG = 56,
+	LOGGER_DEBUG = 90,
 
 	//ASTAR
-	ASTAR_CONTENU,
+	ASTAR_CONTENU = 100,
 	ASTAR_VECTEURS,
 
 	//Graphiques
-	GRAPHIQUES_ADD_DATA,
+	GRAPHIQUES_ADD_DATA = 110,
 	GRAPHIQUES_CLEAR,
 
-	//CLI
-	CLI = 65,
-
-	//RESET
-	RESET_CMD,
-
-	//Bootloader
-	BOOTLOADER,
-	BOOTLOADER_ACK,
-
 	//Balises
-	BALISE_START = 100,         //Start moteur et lasers
+	BALISE_START = 200,         //Start moteur et lasers
 	BALISE_POSITION,            //Position du robot donnant la position centrale de la balise
 	BALISE_POSITION_ADVERSAIRES,       //Retour sur la position des adversaires detectée par la balise
+
+	//Bootloader
+	BOOTLOADER = 240,
+	BOOTLOADER_ACK,
 
 	//Lecture en Flash
 	FLASH_CHANGE_FILE = 250,    //Demande un changement de fichier à l'IHM lors de l'enregistrement
 
-	//Ping
 	PING = 252,
 	PONG,
 

@@ -56,7 +56,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		_2_Communication_RX_ACK(trame);
 		break;
 
-	case REPONSE_INFO:
+	case REPONSE_INFO_Multi_FCT:
 		_2_Communication_RX_Reponse_Infos(trame);
 		Nb_PONG_recus++;
 		break;

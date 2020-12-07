@@ -60,11 +60,6 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		break;
 
 
-	case DEMANDE_ROBOT_POSITION:
-		_2_Comm_Send_Robot_Position(_1_Odometrie_GetRobot_Position(), RS485_port);
-		break;
-
-
 	case SET_ROBOT_POSITION:
 		_2_Comm_RX_Set_Position_Robot(trame);
 		/*

@@ -216,47 +216,6 @@ void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 }
 
 
-/*****************************************************************************
- ** Function name:		_2_Comm_Send_Robot_Position
- **
- ** Descriptions:		Fonction d'envoie de la position d'un Robot
- **
- ** parameters:			Struct st_POSITION_ROBOT
- ** 					Queue à la quelle ajouter le message
- ** Returned value:		None
- **
- *****************************************************************************/
-static struct Com_Position_Robot Com_Position_Robot;
-
-void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_canal_communication canal)
-{
-	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
-	{
-		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
-		//Abandon
-		return;
-	}
-
-	trame_echange.Instruction = REPONSE_ROBOT_POSITION;
-	trame_echange.Slave_Adresse = ALL_CARDS;
-
-	//Position du robot
-	Com_Position_Robot.Position_X = (short)(rob_pos.Position_X * 10);
-	Com_Position_Robot.Position_Y = (short)(rob_pos.Position_Y * 10);
-	Com_Position_Robot.Angle = (short)(rob_pos.Angle_Deg * 100);
-
-	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
-	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
-
-	//Envoi avec attente d'ACK
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POSITION_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
-
-#ifdef ENREGISTREMENT_FLASH
-	//Renvoie le message pour etre enregistre dans la Flash
-	xQueueSend(QueueEnregistrementMessages, &Com_Position_Robot, 0);
-#endif
-}
 
 
 /*****************************************************************************

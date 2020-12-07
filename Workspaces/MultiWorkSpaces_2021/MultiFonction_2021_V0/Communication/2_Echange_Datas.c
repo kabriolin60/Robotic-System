@@ -128,44 +128,6 @@ void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 
 
 /*****************************************************************************
- ** Function name:		_2_Comm_Send_Robot_Position
- **
- ** Descriptions:		Fonction d'envoie de la position d'un Robot
- **
- ** parameters:			Struct st_POSITION_ROBOT
- ** 					Queue à la quelle ajouter le message
- ** Returned value:		None
- **
- *****************************************************************************/
-static struct Com_Position_Robot Com_Position_Robot;
-
-void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_canal_communication canal)
-{
-	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5))== pdFAIL )
-	{
-		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
-		//Abandon
-		return;
-	}
-
-	trame_echange.Instruction = REPONSE_ROBOT_POSITION;
-	trame_echange.Slave_Adresse = ALL_CARDS;
-
-	//Position du robot
-	Com_Position_Robot.Position_X = (short)(rob_pos.Position_X * 10);
-	Com_Position_Robot.Position_Y = (short)(rob_pos.Position_Y * 10);
-	Com_Position_Robot.Angle = (short)(rob_pos.Angle_Deg * 100);
-	//Com_Position_Robot.Numero_Robot = 1;
-
-	trame_echange.Length = COPYDATA(Com_Position_Robot, trame_echange.Data);
-	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
-
-	_1_Communication_Create_Trame(&trame_echange, canal);
-}
-
-
-/*****************************************************************************
  ** Function name:		_2_Comm_Send_Log_Message
  **
  ** Descriptions:		Fonction de formatage d'une chaine de caractère en un message vers le PC
@@ -263,7 +225,7 @@ void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communic
 		return;
 	}
 
-	trame_echange.Instruction = REPONSE_INFO;
+	trame_echange.Instruction = REPONSE_INFO_Multi_FCT;
 	trame_echange.Slave_Adresse = IA_BOARD;
 
 	trame_echange.Length = COPYDATA(*Infos, trame_echange.Data);

@@ -28,8 +28,6 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal);
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal);
 
-void _2_Comm_Send_Robot_Position(struct st_POSITION_ROBOT rob_pos, enum enum_canal_communication canal);
-
 void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Channel, enum enum_canal_communication canal);
 
 void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communication canal);
