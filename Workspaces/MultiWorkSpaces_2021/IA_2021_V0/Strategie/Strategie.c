@@ -9,6 +9,9 @@
 #include "Strategie.h"
 #include "0_ADC.h"
 
+#include "2_Echange_Datas.h"
+#include "Init.h"
+
 struct Actions_List Actions_2021;
 
 byte Strategie_Choisie = 0;
@@ -197,7 +200,10 @@ void _Strategie_Set_External_LED_GREEN_Status(byte value)
 void _Strategie_Init_Strategie_2021(void* pvparameters)
 {
 	//Ajouter l'attente de l'initialisation
-	Task_Delay(50);
+	Task_Delay(500);
+
+	/* Envoie l'ID du Robot vers les cartes sur le réseau */
+	Init_Send_Robot_ID();
 
 
 	//Creation des actions
@@ -266,12 +272,6 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 
 	//Envoie au PC cette action
 	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
-
-
-
-	/* Demande de presence des cartes à la fin de l'init de la stratégie*/
-	xTaskCreate(_2_Communication_Boards_Status, "Board Status", 200, NULL, 1, NULL);
-
 
 
 	//Do strategic stuff

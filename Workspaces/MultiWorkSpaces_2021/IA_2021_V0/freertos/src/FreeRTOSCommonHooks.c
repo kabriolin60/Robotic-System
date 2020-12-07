@@ -93,6 +93,8 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)
 	(void) pxTask;
 	(void) pcTaskName;
 
+	struct Communication_Message Message_to_Send;
+
 
 	sprintf(str, "DIE:ERROR: Stack overflow in task \"%s\"\r\n", pcTaskName);
 	trame_echange_overflow.Instruction = LOGGER_DEBUG;
@@ -108,7 +110,7 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)
 	trame_echange_overflow.XBEE_DEST_ADDR = XBee_PC;
 
 	//Creation du message
-	Message_To_Send_overflow = (struct Communication_Message)* _1_Communication_Create_Message(&trame_echange_overflow);
+	Message_To_Send_overflow = (struct Communication_Message)* _1_Communication_Create_Message(&trame_echange_overflow, &Message_to_Send);
 
 	//Transforme le message en [byte]
 	int length = COPYDATA(Message_To_Send_overflow, txbuff);

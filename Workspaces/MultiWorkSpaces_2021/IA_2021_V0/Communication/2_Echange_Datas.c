@@ -162,7 +162,7 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
  ** Returned value:		None
  **
  *****************************************************************************/
-byte relese_sent = 0;
+byte release_sent = 0;
 extern long Nb_Messages_recus;
 extern long Nb_Erreurs_com;
 static char str[70];
@@ -186,7 +186,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
 	//Send the revision of this board firmware
-	if(!relese_sent)
+	if(!release_sent)
 	{
 		sprintf(str, "IA release= %s.%s; %s; %s\n",
 				MAJOR_RELEASE,
@@ -194,7 +194,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 				__DATE__,
 				__TIME__);
 		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
-		relese_sent = 1;
+		release_sent = 1;
 	}
 	_2_Comm_Send_Communication_Status(canal);
 }
@@ -379,7 +379,7 @@ void _2_Comm_Check_Presence_Cartes(enum enum_canal_communication canal)
 		 * Chaque bit de présence des cartes sera effacé avant l'envoi du PING, et remonté à Réception du PONG
 		 */
 		_2_Comm_Send_PING(i+1, canal);
-		Task_Delay(1.0f); //Pas besoin d'attendre longtemps entre 2 pings
+		Task_Delay(4.0f); //Pas besoin d'attendre longtemps entre 2 pings
 	}
 }
 
@@ -567,27 +567,6 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 }
 
 /*****************************************************************************/
-
-
-/*****************************************************************************
- ** Function name:		_2_Comm_Envoi_Fin_Communication
- **
- ** Descriptions:		Fonction d'envoie de la fin d'une communication
- **
- ** parameters:			none
- ** Returned value:		None
- **
- *****************************************************************************/
-struct Communication_Message* _2_Comm_Envoi_Fin_Communication(void)
-{
-	trame_echange.Instruction = END_COMMUNICATION;
-	trame_echange.Slave_Adresse = ALL_CARDS;
-
-	trame_echange.Length = 0;
-	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
-
-	return _1_Communication_Create_Message(&trame_echange);
-}
 
 
 

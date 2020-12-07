@@ -44,9 +44,9 @@ void _0_Communication_Init_Event_Group(void)
 
 	//Init de l'event Group lié aux ACK de communication
 	_0_ACK_Type_EventGroup = xEventGroupCreate();
-		vTraceSetEventGroupName( _0_ACK_Type_EventGroup, "_0_ACK_Type_EventGroup");
+	vTraceSetEventGroupName( _0_ACK_Type_EventGroup, "_0_ACK_Type_EventGroup");
 
 	//Init de l'event Group lié aux adresses des cartes ayant renvoyé un ACK
-		_0_ACK_Adresses = xEventGroupCreate();
-			vTraceSetEventGroupName( _0_ACK_Adresses, "_0_ACK_Adresses");
+	_0_ACK_Adresses = xEventGroupCreate();
+	vTraceSetEventGroupName( _0_ACK_Adresses, "_0_ACK_Adresses");
 }

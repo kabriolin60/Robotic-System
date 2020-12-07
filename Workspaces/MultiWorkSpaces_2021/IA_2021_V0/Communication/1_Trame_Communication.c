@@ -41,10 +41,6 @@ void _1_Communication_Init(void)
 
 	//Tache de décodage des donnees recues par differentes FIFO
 	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
-
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-	MyChannel_Recompo = xTraceRegisterString("Recompo_Mess");
-#endif
 }
 
 
@@ -60,7 +56,7 @@ void _1_Communication_Init(void)
 void _1_Communication_Create_Queues_Semaphores(void)
 {
 	//Mise à dispo du bit de liberation de la trame d'envoi et de reception
-	xEventGroupSetBits(_0_Comm_EventGroup, eGROUP_SYNCH_TxTrameDispo | eGROUP_SYNCH_RxTrameDispo);
+	xEventGroupSetBits(_0_Comm_EventGroup, eGROUP_SYNCH_TxTrameDispo | eGROUP_SYNCH_RxTrameDispo | eGROUP_SYNCH_COMMUNICATION_TxDispo);
 }
 
 
@@ -75,7 +71,7 @@ void _1_Communication_Create_Queues_Semaphores(void)
  ** Returned value:		None
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, byte bit_to_check)
+BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, long bit_to_check)
 {
 	EventBits_t uxBits;
 	uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
@@ -87,9 +83,11 @@ BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, byte bit_to_ch
 	if( ( uxBits & (bit_to_check ) ) == ( bit_to_check ) )
 	{
 		return pdTRUE;
+	}else
+	{
+		//delay depassé
+		return pdFALSE;
 	}
-	//delay depassé
-	return pdFALSE;
 }
 
 
@@ -102,7 +100,7 @@ BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait, byte bit_to_ch
  ** Returned value:		None
  **
  *****************************************************************************/
-void _1_Communication_Free_Send_Bit(byte bit_to_check)
+void _1_Communication_Free_Send_Bit(long bit_to_check)
 {
 	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
 			bit_to_check );/* The bits being set. */
@@ -164,52 +162,52 @@ void _1_Communication_Free_Receive_Bit(void)
  ** 					pdFAIL : message NON envoyé
  **
  *****************************************************************************/
-static TO_AHBS_RAM3 struct Communication_Message Message_To_Send;
+//static TO_AHBS_RAM3 struct Communication_Message Message_To_Send;
 
-struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send)
+struct Communication_Message* _1_Communication_Create_Message(struct Communication_Trame *pMessage_to_send, struct Communication_Message* Message_To_Send)
 {
 	//Le bit de synchro issu de l'EventGroup, est pris par la couche 2
 
-	Message_To_Send.Data[0] = 0x7E;                         //Xbee API start byte
+	Message_To_Send->Data[0] = 0x7E;                         //Xbee API start byte
 
 	int length = pMessage_to_send->Length + 7;
 
-	Message_To_Send.length = pMessage_to_send->Length + 11;
+	Message_To_Send->length = pMessage_to_send->Length + 11;
 
-	Message_To_Send.Data[1] = (byte)(length >> 8);                  //length high
-	Message_To_Send.Data[2] = (byte)(length & 0xFF);                //length low
+	Message_To_Send->Data[1] = (byte)(length >> 8);                  //length high
+	Message_To_Send->Data[2] = (byte)(length & 0xFF);                //length low
 
-	Message_To_Send.Data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
-	Message_To_Send.Data[4] = 0x01;                         //Frame ID: 0x01 = demande d'ack
+	Message_To_Send->Data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
+	Message_To_Send->Data[4] = 0x01;                         //Frame ID: 0x01 = demande d'ack
 
-	Message_To_Send.Data[5] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR >> 8);        //add high
-	Message_To_Send.Data[6] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR & 0xFF);      //add low
+	Message_To_Send->Data[5] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR >> 8);        //add high
+	Message_To_Send->Data[6] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR & 0xFF);      //add low
 
-	Message_To_Send.Data[7] = 0x00;                         //Option
+	Message_To_Send->Data[7] = 0x00;                         //Option
 
 	byte index = 0;
 	//Datas
 	{
-		Message_To_Send.Data[8] = (byte)(pMessage_to_send->Instruction);
+		Message_To_Send->Data[8] = (byte)(pMessage_to_send->Instruction);
 
-		Message_To_Send.Data[9] = (byte)(pMessage_to_send->Slave_Adresse);
+		Message_To_Send->Data[9] = (byte)(pMessage_to_send->Slave_Adresse);
 
 		for (index = 0; index < pMessage_to_send->Length; index++)
 		{
-			Message_To_Send.Data[10 + index] = pMessage_to_send->Data[index];
+			Message_To_Send->Data[10 + index] = pMessage_to_send->Data[index];
 		}
 	}
 
 	short API_CRC = 0;
 	for (index = 3; index < 10 + pMessage_to_send->Length; index++)
 	{
-		API_CRC += Message_To_Send.Data[index];
+		API_CRC += Message_To_Send->Data[index];
 	}
 
 	API_CRC &= 0xFF;
 	API_CRC = (byte)(0xFF - API_CRC);
 
-	Message_To_Send.Data[index] = (byte)(API_CRC);
+	Message_To_Send->Data[index] = (byte)(API_CRC);
 
 	return &Message_To_Send;
 }
@@ -232,17 +230,94 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
  *****************************************************************************/
 BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
 {
+	struct Communication_Message Message_To_Send;
+
+	//Mise en forme des datas
+	(void)_1_Communication_Create_Message(pMessage_to_send, &Message_To_Send);
+	_1_Communication_Free_Send_Bit(bit_to_check);
+
+	//Ajoute au message le cannal de communication à utilisre
+	Message_To_Send.canal_communication = canal;
+
+	if(WAIT_FOR_ACK)
+	{
+		_1_Communication_CLEAR_ACK();
+	}
+
+	byte tentatives_envoi = 0;
+	do
+	{
+		tentatives_envoi++;
+		//Commence par mettre le message en Queue d'envoi
+		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
+		{
+			//Le message n'a pas pu être mis en Queue d'envoie
+			return pdFALSE;
+		}
+	}while(!_1_Communication_WAIT_ACK(WAIT_FOR_ACK, ACK_TYPE, Cartes_Devant_ACK) && tentatives_envoi < 10);
+
+	//Vérifie si on a atteint le nombre maximum de tentatives
+	if(tentatives_envoi >= 10)
+	{
+		//On a dépassé le nombre maximum d'envoi de messages
+
+		static char str[70];
+		sprintf(str, "IA: ACK non recu: Instr= %d", pMessage_to_send->Instruction);
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
+
+		//Renvoi un échec
+		return pdFAIL;
+	}else
+	{
+		//Le message est bien parti, et son ACK tel que attentu est arrivé
+
+		//Renvoi un succes
+		return pdPASS;
+	}
+
+	//Le message n'a pas pu être mis en Queue d'envoie
+	return pdTRUE;
+
+
+	/******************************************************************************
+
+
+	byte tentatives_envoi = 0;
+	//Attente si une autre tache essaie d'envoyer elle aussi un message
+	if(!_1_Communication_Wait_To_Send(ms_to_tick(100), eGROUP_SYNCH_COMMUNICATION_TxDispo))
+	{
+		_1_Communication_CLEAR_ACK();
+		tentatives_envoi++;
+		return pdFALSE;
+	}
+
+
+
 	//Mise en forme des datas
 	(void)_1_Communication_Create_Message(pMessage_to_send);
 
 	//Ajoute au message le cannal de communication à utilisre
 	Message_To_Send.canal_communication = canal;
 
-	byte tentatives_envoi = 0;
+
 
 	if(WAIT_FOR_ACK)
 	{
 		_1_Communication_CLEAR_ACK();
+	}else
+	{
+		//Commence par mettre le message en Queue d'envoi
+		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
+		{
+			//Le message n'a pas pu être mis en Queue d'envoie
+			//Libère le bit de synchro pour pouvoir envoyer un autre message
+			_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
+			return pdFALSE;
+		}
+		//Le message n'a pas pu être mis en Queue d'envoie
+		//Libère le bit de synchro pour pouvoir envoyer un autre message
+		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
+		return pdTRUE;
 	}
 
 	do
@@ -252,7 +327,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 		{
 			//Le message n'a pas pu être mis en Queue d'envoie
 			//Libère le bit de synchro pour pouvoir envoyer un autre message
-			_1_Communication_Free_Send_Bit(bit_to_check);
+			_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
 			return pdFALSE;
 		}
 
@@ -270,10 +345,10 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	{
 		//On a dépassé le nombre maximum d'envoi de messages
 		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit(bit_to_check);
+		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
 
-		static char str[25];
-		sprintf(str, "IA: ACK non recu!!");
+		static char str[70];
+		sprintf(str, "IA: ACK non recu: Instr= %d!!", pMessage_to_send->Instruction);
 		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
 
 		//Renvoi un échec
@@ -282,11 +357,11 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	{
 		//Le message est bien parti, et son ACK tel que attentu est arrivé
 		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit(bit_to_check);
+		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
 
 		//Renvoi un succes
 		return pdPASS;
-	}
+	}*/
 }
 
 
@@ -335,7 +410,7 @@ short _1_Communication_WAIT_ACK(byte wait, enum enum_ACK_Types ACK_TYPE, long Ca
 			Cartes_Devant_ACK, //Bits to wait for
 			pdFALSE, //Clear on exit
 			pdTRUE, //xWaitForAllBits
-			ms_to_tick(30) ); //Delay
+			0 ); //Delay
 
 	if(uxBits_ACK_Adresses != Cartes_Devant_ACK)
 	{

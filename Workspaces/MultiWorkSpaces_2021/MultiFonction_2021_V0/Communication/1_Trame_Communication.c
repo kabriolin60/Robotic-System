@@ -40,10 +40,6 @@ void _1_Communication_Init(void)
 
 	//Tache de décodage des donnees recues par differentes FIFO
 	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 320, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
-
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-	MyChannel_Recompo = xTraceRegisterString("Recompo_Mess");
-#endif
 }
 
 
@@ -397,9 +393,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			{
 				//_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Data missing2");
-#endif
 				return pdFAIL;
 			}
 			Task_Delay(0.1F);
@@ -431,9 +424,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			//_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "CRC Error");
-#endif
 			_2_Comm_Send_Communication_Status(RS485_port);
 			return pdFAIL;
 		}
@@ -520,12 +510,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 			vTracePrintF(MyChannel_RX_RS485, "RS485_Before Read = %d", RingBuffer_Count(&rxring_RS485));
 		}else if(uxBits & (eGROUP_SYNCH_USB_Rx_Data_Avail ))
 		{
-			//Un message est dispo dans le buffer USB
-#ifdef USE_USB
-			Falged_ringBuffer = &rxring_USB;
-#else
 			Falged_ringBuffer = NULL;
-#endif
 		}
 
 		//Temps qu'il y a des datas à lire dans le buffer en question

@@ -448,7 +448,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 			case RS485_port:
 				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
-				if(Message.Data[0] == PING || Message.Data[8] == DEMANDE_INFO)
+				if(Message.Data[8] == PING || Message.Data[8] == DEMANDE_INFO)
 				{
 					Task_Delay(2.5f);
 				}
@@ -464,6 +464,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
 				break;
 			}
+			Task_Delay(0.2f);
 		}
 	}
 }

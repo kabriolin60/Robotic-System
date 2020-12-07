@@ -76,13 +76,6 @@ void _0_Communication_Init(void)
 	_1_xQueue_Message_TO_Send = xQueueCreate( 10, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-	MyChannel_RX_RS485 = xTraceRegisterString("RS485_Buffer_Usage");
-#ifdef USE_USB
-	MyChannel_RX_USB= xTraceRegisterString("USB_Buffer_Usage");
-#endif
-#endif
-
 	//Tache d'envoi des messages pour tous les cannaux
 	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 100, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
@@ -125,11 +118,6 @@ void _0_Communication_Init_RS485(void)
 
 	/* Disable transmit status interrupt */
 	Chip_UART_IntDisable(RS484_UART, UART_IER_THREINT);
-
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-	//Identifie l'interruption de RS485 pour FreeRTOS+Trace
-	Trace_Timer_RS485_Handle = xTraceSetISRProperties("ID_ISR_RX_RS485", RS485_IRQ_SELECTION);
-#endif
 
 	/* preemption = 1, sub-priority = 1 */
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
@@ -199,18 +187,6 @@ void RS485_HANDLER_NAME(void)
 	//Trace tracking of ISR exit
 	vTraceStoreISREnd(0);
 }
-
-
-/*****************************************************************************
- ** Function name:		USB_IRQHandler
- **
- ** Descriptions:		Handler de reception USB
- **
- ** parameters:			None
- ** Returned value:		None
- **
- *****************************************************************************/
-
 
 
 /*****************************************************************************

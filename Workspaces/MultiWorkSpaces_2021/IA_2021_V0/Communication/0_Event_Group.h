@@ -19,6 +19,8 @@
 
 #define eGROUP_SYNCH_STRATEGIE_TxTrameDispo ( 1 << 5 ) 		//Flag indiquant que la trame (séparée pour la stratégie) permettant d'envoyer un message est dispo depuis la page de strategie
 
+#define eGROUP_SYNCH_COMMUNICATION_TxDispo ( 1 << 6 ) 		//Flag indiquant que la fonction d'envoi un message est disponible
+
 
 extern EventGroupHandle_t _0_Comm_EventGroup;
 
