@@ -239,9 +239,6 @@ void RS485_HANDLER_NAME(void)
 	static bool already_flaged = pdFALSE;
 	BaseType_t pxHigherPriorityTaskWoken = false;
 
-	//Trace tracking of ISR entry
-	vTraceStoreISRBegin(Trace_Timer_RS485_Handle);
-
 	if(RingBuffer_Count(&rxring_RS485) <= 10)
 	{
 		already_flaged = pdFALSE;
@@ -272,14 +269,8 @@ void RS485_HANDLER_NAME(void)
 	//Force un changement de tache
 	portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
 
-	//Trace un user Event pour debug
-	vTracePrintF(MyChannel_RX_RS485, "RS485_Buff_usage = %d", RingBuffer_Count(&rxring_RS485));
-
 	//Clear ISR flag
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
-
-	//Trace tracking of ISR exit
-	vTraceStoreISREnd(0);
 }
 
 
@@ -346,9 +337,6 @@ void USB_IRQHandler(void)
 	static bool already_flaged = pdFALSE;
 	BaseType_t pxHigherPriorityTaskWoken = false;
 
-	//Trace tracking of ISR entry
-	vTraceStoreISRBegin(Trace_Timer_USB_Handle);
-
 	USBD_API->hw->ISR(g_hUsb);
 
 
@@ -385,12 +373,7 @@ void USB_IRQHandler(void)
 		//Force un changement de tache
 		portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
 	}
-	//Trace un user Event pour debug
-	vTracePrintF(MyChannel_RX_USB, "USB_Buff_usage = %d", RingBuffer_Count(&rxring_USB));
 #endif
-
-	//Trace tracking of ISR exit
-	vTraceStoreISREnd(0);
 }
 
 

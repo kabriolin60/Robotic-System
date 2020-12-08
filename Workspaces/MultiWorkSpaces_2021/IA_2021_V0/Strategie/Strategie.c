@@ -202,6 +202,8 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	//Ajouter l'attente de l'initialisation
 	Task_Delay(500);
 
+	vTraceEnable(TRC_START);
+
 	/* Envoie l'ID du Robot vers les cartes sur le réseau */
 	Init_Send_Robot_ID();
 

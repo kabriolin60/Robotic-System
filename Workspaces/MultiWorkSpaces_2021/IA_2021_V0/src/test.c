@@ -85,7 +85,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	Astar_Debug_Display_Map(Astar_Get_Map());
 	 */
 
-	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
 
 
@@ -93,7 +93,8 @@ void TEST_Deplacement(void * pvParameter)
 {
 	static char str[70];
 
-	Task_Delay(500);
+	Task_Delay(520);
+
 
 	_2_Comm_Demande_Simulation(TRUE, RS485_port);
 	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);

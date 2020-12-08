@@ -97,12 +97,12 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	/*if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
 		return;
-	}
+	}*/
 
 	trame_echange.Instruction = DEMANDE_INFO;
 	trame_echange.Slave_Adresse = adresse_cible;

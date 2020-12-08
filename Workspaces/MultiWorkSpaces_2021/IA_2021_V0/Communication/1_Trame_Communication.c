@@ -230,7 +230,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
  *****************************************************************************/
 BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
 {
-	//if(!WAIT_FOR_ACK)
+	if(!WAIT_FOR_ACK)
 	{
 		struct Communication_Message Message_To_Send_no_ACK;
 
@@ -292,7 +292,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 		//On a dépassé le nombre maximum d'envoi de messages
 
 		static char str[70];
-		sprintf(str, "IA: ACK non recu: Instr= %d", pMessage_to_send->Instruction);
+		sprintf(str, "IA: ACK non recu: Instr= %d", Message_To_Send.Data[8]);
 		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
 
 		//Renvoi un échec
@@ -734,7 +734,6 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		{
 			//Un message est dispo dans le buffer RS485
 			Falged_ringBuffer = &rxring_RS485;
-			vTracePrintF(MyChannel_RX_RS485, "RS485_Before Read = %d", RingBuffer_Count(&rxring_RS485));
 		}else if(uxBits & (eGROUP_SYNCH_USB_Rx_Data_Avail ))
 		{
 			//Un message est dispo dans le buffer USB

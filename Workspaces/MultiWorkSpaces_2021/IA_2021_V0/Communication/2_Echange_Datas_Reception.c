@@ -46,8 +46,6 @@ void _2_Communication_RX_Init()
 
 void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 {
-	Debug_Trace_Texte("Debut_Interpretation");
-
 	Nb_Messages_Interpretes++;
 
 	switch(trame->Instruction)
@@ -74,8 +72,6 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	default:
 		break;
 	}
-
-	Debug_Trace_Texte("Fin_Interpretation");
 }
 
 
