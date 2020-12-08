@@ -209,7 +209,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 
 	Message_To_Send->Data[index] = (byte)(API_CRC);
 
-	return &Message_To_Send;
+	return NULL;//&Message_To_Send;
 }
 
 
@@ -230,7 +230,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
  *****************************************************************************/
 BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
 {
-	if(!WAIT_FOR_ACK)
+	//if(!WAIT_FOR_ACK)
 	{
 		struct Communication_Message Message_To_Send_no_ACK;
 
@@ -238,7 +238,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 		(void)_1_Communication_Create_Message(pMessage_to_send, &Message_To_Send_no_ACK);
 		_1_Communication_Free_Send_Bit(bit_to_check);
 
-		//Ajoute au message le cannal de communication à utilisre
+		//Ajoute au message le canal de communication à utilisre
 		Message_To_Send_no_ACK.canal_communication = canal;
 
 		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send_no_ACK, ms_to_tick(10)))
@@ -253,12 +253,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 
 	//Attente si une autre tache essaie d'envoyer elle aussi un message
-	if(!_1_Communication_Wait_To_Send(ms_to_tick(100), eGROUP_SYNCH_COMMUNICATION_TxDispo))
-	{
-		//Libère le bits de la trame
-		_1_Communication_Free_Send_Bit(bit_to_check);
-		//return pdFALSE;
-	}
+	_1_Communication_Wait_To_Send(ms_to_tick(100), eGROUP_SYNCH_COMMUNICATION_TxDispo);
 
 	struct Communication_Message Message_To_Send;
 
@@ -266,7 +261,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	(void)_1_Communication_Create_Message(pMessage_to_send, &Message_To_Send);
 	_1_Communication_Free_Send_Bit(bit_to_check);
 
-	//Ajoute au message le cannal de communication à utilisre
+	//Ajoute au message le canal de communication à utilisre
 	Message_To_Send.canal_communication = canal;
 
 	_1_Communication_CLEAR_ACK();
@@ -283,7 +278,8 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 			_1_Communication_Free_Send_Bit(eGROUP_SYNCH_COMMUNICATION_TxDispo);
 			return pdFALSE;
 		}
-	}while(!_1_Communication_WAIT_ACK(WAIT_FOR_ACK, ACK_TYPE, Cartes_Devant_ACK) && tentatives_envoi < 10);
+		Task_Delay(5);
+	}while(!_1_Communication_WAIT_ACK(WAIT_FOR_ACK, ACK_TYPE, Cartes_Devant_ACK) && tentatives_envoi < 5);
 
 
 	//Libère l'accès à cette fonction
@@ -291,7 +287,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 
 	//Vérifie si on a atteint le nombre maximum de tentatives
-	if(tentatives_envoi >= 10)
+	if(tentatives_envoi >= 5)
 	{
 		//On a dépassé le nombre maximum d'envoi de messages
 
@@ -330,7 +326,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	//Mise en forme des datas
 	(void)_1_Communication_Create_Message(pMessage_to_send);
 
-	//Ajoute au message le cannal de communication à utilisre
+	//Ajoute au message le canal de communication à utilisre
 	Message_To_Send.canal_communication = canal;
 
 
@@ -444,7 +440,7 @@ short _1_Communication_WAIT_ACK(byte wait, enum enum_ACK_Types ACK_TYPE, long Ca
 			Cartes_Devant_ACK, //Bits to wait for
 			pdFALSE, //Clear on exit
 			pdTRUE, //xWaitForAllBits
-			0 ); //Delay
+			ms_to_tick(30) ); //Delay
 
 	if(uxBits_ACK_Adresses != Cartes_Devant_ACK)
 	{

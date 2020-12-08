@@ -303,7 +303,7 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
  ** Returned value:		None
  **
  *****************************************************************************/
-const float delai_demande_info = 4.0f;
+const float delai_demande_info = 5.0f;
 void _2_Communication_Boards_Status(void* pvParameters)
 {
 	Init_Timing_Tache;
