@@ -52,7 +52,8 @@ public class Consignes_Deplacement
 
         if (Destination_Theta.text != "")
         {
-            float temp_ang = float.Parse(Destination_Theta.text, Common_settings.culture); 
+            float temp_ang = float.Parse(Destination_Theta.text, Common_settings.culture);
+            temp_ang *= Mathf.Deg2Rad;
             temp_ang *= 100;
             coord.Angle = (short)temp_ang;
         }

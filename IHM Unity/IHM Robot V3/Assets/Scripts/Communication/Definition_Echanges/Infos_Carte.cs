@@ -137,11 +137,13 @@ public partial class Infos_Carte
 		public byte Strategie;
 
 		[MarshalAs(UnmanagedType.U2)]
-		public ushort Temps_Match;                             //Temps /10		//2 octets
+		public ushort Temps_Match;              //Temps /10		//2 octets
 
 		[MarshalAs(UnmanagedType.U1)]
-		public byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
+		public byte Etat_Inputs;				//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green; 6 = User_BP					 //1 octet
 
+		[MarshalAs(UnmanagedType.U1)]
+		public long Boards_Comm_Status;         //== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
 	}
 
 	public Com_Reponse_Info_IA Trame_To_Data_IA(Communication.Communication_Trame input_trame)

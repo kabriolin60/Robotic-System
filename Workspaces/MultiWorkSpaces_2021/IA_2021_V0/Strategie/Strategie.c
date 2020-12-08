@@ -129,6 +129,21 @@ byte _Strategie_Get_Switch_Status(void)
 
 
 /*****************************************************************************
+ ** Function name:		_Strategie_Get_User_BP_Status
+ **
+ ** Descriptions:		Lecture de la valeur de l'entrée BP
+ **
+ ** parameters:			None
+ ** Returned value:		Entrée User BP
+ **
+ *****************************************************************************/
+byte _Strategie_Get_User_BP_Status(void)
+{
+	return Chip_GPIO_GetPinState(LPC_GPIO, STRATEGIE_PORT, STRATEGIE_BIT);
+}
+
+
+/*****************************************************************************
  ** Function name:		_Strategie_Get_External_LED_RED_Status
  **
  ** Descriptions:		Lecture de la valeur de la led externe ROUGE
@@ -206,6 +221,9 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 
 	/* Envoie l'ID du Robot vers les cartes sur le réseau */
 	Init_Send_Robot_ID();
+
+	/* Lecture de l'entrée ADC de selection de la stratégie */
+	_Strategie_Get_Input_Strategie_Selector();
 
 
 	//Creation des actions

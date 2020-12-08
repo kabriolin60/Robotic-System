@@ -31,6 +31,8 @@ byte _Strategie_Get_Color_Status(void);
 
 byte _Strategie_Get_Switch_Status(void);
 
+byte _Strategie_Get_User_BP_Status(void);
+
 byte _Strategie_Get_External_LED_RED_Status(void);
 void _Strategie_Set_External_LED_RED_Status(byte value);
 

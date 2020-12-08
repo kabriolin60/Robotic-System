@@ -311,6 +311,12 @@ void _2_Communication_Boards_Status(void* pvParameters)
 	Task_Delay_Until(100);
 
 	/*
+	 * Par défault, la carte IA est présente
+	 */
+	xEventGroupSetBits(_0_Status_EventGroup,    /* The event group being updated. */
+			eGROUP_STATUS_CARTE_IA);		 /* The bits being set. */
+
+	/*
 	 * Ping chaque carte pour vérifier et mettre à jour sa présence sur le bus
 	 */
 	_2_Comm_Check_Presence_Cartes(RS485_port);
@@ -347,7 +353,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 
 		boucle++;
 
-		if(boucle == 1000)
+		if(boucle == 400)
 		{
 			/*
 			 * Ping chaque carte pour vérifier et mettre à jour sa présence sur le bus
@@ -381,6 +387,19 @@ void _2_Comm_Check_Presence_Cartes(enum enum_canal_communication canal)
 		_2_Comm_Send_PING(i+1, canal);
 		Task_Delay(4.0f); //Pas besoin d'attendre longtemps entre 2 pings
 	}
+
+
+
+	long board_status = xEventGroupGetBits(_0_Status_EventGroup);    /* The event group being updated. */
+
+	if(board_status != (eGROUP_STATUS_CARTES_ATTENDUES | eGROUP_STATUS_CARTE_IA ))
+	{
+		_Strategie_Set_External_LED_RED_Status(TRUE);
+	}else
+	{
+		_Strategie_Set_External_LED_RED_Status(FALSE);
+	}
+
 }
 
 
@@ -782,13 +801,16 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 
 	Infos.Temps_Match = (unsigned short)(_Strategie_Get_Temps_Match() / 10);                             //Temps /10		//2 octets
 
-	//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green
+	//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green; 6 = User_BP
 	Infos.Etat_Inputs = _Strategie_Get_Jack_Status();
 	Infos.Etat_Inputs |= _Strategie_Get_Color_Status() << 1;
 	Infos.Etat_Inputs |= _Strategie_Get_Switch_Status() << 2;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_RED_Status() << 3;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_YELLOW_Status() << 4;
 	Infos.Etat_Inputs |= _Strategie_Get_External_LED_GREEN_Status() << 5;
+	Infos.Etat_Inputs |= _Strategie_Get_User_BP_Status() << 6;
+
+
 
 	//Envoi l'etat de présence des cartes sur le bus issues du dernier PING
 	Infos.Boards_Comm_Status = xEventGroupGetBits( _0_Status_EventGroup );

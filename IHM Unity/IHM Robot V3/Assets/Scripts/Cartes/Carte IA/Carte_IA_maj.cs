@@ -16,6 +16,8 @@ public class Carte_IA_maj : MonoBehaviour
 	public GameObject LED_Yellow;
 	public GameObject LED_Green;
 	public GameObject Tension_Batterie;
+	public GameObject User_BP;
+	public GameObject Communication_Board;
 
 	public void MaJ_Carte(Infos_Carte.Com_Reponse_Info_IA infos)
 	{
@@ -30,12 +32,42 @@ public class Carte_IA_maj : MonoBehaviour
 		LED_Red.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00001000) > 0 ? true : false);
 		LED_Yellow.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00010000) > 0 ? true : false);
 		LED_Green.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00100000) > 0 ? true : false);
+		User_BP.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b01000000) > 0 ? true : false);
+		
 
 		float tension_batterie = Last_Infos.Robots_Last_Info[(int)(infos.Numero_Robot)].Get_Last_Infos(0).Tension_Batterie;
 
 		tension_batterie /= 100;
 
 		Tension_Batterie.GetComponent<TextMeshProUGUI>().text = $"{tension_batterie}V";
+
+		//Maj des status des cartes du bus
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte IA").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000001) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT1").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000010) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT2").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000100) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT3").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00001000) > 0;
+
+
+
+	}
+
+
+	internal static Transform FindChildByRecursion(Transform aParent, string aName)
+	{
+		if (aParent == null) return null;
+
+		var result = aParent.transform.Find(aName);
+
+		if (result != null)
+			return result;
+
+		foreach (Transform child in aParent)
+		{
+			result = FindChildByRecursion(child, aName);
+			if (result != null)
+				return result;
+		}
+		return null;
 	}
 }
 
