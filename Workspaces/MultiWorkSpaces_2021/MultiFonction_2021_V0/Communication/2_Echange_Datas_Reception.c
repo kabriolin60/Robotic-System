@@ -371,8 +371,8 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²*/
 	float consigne_accel = ((float)speed.Accel_Avance)/100; //mm/s²
 	consigne_accel /= 1000; //mm/ms²
-	consigne_accel *= PERIODE_PID_VITESSE;
-	consigne_accel *= PERIODE_PID_VITESSE; //mm/it
+	consigne_accel *= PERIODE_PID_DISTANCE_ANGLE;
+	consigne_accel *= PERIODE_PID_DISTANCE_ANGLE; //mm/it
 	consigne_accel *= param->COEF_D; //pas/it
 
 	/*float consigne_Deccel = ((float)speed.Deccel_Avance)*10; //mm/s² = /100*1000
@@ -383,8 +383,8 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²*/
 	float consigne_Deccel = ((float)speed.Deccel_Avance)/100; //mm/s²
 	consigne_Deccel /= 1000; //mm/ms²
-	consigne_Deccel *= PERIODE_PID_VITESSE;
-	consigne_Deccel *= PERIODE_PID_VITESSE; //mm/it
+	consigne_Deccel *= PERIODE_PID_DISTANCE_ANGLE;
+	consigne_Deccel *= PERIODE_PID_DISTANCE_ANGLE; //mm/it
 	consigne_Deccel *= param->COEF_D; //pas/it
 
 	_2_Asservissement_Set_Distance_Speed_Accel(consigne_speed,consigne_accel, consigne_Deccel);
@@ -408,8 +408,8 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
 	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s²
 	consigne_accel_rotation /= 1000; //mrad/ms²
-	consigne_accel_rotation *= PERIODE_PID_VITESSE;
-	consigne_accel_rotation *= PERIODE_PID_VITESSE; //mrad/it
+	consigne_accel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
+	consigne_accel_rotation *= PERIODE_PID_DISTANCE_ANGLE; //mrad/it
 	consigne_accel_rotation *= param->COEF_ROT; //pas/it
 
 	/*float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //ras/s² = /100*1000
@@ -420,8 +420,8 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
 	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //rad/s²
 	consigne_Deccel_rotation /= 1000; //mrad/ms²
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE;
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //mrad/it
+	consigne_Deccel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
+	consigne_Deccel_rotation *= PERIODE_PID_DISTANCE_ANGLE; //mrad/it
 	consigne_Deccel_rotation *= param->COEF_ROT; //pas/it
 
 	_2_Asservissement_Set_Rotation_Speed_Accel(consigne_rotation, consigne_accel_rotation, consigne_Deccel_rotation);

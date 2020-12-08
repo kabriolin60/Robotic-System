@@ -57,4 +57,6 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 
 void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal);
 
+void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_Max, short Cumul, byte Sommation, byte Enable, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */

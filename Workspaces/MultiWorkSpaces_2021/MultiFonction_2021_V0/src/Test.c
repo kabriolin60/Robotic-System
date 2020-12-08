@@ -17,7 +17,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	newparameters.COEF_ROT = 5489.5F;	//5493.0F
 	newparameters.COEF_CORRECTION_DIAMETRES = -0.0027F;	//-0.0018
 	newparameters.SIMULATION = 1;
-	newparameters._1_Odometrie_Type_Asserv = Polaire_Tourne_Avance_point_unique;
+	newparameters._1_Odometrie_Type_Asserv = Vitesse_Droite_Vitesse_Gauche_Indep;
 	_1_Odometrie_Set_Parameters(&newparameters);
 
 	//Position initiale du Robot
@@ -121,7 +121,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		ptr_PID_Vitesse_Droite->Enable = 1;
 		ptr_PID_Vitesse_Droite->gain_P = 0.085F;	//
 		ptr_PID_Vitesse_Droite->gain_I = 0.0F;		//
-		ptr_PID_Vitesse_Droite->gain_D = 0.055F;	//
+		ptr_PID_Vitesse_Droite->gain_D = 0.55F;	//
 		ptr_PID_Vitesse_Droite->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Vitesse_Droite->commande_max = 30;
 		ptr_PID_Vitesse_Droite->commande_min = -30;
@@ -157,9 +157,9 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		struct st_pid_filter* ptr_PID_Rotation = _2_Asserv_GetPtr_PID_Rot();
 
 		ptr_PID_Position->Enable = 1;
-		ptr_PID_Position->gain_P = 0.03F;	//0.04F
+		ptr_PID_Position->gain_P = 0.05F;	//0.04F
 		ptr_PID_Position->gain_I = 0.0F;	//0.0F
-		ptr_PID_Position->gain_D = 0.9F;	//0.9F
+		ptr_PID_Position->gain_D = 0.0F;	//0.9F
 		ptr_PID_Position->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Position->commande_max = 10;
 		ptr_PID_Position->commande_min = -10;
@@ -257,7 +257,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	//xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -278,7 +278,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(5);
+		Task_Delay_Until(5.0f);
 		channel = 0;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
@@ -289,25 +289,27 @@ void Test_Task_Graphique(void* pvParameter)
 		Datas_To_Plot.Datas[channel].Data = _1_Get_prt_PID_Vit_Droite()->Current_Value;
 		channel++;
 
-		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
-		channel++;
+
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
 		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Consigne;
-		channel++;
-
-		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Pos()->Current_Value;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
 		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Consigne;
 		channel++;
 
+
+
+
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _2_Asserv_GetPtr_PID_Rot()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Current_Value;
 		channel++;
+
+		Datas_To_Plot.Datas[channel].Channel = channel;
+		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Rot()->Current_Value;
+		channel++;
+
 
 		Datas_To_Plot.nb_datas_to_send = channel;
 		_2_Comm_Send_Graph(&Datas_To_Plot, RS485_port);

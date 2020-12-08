@@ -803,3 +803,45 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	//Envoi sans attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Robot_PID
+ **
+ ** Descriptions:		Fonction d'envoi de Parametres PID
+ **
+ ** parameters:			Set de parametres
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_Max, short Cumul, byte Sommation, byte Enable, enum enum_canal_communication canal)
+{
+	struct reglage_pid pid;
+	pid.P = P;
+	pid.I = I;
+	pid.D = D;
+	pid.Min_Max = Min_Max;
+	pid.Cumul = Cumul;
+	pid.Sommation = Sommation;
+	pid.Enable = Enable;
+	pid.id = ID;
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = PARAMETRES_PID;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(pid, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_PARAMETRES_PID, eGROUP_STATUS_CARTE_MultiFCT_1);
+}

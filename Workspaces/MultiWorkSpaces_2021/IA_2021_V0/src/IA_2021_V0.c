@@ -214,7 +214,7 @@ static void vTask_Stats(void *pvParameters)
 int main(void)
 {
 	prvSetupHardware();
-	vTraceEnable( TRC_INIT );
+	//vTraceEnable( TRC_INIT );
 
 	Init_Carte_IA();
 
