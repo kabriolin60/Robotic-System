@@ -86,7 +86,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	 */
 
 	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	//xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
 
 
@@ -100,6 +100,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 	//_2_Comm_Send_Robot_Speed(0.2f,1,1,	0.5f,1,1,RS485_port);
 
+	/**/
 	//Set les 2 PIDs de vitesses des roues independantes
 	_2_Comm_Send_Robot_PID(vitesse_roues_independantes, 0.085f, 0, 0.55f, 50, 0, 1, 1, RS485_port);
 
@@ -108,6 +109,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 	//Set le PID de rotation
 	_2_Comm_Send_Robot_PID(orientation, 0.006f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
+	/**/
 
 	Task_Delay(3000);
 

@@ -18,8 +18,8 @@ static struct st_pid_filter PID_Position;
 static struct st_pid_filter PID_Rotation;
 
 //Structure des Deplacement pour rampes en trapezes
-static struct st_DEPLACEMENT Deplacement_Distance;
-static struct st_DEPLACEMENT Deplacement_Rotation;
+ struct st_DEPLACEMENT Deplacement_Distance;
+ struct st_DEPLACEMENT Deplacement_Rotation;
 
 
 //Handler sur la tâche d'asserv en position et en Rotation
@@ -201,7 +201,7 @@ void _2_Asservissement_Set_Distance_Speed_Accel(float speed, float accel, float 
 void _2_Asservissement_Set_Rotation_Speed_Accel(float speed, float accel, float deccel)
 {
 	Deplacement_Rotation.Accel = accel;
-	Deplacement_Rotation.Deccel = deccel;
+	Deplacement_Rotation.Deccel = deccel * (PERIODE_PID_DISTANCE_ANGLE / PERIODE_PID_VITESSE);
 	Deplacement_Rotation.Vmax = speed;
 }
 
@@ -343,6 +343,7 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 				//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
 				_1_Update_PID_Consigne_Vitesse_Roue_Gauche(-_2_Asserv_GetPtr_PID_Rot()->Commande);
 				_1_Update_PID_Consigne_Vitesse_Roue_Droite(_2_Asserv_GetPtr_PID_Rot()->Commande);
+				break;
 
 			case Vitesse_D_G__Distance_Angle:
 				//TODO
@@ -461,6 +462,7 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 					//Met à jour les consignes des PID en vitesse position et rotation à partir des sorties des PID en position et rotation
 					_1_Update_PID_Consigne_Vitesse_Roue_Gauche(_2_Asserv_GetPtr_PID_Pos()->Commande - _2_Asserv_GetPtr_PID_Rot()->Commande);
 					_1_Update_PID_Consigne_Vitesse_Roue_Droite(_2_Asserv_GetPtr_PID_Pos()->Commande + _2_Asserv_GetPtr_PID_Rot()->Commande);
+					break;
 
 				case Vitesse_D_G__Distance_Angle:
 					//TODO
@@ -750,7 +752,7 @@ float Trapeze_Vitesse(struct st_DEPLACEMENT *D, struct st_pid_filter *PID, enum 
 	//Calcul de la vitesse max en comptant l'erreur et la decceleration
 	if(arret == depla_AVEC_freinage)
 	{
-		Vdecel = sqrtf(2 * D->Deccel * fabsf(D->Consigne - PID->Current_Value));
+		Vdecel = sqrtf(2 * D->Deccel * fabsf(D->Consigne - PID->Current_Value) * (PERIODE_PID_VITESSE / PERIODE_PID_DISTANCE_ANGLE))/2;
 	}else
 	{
 		//Si l'arret n'est pas demandé au point, on continue à vitesse max

@@ -140,7 +140,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 		ptr_PID_Vitesse_Position->Max_Erreur_Cumul = 0;	//0
 		ptr_PID_Vitesse_Position->commande_max = 30;
 		ptr_PID_Vitesse_Position->commande_min = -30;
-		ptr_PID_Vitesse_Position->Sommation_Sortie = 0; //1
+		ptr_PID_Vitesse_Position->Sommation_Sortie = 1; //1
 
 		ptr_PID_Vitesse_Rotation->Enable = 1;
 		ptr_PID_Vitesse_Rotation->gain_P = 0.6F;	//0.05F
@@ -266,6 +266,8 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 }
 
+extern struct st_DEPLACEMENT Deplacement_Distance;
+extern struct st_DEPLACEMENT Deplacement_Rotation;
 
 void Test_Task_Graphique(void* pvParameter)
 {
@@ -278,7 +280,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(5.0f);
+		Task_Delay_Until(10.0f);
 		channel = 0;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
@@ -303,11 +305,11 @@ void Test_Task_Graphique(void* pvParameter)
 
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Pos()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = Deplacement_Distance.Vitesse;
 		channel++;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
-		Datas_To_Plot.Datas[channel].Data = _1_Asserv_GetPtr_PID_Vit_Rot()->Current_Value;
+		Datas_To_Plot.Datas[channel].Data = Deplacement_Rotation.Vitesse;
 		channel++;
 
 

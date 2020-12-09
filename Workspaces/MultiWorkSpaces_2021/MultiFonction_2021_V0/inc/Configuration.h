@@ -234,13 +234,8 @@ Declaration des Inputs des contacteurs ToR
 Declaration des Reglages de la RTI et des Taches a executer
 **************************************************/
 
-#define PERIODE_INTERRUPTIONS_RTI 		(float)(1000/(float)configTICK_RATE_HZ)  //periode des interruptions RTI (ms)
-
 //Periode d'appel de la Fonction de Mise a jour de la Position du Robot sur la Table
 #define PERIODE_MISE_A_JOUR_POSITION 	10
-
-//Periode d'appel de la Fonction de Mise a jour de la Position du Robot sur la Table
-#define PERIODE_MANAGER_TRAJECTOIRE 	20
 
 //Periode d'appel de la Fonction de PID en Distance et en Angle
 #define PERIODE_PID_DISTANCE_ANGLE 		10
@@ -248,14 +243,11 @@ Declaration des Reglages de la RTI et des Taches a executer
 //Periode d'appel de la Fct de PID en Position des Moteurs Aux
 #define PERIODE_PID_POS_MOTEURS_AUX 	1
 
-//Periode d'appel du Manager deplacement des moteurs Aux
-#define PERIODE_MANAGER_MOTEURS_AUX 	20
-
 //Periode d'appel des PID en VITESSE
-#define PERIODE_PID_VITESSE				5
+#define PERIODE_PID_VITESSE				5.0f
 
 //Periode de mise à jours des infos sur les capteurs/actionneurs
-#define PERIODE_UPDATE					10
+#define PERIODE_UPDATE					10.0f
 
 /*************************************************/
 
