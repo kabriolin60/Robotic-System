@@ -14,7 +14,7 @@ public class Create_Actions_Container : MonoBehaviour
     public GameObject PID_Panel_Prefab;
     public GameObject Deplacement_Panel_Prefab;
 
-    public GameObject Servos_Panel_Prefab;
+    public GameObject Actionneurs_Panel_Prefab;
 
     private List<GameObject> list_Panels = new List<GameObject>(); 
 
@@ -31,7 +31,7 @@ public class Create_Actions_Container : MonoBehaviour
         Create_Panel(false, Deplacement_Panel_Prefab, "Déplacements").SetActive(false);
 
         //Panel de déplacement des servos
-        Create_Panel(false, Servos_Panel_Prefab, "Servos").SetActive(false);
+        Create_Panel(false, Actionneurs_Panel_Prefab, "Servos").SetActive(false);
     }
 
 
@@ -54,97 +54,6 @@ public class Create_Actions_Container : MonoBehaviour
         go_Panel.GetComponentInChildren<TextMeshProUGUI>().text = name;
         //Set le nom du panel
         go_contenu.name = $"Tab {name}";
-
-        return go_contenu;
-    }
-
-
-
-    private GameObject Create_Strategie_Panel(bool is_tabOn, GameObject panel)
-    {
-        GameObject go_Panel = Instantiate(Onglet_Prefab, Switch_Holder.transform) as GameObject;
-        go_Panel.GetComponent<Toggle>().isOn = is_tabOn;
-        go_Panel.GetComponent<Toggle>().group = Switch_Holder.GetComponent<ToggleGroup>();
-
-        //Le premier contenu
-        GameObject go_contenu = Instantiate(panel, Contenu_Panel.transform) as GameObject;
-        list_Panels.Add(go_contenu);
-
-        //Associe le panel à cet onglet
-        go_Panel.GetComponent<Toggle>().onValueChanged.AddListener(go_contenu.SetActive);
-
-        //Set le nom de l'onglet
-        go_Panel.name = $"Onglet Strategie";
-        //Set onglet button name
-        go_Panel.GetComponentInChildren<TextMeshProUGUI>().text = "Strategie";
-        //Set le nom du panel
-        go_contenu.name = $"Tab Strategie";
-
-        return go_contenu;
-    }
-
-    private GameObject Create_PID_Panel(bool is_tabOn, GameObject panel)
-    {
-        GameObject go_Panel = Instantiate(Onglet_Prefab, Switch_Holder.transform) as GameObject;
-        go_Panel.GetComponent<Toggle>().isOn = is_tabOn;
-        go_Panel.GetComponent<Toggle>().group = Switch_Holder.GetComponent<ToggleGroup>();
-
-        GameObject go_contenu = Instantiate(panel, Contenu_Panel.transform) as GameObject;
-        list_Panels.Add(go_contenu);
-
-        //Associe le panel à cet onglet
-        go_Panel.GetComponent<Toggle>().onValueChanged.AddListener(go_contenu.SetActive);
-
-        //Set le nom de l'onglet
-        go_Panel.name = $"Onglet PID";
-        //Set onglet button name
-        go_Panel.GetComponentInChildren<TextMeshProUGUI>().text = "PIDs";
-        //Set le nom du panel
-        go_contenu.name = $"Tab PID";
-
-        return go_contenu;
-    }
-
-    private GameObject Create_Deplacement_Panel(bool is_tabOn, GameObject panel)
-    {
-        GameObject go_Panel = Instantiate(Onglet_Prefab, Switch_Holder.transform) as GameObject;
-        go_Panel.GetComponent<Toggle>().isOn = is_tabOn;
-        go_Panel.GetComponent<Toggle>().group = Switch_Holder.GetComponent<ToggleGroup>();
-
-        GameObject go_contenu = Instantiate(panel, Contenu_Panel.transform) as GameObject;
-        list_Panels.Add(go_contenu);
-
-        //Associe le panel à cet onglet
-        go_Panel.GetComponent<Toggle>().onValueChanged.AddListener(go_contenu.SetActive);
-
-        //Set le nom de l'onglet
-        go_Panel.name = $"Onglet Deplacements";
-        //Set onglet button name
-        go_Panel.GetComponentInChildren<TextMeshProUGUI>().text = "Deplacements";
-        //Set le nom du panel
-        go_contenu.name = $"Tab Deplacements";
-
-        return go_contenu;
-    }
-
-    private GameObject Create_Servos_Panel(bool is_tabOn, GameObject panel)
-    {
-        GameObject go_Panel = Instantiate(Onglet_Prefab, Switch_Holder.transform) as GameObject;
-        go_Panel.GetComponent<Toggle>().isOn = is_tabOn;
-        go_Panel.GetComponent<Toggle>().group = Switch_Holder.GetComponent<ToggleGroup>();
-
-        GameObject go_contenu = Instantiate(panel, Contenu_Panel.transform) as GameObject;
-        list_Panels.Add(go_contenu);
-
-        //Associe le panel à cet onglet
-        go_Panel.GetComponent<Toggle>().onValueChanged.AddListener(go_contenu.SetActive);
-
-        //Set le nom de l'onglet
-        go_Panel.name = $"Onglet Actionneurs";
-        //Set onglet button name
-        go_Panel.GetComponentInChildren<TextMeshProUGUI>().text = "Actionneurs";
-        //Set le nom du panel
-        go_contenu.name = $"Tab Actionneurs";
 
         return go_contenu;
     }

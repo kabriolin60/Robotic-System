@@ -141,8 +141,13 @@ public class Envoi_Commandes : MonoBehaviour
 
     public void Envoi_Reglage_Vitesse(GameObject vitesse_panel)
     {
-
         Consigne_Vitesse vitesse = new Consigne_Vitesse();
         vitesse.Envoi_Vitesse(vitesse_panel);
+    }
+
+    public void Envoi_Actionneurs(GameObject Servo_panel)
+    {
+        Commande_Servos_message servos = new Commande_Servos_message();
+        servos.Envoi_Servos(Servo_panel);
     }
 }
