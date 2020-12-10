@@ -466,14 +466,14 @@ Declaration de la definition de la Structure contenant les destination des servo
 #define Communication_Nombre_Servos_Max_Message 10
 struct servo_destination
 {
-	byte ID;								//Identifiant du servos a deplacer
+	unsigned short ID;								//Identifiant du servos a deplacer
 	unsigned short Destination;				//position a atteindre par le servo
 	unsigned short Torque;					//Maximum torque, pour les AX12
 };
 
 struct st_Destination_Servos
 {
-	byte Nombre_servos_to_move;				//Nombre de servos à mettre à jour
+	unsigned short Nombre_servos_to_move;				//Nombre de servos à mettre à jour
 	unsigned short Time_to_move;			//Duree du deplacement demande
 	struct servo_destination servo[Communication_Nombre_Servos_Max_Message];		//Tableau des destinations des servos
 };
@@ -486,6 +486,16 @@ Declaration de la definition de la Structure de passage en simulation ou non des
 struct Simulation_Deplacement
 {
 	bool simulation;
+};
+
+/*************************************************/
+
+/**************************************************
+Declaration de la definition de la Structure d'alimentation des servos et aX12
+ **************************************************/
+struct SERVOS_AX12
+{
+	bool power;
 };
 
 /*************************************************/

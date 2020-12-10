@@ -85,7 +85,7 @@ public class Consignes_Deplacement
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetArrayFromStruct<st_DESTINATION_ROBOT>(dest);
+        trame = Communication.GetTrameFromStruct<st_DESTINATION_ROBOT>(dest);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1; //uniquement la carte 1 qui gère les déplacement
         trame.Instruction = Communication.Com_Instruction.DESTINATION_ROBOT;
@@ -289,7 +289,7 @@ public class Consigne_Vitesse
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetArrayFromStruct<reglage_speed>(speed);
+        trame = Communication.GetTrameFromStruct<reglage_speed>(speed);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1; //uniquement la carte 1 qui gère les déplacement
         trame.Instruction = Communication.Com_Instruction.VITESSE_ROBOT;

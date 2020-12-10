@@ -58,7 +58,7 @@ public class Reglage_Odometrie: MonoBehaviour
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetArrayFromStruct<Odometrie.Reglages_Odometrie>(reglages);
+        trame = Communication.GetTrameFromStruct<Odometrie.Reglages_Odometrie>(reglages);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1; //uniquement la carte 1 qui gère les déplacement
         trame.Instruction = Communication.Com_Instruction.PARAMETRES_ODOMETRIE;

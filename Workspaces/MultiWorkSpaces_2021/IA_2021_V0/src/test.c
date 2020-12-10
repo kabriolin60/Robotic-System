@@ -86,7 +86,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	 */
 
 	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
 
 

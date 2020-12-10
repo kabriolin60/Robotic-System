@@ -45,14 +45,14 @@ public class Commande_Servos : MonoBehaviour
     {
         Commande_Servos_message.servo_destination_temp values = new Commande_Servos_message.servo_destination_temp();
 
-        values.numero = FindChildByRecursion(this.transform, "Servo ID").GetComponent<TMP_Dropdown>().value;
+        values.numero = (byte)FindChildByRecursion(this.transform, "Servo ID").GetComponent<TMP_Dropdown>().value;
 
         if (values.numero == 0)
             return values;
 
         if (FindChildByRecursion(this.transform, "Destination").GetComponent<TMP_InputField>().text != "")
         {
-            values.destination = int.Parse(FindChildByRecursion(this.transform, "Destination").GetComponent<TMP_InputField>().text);
+            values.destination = ushort.Parse(FindChildByRecursion(this.transform, "Destination").GetComponent<TMP_InputField>().text);
         }
         else
         {
@@ -62,7 +62,7 @@ public class Commande_Servos : MonoBehaviour
 
         if (FindChildByRecursion(this.transform, "Torque").GetComponent<TMP_InputField>().text != "")
         {
-            values.torque = int.Parse(FindChildByRecursion(this.transform, "Torque").GetComponent<TMP_InputField>().text);
+            values.torque = ushort.Parse(FindChildByRecursion(this.transform, "Torque").GetComponent<TMP_InputField>().text);
         }
         else
         {
@@ -71,7 +71,7 @@ public class Commande_Servos : MonoBehaviour
 
         int numero_carte = (values.numero - 1) / 10 + 1;
         int numero_servo = (values.numero % 10) - 1;
-        values.numero = numero_carte * 10 + numero_servo;
+        values.numero = (byte)(numero_carte * 10 + numero_servo);
 
         return values;
     }
@@ -81,17 +81,17 @@ public class Commande_Servos_message
 {
     public class servo_destination_temp
     {
-        public int numero;
-        public int destination;
-        public int torque;
+        public byte numero;
+        public ushort destination;
+        public ushort torque;
     }
 
     public const byte Communication_Nombre_Servos_Max_Message = 10;
 
     [StructLayout(LayoutKind.Sequential)]
-    public class servo_destination
+    public struct servo_destination
     {
-        [MarshalAs(UnmanagedType.U1)]
+        [MarshalAs(UnmanagedType.U2)]
         public byte ID;                                //Identifiant du servos a deplacer
 
         [MarshalAs(UnmanagedType.U2)]
@@ -105,8 +105,8 @@ public class Commande_Servos_message
     [StructLayout(LayoutKind.Sequential)]
     public class st_Destination_Servos
     {
-        [MarshalAs(UnmanagedType.U1)]
-        public byte Nombre_servos_to_move;             //Nombre de servos à mettre à jour
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Nombre_servos_to_move;             //Nombre de servos à mettre à jour
 
         [MarshalAs(UnmanagedType.U2)]
         public ushort Time_to_move;            //Duree du deplacement demande
@@ -144,16 +144,20 @@ public class Commande_Servos_message
         //Pour chaque servo selectionné
         for(int index_input = 0; index_input < Communication_Nombre_Servos_Max_Message; index_input++)
         {
-            destination.servo[index_message_output] = new servo_destination();
+            destination.servo[index_input] = new servo_destination();
 
             servo_destination_temp temp = FindChildByRecursion(servo_panel.transform, $"1 Servo destination ({index_input})").GetComponentInChildren<Commande_Servos>().Get_Servos_Values();
 
-            if ((byte)temp.numero != 0)
+            if (temp.numero != 0)
             {
                 destination.servo[index_message_output].ID = (byte)temp.numero;
                 destination.servo[index_message_output].Destination = (ushort)temp.destination;
                 destination.servo[index_message_output].Torque = (ushort)temp.torque;
                 index_message_output++;
+            }
+            else
+            {
+
             }
         }
 
@@ -162,7 +166,7 @@ public class Commande_Servos_message
         //Lecture du temps de déplacement des servos
         if (FindChildByRecursion(servo_panel.transform, "Temps deplacement").GetComponentInChildren<TMP_InputField>().text != "")
         {
-            destination.Time_to_move = (ushort)(int.Parse(FindChildByRecursion(servo_panel.transform, "Temps deplacement").GetComponentInChildren<TMP_InputField>().text));
+            destination.Time_to_move = ushort.Parse(FindChildByRecursion(servo_panel.transform, "Temps deplacement").GetComponentInChildren<TMP_InputField>().text);
         }
         else
         {
@@ -172,7 +176,7 @@ public class Commande_Servos_message
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetArrayFromStruct<st_Destination_Servos>(destination);
+        trame = Communication.GetTrameFromStruct<st_Destination_Servos>(destination);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.ALL_CARDS; //Toutes les cartes
         trame.Instruction = Communication.Com_Instruction.DESTINATION_SERVOS_AND_AX12;

@@ -103,6 +103,22 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		_2_Comm_Send_ACKNOWLEDGE(ACK_POWER_MOTOR, RS485_port);
 		break;
 
+	case DEMANDE_AX_12_POWER:
+		_2_Comm_RX_AX12_Power(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_POWER_AX_12, RS485_port);
+		break;
+
+	case DEMANDE_SERVO_POWER:
+		_2_Comm_RX_SERVO_Power(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_POWER_SERVO, RS485_port);
+		break;
+
 
 	case DEMANDE_SIMULATION_MOTEURS:
 		_2_Comm_RX_Simulation_Deplacement(trame);
@@ -353,76 +369,48 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	struct st_ROBOT_PARAMETRES* param = _1_Odometrie_Get_Parameters();
 
 	//Convert to Robot_System
-	//m/s*100 => pas/it
-	/*float consigne_speed = ((float)speed.Vitesse_Avance)*10; //mm/s = /100*1000
-	consigne_speed *= param->COEF_D; //pas/s
-	consigne_speed /= 1000;	//pas/ms
-	consigne_speed *= PERIODE_PID_VITESSE; //pas/IT*/
 	float consigne_speed = ((float)speed.Vitesse_Avance)/1000; //m/s = mm/ms
 	consigne_speed *= PERIODE_PID_VITESSE; //mm/it
 	consigne_speed *= param->COEF_D; //pas/it
 
 
-	/*float consigne_accel = ((float)speed.Accel_Avance)*10; //mm/s² = /100*1000
-	consigne_accel *= param->COEF_D; //pas/s²
-	consigne_accel /= 1000;	//pas/ms²
-	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
-	consigne_accel /= 1000;	//pas/ms²
-	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²*/
 	float consigne_accel = ((float)speed.Accel_Avance)/1000; //mm/s²
 	consigne_accel /= 1000; //mm/ms²
 	consigne_accel *= PERIODE_PID_DISTANCE_ANGLE;
-	consigne_accel *= PERIODE_PID_VITESSE; //mm/it
-	consigne_accel *= param->COEF_D; //pas/it
+	consigne_accel *= PERIODE_PID_VITESSE; //mm/it²
+	consigne_accel *= param->COEF_D; //pas/it²
 
-	/*float consigne_Deccel = ((float)speed.Deccel_Avance)*10; //mm/s² = /100*1000
-	consigne_Deccel *= param->COEF_D; //pas/s²
-	consigne_Deccel /= 1000;	//pas/ms²
-	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
-	consigne_Deccel /= 1000;	//pas/ms²
-	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²*/
+
 	float consigne_Deccel = ((float)speed.Deccel_Avance)/1000; //mm/s²
 	consigne_Deccel /= 1000; //mm/ms²
 	consigne_Deccel *= PERIODE_PID_DISTANCE_ANGLE;
-	consigne_Deccel *= PERIODE_PID_VITESSE; //mm/it
-	consigne_Deccel *= param->COEF_D; //pas/it
+	consigne_Deccel *= PERIODE_PID_VITESSE; //mm/it²
+	consigne_Deccel *= param->COEF_D; //pas/it²
 
-	_2_Asservissement_Set_Distance_Speed_Accel(consigne_speed,consigne_accel, consigne_Deccel);
-
-
+	_2_Asservissement_Set_Distance_Speed_Accel(consigne_speed, consigne_accel, consigne_Deccel);
 
 
-	/*float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
-	consigne_rotation *= param->COEF_ROT; //pas/s
-	consigne_rotation /= 1000;	//pas/ms
-	consigne_rotation *= PERIODE_PID_VITESSE; //pas/IT*/
+
 	float consigne_rotation = ((float)speed.Vitesse_Rotation)/1000; //rad/s
-	consigne_rotation *= PERIODE_PID_VITESSE; //mrad/it
-	consigne_rotation *= param->COEF_D; //pas/it
+	consigne_rotation /= 1000; //rad/ms
+	consigne_rotation *= PERIODE_PID_VITESSE; //rad/it
+	consigne_rotation *= param->COEF_ROT; //pas/it
 
-	/*float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s² = /100*1000
-	consigne_accel_rotation *= param->COEF_ROT; //pas/s²
-	consigne_accel_rotation /= 1000;	//pas/ms²
-	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
-	consigne_accel_rotation /= 1000;	//pas/ms²
-	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
+
 	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/1000; //rad/s²
-	consigne_accel_rotation /= 1000; //mrad/ms²
+	consigne_accel_rotation /= 1000; //rad/ms²
+	consigne_accel_rotation /= 1000; //rad/ms²
 	consigne_accel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
-	consigne_accel_rotation *= PERIODE_PID_VITESSE; //mrad/it
-	consigne_accel_rotation *= param->COEF_ROT; //pas/it
+	consigne_accel_rotation *= PERIODE_PID_VITESSE; //mrad/it²
+	consigne_accel_rotation *= param->COEF_ROT; //pas/it²
 
-	/*float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //ras/s² = /100*1000
-	consigne_Deccel_rotation *= param->COEF_ROT; //pas/s²
-	consigne_Deccel_rotation /= 1000;	//pas/ms²
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
-	consigne_Deccel_rotation /= 1000;	//pas/ms²
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
+
 	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/1000; //rad/s²
-	consigne_Deccel_rotation /= 1000; //mrad/ms²
+	consigne_Deccel_rotation /= 1000; //rad/ms²
+	consigne_Deccel_rotation /= 1000; //rad/ms²
 	consigne_Deccel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
-	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //mrad/it
-	consigne_Deccel_rotation *= param->COEF_ROT; //pas/it
+	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //rad/it²
+	consigne_Deccel_rotation *= param->COEF_ROT; //pas/it²
 
 	_2_Asservissement_Set_Rotation_Speed_Accel(consigne_rotation, consigne_accel_rotation, consigne_Deccel_rotation);
 }
@@ -527,6 +515,42 @@ void _2_Comm_RX_Motor_Power(struct Communication_Trame* datas)
 	COPYDATA2(datas->Data, sim);
 	_0_Set_Motor_Power(0, sim.power_Gauche);
 	_0_Set_Motor_Power(1, sim.power_Droite);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_AX12_Power
+ **
+ ** Descriptions:		Activation de la puissance des ax12
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_AX12_Power(struct Communication_Trame* datas)
+{
+	struct SERVOS_AX12 power;
+
+	COPYDATA2(datas->Data, power);
+	_0_AX_12_POWER(power.power);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_SERVO_Power
+ **
+ ** Descriptions:		Activation de la puissance des servos
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_SERVO_Power(struct Communication_Trame* datas)
+{
+	struct SERVOS_AX12 power;
+
+	COPYDATA2(datas->Data, power);
+	_0_Servo_Power(power.power);
 }
 
 

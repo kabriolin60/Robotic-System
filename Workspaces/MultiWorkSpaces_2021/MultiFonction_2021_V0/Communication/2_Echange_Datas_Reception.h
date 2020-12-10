@@ -32,6 +32,10 @@ void _2_Comm_RX_Simulation_Deplacement(struct Communication_Trame* datas);
 
 void _2_Comm_RX_Motor_Power(struct Communication_Trame* datas);
 
+void _2_Comm_RX_AX12_Power(struct Communication_Trame* datas);
+
+void _2_Comm_RX_SERVO_Power(struct Communication_Trame* datas);
+
 void _2_Comm_RX_Set_Position_Robot(struct Communication_Trame* datas);
 
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_RECEPTION_H_ */

@@ -302,7 +302,7 @@ public class Communication
 	/*
 		* Conversion d'une structure de donnée en tableau de byte
 		*/
-	public static Communication_Trame GetArrayFromStruct<T>(T data) where T : class
+	public static Communication_Trame GetTrameFromStruct<T>(T data) where T : class
     {
 		int size = Marshal.SizeOf(data);
 		byte[] arr = new byte[size];
