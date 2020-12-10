@@ -76,7 +76,10 @@ Communication/2_Echange_Datas_Reception.o \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/semphr.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/queue.h \
  ../Communication/2_Echange_Datas.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/0_Infos.h
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/0_Infos.h \
+ ../Communication/0_Event_Group.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/event_groups.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/timers.h
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h:
 
@@ -229,3 +232,9 @@ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\fre
 ../Communication/2_Echange_Datas.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Strategie\Strategie_Level0/0_Infos.h:
+
+../Communication/0_Event_Group.h:
+
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/event_groups.h:
+
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\freertos\inc/timers.h:

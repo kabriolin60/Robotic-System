@@ -358,7 +358,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_speed *= param->COEF_D; //pas/s
 	consigne_speed /= 1000;	//pas/ms
 	consigne_speed *= PERIODE_PID_VITESSE; //pas/IT*/
-	float consigne_speed = ((float)speed.Vitesse_Avance)/100; //m/s = mm/ms
+	float consigne_speed = ((float)speed.Vitesse_Avance)/1000; //m/s = mm/ms
 	consigne_speed *= PERIODE_PID_VITESSE; //mm/it
 	consigne_speed *= param->COEF_D; //pas/it
 
@@ -369,7 +369,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_accel /= 1000;	//pas/ms²
 	consigne_accel *= PERIODE_PID_VITESSE; //pas/IT²*/
-	float consigne_accel = ((float)speed.Accel_Avance)/100; //mm/s²
+	float consigne_accel = ((float)speed.Accel_Avance)/1000; //mm/s²
 	consigne_accel /= 1000; //mm/ms²
 	consigne_accel *= PERIODE_PID_DISTANCE_ANGLE;
 	consigne_accel *= PERIODE_PID_VITESSE; //mm/it
@@ -381,7 +381,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_Deccel /= 1000;	//pas/ms²
 	consigne_Deccel *= PERIODE_PID_VITESSE; //pas/IT²*/
-	float consigne_Deccel = ((float)speed.Deccel_Avance)/100; //mm/s²
+	float consigne_Deccel = ((float)speed.Deccel_Avance)/1000; //mm/s²
 	consigne_Deccel /= 1000; //mm/ms²
 	consigne_Deccel *= PERIODE_PID_DISTANCE_ANGLE;
 	consigne_Deccel *= PERIODE_PID_VITESSE; //mm/it
@@ -396,7 +396,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_rotation *= param->COEF_ROT; //pas/s
 	consigne_rotation /= 1000;	//pas/ms
 	consigne_rotation *= PERIODE_PID_VITESSE; //pas/IT*/
-	float consigne_rotation = ((float)speed.Vitesse_Rotation)/100; //rad/s
+	float consigne_rotation = ((float)speed.Vitesse_Rotation)/1000; //rad/s
 	consigne_rotation *= PERIODE_PID_VITESSE; //mrad/it
 	consigne_rotation *= param->COEF_D; //pas/it
 
@@ -406,7 +406,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_accel_rotation /= 1000;	//pas/ms²
 	consigne_accel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
-	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/100; //rad/s²
+	float consigne_accel_rotation = ((float)speed.Accel_Rotation)/1000; //rad/s²
 	consigne_accel_rotation /= 1000; //mrad/ms²
 	consigne_accel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
 	consigne_accel_rotation *= PERIODE_PID_VITESSE; //mrad/it
@@ -418,7 +418,7 @@ void _2_Communication_RX_Vitesse(struct Communication_Trame* datas)
 	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²
 	consigne_Deccel_rotation /= 1000;	//pas/ms²
 	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //pas/IT²*/
-	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/100; //rad/s²
+	float consigne_Deccel_rotation = ((float)speed.Deccel_Rotation)/1000; //rad/s²
 	consigne_Deccel_rotation /= 1000; //mrad/ms²
 	consigne_Deccel_rotation *= PERIODE_PID_DISTANCE_ANGLE;
 	consigne_Deccel_rotation *= PERIODE_PID_VITESSE; //mrad/it

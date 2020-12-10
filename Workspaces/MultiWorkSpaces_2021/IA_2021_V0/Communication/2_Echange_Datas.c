@@ -738,13 +738,13 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 {
 	struct reglage_speed speed;
 
-	speed.Vitesse_Avance = Vitesse_avance*100;
-	speed.Accel_Avance = Acceleration_Avance*100;
-	speed.Deccel_Avance = Decceleration_Avance*100;
+	speed.Vitesse_Avance = Vitesse_avance*1000;
+	speed.Accel_Avance = Acceleration_Avance*1000;
+	speed.Deccel_Avance = Decceleration_Avance*1000;
 
-	speed.Vitesse_Rotation = Vitesse_Rotation*100;
-	speed.Accel_Rotation = Acceleration_Rotation*100;
-	speed.Deccel_Rotation = Decceleration_Rotation*100;
+	speed.Vitesse_Rotation = Vitesse_Rotation*1000;
+	speed.Accel_Rotation = Acceleration_Rotation*1000;
+	speed.Deccel_Rotation = Decceleration_Rotation*1000;
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )

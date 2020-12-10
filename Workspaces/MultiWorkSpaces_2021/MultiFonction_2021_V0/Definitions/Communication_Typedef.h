@@ -538,13 +538,13 @@ Declaration de la definition de la Structure contenant les parametres de vitesse
  **************************************************/
 struct reglage_speed
 {
-	unsigned short Vitesse_Avance;	//m/s*100
-	unsigned short Accel_Avance;	//m/s²*100
-	unsigned short Deccel_Avance;	//m/s²*100
+	unsigned short Vitesse_Avance;	//m/s*1000
+	unsigned short Accel_Avance;	//m/s²*1000
+	unsigned short Deccel_Avance;	//m/s²*1000
 
-	unsigned short Vitesse_Rotation;//rad/s*100
-	unsigned short Accel_Rotation;	//rad/s²*100
-	unsigned short Deccel_Rotation;	//rad/s²*100
+	unsigned short Vitesse_Rotation;//rad/s*1000
+	unsigned short Accel_Rotation;	//rad/s²*1000
+	unsigned short Deccel_Rotation;	//rad/s²*1000
 };
 
 

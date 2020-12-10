@@ -76,7 +76,9 @@ Communication/1_Trame_Communication.o \
  ../Communication/0_Event_Group.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Init.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h \
+ ../Communication/2_Echange_Datas_Reception.h \
+ ../Communication/2_Echange_Datas.h
 
 ../Communication/0_Communication.h:
 
@@ -229,3 +231,7 @@ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\inc/Configuration.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\IA_2021_V0\Pathfinding\Astar/Astar.h:
+
+../Communication/2_Echange_Datas_Reception.h:
+
+../Communication/2_Echange_Datas.h:
