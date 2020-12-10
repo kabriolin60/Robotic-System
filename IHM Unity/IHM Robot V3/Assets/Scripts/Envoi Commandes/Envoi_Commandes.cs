@@ -8,7 +8,7 @@ public class Envoi_Commandes : MonoBehaviour
 {
     public void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Envoi_Emergency_Stop();
         }
@@ -137,5 +137,12 @@ public class Envoi_Commandes : MonoBehaviour
     {
         Reglage_Odometrie odometrie = new Reglage_Odometrie();
         odometrie.Envoi_Reglages_Odometrie(odometrie_panel);
+    }
+
+    public void Envoi_Reglage_Vitesse(GameObject vitesse_panel)
+    {
+
+        Consigne_Vitesse vitesse = new Consigne_Vitesse();
+        vitesse.Envoi_Vitesse(vitesse_panel);
     }
 }

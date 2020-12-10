@@ -237,3 +237,87 @@ public class Consignes_Deplacement
 
     /*************************************************/
 }
+
+public class Consigne_Vitesse
+{
+    internal static Transform FindChildByRecursion(Transform aParent, string aName)
+    {
+        if (aParent == null) return null;
+
+        var result = aParent.transform.Find(aName);
+
+        if (result != null)
+            return result;
+
+        foreach (Transform child in aParent)
+        {
+            result = FindChildByRecursion(child, aName);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+
+    public void Envoi_Vitesse(GameObject vitesse_panel)
+    {
+        TMP_InputField Vit_Avance;
+        TMP_InputField Accel_Avance;
+        TMP_InputField Decel_Avance;
+        TMP_InputField Vit_Rotation;
+        TMP_InputField Accel_Rotation;
+        TMP_InputField Decel_Rotation;
+
+        Vit_Avance = FindChildByRecursion(vitesse_panel.transform, "Vit Avance").GetComponent<TMP_InputField>();
+        Accel_Avance = FindChildByRecursion(vitesse_panel.transform, "Accel Avance").GetComponent<TMP_InputField>();
+        Decel_Avance = FindChildByRecursion(vitesse_panel.transform, "Decel Avance").GetComponent<TMP_InputField>();
+        Vit_Rotation = FindChildByRecursion(vitesse_panel.transform, "Vit Rotation").GetComponent<TMP_InputField>();
+        Accel_Rotation = FindChildByRecursion(vitesse_panel.transform, "Accel Rotation").GetComponent<TMP_InputField>();
+        Decel_Rotation = FindChildByRecursion(vitesse_panel.transform, "Decel Rotation").GetComponent<TMP_InputField>();
+
+
+        reglage_speed speed = new reglage_speed();
+
+
+        if (Vit_Avance.text != "") speed.Vitesse_Avance = (ushort)(float.Parse(Vit_Avance.text, Common_settings.culture) * 1000);
+        if (Accel_Avance.text != "") speed.Accel_Avance = (ushort)(float.Parse(Accel_Avance.text, Common_settings.culture) * 1000);
+        if (Decel_Avance.text != "") speed.Deccel_Avance = (ushort)(float.Parse(Decel_Avance.text, Common_settings.culture) * 1000);
+
+        if (Vit_Rotation.text != "") speed.Vitesse_Rotation = (ushort)(float.Parse(Vit_Rotation.text, Common_settings.culture) * 1000);
+        if (Accel_Rotation.text != "") speed.Accel_Rotation = (ushort)(float.Parse(Accel_Rotation.text, Common_settings.culture) * 1000);
+        if (Decel_Rotation.text != "") speed.Deccel_Rotation = (ushort)(float.Parse(Decel_Rotation.text, Common_settings.culture) * 1000);
+
+        Communication.Communication_Trame trame = new Communication.Communication_Trame();
+
+        trame = Communication.GetArrayFromStruct<reglage_speed>(speed);
+
+        trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1; //uniquement la carte 1 qui gère les déplacement
+        trame.Instruction = Communication.Com_Instruction.VITESSE_ROBOT;
+        trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
+
+        GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public class reglage_speed
+    {
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Vitesse_Avance;  //m/s*1000
+
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Accel_Avance;    //m/s²*1000
+
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Deccel_Avance;   //m/s²*1000
+
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Vitesse_Rotation;//rad/s*1000
+
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Accel_Rotation;  //rad/s²*1000
+
+        [MarshalAs(UnmanagedType.U2)]
+        public ushort Deccel_Rotation; //rad/s²*1000
+    };
+}
