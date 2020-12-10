@@ -463,6 +463,7 @@ struct st_DESTINATION_ROBOT
 /**************************************************
 Declaration de la definition de la Structure contenant les destination des servos (Servos et AX12 indifferement)
  **************************************************/
+#define Communication_Nombre_Servos_Max_Message 10
 struct servo_destination
 {
 	byte ID;								//Identifiant du servos a deplacer
@@ -474,7 +475,7 @@ struct st_Destination_Servos
 {
 	byte Nombre_servos_to_move;				//Nombre de servos à mettre à jour
 	unsigned short Time_to_move;			//Duree du deplacement demande
-	struct servo_destination servo[12];		//Tableau des destinations des servos
+	struct servo_destination servo[Communication_Nombre_Servos_Max_Message];		//Tableau des destinations des servos
 };
 /*************************************************/
 

@@ -86,7 +86,7 @@ public class Commande_Servos_message
         public int torque;
     }
 
-    public const byte Communication_Nombre_Servos_Max_Message = 12;
+    public const byte Communication_Nombre_Servos_Max_Message = 10;
 
     [StructLayout(LayoutKind.Sequential)]
     public class servo_destination
