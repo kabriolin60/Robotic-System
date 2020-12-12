@@ -196,36 +196,10 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 
 	_2_Deplacement_Ajout_Point(&dest.coord);
 
-	if(dest.coord.Type_Deplacement == consigne_vitesse_independantes)
+	if(dest.coord.Type_Deplacement == TYPE_MOVE_consigne_vitesse_independantes)
 	{
 		PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
 		PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
-	}
-
-
-	//Add this new destination in the buffer
-	if(dest.coord.Type_Deplacement != consigne_vitesse_independantes)
-	{
-		//Deplacement en coordonnées ou distance / angle
-		//_2_Deplacement_Ajout_Point(&dest.coord);
-
-		//Dans ce cas, force un deplacement en type vitesse
-		/*struct st_ROBOT_PARAMETRES* newparameters;
-		newparameters = _1_Odometrie_Get_Parameters();
-		newparameters->_1_Odometrie_Type_Asserv = Polaire_Tourne_Avance_point_unique;
-		_1_Odometrie_Set_Parameters(newparameters);*/
-
-	}else
-	{
-		//Deplacement en vitesse uniquement
-		//PID_update_Consign(_1_Get_prt_PID_Vit_Gauche(), dest.coord.Vitesse_Roue_Gauche);
-		//PID_update_Consign(_1_Get_prt_PID_Vit_Droite(), dest.coord.Vitesse_Roue_Droite);
-
-		//Dans ce cas, force un deplacement en type vitesse
-		/*struct st_ROBOT_PARAMETRES* newparameters;
-		newparameters = _1_Odometrie_Get_Parameters();
-		newparameters->_1_Odometrie_Type_Asserv = Vitesse_Droite_Vitesse_Gauche_Indep;
-		_1_Odometrie_Set_Parameters(newparameters);*/
 	}
 
 	if(dest.Replace)
@@ -273,7 +247,7 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 
 	switch(pid.id)
 	{
-	case vitesse_roues_independantes:
+	case PID_Id_vitesse_roues_independantes:
 		ptr_PID = _1_Get_prt_PID_Vit_Droite();
 		ptr_PID->Enable = pid.Enable;
 		ptr_PID->gain_P = pid.P;
@@ -295,7 +269,7 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 		ptr_PID->Sommation_Sortie = pid.Sommation;
 		break;
 
-	case vitesse_distance:
+	case PID_Id_vitesse_distance:
 		ptr_PID = _1_Asserv_GetPtr_PID_Vit_Pos();
 		ptr_PID->Enable = pid.Enable;
 		ptr_PID->gain_P = pid.P;
@@ -307,7 +281,7 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 		ptr_PID->Sommation_Sortie = pid.Sommation;
 		break;
 
-	case vitesse_orientation:
+	case PID_Id_vitesse_orientation:
 		ptr_PID = _1_Asserv_GetPtr_PID_Vit_Rot();
 		ptr_PID->Enable = pid.Enable;
 		ptr_PID->gain_P = pid.P;
@@ -319,7 +293,7 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 		ptr_PID->Sommation_Sortie = pid.Sommation;
 		break;
 
-	case distance:
+	case PID_Id_distance:
 		ptr_PID = _2_Asserv_GetPtr_PID_Pos();
 		ptr_PID->Enable = pid.Enable;
 		ptr_PID->gain_P = pid.P;
@@ -331,7 +305,7 @@ void _2_Communication_RX_Parametres_PID(struct Communication_Trame* datas)
 		ptr_PID->Sommation_Sortie = pid.Sommation;
 		break;
 
-	case orientation:
+	case PID_Id_orientation:
 		ptr_PID = _2_Asserv_GetPtr_PID_Rot();
 		ptr_PID->Enable = pid.Enable;
 		ptr_PID->gain_P = pid.P;

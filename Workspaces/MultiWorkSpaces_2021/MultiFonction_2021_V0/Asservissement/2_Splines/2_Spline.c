@@ -58,7 +58,7 @@ void SPLINE_MARCHE_AVANT(Bezier *b)
 		Spline_Convert_Point(&b->P[(unsigned char)index_point]);
 	}
 
-	dest.Type_Deplacement = xy_tour_av_avant;
+	dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 
 	b->Nombre_Points_Calcules = Nb_Points;
 
@@ -165,7 +165,7 @@ void SPLINE_MARCHE_ARRIERE(Bezier *b)
 		Spline_Convert_Point(&b->P[(unsigned char)index_point]);
 	}
 
-	dest.Type_Deplacement = xy_tour_av_arriere;
+	dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 
 	b->Nombre_Points_Calcules = Nb_Points;
 
@@ -294,10 +294,10 @@ void CubicSpline_Process(struct CubicSpline *spline)
 
 	if(spline->Direction == 0)
 	{
-		dest.Type_Deplacement = xy_tour_av_avant;
+		dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	}else
 	{
-		dest.Type_Deplacement = xy_tour_av_arriere;
+		dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	}
 
 	dest.Type_Arret = depla_SANS_freinage;

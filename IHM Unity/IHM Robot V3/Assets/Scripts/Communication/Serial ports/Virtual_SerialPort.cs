@@ -106,6 +106,11 @@ public class Virtual_SerialPort : MonoBehaviour
         if (name == "")
             return;
 
+        if(serialPort.IsOpen)
+        {
+            serialPort.Close();
+        }
+
         serialPort.BaudRate = portSpeed;
         serialPort.PortName = name;
         serialPort.ReadBufferSize = 65000;

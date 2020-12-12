@@ -20,6 +20,8 @@ public class Interprete_Message : MonoBehaviour
 	private GameObject Action_History_go;
 	public GameObject Graph_viewer;
 
+	public bool Bootloader_ACK_Recieved = false;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -138,6 +140,10 @@ public class Interprete_Message : MonoBehaviour
 			default:
 				break;
 
+			case Communication.Com_Instruction.BOOTLOADER_ACK:
+				Bootloader_ACK_Recieved = true;
+				break;
+
 			case Communication.Com_Instruction.LOGGER_DEBUG:
 				Decode_Logger_Debug(message);
 				break;
@@ -249,6 +255,7 @@ public class Interprete_Message : MonoBehaviour
 	{
 		ASTAR_VECT.Reception_Message_Astar_Vector(message.Trame);
 	}
+
 
 	private void Decode_Strategie_Changement_Etat(Communication.Communication_Message message)
 	{

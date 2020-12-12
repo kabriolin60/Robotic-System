@@ -10,6 +10,7 @@
 #include "1_Trame_Communication.h"
 #include "Type_Declaration.h"
 #include "2_Echange_Datas.h"
+#include "Bootloader_Data.h"
 
 
 //#include "2_Echange_Datas.h"
@@ -64,15 +65,8 @@ __attribute__((optimize("O3"))) void _2_Communication_RX_Lectures_Messages(void 
 			{
 			case BOOTLOADER:
 				Reception_Trame_Bootloader(&received_trame);
-				break;
-
-			case PING:
-				//A la demande d'une carte, on répond par un PONG
-				_2_Comm_Send_PONG(RS485_port);
-
-			case PONG:
-				//Reception d'un Pong
-				Nb_PONG_recus++;
+				//Envoi de l'ACK
+				_2_Comm_Send_Bootloader_ACK(RS485_port);
 				break;
 
 			default:

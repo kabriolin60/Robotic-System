@@ -66,7 +66,9 @@
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/semphr.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h \
- ../0_Communication/2_Echange_Datas.h
+ ../0_Communication/2_Echange_Datas.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Bootloader_Data.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Bootloader.h
 
 ../0_Communication/2_Echange_Datas_Reception.h:
 
@@ -199,3 +201,7 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Boot
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h:
 
 ../0_Communication/2_Echange_Datas.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Bootloader_Data.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Bootloader.h:

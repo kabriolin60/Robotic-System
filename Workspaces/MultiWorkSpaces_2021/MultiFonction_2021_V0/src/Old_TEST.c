@@ -334,7 +334,7 @@ void TEST_Test_Deplacement(void *pvParameters)
 	destination.Type_Arret = depla_SANS_freinage;
 	destination.ptrParameters = parameters2;
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 375;
 	destination.Y = 1000;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -342,7 +342,7 @@ void TEST_Test_Deplacement(void *pvParameters)
 	destination.Type_Arret = depla_AVEC_freinage;
 	destination.ptrParameters = parameters1;
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 500;
 	destination.Y = 1000;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -445,7 +445,7 @@ void TEST_AX12(void *pvParameters)
 	destination.Type_Arret = depla_AVEC_freinage;
 	destination.ptrParameters = parameters1;
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 415;
 	destination.Y = 970;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -482,7 +482,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 500, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_arriere;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	destination.X = 380;
 	destination.Y = 800;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -493,7 +493,7 @@ void TEST_AX12(void *pvParameters)
 	destination.Type_Arret = depla_SANS_freinage;
 	destination.ptrParameters = parameters2;
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 470;
 	destination.Y = 1100;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -506,13 +506,13 @@ void TEST_AX12(void *pvParameters)
 	destination.Type_Arret = depla_AVEC_freinage;
 	destination.ptrParameters = parameters1;
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 430;
 	destination.Y = 1410;
 	_2_Deplacement_Ajout_Point(&destination);
 	Task_Delay(2000);
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 380;
 	destination.Y = 1550;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -522,7 +522,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 110, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 260;
 	destination.Y = 1400;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -532,7 +532,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 500, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_arriere;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	destination.X = 400;
 	destination.Y = 1600;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -541,7 +541,7 @@ void TEST_AX12(void *pvParameters)
 
 
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 647;
 	destination.Y = 1820;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -551,7 +551,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 110, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 840;
 	destination.Y = 1720;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -561,7 +561,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 500, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 920;
 	destination.Y = 1675;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -571,7 +571,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 110, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_avant;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	destination.X = 380;
 	destination.Y = 1360;
 	_2_Deplacement_Ajout_Point(&destination);
@@ -581,7 +581,7 @@ void TEST_AX12(void *pvParameters)
 	AX_12_SET_POSITION(1, 500, 0);
 	Task_Delay(1000);
 
-	destination.Type_Deplacement = xy_tour_av_arriere;
+	destination.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	destination.X = 500;
 	destination.Y = 1430;
 	_2_Deplacement_Ajout_Point(&destination);

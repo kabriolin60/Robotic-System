@@ -75,7 +75,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 
 	switch(destination->coord.Type_Deplacement)
 	{
-	case xy_tour_av_avant:
+	case TYPE_MOVE_xy_tour_av_avant:
 		dir = "AV";
 		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
 				dir,
@@ -85,7 +85,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 				(short)destination->coord.Y);
 		break;
 
-	case xy_tour_av_arriere:
+	case TYPE_MOVE_xy_tour_av_arriere:
 		dir = "AR";
 		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
 				dir,
@@ -95,7 +95,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 				(short)destination->coord.Y);
 		break;
 
-	case consigne_vitesse_independantes:
+	case TYPE_MOVE_consigne_vitesse_independantes:
 		dir = "VITESSE";
 		sprintf(str, "Dest= %s Gauche= %d, Droite= %d\n",
 				dir,
@@ -103,13 +103,13 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 				(short)destination->coord.Vitesse_Roue_Droite);
 		break;
 
-	case aucun_mouvement:
+	case TYPE_MOVE_aucun_mouvement:
 		dir = "AUCUN MOUVEMENT";
 		sprintf(str, "Dest= %s\n",
 				dir);
 		break;
 
-	case tourne_vers_cap_rad:
+	case TYPE_MOVE_tourne_vers_cap_rad:
 		dir = "Tourne cap";
 		sprintf(str, "Dest= %s Theta %d\n",
 				dir,

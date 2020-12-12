@@ -201,11 +201,8 @@ void RS485_HANDLER_NAME(void)
 	//Force un changement de tache
 	portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
 
-
 	//Clear ISR flag
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
-
-
 }
 
 

@@ -385,13 +385,13 @@ Declaration des enum contenant les types de déplacements
 
 enum enum_TYPE_MOVE_
 {
-	aucun_mouvement,             //Aucun mouvement
-	xy_tour_av_avant,            //Déplacement standard en marche avant
-	xy_tour_av_arriere,          //Déplacement standard en marche arriere
-	tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
-	deplacement_libre,           //Permet de faire des tests en déplacement linéaires
-	rotation_libre,              //Permet de faire des tests en rotaion
-	consigne_vitesse_independantes  //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
+	TYPE_MOVE_aucun_mouvement,             //Aucun mouvement
+	TYPE_MOVE_xy_tour_av_avant,            //Déplacement standard en marche avant
+	TYPE_MOVE_xy_tour_av_arriere,          //Déplacement standard en marche arriere
+	TYPE_MOVE_tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
+	TYPE_MOVE_deplacement_libre,           //Permet de faire des tests en déplacement linéaires
+	TYPE_MOVE_rotation_libre,              //Permet de faire des tests en rotaion
+	TYPE_MOVE_consigne_vitesse_independantes  //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
 };
 
 /*************************************************/
@@ -519,11 +519,11 @@ Declaration de la definition de la Structure contenant les parametres de PID re�
  **************************************************/
 enum PID_Id
 {
-	vitesse_roues_independantes,
-	vitesse_distance,
-	vitesse_orientation,
-	distance,
-	orientation
+	PID_Id_vitesse_roues_independantes,
+	PID_Id_vitesse_distance,
+	PID_Id_vitesse_orientation,
+	PID_Id_distance,
+	PID_Id_orientation
 };
 
 struct reglage_pid

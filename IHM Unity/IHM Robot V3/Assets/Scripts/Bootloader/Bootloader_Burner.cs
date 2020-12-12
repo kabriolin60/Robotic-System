@@ -33,7 +33,7 @@ public class Bootloader_Burner : MonoBehaviour
     public int portSpeed;
 
 
-    private System.IO.Ports.SerialPort serialPort1;
+    //private System.IO.Ports.SerialPort serialPort1;
 
     static string[] _lines;
     static int destination_board;
@@ -63,8 +63,8 @@ public class Bootloader_Burner : MonoBehaviour
         if (burn_ended)
         {
             Status.GetComponent<TextMeshProUGUI>().text = "Target burned";
-            serialPort1.Close();
-            serialPort1.Dispose();
+            this.GetComponent<Virtual_SerialPort>().getserialPort().Close();
+            this.GetComponent<Virtual_SerialPort>().getserialPort().Dispose();
 
             burn_ended = false;
         }
@@ -72,7 +72,12 @@ public class Bootloader_Burner : MonoBehaviour
 
     public void OnDestroy()
     {
+        Application_HEX_File_Path = null;
+
         cancellationToken = true;
+
+        line_number_position = 0;
+        max_line_number = 0;
     }
 
 
@@ -81,7 +86,10 @@ public class Bootloader_Burner : MonoBehaviour
         this.gameObject.SetActive(true);
         Main_IHM_To_Hide.SetActive(false);
 
-        foreach(Virtual_SerialPort extern_port in Communication_interface.GetComponentsInChildren<Virtual_SerialPort>())
+        line_number_position = 0;
+        max_line_number = 0;
+
+        foreach (Virtual_SerialPort extern_port in Communication_interface.GetComponentsInChildren<Virtual_SerialPort>())
         {
             if(extern_port != null)
             {
@@ -97,6 +105,9 @@ public class Bootloader_Burner : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         Main_IHM_To_Hide.SetActive(true);
+
+        this.GetComponent<Virtual_SerialPort>().getserialPort().Close();
+        this.GetComponent<Virtual_SerialPort>().getserialPort().Dispose();
 
         //discard all possible task running in //
         cancellationToken = true;
@@ -136,28 +147,18 @@ public class Bootloader_Burner : MonoBehaviour
             return;
         }
 
-        if (serialPort1 == null)
-        {
-            serialPort1 = new System.IO.Ports.SerialPort();
-        }
-
         int index = Portcom_dropdown.GetComponent<TMPro.TMP_Dropdown>().value;
         var list = Portcom_dropdown.GetComponent<TMPro.TMP_Dropdown>().options;
 
-        serialPort1.BaudRate = portSpeed;
-        serialPort1.PortName = list[index].text;
+        this.GetComponent<Virtual_SerialPort>().portSpeed = portSpeed;
 
-        if (serialPort1.IsOpen == false)
+        //Set port COM name
+        this.GetComponent<Virtual_SerialPort>().Connect(list[index].text);
+
+        if (this.GetComponent<Virtual_SerialPort>().getserialPort().IsOpen == false)
         {
-            try
-            {
-                serialPort1.Open();
-            }
-            catch
-            {
-                Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
-                return;
-            }
+            Status.GetComponent<TextMeshProUGUI>().text = "No port opened";
+            return;
         }
 
 
@@ -174,13 +175,20 @@ public class Bootloader_Burner : MonoBehaviour
 
             Status.GetComponent<TextMeshProUGUI>().text = "Burning";
 
-            //start listening for messages and copy the messages back to the client
+            Trame_Decoder decoder = this.GetComponent<Trame_Decoder>();
+            System.IO.Ports.SerialPort serialport = this.GetComponent<Virtual_SerialPort>().getserialPort();
+
             tasks.Add(Task.Factory.StartNew(async () =>
             {
-                bool received = await EnvoiAsync(serialPort1);
+                bool received = await EnvoiAsync(serialport, decoder);
 
                 if (received)
+                {
                     burn_ended = true;
+                }else
+                {
+                    Status.GetComponent<TextMeshProUGUI>().text = "Error while burning target!!";
+                }
             }));
 
         }
@@ -188,9 +196,9 @@ public class Bootloader_Burner : MonoBehaviour
         {
 
         }
-    }   
+    }
 
-    private static async Task<bool> EnvoiAsync(System.IO.Ports.SerialPort serialPort1)
+    private static async Task<bool> EnvoiAsync(System.IO.Ports.SerialPort serialPort1, Trame_Decoder decoder)
     {
         byte[] data_to_send;
 
@@ -246,24 +254,29 @@ public class Bootloader_Burner : MonoBehaviour
             }
 
             //Envoi du message
-            Send(serialPort1, comm.Send_Trame(trame));
+            decoder.Push_Message_Out(trame);
 
             //Cree une trame de communication
-            line_number_position++;            
+            line_number_position++;
 
-            await Task.Delay(2);
-
-            //if ((line_number_position - 1) % 256 == 0 && line_number_position != 1)
-            if(page_length >= 4096)
+            while (decoder.Received_Messages.Count == 0)
             {
-                page_length = 0;
-                //Ecritude d'un bloc
-                await Task.Delay(200);
+                //await Task.Delay(1);
+            }
+
+
+            if (decoder.Received_Messages.Dequeue().Trame.Instruction == Communication.Com_Instruction.BOOTLOADER_ACK)
+            {
+
+            }
+            else
+            {
+                return false;
             }
 
             if (cancellationToken)
                 throw new TaskCanceledException();
-        }                
+        }             
 
         return true;
     }

@@ -24,8 +24,7 @@ public class Trame_Decoder : MonoBehaviour
 	}
 
 	private void Start_Decodage_Task()
-    {
-		
+    {		
 		if (serialport != null)
 		{
 			//Creation d'une tâche asynchrone chargée de lire les datas recues par le port virtuel et d'en faire des messages de communication
@@ -36,6 +35,11 @@ public class Trame_Decoder : MonoBehaviour
 
 				while (true)
 				{
+					if(serialport.getserialPort().IsOpen == false)
+                    {
+						await Task.Delay(100);
+					}
+
 					mess_par_salve = 0;
 					while (serialport.Number_Byte_To_Read() > Buffer_Lower_Limit)
 					{
@@ -53,11 +57,6 @@ public class Trame_Decoder : MonoBehaviour
 							Error_Number++;
 						}
 					}
-
-					/*/if (mess_par_salve > 0)
-					{
-						Debug.Log($"Decodeur, salve de {mess_par_salve} messages");
-					}*/
 
 					await Task.Delay(1);
 				}

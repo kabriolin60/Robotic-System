@@ -102,7 +102,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 	 * Recallage bordure
 	 */
 
-	RECALLAGE_BORDURE_ARRIERE_WAIT(10);
+	RECALAGE_BORDURE_ARRIERE_WAIT(10);
 	_2_Comm_Set_Robot_Position(1000, 75, 90, RS485_port);
 
 	_2_Comm_Send_Robot_Speed(0.1f,0.3f,0.3f,	0.2f,0.3f,0.3f,RS485_port);
@@ -110,7 +110,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 	GOTO_XY_ARRIERE_WAIT(800, _0_Get_Robot_Position().Position_Y);
 
-	RECALLAGE_BORDURE_ARRIERE_WAIT(10);
+	RECALAGE_BORDURE_ARRIERE_WAIT(10);
 	_2_Comm_Set_Robot_Position(75, _0_Get_Robot_Position().Position_Y, 0, RS485_port);
 
 	Task_Delay(1000);
@@ -126,13 +126,13 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 	/**/
 	//Set les 2 PIDs de vitesses des roues independantes
-	_2_Comm_Send_Robot_PID(vitesse_roues_independantes, 0.085f, 0, 0.55f, 50, 0, 1, 1, RS485_port);
+	_2_Comm_Send_Robot_PID(PID_Id_vitesse_roues_independantes, 0.085f, 0, 0.55f, 50, 0, 1, 1, RS485_port);
 
 	//Set le PID de distance
-	_2_Comm_Send_Robot_PID(distance, 0.04f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
+	_2_Comm_Send_Robot_PID(PID_Id_distance, 0.04f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
 
 	//Set le PID de rotation
-	_2_Comm_Send_Robot_PID(orientation, 0.006f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
+	_2_Comm_Send_Robot_PID(PID_Id_orientation, 0.006f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
 	/**/
 
 	Task_Delay(3000);

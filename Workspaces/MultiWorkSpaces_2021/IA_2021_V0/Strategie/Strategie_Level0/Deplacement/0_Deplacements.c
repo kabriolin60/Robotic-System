@@ -170,10 +170,10 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 		coord.Y = Y;
 		if(direction == 0)
 		{
-			coord.Type_Deplacement = xy_tour_av_avant;
+			coord.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 		}else
 		{
-			coord.Type_Deplacement = xy_tour_av_arriere;
+			coord.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 		}
 
 		//dest.Bloquage_Possible = Bloquage;
@@ -250,10 +250,10 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	coord.Y = Y;
 	if(direction == 0)
 	{
-		coord.Type_Deplacement = xy_tour_av_avant;
+		coord.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
 	}else
 	{
-		coord.Type_Deplacement = xy_tour_av_arriere;
+		coord.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	}
 	//dest.Bloquage_Possible = Bloquage;
 
@@ -316,9 +316,9 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 
 
 /*****************************************************************************
- ** Function name:		_0_Deplacement_Recallage_Bordure
+ ** Function name:		_0_Deplacement_Recalage_Bordure
  **
- ** Descriptions:		Deplacement en vitesse avec detection de bloquage pour un recallage bordure
+ ** Descriptions:		Deplacement en vitesse avec detection de bloquage pour un recalage bordure
  **
  ** parameters:			Direction: 0 = forward
  ** 								1= backward
@@ -329,7 +329,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
  ** 					false: error
  **
  *****************************************************************************/
-bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT)
+bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 {
 	char str[70];
 
@@ -339,17 +339,17 @@ bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT
 		return pdTRUE;
 	}
 
-	sprintf(str, "DEPLA: Recallage Start\n");
+	sprintf(str, "DEPLA: Recalage Start\n");
 	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
 
 	//Set les 2 PIDs de vitesses des roues independantes
-	_2_Comm_Send_Robot_PID(vitesse_roues_independantes, 0.085f, 0, 0.55f, 15, 0, 1, 1, RS485_port);
+	_2_Comm_Send_Robot_PID(PID_Id_vitesse_roues_independantes, 0.085f, 0, 0.55f, 15, 0, 1, 1, RS485_port);
 
 
 	struct st_DESTINATION_ROBOT dest = { 0 };
 	struct st_COORDONNEES coord = { 0 };
 
-	coord.Type_Deplacement = consigne_vitesse_independantes;
+	coord.Type_Deplacement = TYPE_MOVE_consigne_vitesse_independantes;
 
 	if(direction == 0)
 	{
@@ -400,7 +400,7 @@ bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT
 		 */
 		_0_Deplacement_STOP();
 
-		sprintf(str, "DEPLA: Recallage arrive\n");
+		sprintf(str, "DEPLA: Recalage arrive\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
 		return pdTRUE;
 	}
@@ -410,7 +410,7 @@ bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT
 	 */
 	_0_Deplacement_STOP();
 
-	sprintf(str, "DEPLA: Recallage TIMEOUT\n");
+	sprintf(str, "DEPLA: Recalage TIMEOUT\n");
 	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
 	return pdFALSE;
 }
@@ -431,7 +431,7 @@ void _0_Deplacement_STOP(void)
 	struct st_DESTINATION_ROBOT dest = { 0 };
 	struct st_COORDONNEES coord = { 0 };
 
-	coord.Type_Deplacement = aucun_mouvement;
+	coord.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
 	dest.coord = coord;
 	dest.Replace = pdTRUE;
 
@@ -585,7 +585,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 			//Send a no mouvement order to the Robot, with replacement to flush all existing deplacement, and stop the Robot
 			parameters.destination.Replace = true;
-			parameters.destination.coord.Type_Deplacement = aucun_mouvement;
+			parameters.destination.coord.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
 			_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
 
 			sprintf(str_ASTAR, "No path found, X= %d, Y= %d; to X= %d, Y= %d \n",

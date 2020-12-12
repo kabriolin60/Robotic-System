@@ -152,7 +152,7 @@ Output: None
 void _2_Asservissement_DestinationBuffer_Clear(void)
 {
 	RingBuffer_Clear(&rb_Deplacement);
-	Current_Destination.Type_Deplacement = aucun_mouvement;
+	Current_Destination.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
 }
 
 
@@ -263,21 +263,21 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 
 		switch(Current_Destination.Type_Deplacement)
 		{
-		case rotation_libre:
+		case TYPE_MOVE_rotation_libre:
 			//Not yet implemented
 			//TODO
 			break;
 
-		case deplacement_libre:
+		case TYPE_MOVE_deplacement_libre:
 			//Not yet implemented
 			//TODO
 			break;
 
-		case consigne_vitesse_independantes:
+		case TYPE_MOVE_consigne_vitesse_independantes:
 			//Pas d'asserv de niveau 2 dans ce cas
 			break;
 
-		case tourne_vers_cap_rad:
+		case TYPE_MOVE_tourne_vers_cap_rad:
 			//Récupère la position actuelle du Robot
 			Current_Robot_Position = _1_Odometrie_GetRobot_Position();
 
@@ -357,7 +357,7 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 
 
 			default:
-			case aucun_mouvement:
+			case TYPE_MOVE_aucun_mouvement:
 				//On est arrivée ou alors aucun mouvement n'est demandé, alors on s'arrete
 
 				//Mise à jour des consignes en distance et en angle
@@ -387,15 +387,15 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 				break;
 
 
-			case xy_tour_av_avant:            //Déplacement standard en marche avant
-			case xy_tour_av_arriere:          //Déplacement standard en marche arriere
+			case TYPE_MOVE_xy_tour_av_avant:            //Déplacement standard en marche avant
+			case TYPE_MOVE_xy_tour_av_arriere:          //Déplacement standard en marche arriere
 				//Asservissement polaire sur des coordonnées
 
 				//Récupère la position actuelle du Robot
 				Current_Robot_Position = _1_Odometrie_GetRobot_Position();
 
 				//Asservissement vers le point cible (Rotation puis deplacement)
-				if(Current_Destination.Type_Deplacement == xy_tour_av_avant || Current_Destination.Type_Deplacement == xy_tour_av_arriere)
+				if(Current_Destination.Type_Deplacement == TYPE_MOVE_xy_tour_av_avant || Current_Destination.Type_Deplacement == TYPE_MOVE_xy_tour_av_arriere)
 				{
 					Arrive = _2_Asservissement_Rotation_Avance(&Current_Destination, &Current_Robot_Position, &Current_Destination.ptrParameters, _1_Odometrie_Get_Parameters());
 				}
@@ -593,7 +593,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 	switch(destination->Type_Deplacement)
 	{
 	//Si marche arriere
-	case xy_tour_av_arriere:
+	case TYPE_MOVE_xy_tour_av_arriere:
 		//Modifie l'erreur pour faire faire demi-tour au robot
 		if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
 		{
@@ -633,7 +633,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 		 */
 		switch(destination->Type_Deplacement)
 		{
-		case xy_tour_av_avant:
+		case TYPE_MOVE_xy_tour_av_avant:
 			//Modifie l'erreur pour ne pas faire faire demi-tour au robot
 			if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
 			{
@@ -646,7 +646,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 			}
 			break;
 
-		case xy_tour_av_arriere:
+		case TYPE_MOVE_xy_tour_av_arriere:
 			//Modifie l'erreur pour ne pas faire faire demi-tour au robot
 			if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
 			{
