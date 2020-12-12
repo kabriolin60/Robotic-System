@@ -17,7 +17,8 @@
 #include "2_Echange_Datas.h"
 
 
-extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
+extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les canaux
+
 
 long Nb_Messages_recus = 0;
 long Nb_Erreurs_com = 0;
@@ -41,6 +42,7 @@ void _1_Communication_Init(void)
 
 	//Tache de décodage des donnees recues par differentes FIFO
 	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 240, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+
 }
 
 
@@ -228,24 +230,32 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
  ** Returned value:		Succes/Echec
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send, enum enum_canal_communication canal, byte bit_to_check, byte WAIT_FOR_ACK, enum enum_ACK_Types ACK_TYPE, long Cartes_Devant_ACK)
+BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to_send,
+		enum enum_canal_communication canal,
+		byte bit_to_check,
+		byte WAIT_FOR_ACK,
+		enum enum_ACK_Types ACK_TYPE,
+		long Cartes_Devant_ACK)
 {
+
 	if(!WAIT_FOR_ACK)
 	{
+
 		struct Communication_Message Message_To_Send_no_ACK;
 
 		//Mise en forme des datas
 		(void)_1_Communication_Create_Message(pMessage_to_send, &Message_To_Send_no_ACK);
-		_1_Communication_Free_Send_Bit(bit_to_check);
 
 		//Ajoute au message le canal de communication à utilisre
 		Message_To_Send_no_ACK.canal_communication = canal;
 
 		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send_no_ACK, ms_to_tick(10)))
 		{
+			_1_Communication_Free_Send_Bit(bit_to_check);
 			//Le message n'a pas pu être mis en Queue d'envoie
 			return pdFALSE;
 		}
+		_1_Communication_Free_Send_Bit(bit_to_check);
 		return pdPASS;
 	}
 

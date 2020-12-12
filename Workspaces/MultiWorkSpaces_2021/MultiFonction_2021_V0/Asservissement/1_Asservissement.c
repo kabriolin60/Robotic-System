@@ -250,14 +250,14 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 	/*
 	 * Detection de bloquage et remontee de l'information
 	 */
-	if(PID_Vitesse_Roue_Gauche.Commande == PID_Vitesse_Roue_Gauche.commande_max || PID_Vitesse_Roue_Gauche.Commande == PID_Vitesse_Roue_Gauche.commande_min)
+	if(PID_Vitesse_Roue_Gauche.Commande >= PID_Vitesse_Roue_Gauche.commande_max || PID_Vitesse_Roue_Gauche.Commande <= PID_Vitesse_Roue_Gauche.commande_min)
 	{
 		//Le pid en vitesse est au maximum de sa sortie
 		if(fabsf(deplacement_Gauche) < fabsf(PID_Vitesse_Roue_Gauche.Consigne) / 2)
 		{
 			//La vitesse de la roue est < 50% de sa consigne
 			//La roue gauche est bloquee
-			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE/2;
+			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE;
 		}else
 		{
 			Temps_Avec_Bloquage_Possible = 0;
@@ -265,14 +265,14 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 	}
 
 	//Detection de bloquage et remontee de l'information
-	if(PID_Vitesse_Roue_Droite.Commande == PID_Vitesse_Roue_Droite.commande_max || PID_Vitesse_Roue_Droite.Commande == PID_Vitesse_Roue_Droite.commande_min)
+	if(PID_Vitesse_Roue_Droite.Commande >= PID_Vitesse_Roue_Droite.commande_max || PID_Vitesse_Roue_Droite.Commande <= PID_Vitesse_Roue_Droite.commande_min)
 	{
 		//Le pid en vitesse est au maximum de sa sortie
 		if(fabsf(deplacement_Droit) < fabsf(PID_Vitesse_Roue_Droite.Consigne) / 2)
 		{
 			//La vitesse de la roue est < 50% de sa consigne
 			//La roue gauche est bloquee
-			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE/2;
+			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE;
 		}else
 		{
 			Temps_Avec_Bloquage_Possible = 0;
@@ -282,6 +282,9 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 	if(Temps_Avec_Bloquage_Possible > _1_Asserv_MAX_Temps_Bloquage)
 	{
 		_1_Odometrie_Set_Bloquage(pdTRUE);
+	}else
+	{
+		_1_Odometrie_Set_Bloquage(pdFALSE);
 	}
 
 

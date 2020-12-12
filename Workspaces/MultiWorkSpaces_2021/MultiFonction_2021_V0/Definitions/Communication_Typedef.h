@@ -14,13 +14,13 @@
 #include "stdbool.h"
 
 
-#define BAUDRATE_RS485				2000000
+#define BAUDRATE_RS485	2000000
 
 
 
-#define NB_SERVO	6
-#define NB_AX_12	4
-#define NB_MES_ANA	4
+#define NB_SERVO		6
+#define NB_AX_12		4
+#define NB_MES_ANA		4
 
 /**************************************************
 Definition des commandes de communication

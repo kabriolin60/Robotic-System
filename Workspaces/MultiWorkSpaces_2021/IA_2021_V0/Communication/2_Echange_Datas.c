@@ -8,11 +8,17 @@
 #include "2_Echange_Datas.h"
 #include "1_Trame_Communication.h"
 #include "stdio.h"
+#include "semphr.h"
+
 
 #include "0_Infos.h"
 #include "0_Event_Group.h"
 
 #include "Strategie.h"
+#include "0_Deplacements.h"
+
+extern EventGroupHandle_t _0_Deplacement_EventGroup;
+
 
 static TO_AHBS_RAM3 struct Communication_Trame trame_echange;// TO_AHBS_RAM0;
 
@@ -63,22 +69,57 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 			ACK_DEPLACEMENT, //Type d'ACK attendu
 			eGROUP_STATUS_CARTE_MultiFCT_1); //Cartes devant renvoyer un ACK
 
-	static char str[70];
+	static char str[80];
 	static char* dir;
 
-	if(destination->coord.Type_Deplacement == xy_tour_av_avant)
+
+	switch(destination->coord.Type_Deplacement)
 	{
+	case xy_tour_av_avant:
 		dir = "AV";
-	}else if(destination->coord.Type_Deplacement == xy_tour_av_arriere)
-	{
+		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+				dir,
+				(short)_0_Get_Robot_Position().Position_X,
+				(short)_0_Get_Robot_Position().Position_Y,
+				(short)destination->coord.X,
+				(short)destination->coord.Y);
+		break;
+
+	case xy_tour_av_arriere:
 		dir = "AR";
+		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+				dir,
+				(short)_0_Get_Robot_Position().Position_X,
+				(short)_0_Get_Robot_Position().Position_Y,
+				(short)destination->coord.X,
+				(short)destination->coord.Y);
+		break;
+
+	case consigne_vitesse_independantes:
+		dir = "VITESSE";
+		sprintf(str, "Dest= %s Gauche= %d, Droite= %d\n",
+				dir,
+				(short)destination->coord.Vitesse_Roue_Gauche,
+				(short)destination->coord.Vitesse_Roue_Droite);
+		break;
+
+	case aucun_mouvement:
+		dir = "AUCUN MOUVEMENT";
+		sprintf(str, "Dest= %s\n",
+				dir);
+		break;
+
+	case tourne_vers_cap_rad:
+		dir = "Tourne cap";
+		sprintf(str, "Dest= %s Theta %d\n",
+				dir,
+				(short)destination->coord.Angle);
+		break;
+
+	default:
+		break;
 	}
-	sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
-			dir,
-			(short)_0_Get_Robot_Position().Position_X,
-			(short)_0_Get_Robot_Position().Position_Y,
-			(short)destination->coord.X,
-			(short)destination->coord.Y);
+
 	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
 }
 
@@ -230,10 +271,11 @@ void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
  ** Returned value:		None
  **
  *****************************************************************************/
-static struct Logger_Debug_Data log_message;// TO_AHBS_RAM0;
 
 void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Channel, enum enum_canal_communication canal)
 {
+	struct Logger_Debug_Data log_message;
+
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
@@ -244,6 +286,8 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 
 	trame_echange.Instruction = LOGGER_DEBUG;
 	trame_echange.Slave_Adresse = PC;
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
 
 	log_message.Color = color;
 
@@ -258,7 +302,6 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 		log_message.Nombre_Carateres = COPYSTRING(str, log_message.Text);
 
 		trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
-		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 		//Envoi sans attente d'ACK
 		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
@@ -276,7 +319,6 @@ void _2_Comm_Send_Log_Message(char* str, enum Logger_Debug_Color color, byte Cha
 			log_message.Nombre_Carateres = COPYSTRING(str, log_message.Text);
 
 			trame_echange.Length = COPYDATA(log_message, trame_echange.Data);
-			trame_echange.XBEE_DEST_ADDR = 0;
 
 			//Envoi sans attente d'ACK
 			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
@@ -491,6 +533,16 @@ void _2_Comm_Demande_Simulation(bool sim, enum enum_canal_communication canal)
 		return;
 	}
 
+	if(sim)
+	{
+		xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+				eGROUP_DEPLA_SIMULATION);/* The bits being set. */
+	}else
+	{
+		xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+				eGROUP_DEPLA_SIMULATION);/* The bits being set. */
+	}
+
 	trame_echange.Instruction = DEMANDE_SIMULATION_MOTEURS;
 	trame_echange.Slave_Adresse = 1;
 
@@ -555,6 +607,13 @@ void _2_Comm_Demande_Motor_Power(bool power, enum enum_canal_communication canal
  *****************************************************************************/
 void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_communication canal)
 {
+	/*
+	 * Arrete le robot pour éviter de partir au mauvais endroit dans ses deplacements
+	 * j'ausqu'au prochain deplacement
+	 */
+	ARRET_DEPLACEMENT();
+
+
 	struct st_POSITION_ROBOT pos;
 	pos.Position_X = X;
 	pos.Position_Y = Y;
@@ -578,11 +637,14 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POSITION_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	static char str[70];
-	sprintf(str, "Set Robot position= X%.1fmm Y%.1fmm A%.2f°\n",
+	sprintf(str, "Set Robot position= X=%.1fmm Y=%.1fmm A=%.2f°\n",
 			X,
 			Y,
 			Angle);
 	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+
+	//delay pour s'assurer que l'info est bien partie à la carte et prise en compte
+	Task_Delay(25);
 }
 
 /*****************************************************************************/

@@ -92,6 +92,18 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 			//Return Error
 			return pdFALSE;
 		}
+
+		//Vérifie si un bloquage est detecté
+		if(_0_Get_Robot_Position().Bloquage_Deplacement)
+		{
+			//Set the Flag (eGROUP_DEPLA_BLOQUAGE) before sending or waiting
+			xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+					eGROUP_DEPLA_BLOQUAGE );/* The bits being set. */
+
+			//Stop deplacement
+			//Return Error
+			return pdFALSE;
+		}
 		Task_Delay(20);
 	}
 
@@ -100,7 +112,7 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 	xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
 			eGROUP_DEPLA_ARRIVED );/* The bits being set. */
 
-	//return succes
+	//return success
 	return true;
 }
 
@@ -148,6 +160,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 {
 	struct st_DESTINATION_ROBOT dest = { 0 };
 	struct st_COORDONNEES coord = { 0 };
+	char str[70];
 
 
 	//Check if the new dest is != to the previous sent
@@ -177,7 +190,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 
 		//Clear the Flags (path found | not found) before sending or waiting
 		xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-				eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED );/* The bits being set. */
+				eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
 
 
 		_0_Deplacement_Get_ptr_Current_Destination()->coord = coord;
@@ -187,7 +200,24 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 	if(!Attente)
 		return true;
 
-	return _0_Deplacement_Wait_For_Arrival(&coord);
+	bool result = _0_Deplacement_Wait_For_Arrival(&coord);
+
+	EventBits_t uxBits;
+	//If no Pathfinding is used, Flag will keep low
+	uxBits = xEventGroupWaitBits(_0_Deplacement_EventGroup,   /* The event group being tested. */
+			eGROUP_DEPLA_BLOQUAGE, /* The bits within the event group to wait for. */
+			pdFALSE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			0 );/* Wait a maximum of xTicksToWait for either bit to be set. */
+	//Si un bloquage a ete detecté
+	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
+	{
+		sprintf(str, "DEPLA: Bloquage detecte\n");
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+	}
+
+
+	return result;
 }
 
 
@@ -210,11 +240,11 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
  ** 					false: error
  **
  *****************************************************************************/
-static TO_AHBS_RAM3 char str_ASTAR[70];
 bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool direction, void* obstacle_creation_fct)
 {
 	struct st_DESTINATION_ROBOT dest = { 0 };
 	struct st_COORDONNEES coord = { 0 };
+	char str[70];
 
 	coord.X = X;
 	coord.Y = Y;
@@ -243,7 +273,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 
 	//Clear the Flags (path found | not found) before sending or waiting
 	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED );/* The bits being set. */
+			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
 
 	//Create the Astar deplacement task
 	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 320, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
@@ -254,10 +284,26 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	bool result;
 	result = _0_Deplacement_Wait_For_Arrival(&coord);
 
-	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+	EventBits_t uxBits;
+	//If no Pathfinding is used, Flag will keep low
+	uxBits = xEventGroupWaitBits(_0_Deplacement_EventGroup,   /* The event group being tested. */
+			eGROUP_DEPLA_BLOQUAGE, /* The bits within the event group to wait for. */
+			pdFALSE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			0 );/* Wait a maximum of xTicksToWait for either bit to be set. */
+	//Si un bloquage a ete detecté
+	//Si un bloquage a ete detecté
+	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
+	{
+		sprintf(str, "DEPLA: Bloquage detecte\n");
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+	}
+
+
+	sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
 			X,
 			Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
 
 	//Delete the Astar task
 	vTaskDelete(Astar_Task_Handler);
@@ -265,6 +311,136 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	//true: we arrived at destination
 	//false: destination is not reachable
 	return result;
+}
+
+
+
+/*****************************************************************************
+ ** Function name:		_0_Deplacement_Recallage_Bordure
+ **
+ ** Descriptions:		Deplacement en vitesse avec detection de bloquage pour un recallage bordure
+ **
+ ** parameters:			Direction: 0 = forward
+ ** 								1= backward
+ ** 					Vitesse
+ ** 					TimeOUT (ms)
+ **
+ ** Returned value:		true: deplacement done succesfully
+ ** 					false: error
+ **
+ *****************************************************************************/
+bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT)
+{
+	char str[70];
+
+	//En mode simulation, pas de recallage possible, on est tout de suite arrivé
+	if((xEventGroupGetBits( _0_Deplacement_EventGroup) & eGROUP_DEPLA_SIMULATION) == eGROUP_DEPLA_SIMULATION)
+	{
+		return pdTRUE;
+	}
+
+	sprintf(str, "DEPLA: Recallage Start\n");
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+
+	//Set les 2 PIDs de vitesses des roues independantes
+	_2_Comm_Send_Robot_PID(vitesse_roues_independantes, 0.085f, 0, 0.55f, 15, 0, 1, 1, RS485_port);
+
+
+	struct st_DESTINATION_ROBOT dest = { 0 };
+	struct st_COORDONNEES coord = { 0 };
+
+	coord.Type_Deplacement = consigne_vitesse_independantes;
+
+	if(direction == 0)
+	{
+		//Recallage en marche arriere
+		coord.Vitesse_Roue_Gauche = -speed;
+		coord.Vitesse_Roue_Droite = -speed;
+	}else
+	{
+		//Recallage en marche avant
+		coord.Vitesse_Roue_Gauche = speed;
+		coord.Vitesse_Roue_Droite = speed;
+	}
+
+	//Parametres classiques pour deplacement classiques
+	coord.ptrParameters.Angle_Avant_Debut_Avance = 0.08F * 100;
+	coord.ptrParameters.Angle_Detection_Fin_Trajectoire = 0.05F * 100;
+	coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 2 * 100;
+
+	coord.Type_Arret = depla_AVEC_freinage;
+
+	dest.coord = coord;
+	dest.Replace = pdTRUE;
+
+	//Clear the Flags (path found | not found) before sending or waiting
+	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+
+
+	_0_Deplacement_Get_ptr_Current_Destination()->coord = coord;
+	_2_Comm_Send_Destination_Robot(&dest, RS485_port);
+
+
+	short _timeout = TIMEOUT;
+	Task_Delay(20);
+
+	//Attente du Flag de bloquage ou du TimeOUT
+	while(!_0_Get_Robot_Position().Bloquage_Deplacement && _timeout > 0)
+	{
+		Task_Delay(20);
+		_timeout -= 20;
+	}
+
+	//Si un bloquage a ete detecté
+	if( _0_Get_Robot_Position().Bloquage_Deplacement )
+	{
+		/*
+		 *Arret du robot
+		 */
+		_0_Deplacement_STOP();
+
+		sprintf(str, "DEPLA: Recallage arrive\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+		return pdTRUE;
+	}
+
+	/*
+	 *Arret du robot
+	 */
+	_0_Deplacement_STOP();
+
+	sprintf(str, "DEPLA: Recallage TIMEOUT\n");
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+	return pdFALSE;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Deplacement_STOP
+ **
+ ** Descriptions:		Arret des deplacements du robot, jusqu'au prochain mouvement
+ **
+ ** parameters:			None
+ **
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Deplacement_STOP(void)
+{
+	struct st_DESTINATION_ROBOT dest = { 0 };
+	struct st_COORDONNEES coord = { 0 };
+
+	coord.Type_Deplacement = aucun_mouvement;
+	dest.coord = coord;
+	dest.Replace = pdTRUE;
+
+	//Clear the Flags (path found | not found) before sending or waiting
+	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+
+	_0_Deplacement_Get_ptr_Current_Destination()->coord = coord;
+	_2_Comm_Send_Destination_Robot(&dest, RS485_port);
 }
 
 
@@ -288,6 +464,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
  */
 void _0_Deplacement_ASTAR(void* pvParameter)
 {
+	char str_ASTAR[70];
 	Init_Timing_Tache;
 
 	struct Point found_destination;
@@ -299,7 +476,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR: Creation task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
 
 	//All new destination will be with replacement active
 	parameters.destination.Replace = true;
@@ -439,7 +616,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_Test, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
 	Task_Delete_Current;
 }
 

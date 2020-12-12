@@ -751,7 +751,7 @@ float Trapeze_Vitesse(struct st_DEPLACEMENT *D, struct st_pid_filter *PID, enum 
 	//Calcul de la vitesse max en comptant l'erreur et la decceleration
 	if(arret == depla_AVEC_freinage)
 	{
-		Vdecel = sqrtf(2 * D->Deccel * fabsf(D->Consigne - PID->Current_Value) * (PERIODE_PID_VITESSE / PERIODE_PID_DISTANCE_ANGLE))/2;
+		Vdecel = sqrtf(2 * D->Deccel * fabsf(D->Consigne - PID->Current_Value) * (PERIODE_PID_VITESSE / PERIODE_PID_DISTANCE_ANGLE));
 	}else
 	{
 		//Si l'arret n'est pas demandé au point, on continue à vitesse max
