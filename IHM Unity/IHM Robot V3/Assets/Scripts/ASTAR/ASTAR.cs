@@ -158,7 +158,7 @@ public class ASTAR_COMMUNICATION
 
         output_temp.nodes_values = new byte[NB_Noeuds_par_mess / 2];
 
-        output_temp = (Nodes_Values_array)Communication.GetStructFromArray<Nodes_Values_array>(input_trame.Data);
+        output_temp = (Nodes_Values_array)Communication.GetClassFromArray<Nodes_Values_array>(input_trame.Data);
 
         Nodes_Values output = new Nodes_Values();
         output.line_id = output_temp.Line_ID;

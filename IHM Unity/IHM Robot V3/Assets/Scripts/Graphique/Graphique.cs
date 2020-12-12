@@ -123,7 +123,7 @@ public partial class Graphique
         for (int i = 0; i < Nb_Max_Graph_Data; i++)
             output.datas.Datas[i] = new st_Graph_Data();
 
-        output = (st_Graph_Datas)Communication.GetStructFromArray<st_Graph_Datas>(input_trame.Data);
+        output = (st_Graph_Datas)Communication.GetClassFromArray<st_Graph_Datas>(input_trame.Data);
         return output;
     }
 }

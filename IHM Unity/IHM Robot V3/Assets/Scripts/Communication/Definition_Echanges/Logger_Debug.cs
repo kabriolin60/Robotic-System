@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 
 public class Logger_Debug
@@ -30,6 +31,12 @@ public class Logger_Debug
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = Max_Char_per_Log)]
 		public char[] Text = new char[Max_Char_per_Log];            //Chaine de commentaire limitée au nombre ci-dessus, maximum 60 caratcers 	//60 octets
+	}
+
+	public class Log_Message
+    {
+		public Logger_Debug_Data data = new Logger_Debug_Data();
+		public string str = "";
 	}
 
 	/*
@@ -77,10 +84,12 @@ public class Logger_Debug
 		return List_trame_echange;
 	}*/
 
-	public Logger_Debug_Data Trame_To_Data(Communication.Communication_Trame input_trame)
+	public Log_Message Trame_To_Data(Communication.Communication_Trame input_trame)
 	{
-		Logger_Debug_Data output = new Logger_Debug_Data();
-		output = (Logger_Debug_Data)Communication.GetStructFromArray<Logger_Debug_Data>(input_trame.Data);
-		return output;
+		Log_Message log = new Log_Message();
+		log.data = (Logger_Debug_Data)Communication.GetClassFromArray<Logger_Debug_Data>(input_trame.Data);
+		log.str = Encoding.UTF8.GetString(input_trame.Data, 3, log.data.Nombre_Carateres);
+
+		return log;
 	}
 }

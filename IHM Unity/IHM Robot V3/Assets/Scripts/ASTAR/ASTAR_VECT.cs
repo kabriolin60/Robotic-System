@@ -161,7 +161,7 @@ public class ASTAR_VECTOR_COMMUNICATION
 
         output_temp.vectors_values = new byte[NB_Vector_par_mess * 8];
 
-        output_temp = (Vectors_Values_array)Communication.GetStructFromArray<Vectors_Values_array>(input_trame.Data);
+        output_temp = (Vectors_Values_array)Communication.GetClassFromArray<Vectors_Values_array>(input_trame.Data);
 
         Vectors_Values output = new Vectors_Values();
         output.Effacement = (byte)(output_temp.Effacement);

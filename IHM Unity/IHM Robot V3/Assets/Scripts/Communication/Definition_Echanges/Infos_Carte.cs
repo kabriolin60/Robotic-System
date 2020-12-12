@@ -120,7 +120,7 @@ public partial class Infos_Carte
 		output.Mesures_Analogiques.Mesure = new ushort[NB_MES_ANA];
 		output.PositionRobot = new Com_Position_Robot_Data();
 
-		output = (Com_Reponse_Info)Communication.GetStructFromArray<Com_Reponse_Info>(input_trame.Data);
+		output = (Com_Reponse_Info)Communication.GetClassFromArray<Com_Reponse_Info>(input_trame.Data);
 		return output;
 	}
 }
@@ -151,7 +151,7 @@ public partial class Infos_Carte
 	{
 		Com_Reponse_Info_IA output = new Com_Reponse_Info_IA();		
 
-		output = (Com_Reponse_Info_IA)Communication.GetStructFromArray<Com_Reponse_Info_IA>(input_trame.Data);
+		output = (Com_Reponse_Info_IA)Communication.GetClassFromArray<Com_Reponse_Info_IA>(input_trame.Data);
 		return output;
 	}
 }

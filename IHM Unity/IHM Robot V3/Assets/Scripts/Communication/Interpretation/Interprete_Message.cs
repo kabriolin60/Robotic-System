@@ -187,12 +187,12 @@ public class Interprete_Message : MonoBehaviour
 	{
 		Logger_Debug debugger = new Logger_Debug();
 		//décompose les datas du message recu
-		Logger_Debug.Logger_Debug_Data data = debugger.Trame_To_Data(message.Trame);
+		Logger_Debug.Log_Message data = debugger.Trame_To_Data(message.Trame);
 		//tranforme-les en un Log
 		string time = $"{message.Heure.Hour}:{message.Heure.Minute}:{message.Heure.Second}:{message.Heure.Millisecond}";
 
 		Color color;
-		switch (data.Color)
+		switch (data.data.Color)
 		{
 			default:
 			case Logger_Debug.Logger_Debug_Color.Color_Black:
@@ -208,8 +208,7 @@ public class Interprete_Message : MonoBehaviour
 				break;
 		}
 
-		string text = new string(data.Text, 0, data.Nombre_Carateres);
-		Logger_New_Line.Logger_Message log = new Logger_New_Line.Logger_Message(time, data.Channel, color, text);
+		Logger_New_Line.Logger_Message log = new Logger_New_Line.Logger_Message(time, data.data.Channel, color, data.str);
 
 		Logger_New_Line.Logger_Viewer.Add_New_Logger_Line(log);
 	}

@@ -180,7 +180,7 @@ public class Action_Strategie
     {
         Action_Datas output = new Action_Datas();
 
-        output = (Action_Datas)Communication.GetStructFromArray<Action_Datas>(input_trame.Data);
+        output = (Action_Datas)Communication.GetClassFromArray<Action_Datas>(input_trame.Data);
         return output;
     }
 }

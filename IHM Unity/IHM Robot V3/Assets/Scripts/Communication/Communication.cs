@@ -286,7 +286,7 @@ public class Communication
 		* 
 		* ByteArrayToStructure(array, ref testdest2); //Transformation 
 		*/
-	public static T GetStructFromArray<T>(byte[] data) where T : class
+	public static T GetClassFromArray<T>(byte[] data) where T : class
 	{
 		GCHandle gch = GCHandle.Alloc(data, GCHandleType.Pinned);
 		try
