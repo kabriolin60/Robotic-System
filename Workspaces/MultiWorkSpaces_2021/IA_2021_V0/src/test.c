@@ -122,7 +122,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 
 	Task_Delay(3000);
-	_2_Comm_Send_Robot_Speed(0.2f,1,1,	0.5f,1,1,RS485_port);
+	_2_Comm_Send_Robot_Speed(0.2f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 	/**/
 	//Set les 2 PIDs de vitesses des roues independantes
@@ -156,7 +156,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		Task_Delay(3000);
 
 
-		_2_Comm_Send_Robot_Speed(0.2f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
+		//_2_Comm_Send_Robot_Speed(0.2f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 800);
 
@@ -175,7 +175,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		Task_Delay(3000);
 
 
-		_2_Comm_Send_Robot_Speed(0.3f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
+		//_2_Comm_Send_Robot_Speed(0.3f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 800);
 
@@ -194,7 +194,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		Task_Delay(3000);
 
 
-		_2_Comm_Send_Robot_Speed(0.3f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
+		//_2_Comm_Send_Robot_Speed(0.3f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 800);
 
@@ -213,7 +213,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		Task_Delay(3000);
 
 
-		_2_Comm_Send_Robot_Speed(0.4f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
+		//_2_Comm_Send_Robot_Speed(0.4f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 800);
 
@@ -232,7 +232,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		Task_Delay(3000);
 
 
-		_2_Comm_Send_Robot_Speed(0.5f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
+		//_2_Comm_Send_Robot_Speed(0.5f,0.5f,0.5f,	0.5f,0.5f,0.5f,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 800);
 

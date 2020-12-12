@@ -19,6 +19,31 @@ unsigned long Temps_Match = 0;
 
 
 /*****************************************************************************
+ ** Function name:		_Strategie_Match_Time
+ **
+ ** Descriptions:		Task de decompte du temps de match
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void Task_MatchTime(void *pvparameter)
+{
+	Init_Timing_Tache;
+
+	static char str[70];
+	sprintf(str, "Match Start!\n");
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Match, RS485_port);
+
+	while(1)
+	{
+		Task_Delay_Until(10);
+		Temps_Match += 10;
+	}
+}
+
+
+/*****************************************************************************
  ** Function name:		_Strategie_Get_Robot_ID
  **
  ** Descriptions:		Lecture de l'ID du robot
@@ -62,7 +87,7 @@ byte _Strategie_Get_Input_Strategie_Selector(void)
  ** Returned value:		Strategie_Choisie
  **
  *****************************************************************************/
-byte _Strategie_Get_Chosen_Strategie(void)
+byte _Strategie_Get_Choosen_Strategie(void)
 {
 	return Strategie_Choisie;
 }
@@ -292,6 +317,18 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 
 	//Envoie au PC cette action
 	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+
+
+
+
+	//Attente autorisation debut de match
+	while(_Strategie_Get_User_BP_Status() && _Strategie_Get_Jack_Status())
+	{
+		Task_Delay(10);
+	}
+	/* Creation de la Task de comptage du temps de match */
+	xTaskCreate(Task_MatchTime, "Task_MatchTime", configMINIMAL_STACK_SIZE*2, NULL, 1, NULL);
+
 
 
 	//Do strategic stuff

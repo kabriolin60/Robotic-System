@@ -859,7 +859,7 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	struct Com_Reponse_Info_IA Infos;
 	Infos.Numero_Robot = _Strategie_Get_Robot_ID();
 
-	Infos.Strategie = _Strategie_Get_Chosen_Strategie();
+	Infos.Strategie = _Strategie_Get_Choosen_Strategie();
 
 	Infos.Temps_Match = (unsigned short)(_Strategie_Get_Temps_Match() / 10);                             //Temps /10		//2 octets
 

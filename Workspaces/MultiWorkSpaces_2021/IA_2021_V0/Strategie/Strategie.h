@@ -16,12 +16,13 @@
 
 #include "2_Echange_Data_Strategie.h"
 
+void Task_MatchTime(void *pvparameter);
 
 byte _Strategie_Get_Robot_ID(void);
 
 byte _Strategie_Get_Input_Strategie_Selector(void);
 
-byte _Strategie_Get_Chosen_Strategie(void);
+byte _Strategie_Get_Choosen_Strategie(void);
 
 unsigned long _Strategie_Get_Temps_Match(void);
 
