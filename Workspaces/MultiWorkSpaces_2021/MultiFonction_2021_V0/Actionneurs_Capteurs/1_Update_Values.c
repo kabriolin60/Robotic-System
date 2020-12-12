@@ -107,6 +107,7 @@ void _1_Update_Task(void * pvParameter)
 		Updated_Infos.PositionRobot.Position_X = (short)(pos_robot.Position_X * 10);
 		Updated_Infos.PositionRobot.Position_Y = (short)(pos_robot.Position_Y * 10);
 		Updated_Infos.PositionRobot.Angle = (short)(pos_robot.Angle_Deg * 100);
+		Updated_Infos.PositionRobot.Bloquage = pos_robot.Bloquage_Deplacement;
 
 
 		//Mise à jour de la position des servos

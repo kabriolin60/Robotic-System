@@ -61,6 +61,8 @@ struct st_POSITION_ROBOT
 	float Angle_Deg;
 
 	float orient_init;
+
+	byte Bloquage_Deplacement;
 };
 
 /*************************************************/

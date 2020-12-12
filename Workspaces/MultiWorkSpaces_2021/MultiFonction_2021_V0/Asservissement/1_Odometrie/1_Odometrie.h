@@ -30,6 +30,8 @@ void _1_Omodetrie_Set_Simulation(bool value);
 
 bool _1_Omodetrie_Get_Simulation(void);
 
+void _1_Odometrie_Set_Bloquage(byte value);
+
 struct st_Codeurs * _1_Odometrie_Get_ptr_Codeurs_Corriges(void);
 
 #endif /* 1_ODOMETRIE_1_ODOMETRIE_H_ */

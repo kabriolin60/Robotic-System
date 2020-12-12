@@ -227,6 +227,17 @@ bool _1_Omodetrie_Get_Simulation(void)
 }
 
 
+/**************************************************
+Fonction d'indication d'un bloquage du Robot par les asserv de niveau 1
+Input:  Oui/Non
+Output: None
+ **************************************************/
+void _1_Odometrie_Set_Bloquage(byte value)
+{
+	_1_Odometrie_Position_Robot.Bloquage_Deplacement = value;
+}
+
+
 
 
 struct st_Codeurs * _1_Odometrie_Get_ptr_Codeurs_Corriges(void)

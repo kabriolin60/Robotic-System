@@ -29,8 +29,9 @@ public partial class Infos_Carte
 
 		[MarshalAs(UnmanagedType.I2)]
 		public short Angle;              //*100 //Orientation du Robot (° *100)
-										 //byte Bloquage;
-										 //byte Fin_Deplacement;
+
+		[MarshalAs(UnmanagedType.U1)]
+		public byte Bloquage;
 	}
 
 	/**************************************************

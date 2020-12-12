@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interprete_Message : MonoBehaviour
 {
 	Trame_Decoder[] Decodeurs;
+	Traffic_Display[] Traffic_display;
 
 	public Int32 Nb_Messages_Interpretes = 0;
 
@@ -24,12 +26,15 @@ public class Interprete_Message : MonoBehaviour
 	{
 		Decodeurs = this.GetComponentsInChildren<Trame_Decoder>();
 		file_Logger = this.GetComponent<File_Logger>();
+		Traffic_display = this.GetComponentsInChildren<Traffic_Display>();
 
 		Last_Data_Received = this.GetComponent<Last_Infos>();
 
 		//Creation d'une tâche asynchrone chargée de lire les messages dans les décodeurs et de les interpreter
 
 		this.StartCoroutine(Interpreteur_Message());
+
+		this.StartCoroutine(Demande_Infos());
 	}
 
 
@@ -40,6 +45,40 @@ public class Interprete_Message : MonoBehaviour
 			Decodeurs[0].Pop_Message(message);
 		}
 	}
+
+
+	IEnumerator Demande_Infos()
+	{
+		yield return new WaitForSeconds(.1f);
+
+		Communication.Communication_Trame trame = new Communication.Communication_Trame();
+		
+		trame.Length = 0;
+		trame.Instruction = Communication.Com_Instruction.DEMANDE_INFO;
+		trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
+
+		while (true)
+        {
+			yield return new WaitForSeconds(.5f);
+			foreach(Traffic_Display robot in this.Traffic_display)
+            {
+				yield return new WaitForSeconds(.2f);
+				if (robot.Demande_Infos_Toggle != null)
+				{
+					if (robot.Demande_Infos_Toggle.GetComponent<Toggle>().isOn)
+					{
+						for (int index_carte = 0; index_carte < Common_settings.static_Nombre_Cartes_Max_Par_Robot; index_carte++)
+						{
+							trame.Slave_Adresse = (Communication.Slave_Adresses)(index_carte + 1);
+							GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
+							yield return new WaitForSeconds(.1f);
+						}
+					}
+				}
+            }
+		}
+	}
+
 
 
 

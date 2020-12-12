@@ -125,6 +125,8 @@ void Chip_UART_Init(LPC_USART_T *pUART)
 
 	(void) tmp;
 
+	Chip_Clock_SetPCLKDiv(Chip_UART_GetClockIndex(pUART), SYSCTL_CLKDIV_1);
+
 	/* Enable UART clocking. UART base clock(s) must already be enabled */
 	Chip_Clock_EnablePeriphClock(Chip_UART_GetClockIndex(pUART));
 

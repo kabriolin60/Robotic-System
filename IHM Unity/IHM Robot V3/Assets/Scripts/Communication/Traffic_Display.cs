@@ -9,6 +9,8 @@ public class Traffic_Display : MonoBehaviour
     public GameObject Nombre_Messages_Display;
     public GameObject Nombre_Erreur_Display;
 
+    public GameObject Demande_Infos_Toggle;
+
     public GameObject PortCom_Status_big;
     public GameObject Nombre_Messages_Display_big;
     public GameObject Nombre_Erreur_Display_big;

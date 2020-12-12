@@ -232,7 +232,7 @@ struct Com_Position_Robot
 	int16_t Position_X;			//*10
 	int16_t Position_Y;			//*10
 	int16_t Angle;				//*100 //Orientation du Robot (° *100)
-	//byte Bloquage;
+	byte Bloquage;
 	//byte Fin_Deplacement;
 };
 

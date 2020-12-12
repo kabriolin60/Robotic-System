@@ -13,6 +13,8 @@ public class Common_settings : MonoBehaviour
     static public byte static_Nombre_Robots;
     static public byte static_Nombre_Cartes_MultiFct_Par_Robot;
 
+    static public byte static_Nombre_Cartes_Max_Par_Robot;
+
     static public CultureInfo culture = CultureInfo.CreateSpecificCulture("fr-FR");
 
     static public string[] static_Robots_Names = { "Gros Robot", "Petit Robot", "test 1", "Test 2", "Test 3" };
@@ -28,6 +30,9 @@ public class Common_settings : MonoBehaviour
         static_Nombre_Robots = Nombre_Robots;
         static_Nombre_Cartes_MultiFct_Par_Robot = Nombre_Cartes_MultiFct_Par_Robot;
         static_Nombre_Maximum_Actions = Nombre_Maximum_Actions;
+
+        //Ajouter les autres cartes d'autres types si besoin
+        static_Nombre_Cartes_Max_Par_Robot = static_Nombre_Cartes_MultiFct_Par_Robot;
 
         static_Id_Robot = (Infos_Carte.Com_Position_Robot_Identification[])typeof(Infos_Carte.Com_Position_Robot_Identification).GetEnumValues();
 

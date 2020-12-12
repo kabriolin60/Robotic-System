@@ -273,7 +273,6 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 			//TODO
 			break;
 
-
 		case consigne_vitesse_independantes:
 			//Pas d'asserv de niveau 2 dans ce cas
 			break;

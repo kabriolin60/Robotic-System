@@ -11,6 +11,8 @@
 #include "1_Asservissement.h"
 #include "1_PID.h"
 
+#define _1_Asserv_MAX_Temps_Bloquage	2000
+
 static struct st_pid_filter PID_Vitesse_Position;
 static struct st_pid_filter PID_Vitesse_Rotation;
 
@@ -220,6 +222,8 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 	static long prev_Codeur_Gauche = 0;                             //valeur lue du codeur gauche
 	static long prev_Codeur_Droit = 0;                              //valeur lue du codeur droit
 
+	static long Temps_Avec_Bloquage_Possible = 0;		//Incrémente le temps de bloquage pour le deteter
+
 	long deplacement_Droit, deplacement_Gauche;
 	struct Codeurs_Values Valeurs_Codeurs;
 
@@ -243,7 +247,47 @@ void _1_Asserv_Vitesse_Independantes(void *pvParameters)
 	pid_do_filter(&PID_Vitesse_Roue_Gauche);
 
 
-	//Envoie les consignes vers les PWM pour les moteurs
+	/*
+	 * Detection de bloquage et remontee de l'information
+	 */
+	if(PID_Vitesse_Roue_Gauche.Commande == PID_Vitesse_Roue_Gauche.commande_max || PID_Vitesse_Roue_Gauche.Commande == PID_Vitesse_Roue_Gauche.commande_min)
+	{
+		//Le pid en vitesse est au maximum de sa sortie
+		if(fabsf(deplacement_Gauche) < fabsf(PID_Vitesse_Roue_Gauche.Consigne) / 2)
+		{
+			//La vitesse de la roue est < 50% de sa consigne
+			//La roue gauche est bloquee
+			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE/2;
+		}else
+		{
+			Temps_Avec_Bloquage_Possible = 0;
+		}
+	}
+
+	//Detection de bloquage et remontee de l'information
+	if(PID_Vitesse_Roue_Droite.Commande == PID_Vitesse_Roue_Droite.commande_max || PID_Vitesse_Roue_Droite.Commande == PID_Vitesse_Roue_Droite.commande_min)
+	{
+		//Le pid en vitesse est au maximum de sa sortie
+		if(fabsf(deplacement_Droit) < fabsf(PID_Vitesse_Roue_Droite.Consigne) / 2)
+		{
+			//La vitesse de la roue est < 50% de sa consigne
+			//La roue gauche est bloquee
+			Temps_Avec_Bloquage_Possible += PERIODE_PID_VITESSE/2;
+		}else
+		{
+			Temps_Avec_Bloquage_Possible = 0;
+		}
+	}
+
+	if(Temps_Avec_Bloquage_Possible > _1_Asserv_MAX_Temps_Bloquage)
+	{
+		_1_Odometrie_Set_Bloquage(pdTRUE);
+	}
+
+
+	/*
+	 * Envoie les consignes vers les PWM pour les moteurs
+	 */
 	if(!_1_Omodetrie_Get_Simulation())
 	{
 		//Calcul les consignes de chaque moteur
