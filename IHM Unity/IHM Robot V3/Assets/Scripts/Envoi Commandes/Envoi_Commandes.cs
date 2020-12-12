@@ -118,6 +118,29 @@ public class Envoi_Commandes : MonoBehaviour
 
 
 
+    public void Envoi_Position_Adversaire(Vector3 _position)
+    {
+        Communication.Communication_Trame trame = new Communication.Communication_Trame();
+
+        byte[] arr = new byte[1];
+
+        Infos_Carte.Com_Position_Robot_Data position = new Infos_Carte.Com_Position_Robot_Data();
+        position.Position_X = (short)(_position.x * 10);
+        position.Position_Y = (short)(_position.y * 10);
+
+        Communication com = new Communication();
+
+        trame = Communication.GetTrameFromStruct<Infos_Carte.Com_Position_Robot_Data>(position); 
+
+        trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD; //uniquement la carte IA qui gère l'évitement
+        trame.Instruction = Communication.Com_Instruction.REPONSE_AUTRE_ROBOT_POSITION;
+        trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
+
+        GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
+    }
+
+
+
     public void Envoi_Emergency_Stop()
     {
         Envoi_Commande_MotorPower(false);

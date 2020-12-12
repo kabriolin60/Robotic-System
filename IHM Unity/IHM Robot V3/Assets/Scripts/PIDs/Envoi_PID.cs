@@ -96,7 +96,7 @@ public class Envoi_PID : MonoBehaviour
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetTrameFromStruct<reglage_pid>(pid);
+        trame = Communication.GetTrameFromClass<reglage_pid>(pid);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1; //uniquement la carte 1 qui gère les déplacement
         trame.Instruction = Communication.Com_Instruction.PARAMETRES_PID;

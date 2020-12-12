@@ -176,7 +176,7 @@ public class Commande_Servos_message
 
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        trame = Communication.GetTrameFromStruct<st_Destination_Servos>(destination);
+        trame = Communication.GetTrameFromClass<st_Destination_Servos>(destination);
 
         trame.Slave_Adresse = Communication.Slave_Adresses.ALL_CARDS; //Toutes les cartes
         trame.Instruction = Communication.Com_Instruction.DESTINATION_SERVOS_AND_AX12;

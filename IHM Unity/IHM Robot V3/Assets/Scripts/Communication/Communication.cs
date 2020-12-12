@@ -302,8 +302,27 @@ public class Communication
 	/*
 		* Conversion d'une structure de donnée en tableau de byte
 		*/
-	public static Communication_Trame GetTrameFromStruct<T>(T data) where T : class
+	public static Communication_Trame GetTrameFromClass<T>(T data) where T : class
     {
+		int size = Marshal.SizeOf(data);
+		byte[] arr = new byte[size];
+
+		IntPtr ptr = Marshal.AllocHGlobal(size);
+		Marshal.StructureToPtr(data, ptr, true);
+		Marshal.Copy(ptr, arr, 0, size);
+		Marshal.FreeHGlobal(ptr);
+
+		Communication.Communication_Trame trame = new Communication.Communication_Trame();
+
+		trame.Data = arr;
+		trame.Length = (byte)size;
+
+		return trame;
+	}
+
+
+	public static Communication_Trame GetTrameFromStruct<T>(T data) where T : struct
+	{
 		int size = Marshal.SizeOf(data);
 		byte[] arr = new byte[size];
 

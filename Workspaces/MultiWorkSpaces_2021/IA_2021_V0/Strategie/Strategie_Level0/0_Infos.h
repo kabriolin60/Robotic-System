@@ -23,4 +23,8 @@ struct st_POSITION_ROBOT _0_Get_Robot_Position(void);
 
 struct servo_destination _0_Get_Servo_Position(byte ID);
 
+void _0_Set_Position_SecondRobot(int16_t x, int16_t y);
+
+struct Com_Position_Robot _0_Get_Position_SecondRobot(void);
+
 #endif /* 0_INFOS_H_ */

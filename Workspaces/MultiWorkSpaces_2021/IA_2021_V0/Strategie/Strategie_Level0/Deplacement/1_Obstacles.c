@@ -6,21 +6,35 @@
  */
 
 #include "Astar.h"
+#include "Communication_Typedef.h"
+#include "0_Infos.h"
 
 void _1_TEST_Obstacles_Opponent_Robots(void)
 {
-	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1000, 800, 1600, 1400, true, Astar_Vector_Color_Red);
-	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 500, 1100, 1100, 1700, true, Astar_Vector_Color_Red);
+	//Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1000, 800, 1600, 1400, true, Astar_Vector_Color_Red);
+	//Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 500, 1100, 1100, 1700, true, Astar_Vector_Color_Red);
 }
+
+void _1_TEST_Obstacle_Second_Robot(void)
+{
+	struct Com_Position_Robot PositionSecondRobot;
+
+	PositionSecondRobot = _0_Get_Position_SecondRobot();
+
+	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), PositionSecondRobot.Position_X - 300, PositionSecondRobot.Position_Y - 300, PositionSecondRobot.Position_X + 300, PositionSecondRobot.Position_Y + 300, true, Astar_Vector_Color_Red);
+}
+
 
 
 void _1_Obstacles_Create_Terrain_Border(void)
 {
+	//Bordures du terrain
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 0, 180, 2950, false, Astar_Vector_Color_Blue);
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 2780, 1950, 2950, false, Astar_Vector_Color_Blue);
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 0, 0, 1950, 170, false, Astar_Vector_Color_Blue);
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1820, 0, 1950, 2950, false, Astar_Vector_Color_Blue);
 
+	//Vecteurs des bordures du terrain
 	Astar_Add_Obstacle_Vector(Astar_Get_Vector_Map(), 180, 180,	1820, 2820, Astar_Vector_Color_Blue);
 
 	//Grand port Jaune
@@ -33,4 +47,6 @@ void _1_Obstacles_Create_Terrain_Border(void)
 	Astar_Add_Rectangular_Obstacle(Astar_Get_Map(), Astar_Get_Vector_Map(), 1670, 1909, 2000, 2291, true, Astar_Vector_Color_Blue);
 
 	_1_TEST_Obstacles_Opponent_Robots();
+
+	_1_TEST_Obstacle_Second_Robot();
 }

@@ -59,6 +59,10 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		Nb_PONG_recus++;
 		break;
 
+	case REPONSE_AUTRE_ROBOT_POSITION:
+		_2_Comm_RX_Position_Second_Robot(trame);
+		break;
+
 	case PING:
 		//A la demande d'une carte, on répond par un PONG
 		_2_Comm_Send_PONG(RS485_port);
@@ -138,4 +142,23 @@ void _2_Comm_RX_PONG(struct Communication_Trame* datas)
 
 	xEventGroupSetBits(_0_Status_EventGroup,    /* The event group being updated. */
 			(1 << PONG.Adresse));		 /* The bits being set. */
+}
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_RX_Position_Second_Robot
+ **
+ ** Descriptions:		Reception de la position du second robot
+ **
+ ** parameters:			Recieved message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_RX_Position_Second_Robot(struct Communication_Trame* datas)
+{
+	struct Com_Position_Robot position;
+
+	COPYDATA2(datas->Data, position);
+	_0_Set_Position_SecondRobot(position.Position_X, position.Position_Y);
 }

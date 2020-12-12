@@ -10,6 +10,9 @@
 
 
 static TO_AHBS_RAM3 struct Com_Reponse_Info Infos_Cartes[Nb_Max_Cartes];
+
+static TO_AHBS_RAM3 struct Com_Position_Robot PositionSecondRobot;
+
 SemaphoreHandle_t xMutex_Protection;
 
 
@@ -27,6 +30,9 @@ void _0_Infos_Init()
 	memset(&Infos_Cartes, 0, sizeof(struct Com_Reponse_Info)*Nb_Max_Cartes);
 
 	xMutex_Protection = xSemaphoreCreateMutex();
+
+	PositionSecondRobot.Position_X = -1000;
+	PositionSecondRobot.Position_Y = -1000;
 }
 
 
@@ -130,3 +136,36 @@ struct servo_destination _0_Get_Servo_Position(byte ID)
 	xSemaphoreGive( xMutex_Protection );
 	return values;
 }
+
+
+
+/*****************************************************************************
+ ** Function name:		_0_Set_Position_SecondRobot
+ **
+ ** Descriptions:		position du second Robot
+ **
+ ** parameters:			position X, Y
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Set_Position_SecondRobot(int16_t x, int16_t y)
+{
+	PositionSecondRobot.Position_X = x / 10;
+	PositionSecondRobot.Position_Y = y / 10;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Get_Position_SecondRobot
+ **
+ ** Descriptions:		position du second Robot
+ **
+ ** parameters:			None
+ ** Returned value:		Position du Second Robot
+ **
+ *****************************************************************************/
+struct Com_Position_Robot _0_Get_Position_SecondRobot(void)
+{
+	return PositionSecondRobot;
+}
+
