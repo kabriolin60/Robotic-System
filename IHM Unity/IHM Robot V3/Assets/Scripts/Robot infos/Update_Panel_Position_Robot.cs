@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Update_Panel_Position_Robot : MonoBehaviour
 {
     public GameObject Robot_Position_X;
     public GameObject Robot_Position_Y;
     public GameObject Robot_Angle;
+    public Toggle Bloquage;
 
     public Infos_Carte.Com_Position_Robot_Identification Robot_id;
 
@@ -25,6 +27,9 @@ public class Update_Panel_Position_Robot : MonoBehaviour
             Robot_Position_X.GetComponent<TextMeshProUGUI>().text = $"X= {pos_x.ToString()} mm";
             Robot_Position_Y.GetComponent<TextMeshProUGUI>().text = $"Y= {pos_y.ToString()} mm";
             Robot_Angle.GetComponent<TextMeshProUGUI>().text = $"Ang= {angle.ToString()} °";
+
+            Bloquage.isOn = last_position.PositionRobot.Bloquage == 1 ? true : false;
+
         }
         catch
         {
