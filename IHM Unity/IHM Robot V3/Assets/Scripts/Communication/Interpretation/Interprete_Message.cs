@@ -61,10 +61,10 @@ public class Interprete_Message : MonoBehaviour
 
 		while (true)
         {
-			yield return new WaitForSeconds(.5f);
+			yield return new WaitForSeconds(.2f);
 			foreach(Traffic_Display robot in this.Traffic_display)
             {
-				yield return new WaitForSeconds(.2f);
+				yield return new WaitForSeconds(.02f);
 				if (robot.Demande_Infos_Toggle != null)
 				{
 					if (robot.Demande_Infos_Toggle.GetComponent<Toggle>().isOn)
@@ -73,7 +73,7 @@ public class Interprete_Message : MonoBehaviour
 						{
 							trame.Slave_Adresse = (Communication.Slave_Adresses)(index_carte + 1);
 							GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);
-							yield return new WaitForSeconds(.1f);
+							yield return new WaitForSeconds(.01f);
 						}
 					}
 				}

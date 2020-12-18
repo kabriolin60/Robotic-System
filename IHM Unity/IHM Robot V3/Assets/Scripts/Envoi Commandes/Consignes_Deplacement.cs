@@ -107,7 +107,9 @@ public class Consignes_Deplacement
         tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
         deplacement_libre,           //Permet de faire des tests en déplacement linéaires
         rotation_libre,              //Permet de faire des tests en rotaion
-        consigne_vitesse_independantes //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
+        consigne_vitesse_independantes, //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
+        spline_avant,                   //Déplacement standard en marche avant
+        spline_arriere          	    //Déplacement standard en marche arriere
     };
 
     /*************************************************/
@@ -162,6 +164,12 @@ public class Consignes_Deplacement
 
         [MarshalAs(UnmanagedType.U2)]
         public short Distance;              //Indique la distance a parcourir pour les deplacements en distance libre, ou le rayon des cercles
+
+        [MarshalAs(UnmanagedType.U2)]
+        public short Final_X;                     //coordonnee finale X pour les splines
+
+        [MarshalAs(UnmanagedType.U2)]
+        public short Final_Y;                     //coordonnee finale Y pour les splines
 
         [MarshalAs(UnmanagedType.U2)]
         public short Vitesse_Roue_Gauche;              //Indique la distance a parcourir pour les deplacements en distance libre, ou le rayon des cercles

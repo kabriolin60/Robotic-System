@@ -18,22 +18,25 @@ public class TableViewClick : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_screenRectTransform, eventData.position, null, out Vector2 localClick);
-        
-        Vector2 image_position = new Vector2();
-        image_position.x = localClick.x + _screenRectTransform.rect.width / 2;
-        image_position.y = localClick.y + _screenRectTransform.rect.height / 2;
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_screenRectTransform, eventData.position, null, out Vector2 localClick);
 
-        Vector3 Worldposition = new Vector3();
-        Worldposition.x = 2000 + image_position.y / _screenRectTransform.rect.height * 2000 * -1;
-        Worldposition.y = image_position.x / _screenRectTransform.rect.width * 3000;
-        Worldposition.z = 0;
+            Vector2 image_position = new Vector2();
+            image_position.x = localClick.x + _screenRectTransform.rect.width / 2;
+            image_position.y = localClick.y + _screenRectTransform.rect.height / 2;
 
-        Debug.Log($"localClick: {Worldposition.x}, {Worldposition.y}");
+            Vector3 Worldposition = new Vector3();
+            Worldposition.x = 2000 + image_position.y / _screenRectTransform.rect.height * 2000 * -1;
+            Worldposition.y = image_position.x / _screenRectTransform.rect.width * 3000;
+            Worldposition.z = 0;
+
+            Debug.Log($"localClick: {Worldposition.x}, {Worldposition.y}");
 
 
-        if(GetComponent<Envoi_Commandes>() != null)
-            GetComponent<Envoi_Commandes>().Envoi_Position_Adversaire(Worldposition);
+            if (GetComponent<Envoi_Commandes>() != null)
+                GetComponent<Envoi_Commandes>().Envoi_Position_Adversaire(Worldposition);
+        }
 
 
         /*RectTransformUtility.ScreenPointToLocalPointInRectangle(_screenRectTransform, eventData.position, null, out Vector2 localClick);
