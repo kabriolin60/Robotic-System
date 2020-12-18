@@ -235,8 +235,8 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	/**/
 
 	//Réglages des vitesses et acceleration
-	_2_Asservissement_Set_Distance_Speed_Accel(20, 1, 1);
-	_2_Asservissement_Set_Rotation_Speed_Accel(20, 2, 2);
+	_2_Asservissement_Set_Distance_Speed_Accel(30, 1, 1);
+	_2_Asservissement_Set_Rotation_Speed_Accel(30, 2, 2);
 
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 

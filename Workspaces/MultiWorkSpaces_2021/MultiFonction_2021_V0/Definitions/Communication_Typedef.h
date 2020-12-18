@@ -391,7 +391,10 @@ enum enum_TYPE_MOVE_
 	TYPE_MOVE_tourne_vers_cap_rad,         //Oriente le robot selon l'angle donné en absolu
 	TYPE_MOVE_deplacement_libre,           //Permet de faire des tests en déplacement linéaires
 	TYPE_MOVE_rotation_libre,              //Permet de faire des tests en rotaion
-	TYPE_MOVE_consigne_vitesse_independantes  //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
+	TYPE_MOVE_consigne_vitesse_independantes,  //Permet de piloter les roues en vitesse sans passer par les couches supérieures d'asserv
+
+	TYPE_MOVE_Spline_avant,            		//Déplacement standard en marche avant
+	TYPE_MOVE_Spline_arriere,          		//Déplacement standard en marche arriere
 };
 
 /*************************************************/

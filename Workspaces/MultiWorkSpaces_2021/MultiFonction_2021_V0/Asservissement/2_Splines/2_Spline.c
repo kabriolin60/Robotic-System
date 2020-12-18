@@ -300,18 +300,21 @@ void CubicSpline_Process(struct CubicSpline *spline)
 
 	if(spline->Direction == 0)
 	{
-		dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_avant;
+		dest.Type_Deplacement = TYPE_MOVE_Spline_avant;
 	}else
 	{
-		dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
+		dest.Type_Deplacement = TYPE_MOVE_Spline_arriere;
 	}
 
 	struct st_Parametre_Deplacement parameters2;
-	parameters2.Angle_Avant_Debut_Avance = 10;
+	parameters2.Angle_Avant_Debut_Avance = 30;
 	parameters2.Distance_Detection_Fin_Trajectoire = 1000;
 	parameters2.Angle_Detection_Fin_Trajectoire = 5;
 
 	dest.ptrParameters = parameters2;
+
+	dest.Final_X = spline->P1.X;
+	dest.Final_Y = spline->P1.Y;
 
 	vectors_spline.Nb_Vectors = 0;
 	vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.x = P0_x*spline->Taille_Terrain.X;
@@ -319,7 +322,7 @@ void CubicSpline_Process(struct CubicSpline *spline)
 
 	dest.Type_Arret = depla_SANS_freinage;
 	//Pour chaque point de la trajectoire à calculer
-	for(t = 0 ; t < 1 ; t+= pas)
+	for(t = pas ; t < 1 ; t+= pas)
 	{
 		Result_X = CubicSpline_Point_Processing(P0_x, M0_x, P1_x, M1_x, t);
 		Result_X *= spline->Taille_Terrain.X;

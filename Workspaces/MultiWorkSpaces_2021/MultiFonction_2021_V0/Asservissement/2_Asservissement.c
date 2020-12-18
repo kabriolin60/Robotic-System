@@ -18,8 +18,8 @@ static struct st_pid_filter PID_Position;
 static struct st_pid_filter PID_Rotation;
 
 //Structure des Deplacement pour rampes en trapezes
- struct st_DEPLACEMENT Deplacement_Distance;
- struct st_DEPLACEMENT Deplacement_Rotation;
+struct st_DEPLACEMENT Deplacement_Distance;
+struct st_DEPLACEMENT Deplacement_Rotation;
 
 
 //Handler sur la tâche d'asserv en position et en Rotation
@@ -389,16 +389,16 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 
 			case TYPE_MOVE_xy_tour_av_avant:            //Déplacement standard en marche avant
 			case TYPE_MOVE_xy_tour_av_arriere:          //Déplacement standard en marche arriere
+			case TYPE_MOVE_Spline_avant:
+			case TYPE_MOVE_Spline_arriere:
 				//Asservissement polaire sur des coordonnées
 
 				//Récupère la position actuelle du Robot
 				Current_Robot_Position = _1_Odometrie_GetRobot_Position();
 
 				//Asservissement vers le point cible (Rotation puis deplacement)
-				if(Current_Destination.Type_Deplacement == TYPE_MOVE_xy_tour_av_avant || Current_Destination.Type_Deplacement == TYPE_MOVE_xy_tour_av_arriere)
-				{
-					Arrive = _2_Asservissement_Rotation_Avance(&Current_Destination, &Current_Robot_Position, &Current_Destination.ptrParameters, _1_Odometrie_Get_Parameters());
-				}
+				Arrive = _2_Asservissement_Rotation_Avance(&Current_Destination, &Current_Robot_Position, &Current_Destination.ptrParameters, _1_Odometrie_Get_Parameters());
+
 
 				//Si on est arrivé, lecture du prochain point de destination
 				if(Arrive)
@@ -471,6 +471,8 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 					//Pas d'asserv ici pour les moteurs aux
 					break;
 				}
+
+				break;
 		}
 	}
 }
@@ -579,13 +581,22 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 	float Erreur_Distance = 0;
 	float Erreur_Angle = 0;
 
+	float Erreur_Distance_Final_Point = 0;
+
 	/*
 	 * Step 0: calculer les erreurs entre la position du Robot et la cible
 	 */
 
 	//Calcul les erreurs entre la position actuelle du Robot et sa destination actuelle
+
 	Erreur_Distance = Calcul_Distance_2_points_Simple(Current_Robot_Position->Position_X, Current_Robot_Position->Position_Y, destination->X, destination->Y);
+
+	//Cas des Splines, La distance est calculée par rapport à la destination finale
+	Erreur_Distance_Final_Point = Calcul_Distance_2_points_Simple(Current_Robot_Position->Position_X, Current_Robot_Position->Position_Y, destination->Final_X, destination->Final_Y);
+
+	//Calcul l'erreur en angle
 	Erreur_Angle = Calcul_Angle_2_points_Simple(Current_Robot_Position->Position_X, Current_Robot_Position->Position_Y, destination->X, destination->Y) - Current_Robot_Position->Angle_rad;
+
 
 	if(Erreur_Angle > PI ) Erreur_Angle -= 2*PI;
 	else if( Erreur_Angle < - PI) Erreur_Angle += 2*PI;
@@ -594,6 +605,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 	{
 	//Si marche arriere
 	case TYPE_MOVE_xy_tour_av_arriere:
+	case TYPE_MOVE_Spline_arriere:
 		//Modifie l'erreur pour faire faire demi-tour au robot
 		if(Erreur_Angle > PI/2 || Erreur_Angle < -PI/2)
 		{
@@ -644,6 +656,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 				if(Erreur_Angle > PI) Erreur_Angle -= 2*PI;
 				if(Erreur_Angle < -PI) Erreur_Angle += 2*PI;
 			}
+			Erreur_Angle = 0;
 			break;
 
 		case TYPE_MOVE_xy_tour_av_arriere:
@@ -657,12 +670,13 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 				if(Erreur_Angle > PI) Erreur_Angle -= 2*PI;
 				if(Erreur_Angle < -PI) Erreur_Angle += 2*PI;
 			}
+			Erreur_Angle = 0;
 			break;
 
 		default:
 			break;
 		}
-		Erreur_Angle = 0;
+
 	}else
 	{
 		arrive = false;
@@ -675,6 +689,11 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 	if(!arrive)
 	{
 		//Le robot n'a pas encore atteint sa destination
+
+		if(destination->Type_Deplacement == TYPE_MOVE_Spline_avant || destination->Type_Deplacement == TYPE_MOVE_Spline_arriere)
+		{
+			Erreur_Distance = Erreur_Distance_Final_Point;
+		}
 
 		//Mise à jour des consignes en distance et en angle
 		_2_Asservissement_Set_Distance_Displacement_Consign(Erreur_Distance * Param_Odometrie->COEF_D); // en pas
