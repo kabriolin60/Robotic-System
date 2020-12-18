@@ -36,4 +36,6 @@ void _2_Comm_Send_Graph(struct st_Graph_Datas* Datas, enum enum_canal_communicat
 
 void _2_Comm_Send_ACKNOWLEDGE(enum enum_ACK_Types ACK_TYPE, enum enum_canal_communication canal);
 
+void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors, enum enum_canal_communication canal);
+
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */

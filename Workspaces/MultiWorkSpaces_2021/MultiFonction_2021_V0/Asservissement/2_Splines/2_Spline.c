@@ -250,6 +250,12 @@ Output: 1: OK
 	CubicSpline_Process(&spline);
 }*/
 
+
+
+
+struct Astar_smoothing_vector_multiFCT vectors_spline;
+
+
 void CubicSpline_Process(struct CubicSpline *spline)
 {
 	float t = 0;
@@ -300,6 +306,17 @@ void CubicSpline_Process(struct CubicSpline *spline)
 		dest.Type_Deplacement = TYPE_MOVE_xy_tour_av_arriere;
 	}
 
+	struct st_Parametre_Deplacement parameters2;
+	parameters2.Angle_Avant_Debut_Avance = 10;
+	parameters2.Distance_Detection_Fin_Trajectoire = 1000;
+	parameters2.Angle_Detection_Fin_Trajectoire = 5;
+
+	dest.ptrParameters = parameters2;
+
+	vectors_spline.Nb_Vectors = 0;
+	vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.x = P0_x*spline->Taille_Terrain.X;
+	vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.y = P0_y*spline->Taille_Terrain.Y;
+
 	dest.Type_Arret = depla_SANS_freinage;
 	//Pour chaque point de la trajectoire à calculer
 	for(t = 0 ; t < 1 ; t+= pas)
@@ -314,6 +331,17 @@ void CubicSpline_Process(struct CubicSpline *spline)
 		dest.X = (short)Result_X;
 		dest.Y = (short)Result_Y;
 		_2_Deplacement_Ajout_Point(&dest);
+
+
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].End_Point.x = dest.X;
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].End_Point.y = dest.Y;
+
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].Color = Astar_Vector_Color_Green_multiFCT;
+
+		vectors_spline.Nb_Vectors++;
+
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.x = dest.X;
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.y = dest.Y;
 	}
 
 	t = 1;
@@ -331,6 +359,9 @@ void CubicSpline_Process(struct CubicSpline *spline)
 		dest.X = (short)Result_X;
 		dest.Y = (short)Result_Y;
 		_2_Deplacement_Ajout_Point(&dest);
+
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.x = dest.X;
+		vectors_spline.Vectors[vectors_spline.Nb_Vectors].Start_Point.y = dest.Y;
 	}
 }
 
@@ -338,6 +369,13 @@ void CubicSpline_Process(struct CubicSpline *spline)
 float CubicSpline_Point_Processing(float p0, float m0, float p1, float m1, float t)
 {
 	float result = 0;
+
+	result = p0*(1-t)*(1-t)*(1-t);
+	result += 3*m0*t*(1-t)*(1-t);
+	result += 3*m1*t*t*(1-t);
+	result += p1*t*t*t;
+
+	return result;
 
 	result = p0*(2*t*t*t-3*t*t+1);
 	result += m0*(t*t*t-2*t*t+t);

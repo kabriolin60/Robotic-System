@@ -413,8 +413,8 @@ void _2_Asservissement_Distance_Angle(void *pvParameters)
 					Deplacement_Rotation.Coef = 0;
 
 					//Gestion des accelerations et freinages
-					Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), depla_AVEC_freinage);
-					Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), depla_AVEC_freinage);
+					Trapeze_Vitesse(&Deplacement_Distance, _2_Asserv_GetPtr_PID_Pos(), Current_Destination.Type_Arret);
+					Trapeze_Vitesse(&Deplacement_Rotation, _2_Asserv_GetPtr_PID_Rot(), Current_Destination.Type_Arret);
 
 					//Effectue le calcul des PID
 					pid_do_filter(_2_Asserv_GetPtr_PID_Pos());

@@ -20,8 +20,8 @@
 #define GOTO_XY_ARRIERE_WAIT(x, y)					_0_Deplacement_Tourne_Avance(x, y, false, true, 1);
 #define GOTO_XY_ARRIERE_ASTAR_WAIT(x, y, obstacles)	_0_Deplacement_Tourne_Avance_ASTAR(x, y, true, 1, obstacles);
 
-#define RECALLAGE_BORDURE_AVANT_WAIT(speed)			_0_Deplacement_Recallage_Bordure(true, speed, 6000);
-#define RECALLAGE_BORDURE_ARRIERE_WAIT(speed)		_0_Deplacement_Recallage_Bordure(false, speed, 6000);
+#define RECALAGE_BORDURE_AVANT_WAIT(speed)			_0_Deplacement_Recalage_Bordure(true, speed, 6000);
+#define RECALAGE_BORDURE_ARRIERE_WAIT(speed)		_0_Deplacement_Recalage_Bordure(false, speed, 6000);
 
 #define ARRET_DEPLACEMENT()							_0_Deplacement_STOP();
 
@@ -50,6 +50,10 @@ void _0_Deplacement_Init(void);
 
 struct st_DESTINATION_ROBOT* _0_Deplacement_Get_ptr_Current_Destination(void);
 
+byte _0_Deplacement_Get_Simulation(void);
+
+
+
 bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord);
 
 float Distance_To_Destination(struct st_POSITION_ROBOT position, struct st_COORDONNEES* dest);
@@ -63,11 +67,12 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 
 bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool direction, void* obstacle_creation_fct);
 
-bool _0_Deplacement_Recallage_Bordure(bool direction, short speed, short TIMEOUT);
+bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT);
 
 void _0_Deplacement_STOP(void);
 
 void _0_Deplacement_ASTAR(void* pvParameter);
+
 
 
 #endif /* 0_DEPLACEMENT_0_DEPLACEMENTS_H_ */

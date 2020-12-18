@@ -230,34 +230,17 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	destination.Y = 1000;
 	_2_Deplacement_Ajout_Point(&destination);*/
 
-	/*struct CubicSpline spline;
-	spline.P0.X = 250;
-	spline.P0.Y = 1000;
 
-	spline.P1.X = 1200;
-	spline.P1.Y = 1300;
-
-	spline.M0.X = 4000;
-	spline.M0.Y = 0;
-
-	spline.M1.X = 4000;
-	spline.M1.Y = 0;
-
-	spline.Direction = 0;
-	spline.Nombre_Points = 20;
-	spline.Taille_Terrain.X = 3000;
-	spline.Taille_Terrain.Y = 2000;
-
-	CubicSpline_Process(&spline);/**/
+	xTaskCreate(Test_Spline, (char *) "Test_Spline", 300, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	/**/
 
 	//Réglages des vitesses et acceleration
 	_2_Asservissement_Set_Distance_Speed_Accel(20, 1, 1);
 	_2_Asservissement_Set_Rotation_Speed_Accel(20, 2, 2);
 
-	//xTaskCreate(TEST_Send_Board_Infos, (char *) "Infos", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -265,6 +248,43 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	//xTaskCreate(Test_Calibration_Odometrie, (char *) "Odometrie Calib", 250, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
 }
+
+extern struct Astar_smoothing_vector_multiFCT vectors_spline;
+void Test_Spline(void *pvparameter)
+{
+	Task_Delay(5000);
+
+	struct CubicSpline spline;
+	spline.P0.X = 250;
+	spline.P0.Y = 1000;
+
+	spline.M0.X = 500;
+	spline.M0.Y = 1000;
+
+	spline.M1.X = 750;
+	spline.M1.Y = 1200;
+
+	spline.P1.X = 1000;
+	spline.P1.Y = 1200;
+
+	spline.Direction = 0;
+	spline.Nombre_Points = 40;
+	spline.Taille_Terrain.X = 2000;
+	spline.Taille_Terrain.Y = 3000;
+
+	CubicSpline_Process(&spline);
+
+
+	_2_Comm_Send_ASTAR_Vectors(&vectors_spline, RS485_port);
+
+	for(;;)
+	{
+		Task_Delay(10);
+	}
+
+}
+
+
 
 extern struct st_DEPLACEMENT Deplacement_Distance;
 extern struct st_DEPLACEMENT Deplacement_Rotation;

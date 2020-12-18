@@ -435,6 +435,9 @@ struct st_COORDONNEES
 	short Angle;                 //angle pour les rotations vers un cap absolu * 100
 	short Distance;              //Indique la distance a parcourir pour les deplacements en distance libre, ou le rayon des cercles
 
+	short Final_X;
+	short Final_Y;
+
 	short Vitesse_Roue_Gauche;
 	short Vitesse_Roue_Droite;
 
@@ -606,6 +609,39 @@ struct st_ASTAR_VECTEURS
 	byte Nb_vecteurs;
 
 	struct st_ASTAR_Vecteur Vecteurs[NB_ASTAR_Vecteur_Par_Message];
+};
+
+
+
+
+struct Point_multiFCT
+{
+	unsigned short x;       			       //Coordonnee X du point
+	unsigned short y;       			       //Coordonnee Y du point
+};
+
+enum Astar_Vector_Color_multiFCT
+{
+	Astar_Vector_Color_Black_multiFCT,
+	Astar_Vector_Color_Blue_multiFCT,
+	Astar_Vector_Color_Green_multiFCT,
+	Astar_Vector_Color_Red_multiFCT,
+	Astar_Vector_Color_White_multiFCT,
+};
+
+struct Astar_Vector_multiFCT
+{
+	struct Point_multiFCT Start_Point;
+	struct Point_multiFCT End_Point;
+	enum Astar_Vector_Color_multiFCT Color;
+};
+
+struct Astar_smoothing_vector_multiFCT
+{
+	//Smoothing vectors array
+	struct Astar_Vector_multiFCT Vectors[100];
+	//Number of vector in the array
+	unsigned char Nb_Vectors;
 };
 
 

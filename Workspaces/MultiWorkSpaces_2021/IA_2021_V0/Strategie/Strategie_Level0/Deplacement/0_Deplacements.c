@@ -55,6 +55,29 @@ struct st_DESTINATION_ROBOT* _0_Deplacement_Get_ptr_Current_Destination(void)
 }
 
 
+/*****************************************************************************
+ ** Function name:		Strategie_Get_Simulation
+ **
+ ** Descriptions:		Get a pointer to the current destination (last sended)
+ **
+ ** parameters:			None
+ ** Returned value:		pointer to the last sended destination
+ **
+ *****************************************************************************/
+byte _0_Deplacement_Get_Simulation(void)
+{
+	EventBits_t uxBits;
+
+	uxBits = xEventGroupGetBits(_0_Deplacement_EventGroup);    /* The event group being updated. */
+	uxBits = uxBits & eGROUP_DEPLA_SIMULATION;
+
+	if(uxBits)
+		return pdTRUE;
+
+	return pdFALSE;
+}
+
+
 
 /*****************************************************************************
  ** Function name:		_0_Deplacement_Wait_For_Arrival
@@ -341,9 +364,6 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 
 	sprintf(str, "DEPLA: Recalage Start\n");
 	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
-
-	//Set les 2 PIDs de vitesses des roues independantes
-	_2_Comm_Send_Robot_PID(PID_Id_vitesse_roues_independantes, 0.085f, 0, 0.55f, 15, 0, 1, 1, RS485_port);
 
 
 	struct st_DESTINATION_ROBOT dest = { 0 };

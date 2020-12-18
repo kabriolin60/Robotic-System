@@ -32,6 +32,10 @@
 
 void TEST_init_parametres(void);
 
+
+void Test_Spline(void *pvparameter);
+
+
 void TEST_Send_Board_Infos(void *pvParameters);
 
 

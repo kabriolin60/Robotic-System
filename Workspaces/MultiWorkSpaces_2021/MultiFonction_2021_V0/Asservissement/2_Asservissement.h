@@ -21,7 +21,7 @@
 #include "ring_buffer.h"
 
 //Taille du Buffer de points de passage
-#define _2_Asserv_Buffer_Depla_size 		16
+#define _2_Asserv_Buffer_Depla_size 		128
 
 
 
