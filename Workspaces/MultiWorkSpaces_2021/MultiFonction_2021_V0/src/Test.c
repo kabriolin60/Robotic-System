@@ -231,7 +231,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	_2_Deplacement_Ajout_Point(&destination);*/
 
 
-	xTaskCreate(Test_Spline, (char *) "Test_Spline", 300, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(Test_Spline, (char *) "Test_Spline", 300, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 	/**/
 
 	//Réglages des vitesses et acceleration
@@ -268,7 +268,7 @@ void Test_Spline(void *pvparameter)
 	spline.P1.Y = 1200;
 
 	spline.Direction = 0;
-	spline.Nombre_Points = 40;
+	spline.Nombre_Points = 20;
 	spline.Taille_Terrain.X = 2000;
 	spline.Taille_Terrain.Y = 3000;
 

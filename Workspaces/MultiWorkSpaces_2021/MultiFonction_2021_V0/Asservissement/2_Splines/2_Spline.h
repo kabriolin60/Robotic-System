@@ -66,34 +66,6 @@ void SPLINE_MARCHE_ARRIERE(Bezier *b);
 /********************************************/
 
 
-/*
- * Splines cubique
- */
-struct CubicSpline_Point
-{
-	short X;
-	short Y;
-};
-
-struct CubicSpline
-{
-	struct CubicSpline_Point P0;
-	struct CubicSpline_Point M0;
-	struct CubicSpline_Point P1;
-	struct CubicSpline_Point M1;
-
-	byte Direction;
-	//0= Marche avant
-	//1= Marche arriere
-
-	byte Nombre_Points;
-	struct CubicSpline_Point Taille_Terrain;
-
-	byte Use_Current_speed;
-	//0= Utilisation des valeurs de M0 fournies par l’IA
-	//1= Utilise la vitesse courante comme vecteur M0
-};
-
 void CubicSpline_Process(struct CubicSpline *spline);
 
 float CubicSpline_Point_Processing(float p0, float m0, float p1, float m1, float t);

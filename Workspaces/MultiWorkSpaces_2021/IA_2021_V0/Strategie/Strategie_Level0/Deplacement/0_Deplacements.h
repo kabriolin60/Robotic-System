@@ -23,6 +23,9 @@
 #define RECALAGE_BORDURE_AVANT_WAIT(speed)			_0_Deplacement_Recalage_Bordure(true, speed, 6000);
 #define RECALAGE_BORDURE_ARRIERE_WAIT(speed)		_0_Deplacement_Recalage_Bordure(false, speed, 6000);
 
+#define GOTO_TO_SPLINE_AVANT_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)	_0_Deplacement_Spline_Cubique(false, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y);
+#define GOTO_TO_SPLINE_ARRIERE_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)	_0_Deplacement_Spline_Cubique(true, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y);
+
 #define ARRET_DEPLACEMENT()							_0_Deplacement_STOP();
 
 
@@ -60,7 +63,9 @@ float Distance_To_Destination(struct st_POSITION_ROBOT position, struct st_COORD
 
 float Distance_Two_Points(short xa, short ya, short xb, short yb);
 
+void _0_Deplacement_Clear_Flags(void);
 
+bool _0_Deplacement_Check_Bloquage(void);
 
 
 bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Attente, bool direction);
@@ -73,6 +78,8 @@ void _0_Deplacement_STOP(void);
 
 void _0_Deplacement_ASTAR(void* pvParameter);
 
+
+bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y);
 
 
 #endif /* 0_DEPLACEMENT_0_DEPLACEMENTS_H_ */

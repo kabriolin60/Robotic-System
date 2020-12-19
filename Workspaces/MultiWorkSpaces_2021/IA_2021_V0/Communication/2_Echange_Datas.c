@@ -123,6 +123,48 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
 }
 
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Destination_Robot
+ **
+ ** Descriptions:		Fonction d'envoie d'une la demande d'infos
+ **
+ ** parameters:			Destination,
+ ** 					Canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Destination_Spline_CubiqueRobot(struct CubicSpline* destination, enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = DESTINATION_ROBOT_SPLINE_CUBIQUE;
+	trame_echange.Slave_Adresse = 1;
+
+	trame_echange.Length = COPYDATA(*destination, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	//Envoi avec attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo,
+			pdTRUE, //Wait for ACK
+			ACK_DEPLACEMENT, //Type d'ACK attendu
+			eGROUP_STATUS_CARTE_MultiFCT_1); //Cartes devant renvoyer un ACK
+
+	static char str[80];
+
+	sprintf(str, "Dest SPLINE: From X= %d, Y= %d to X= %d, Y= %d\n",
+			(short)_0_Get_Robot_Position().Position_X,
+			(short)_0_Get_Robot_Position().Position_Y,
+			(short)destination->P1.X,
+			(short)destination->P1.Y);
+
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
+}
 
 
 

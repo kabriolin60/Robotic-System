@@ -24,6 +24,8 @@
 
 #include "0_Motors.h"
 
+#include "2_Spline.h"
+
 static long Nb_Messages_Interpretes = 0;
 
 static byte ID_Robot;	//Id du Robot sur lequel est monté cette carte
@@ -53,6 +55,14 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	{
 	case DESTINATION_ROBOT:
 		_2_Communication_RX_Destination_Robot(trame);
+		/*
+		 * Envoi de l'ACK concerné par le message
+		 */
+		_2_Comm_Send_ACKNOWLEDGE(ACK_DEPLACEMENT, RS485_port);
+		break;
+
+	case DESTINATION_ROBOT_SPLINE_CUBIQUE:
+		_2_Communication_RX_Destination_Robot_SPLINE_CUBIQUE(trame);
 		/*
 		 * Envoi de l'ACK concerné par le message
 		 */
@@ -204,6 +214,31 @@ void _2_Communication_RX_Destination_Robot(struct Communication_Trame* datas)
 
 	if(dest.Replace)
 		_2_Asservissement_Read_Next_Desti_Point_extern();
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Communication_RX_Destination_Robot_SPLINE_CUBIQUE
+ **
+ ** Descriptions:		Receive a Robot destination
+ **
+ ** parameters:			Received message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+extern struct Astar_smoothing_vector_multiFCT vectors_spline;
+void _2_Communication_RX_Destination_Robot_SPLINE_CUBIQUE(struct Communication_Trame* datas)
+{
+	struct CubicSpline dest;
+
+	COPYDATA2(datas->Data, dest);
+
+	//If requested to flush the current destination Buffer (in case of obstacle avoidance, or emergency breaking, or destination changement)
+	if(dest.Replace)
+		_2_Asservissement_DestinationBuffer_Clear();
+
+	CubicSpline_Process(&dest);
+	_2_Comm_Send_ASTAR_Vectors(&vectors_spline, RS485_port);
 }
 
 

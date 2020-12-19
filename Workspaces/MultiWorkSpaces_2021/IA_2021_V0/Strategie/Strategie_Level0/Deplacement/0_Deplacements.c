@@ -46,7 +46,7 @@ void _0_Deplacement_Init(void)
  ** Descriptions:		Get a pointer to the current destination (last sended)
  **
  ** parameters:			None
- ** Returned value:		pointer to the last sended destination
+ ** Returned value:		pointer to the last sent destination
  **
  *****************************************************************************/
 struct st_DESTINATION_ROBOT* _0_Deplacement_Get_ptr_Current_Destination(void)
@@ -61,7 +61,7 @@ struct st_DESTINATION_ROBOT* _0_Deplacement_Get_ptr_Current_Destination(void)
  ** Descriptions:		Get a pointer to the current destination (last sended)
  **
  ** parameters:			None
- ** Returned value:		pointer to the last sended destination
+ ** Returned value:		pointer to the last sent destination
  **
  *****************************************************************************/
 byte _0_Deplacement_Get_Simulation(void)
@@ -85,7 +85,7 @@ byte _0_Deplacement_Get_Simulation(void)
  ** Descriptions:		Check if the Robot reach it's destination
  **
  ** parameters:			ptr to coord cible
- ** Returned value:		true: deplacement done succesfully
+ ** Returned value:		true: deplacement done successfully
  ** 					false: error
  **
  *****************************************************************************/
@@ -164,6 +164,58 @@ float Distance_Two_Points(short xa, short ya, short xb, short yb)
 
 
 /*****************************************************************************
+ ** Function name:		_0_Deplacement_Clear_Flags
+ **
+ ** Descriptions:		Efface les flags de deplacement avant d'en envoyer un nouveau
+ **
+ ** parameters:			None
+ **
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Deplacement_Clear_Flags(void)
+{
+	//Clear the Flags (path found | not found) before sending or waiting
+	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Deplacement_Check_Bloquage
+ **
+ ** Descriptions:		EDetecte le flag de bloquage lors d'un deplacement
+ **
+ ** parameters:			None
+ **
+ ** Returned value:		true: bloquage detecte
+ ** 					false: pas de bloquage detecte
+ **
+ *****************************************************************************/
+bool _0_Deplacement_Check_Bloquage(void)
+{
+	char str[30];
+
+	EventBits_t uxBits;
+	//If no Pathfinding is used, Flag will keep low
+	uxBits = xEventGroupWaitBits(_0_Deplacement_EventGroup,   /* The event group being tested. */
+			eGROUP_DEPLA_BLOQUAGE, /* The bits within the event group to wait for. */
+			pdFALSE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			0 );/* Wait a maximum of xTicksToWait for either bit to be set. */
+	//Si un bloquage a ete detecté
+	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
+	{
+		sprintf(str, "DEPLA: Bloquage detecte\n");
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+		return pdTRUE;
+	}
+
+	return pdFALSE;
+}
+
+
+/*****************************************************************************
  ** Function name:		_0_Deplacement_Tourne_Avance
  **
  ** Descriptions:		Deplacement to X;Y with Rotation first, direction Forward
@@ -175,7 +227,7 @@ float Distance_Two_Points(short xa, short ya, short xb, short yb)
  ** 					Direction: 0 = forward
  ** 								1 = backward
  **
- ** Returned value:		true: deplacement done succesfully
+ ** Returned value:		true: deplacement done successfully
  ** 					false: error
  **
  *****************************************************************************/
@@ -183,8 +235,6 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 {
 	struct st_DESTINATION_ROBOT dest = { 0 };
 	struct st_COORDONNEES coord = { 0 };
-	char str[70];
-
 
 	//Check if the new dest is != to the previous sent
 	if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != X || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != Y)
@@ -211,9 +261,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 		dest.coord = coord;
 		dest.Replace = remplacement;
 
-		//Clear the Flags (path found | not found) before sending or waiting
-		xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-				eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+		_0_Deplacement_Clear_Flags();
 
 
 		_0_Deplacement_Get_ptr_Current_Destination()->coord = coord;
@@ -225,19 +273,8 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
 
 	bool result = _0_Deplacement_Wait_For_Arrival(&coord);
 
-	EventBits_t uxBits;
-	//If no Pathfinding is used, Flag will keep low
-	uxBits = xEventGroupWaitBits(_0_Deplacement_EventGroup,   /* The event group being tested. */
-			eGROUP_DEPLA_BLOQUAGE, /* The bits within the event group to wait for. */
-			pdFALSE,        /* Clear bits before returning. */
-			pdTRUE,        /* Wait for ALL bits to be set */
-			0 );/* Wait a maximum of xTicksToWait for either bit to be set. */
-	//Si un bloquage a ete detecté
-	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
-	{
-		sprintf(str, "DEPLA: Bloquage detecte\n");
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
-	}
+	//Check bloquage
+	_0_Deplacement_Check_Bloquage();
 
 
 	return result;
@@ -259,7 +296,7 @@ bool _0_Deplacement_Tourne_Avance(short X, short Y, bool remplacement, bool Atte
  **
  ** 					pointer to the pathfinding obstacle creation function
  **
- ** Returned value:		true: deplacement done succesfully
+ ** Returned value:		true: deplacement done successfully
  ** 					false: error
  **
  *****************************************************************************/
@@ -295,8 +332,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	parameters.obstacle_creation_fct = obstacle_creation_fct;
 
 	//Clear the Flags (path found | not found) before sending or waiting
-	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+	_0_Deplacement_Clear_Flags();
 
 	//Create the Astar deplacement task
 	xTaskCreate(_0_Deplacement_ASTAR, (char *) "0_Depl_Astar", 320, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
@@ -307,20 +343,8 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	bool result;
 	result = _0_Deplacement_Wait_For_Arrival(&coord);
 
-	EventBits_t uxBits;
-	//If no Pathfinding is used, Flag will keep low
-	uxBits = xEventGroupWaitBits(_0_Deplacement_EventGroup,   /* The event group being tested. */
-			eGROUP_DEPLA_BLOQUAGE, /* The bits within the event group to wait for. */
-			pdFALSE,        /* Clear bits before returning. */
-			pdTRUE,        /* Wait for ALL bits to be set */
-			0 );/* Wait a maximum of xTicksToWait for either bit to be set. */
-	//Si un bloquage a ete detecté
-	//Si un bloquage a ete detecté
-	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
-	{
-		sprintf(str, "DEPLA: Bloquage detecte\n");
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
-	}
+	//Check bloquage
+	_0_Deplacement_Check_Bloquage();
 
 
 	sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
@@ -394,8 +418,7 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 	dest.Replace = pdTRUE;
 
 	//Clear the Flags (path found | not found) before sending or waiting
-	xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-			eGROUP_DEPLA_path_NOT_FOUND | eGROUP_DEPLA_pathFOUND | eGROUP_DEPLA_NOT_ARRIVED | eGROUP_DEPLA_ARRIVED | eGROUP_DEPLA_BLOQUAGE);/* The bits being set. */
+	_0_Deplacement_Clear_Flags();
 
 
 	_0_Deplacement_Get_ptr_Current_Destination()->coord = coord;
@@ -433,6 +456,82 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 	sprintf(str, "DEPLA: Recalage TIMEOUT\n");
 	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
 	return pdFALSE;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Deplacement_Recalage_Bordure
+ **
+ ** Descriptions:		Deplacement en vitesse avec detection de bloquage pour un recalage bordure
+ **
+ ** parameters:			Direction: 0 = forward
+ ** 								1= backward
+ ** 					Attente
+ ** 					Coordonnées des points de contrôle
+ **
+ ** Returned value:		true: deplacement done successfully
+ ** 					false: error
+ **
+ *****************************************************************************/
+bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y)
+{
+	struct CubicSpline spline;
+
+	spline.P0.X = P0_X;
+	spline.P0.Y = P0_Y;
+	spline.M0.X = M0_X;
+	spline.M0.Y = M0_Y;
+
+	spline.M1.X = M1_X;
+	spline.M1.Y = M1_Y;
+	spline.P1.X = P1_X;
+	spline.P1.Y = P1_Y;
+
+	spline.Direction = direction;
+	//0= Marche avant
+	//1= Marche arriere
+
+	spline.Nombre_Points = 20;
+	spline.Taille_Terrain.X = Map_size_X;
+	spline.Taille_Terrain.Y = Map_size_Y;
+
+	spline.Replace = pdTRUE;
+
+	spline.Use_Current_speed = 0;
+	//0= Utilisation des valeurs de M0 fournies par l’IA
+	//1= Utilise la vitesse courante comme vecteur M0
+
+	struct st_COORDONNEES coord = { 0 };
+
+	//Parametres classiques pour deplacement classiques
+	coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 10 * 100;
+	coord.ptrParameters.Angle_Avant_Debut_Avance = 30;
+
+	spline.ptrParameters = coord.ptrParameters;
+
+	//Utilisés pour la detection de l'arrivee
+	coord.X = P1_X;
+	coord.Y = P1_Y;
+
+	//Clear the Flags (path found | not found) before sending or waiting
+	_0_Deplacement_Clear_Flags();
+
+	//Envoi la demande de deplacement
+	_2_Comm_Send_Destination_Spline_CubiqueRobot(&spline, RS485_port);
+
+	if(!Attente)
+		return pdPASS;
+
+	//Attente d'être arrives
+	bool result;
+	result = _0_Deplacement_Wait_For_Arrival(&coord);
+
+	//Check bloquage
+	_0_Deplacement_Check_Bloquage();
+
+	//true: we arrived at destination
+	//false: destination is not reachable
+	return result;
 }
 
 

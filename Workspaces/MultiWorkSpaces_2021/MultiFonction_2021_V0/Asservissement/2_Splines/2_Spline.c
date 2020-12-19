@@ -307,9 +307,8 @@ void CubicSpline_Process(struct CubicSpline *spline)
 	}
 
 	struct st_Parametre_Deplacement parameters2;
-	parameters2.Angle_Avant_Debut_Avance = 30;
-	parameters2.Distance_Detection_Fin_Trajectoire = 1000;
-	parameters2.Angle_Detection_Fin_Trajectoire = 5;
+	parameters2.Angle_Avant_Debut_Avance = spline->ptrParameters.Angle_Avant_Debut_Avance;
+	parameters2.Distance_Detection_Fin_Trajectoire = spline->ptrParameters.Distance_Detection_Fin_Trajectoire;
 
 	dest.ptrParameters = parameters2;
 

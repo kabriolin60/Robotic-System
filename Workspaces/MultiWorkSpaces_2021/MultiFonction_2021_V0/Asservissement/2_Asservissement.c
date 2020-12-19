@@ -611,6 +611,7 @@ bool _2_Asservissement_Rotation_Avance(struct st_COORDONNEES * destination, stru
 		{
 			//Le point se trouve derrière nous
 			Erreur_Distance = -Erreur_Distance;
+			Erreur_Distance_Final_Point = -Erreur_Distance_Final_Point;
 		}
 		Erreur_Angle += PI;
 		if(Erreur_Angle > PI) Erreur_Angle -= 2*PI;

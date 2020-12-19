@@ -95,7 +95,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 {
 	Task_Delay(520);
 
-	_2_Comm_Demande_Simulation(FALSE, RS485_port);
+	_2_Comm_Demande_Simulation(TRUE, RS485_port);
 	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
 
 	/*
@@ -114,7 +114,49 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		_2_Comm_Send_Robot_PID(PID_Id_orientation, 0.006f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
 	}
 
+	Task_Delay(3000);
+	struct st_POSITION_ROBOT Robot_Position = _0_Get_Robot_Position();
 
+	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+			Robot_Position.Position_X+200, Robot_Position.Position_Y,					//M0
+			Robot_Position.Position_X+400, Robot_Position.Position_Y+200, 				//M1
+			Robot_Position.Position_X+600, Robot_Position.Position_Y+200);				//P1
+
+	Task_Delay(3000);
+	GOTO_TO_SPLINE_ARRIERE_WAIT(Robot_Position.Position_X+600, Robot_Position.Position_Y+200, 	//P0
+			Robot_Position.Position_X+400, Robot_Position.Position_Y+200,					//M0
+			Robot_Position.Position_X+200, Robot_Position.Position_Y, 						//M1
+			Robot_Position.Position_X, Robot_Position.Position_Y);							//P1
+
+	Task_Delay(3000);
+	Robot_Position = _0_Get_Robot_Position();
+	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+			750, 1000,
+			1600, 0,
+			1600, 300);				//P1
+
+	Task_Delay(3000);
+	Robot_Position = _0_Get_Robot_Position();
+	GOTO_TO_SPLINE_ARRIERE_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+			1600, 100,					//M0
+			1600, 100, 						//M1
+			1600, 75);							//P1
+
+	Task_Delay(3000);
+	Robot_Position = _0_Get_Robot_Position();
+	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+			1600, 575,
+			1050, 1800,
+			1800, 1800);
+
+	Task_Delay(3000);
+	Robot_Position = _0_Get_Robot_Position();
+	GOTO_TO_SPLINE_ARRIERE_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+			Robot_Position.Position_X-500, Robot_Position.Position_Y,					//M0
+			Robot_Position.Position_X-500, Robot_Position.Position_Y+500, 						//M1
+			Robot_Position.Position_X, Robot_Position.Position_Y+500);
+
+	Task_Delay(1000);
 	for(;;)
 	{
 		Task_Delay(1000);

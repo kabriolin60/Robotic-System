@@ -31,6 +31,7 @@ enum Com_Instruction
 
 	//Destination Robot
 	DESTINATION_ROBOT = 10,
+	DESTINATION_ROBOT_SPLINE_CUBIQUE,
 
 	//Position Robot
 	SET_ROBOT_POSITION = 20,
@@ -454,6 +455,42 @@ struct st_COORDONNEES
 /*************************************************/
 
 
+/*
+ * Splines cubique
+ */
+struct CubicSpline_Point
+{
+	short X;
+	short Y;
+};
+
+/**************************************************
+Declaration de la definition de la Structure contenant des coordonnees de deplacement en Spline cubique
+ **************************************************/
+struct CubicSpline
+{
+	struct CubicSpline_Point P0;
+	struct CubicSpline_Point M0;
+	struct CubicSpline_Point P1;
+	struct CubicSpline_Point M1;
+
+	byte Direction;
+	//0= Marche avant
+	//1= Marche arriere
+
+	byte Nombre_Points;
+	struct CubicSpline_Point Taille_Terrain;
+
+	byte Use_Current_speed;
+	//0= Utilisation des valeurs de M0 fournies par l’IA
+	//1= Utilise la vitesse courante comme vecteur M0
+
+	struct st_Parametre_Deplacement ptrParameters;
+
+	bool Replace;							// if == true, clear the current mouvement buffer, and add this new one
+};
+
+
 /**************************************************
 Declaration de la definition de la Structure contenant des coordonnees de destination d'un robot
  **************************************************/
@@ -646,6 +683,8 @@ struct Astar_smoothing_vector_multiFCT
 	//Number of vector in the array
 	unsigned char Nb_Vectors;
 };
+
+
 
 
 #endif /* COMMUNICATION_TYPEDEF_H_ */
