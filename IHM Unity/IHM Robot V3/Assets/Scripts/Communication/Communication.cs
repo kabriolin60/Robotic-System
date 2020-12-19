@@ -14,6 +14,7 @@ public class Communication
 
 		//Destination Robot
 		DESTINATION_ROBOT = 10,
+		DESTINATION_ROBOT_SPLINE_CUBIQUE,
 
 		//Position Robot
 		SET_ROBOT_POSITION = 20,
