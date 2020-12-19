@@ -8,6 +8,7 @@
 #include "FreeRTOS.h"
 #include "event_groups.h"
 #include "Init.h"
+#include "task.h"
 
 #include "0_Deplacements.h"
 #include "0_Infos.h"
@@ -136,7 +137,7 @@ bool _0_Deplacement_Wait_For_Arrival(struct st_COORDONNEES* coord)
 			eGROUP_DEPLA_ARRIVED );/* The bits being set. */
 
 	//return success
-	return true;
+	return pdTRUE;
 }
 
 
@@ -347,13 +348,17 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	_0_Deplacement_Check_Bloquage();
 
 
-	sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
-			X,
-			Y);
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+	eTaskState state = eTaskGetState( Astar_Task_Handler );
+	if(state != eDeleted)
+	{
+		sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+				X,
+				Y);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
 
-	//Delete the Astar task
-	vTaskDelete(Astar_Task_Handler);
+		//Delete the Astar task
+		vTaskDelete(Astar_Task_Handler);
+	}
 
 	//true: we arrived at destination
 	//false: destination is not reachable
@@ -467,13 +472,15 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
  ** parameters:			Direction: 0 = forward
  ** 								1= backward
  ** 					Attente
+ ** 					Astar?
  ** 					Coordonnées des points de contrôle
+ ** 					pointer to the pathfinding obstacle creation function
  **
  ** Returned value:		true: deplacement done successfully
  ** 					false: error
  **
  *****************************************************************************/
-bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y)
+bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, bool use_Astar, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y, void* obstacle_creation_fct)
 {
 	struct CubicSpline spline;
 
@@ -519,8 +526,20 @@ bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, sho
 	//Envoi la demande de deplacement
 	_2_Comm_Send_Destination_Spline_CubiqueRobot(&spline, RS485_port);
 
+	//Create the Astar deplacement task
+	if(use_Astar)
+	{
+		//Create struct with parameters for Astar task
+		struct Astar_SPLINE_deplacement parameters;
+		parameters.destination = spline;
+		parameters.obstacle_creation_fct = obstacle_creation_fct;
+
+		xTaskCreate(_0_Deplacement_ASTAR_SPLINE, (char *) "0_Dep_Ast_Spli", 320, &parameters, (tskIDLE_PRIORITY + 1UL), &Astar_Task_Handler);
+	}
+
 	if(!Attente)
 		return pdPASS;
+
 
 	//Attente d'être arrives
 	bool result;
@@ -528,6 +547,22 @@ bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, sho
 
 	//Check bloquage
 	_0_Deplacement_Check_Bloquage();
+
+	if(use_Astar)
+	{
+		eTaskState state = eTaskGetState( Astar_Task_Handler );
+		if(state != eDeleted)
+		{
+			char str[70];
+			sprintf(str, "ASTAR SPLINE: Delete task to: X:%dmm Y:%dmm\n",
+					P1_X,
+					P1_Y);
+			_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+
+			//Delete the Astar task
+			vTaskDelete(Astar_Task_Handler);
+		}
+	}
 
 	//true: we arrived at destination
 	//false: destination is not reachable
@@ -588,6 +623,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 	struct Point found_destination;
 	struct Astar_deplacement parameters = *(struct Astar_deplacement*)pvParameter;
+
 
 	//Keep safe the real destination
 	struct st_COORDONNEES Final_Destination = parameters.destination.coord;
@@ -732,7 +768,179 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	/*
 	 * Step 7: When we reach the final destination, delete this task
 	 */
-	sprintf(str_ASTAR, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+	sprintf(str_ASTAR, "ASTAR: Self Delete task to: X:%dmm Y:%dmm\n",
+			Final_Destination.X,
+			Final_Destination.Y);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+	Task_Delete_Current;
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Deplacement_ASTAR_SPLINE
+ **
+ ** Descriptions:		Check if Spline move is possible based on vectors and Spline controls points
+ ** 					Rise a flag when arrived or Blocked
+ **
+ ** parameters:			A structure with:
+ ** 						pointer to the pathfinding obstacle creation function
+ ** 						CubicSpline
+ **
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+/*
+ * Private task!!!!
+ * Use _0_Deplacement_Tourne_Avance_ASTAR for external calls
+ */
+void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
+{
+	char str_ASTAR[70];
+	Init_Timing_Tache;
+
+	struct Astar_SPLINE_deplacement parameters = *(struct Astar_SPLINE_deplacement*)pvParameter;
+
+	sprintf(str_ASTAR, "ASTAR SPLINE: Creation task to: X:%dmm Y:%dmm\n",
+			parameters.destination.P1.X,
+			parameters.destination.P1.Y);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+
+
+
+	struct CubicSpline_Point Control_Points_Modified_M0bis; //A 1/3 entre P0 et M0
+	struct CubicSpline_Point Control_Points_Modified_M1bis; //Au milieu entre M0 et M1
+	struct CubicSpline_Point Control_Points_Modified_M2bis; //A 1/3 entre M1 et P1
+
+	//Premier point de controle
+	Control_Points_Modified_M0bis.X = (parameters.destination.M0.X - parameters.destination.P0.X) / 3 + parameters.destination.P0.X;
+	Control_Points_Modified_M0bis.Y = (parameters.destination.M0.Y - parameters.destination.P0.Y) / 3 + parameters.destination.P0.Y;
+
+	//Second point de contrôle
+	Control_Points_Modified_M1bis.X = (parameters.destination.M0.X + parameters.destination.M1.X) / 2;
+	Control_Points_Modified_M1bis.Y = (parameters.destination.M0.Y + parameters.destination.M1.Y) / 2;
+
+	//Troisième point de contrôle
+	Control_Points_Modified_M2bis.X = (parameters.destination.M1.X - parameters.destination.P1.X) / 3 + parameters.destination.P1.X;
+	Control_Points_Modified_M2bis.Y = (parameters.destination.M1.Y - parameters.destination.P1.Y) / 3 + parameters.destination.P1.Y;
+
+
+	struct CubicSpline_Point Control_Points_Modified_ter[6];
+	/*Au milieu entre P0 et M0bis
+	Au milieu entre M0bis et M1bis
+	Au milieu entre M1bis et M2bis
+	Au milieu entre M2bis et P1*/
+
+	//Points de contrôle de second stage
+	Control_Points_Modified_ter[0].X = parameters.destination.P0.X;
+	Control_Points_Modified_ter[0].Y = parameters.destination.P0.Y;
+
+	Control_Points_Modified_ter[1].X = (parameters.destination.P0.X + Control_Points_Modified_M0bis.X) / 2;
+	Control_Points_Modified_ter[1].Y = (parameters.destination.P0.Y + Control_Points_Modified_M0bis.Y) / 2;
+
+	Control_Points_Modified_ter[2].X = (Control_Points_Modified_M0bis.X + Control_Points_Modified_M1bis.X) / 2;
+	Control_Points_Modified_ter[2].Y = (Control_Points_Modified_M0bis.Y + Control_Points_Modified_M1bis.Y) / 2;
+
+	Control_Points_Modified_ter[3].X = (Control_Points_Modified_M1bis.X + Control_Points_Modified_M2bis.X) / 2;
+	Control_Points_Modified_ter[3].Y = (Control_Points_Modified_M1bis.Y + Control_Points_Modified_M2bis.Y) / 2;
+
+	Control_Points_Modified_ter[4].X = (Control_Points_Modified_M2bis.X + parameters.destination.P1.X) / 2;
+	Control_Points_Modified_ter[4].Y = (Control_Points_Modified_M2bis.Y + parameters.destination.P1.Y) / 2;
+
+	Control_Points_Modified_ter[5].X = parameters.destination.P1.X;
+	Control_Points_Modified_ter[5].Y = parameters.destination.P1.Y;
+
+
+
+	struct st_COORDONNEES Final_Destination;
+	Final_Destination.X = parameters.destination.P1.X;
+	Final_Destination.Y = parameters.destination.P1.Y;
+
+	//While we didn't reach the destination point
+	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > parameters.destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
+	{
+		/*
+		 * Step 1: Init the Map
+		 */
+		Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
+
+		/*
+		 * Step 2: Create obstacles according to the function passed
+		 */
+		if(parameters.obstacle_creation_fct != NULL)
+			parameters.obstacle_creation_fct();
+
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), RS485_port);
+
+		/*
+		 * Step 3: Check if Spline Path is clear
+		 */
+		struct Astar_Vector tested_vector;
+
+		for(int intermediate = 0; intermediate < 5; intermediate++)
+		{
+			//From P0 to Control_Points_Modified_M0ter
+			tested_vector.Start_Point.x = Control_Points_Modified_ter[intermediate].X;
+			tested_vector.Start_Point.y = Control_Points_Modified_ter[intermediate].Y;
+
+			tested_vector.End_Point.x = Control_Points_Modified_ter[intermediate+1].X;
+			tested_vector.End_Point.y = Control_Points_Modified_ter[intermediate+1].Y;
+
+			if(Dijkstra_Intersect_Any_Segment(&tested_vector, Astar_Get_Vector_Map()))
+			{
+				//There is an intersection between this points
+				//Stop the Robot and clear path
+
+				//Send a no mouvement order to the Robot, with replacement to flush all existing deplacement, and stop the Robot
+				struct st_DESTINATION_ROBOT coord;
+				coord.Replace = true;
+				coord.coord.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
+				_2_Comm_Send_Destination_Robot(&coord, RS485_port);
+
+				sprintf(str_ASTAR, "SPLINE no path found, X= %d, Y= %d; to X= %d, Y= %d",
+						(short)_0_Get_Robot_Position().Position_X,
+						(short)_0_Get_Robot_Position().Position_Y,
+						(short)Final_Destination.X,
+						(short)Final_Destination.Y);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+
+				Task_Delay(5);
+				sprintf(str_ASTAR, "SPLINE Intersect, X= %d, Y= %d; to X= %d, Y= %d",
+						(short)tested_vector.Start_Point.x,
+						(short)tested_vector.Start_Point.y,
+						(short)tested_vector.End_Point.x,
+						(short)tested_vector.End_Point.y);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+
+				/*
+				 * Step 4: No path possible, delete this task after stopping to Robot and informed the IA
+				 */
+				sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
+						Final_Destination.X,
+						Final_Destination.Y);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+
+				//No path has been found
+				//Rise the corresponding Flag
+				xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+						eGROUP_DEPLA_path_NOT_FOUND );/* The bits being set. */
+
+				//Clear the Flag of Path Found
+				xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+						eGROUP_DEPLA_pathFOUND );/* The bits being set. */
+
+				Task_Delete_Current;
+			}
+		}
+
+		/*
+		 * Step 5: Wait for the next Astar Loop
+		 */
+		Task_Delay_Until(Astar_Recherche_Periode);
+	}
+	/*
+	 * Step 5: We reached the destination
+	 */
+	sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);

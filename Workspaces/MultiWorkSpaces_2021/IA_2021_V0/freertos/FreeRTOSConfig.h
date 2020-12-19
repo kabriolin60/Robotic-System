@@ -82,6 +82,8 @@
 #define configUSE_RECURSIVE_MUTEXES		0
 #define configQUEUE_REGISTRY_SIZE		10
 
+#define INCLUDE_eTaskGetState			1
+
 
 #define configGENERATE_RUN_TIME_STATS	0
 #define configUSE_TRACE_FACILITY		configGENERATE_RUN_TIME_STATS

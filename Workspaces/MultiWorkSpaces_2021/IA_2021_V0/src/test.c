@@ -93,6 +93,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 void TEST_Deplacement_Reel(void * pvParameter)
 {
+	static char str[70];
 	Task_Delay(520);
 
 	_2_Comm_Demande_Simulation(TRUE, RS485_port);
@@ -117,7 +118,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 	Task_Delay(3000);
 	struct st_POSITION_ROBOT Robot_Position = _0_Get_Robot_Position();
 
-	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+	/*GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
 			Robot_Position.Position_X+200, Robot_Position.Position_Y,					//M0
 			Robot_Position.Position_X+400, Robot_Position.Position_Y+200, 				//M1
 			Robot_Position.Position_X+600, Robot_Position.Position_Y+200);				//P1
@@ -147,14 +148,54 @@ void TEST_Deplacement_Reel(void * pvParameter)
 	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
 			1600, 575,
 			1050, 1800,
-			1800, 1800);
+			1800, 1800);*/
 
-	Task_Delay(3000);
+	/*Task_Delay(3000);
 	Robot_Position = _0_Get_Robot_Position();
-	GOTO_TO_SPLINE_ARRIERE_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
+	GOTO_TO_SPLINE_AVANT_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y, 	//P0
 			Robot_Position.Position_X-500, Robot_Position.Position_Y,					//M0
 			Robot_Position.Position_X-500, Robot_Position.Position_Y+500, 						//M1
-			Robot_Position.Position_X, Robot_Position.Position_Y+500);
+			Robot_Position.Position_X, Robot_Position.Position_Y+500);*/
+
+
+
+	//Task_Delay(3000);
+	Robot_Position = _0_Get_Robot_Position();
+	bool MOVE_RESULT;
+	sprintf(str, "Test strategie: 1 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+	MOVE_RESULT = GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
+			Robot_Position.Position_X+500, Robot_Position.Position_Y,
+			Robot_Position.Position_X+500, Robot_Position.Position_Y+500,
+			Robot_Position.Position_X, Robot_Position.Position_Y+500,
+			&_1_Obstacles_Create_Terrain_Border);
+
+	if(MOVE_RESULT){
+		sprintf(str, "Test strategie: 2 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		Robot_Position = _0_Get_Robot_Position();
+		MOVE_RESULT = GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
+				Robot_Position.Position_X+500, Robot_Position.Position_Y,
+				Robot_Position.Position_X+500, Robot_Position.Position_Y+500,
+				Robot_Position.Position_X, Robot_Position.Position_Y+500,
+				&_1_Obstacles_Create_Terrain_Border);
+
+		if(MOVE_RESULT)
+		{
+			sprintf(str, "Test strategie: 3 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
+					Robot_Position.Position_X+500, Robot_Position.Position_Y,
+					Robot_Position.Position_X+500, Robot_Position.Position_Y+500,
+					Robot_Position.Position_X, Robot_Position.Position_Y+500,
+					&_1_Obstacles_Create_Terrain_Border);
+		}else
+		{
+			sprintf(str, "Test strategie: 4 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			GOTO_TO_SPLINE_ARRIERE_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
+					Robot_Position.Position_X-100, Robot_Position.Position_Y-500,
+					Robot_Position.Position_X, Robot_Position.Position_Y-800,
+					Robot_Position.Position_X+100, 230,
+					&_1_Obstacles_Create_Terrain_Border);
+		}
+	}
 
 	Task_Delay(1000);
 	for(;;)

@@ -318,7 +318,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors,
 	struct st_ASTAR_VECTEURS Vectors_to_Send;
 
 	//Commence par demander un effacement des vecteurs déjà présents
-	Vectors_to_Send.Effacement = 1;
+	Vectors_to_Send.Effacement = 0;
 
 	//Pour chacun des vecteurs dans la map
 	byte index_vecteur_to_send = 0;

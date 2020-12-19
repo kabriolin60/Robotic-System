@@ -23,8 +23,11 @@
 #define RECALAGE_BORDURE_AVANT_WAIT(speed)			_0_Deplacement_Recalage_Bordure(true, speed, 6000);
 #define RECALAGE_BORDURE_ARRIERE_WAIT(speed)		_0_Deplacement_Recalage_Bordure(false, speed, 6000);
 
-#define GOTO_TO_SPLINE_AVANT_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)	_0_Deplacement_Spline_Cubique(false, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y);
-#define GOTO_TO_SPLINE_ARRIERE_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)	_0_Deplacement_Spline_Cubique(true, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y);
+#define GOTO_TO_SPLINE_AVANT_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)			_0_Deplacement_Spline_Cubique(false, true, false, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, NULL);
+#define GOTO_TO_SPLINE_ARRIERE_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y)			_0_Deplacement_Spline_Cubique(true, true, false, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, NULL);
+
+#define GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, obstacles)		_0_Deplacement_Spline_Cubique(false, true, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, obstacles);
+#define GOTO_TO_SPLINE_ARRIERE_ASTAR_WAIT(P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, obstacles)	_0_Deplacement_Spline_Cubique(true, true, true, P0_X, P0_Y, M0_X, M0_Y, M1_X, M1_Y, P1_X, P1_Y, obstacles);
 
 #define ARRET_DEPLACEMENT()							_0_Deplacement_STOP();
 
@@ -46,6 +49,13 @@ struct Astar_deplacement
 {
 	void (*obstacle_creation_fct)(void);	//pointer to the Pathfinding obstacles creation fonction
 	struct st_DESTINATION_ROBOT destination;	//Destination information
+};
+
+
+struct Astar_SPLINE_deplacement
+{
+	void (*obstacle_creation_fct)(void);	//pointer to the Pathfinding obstacles creation fonction
+	struct CubicSpline destination;	//Destination information
 };
 
 
@@ -79,7 +89,8 @@ void _0_Deplacement_STOP(void);
 void _0_Deplacement_ASTAR(void* pvParameter);
 
 
-bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y);
+bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, bool use_Astar, short P0_X, short P0_Y, short M0_X, short M0_Y, short M1_X, short M1_Y, short P1_X, short P1_Y, void* obstacle_creation_fct);
 
+void _0_Deplacement_ASTAR_SPLINE(void* pvParameter);
 
 #endif /* 0_DEPLACEMENT_0_DEPLACEMENTS_H_ */
