@@ -181,14 +181,16 @@ void TEST_Deplacement_Reel(void * pvParameter)
 		if(MOVE_RESULT)
 		{
 			sprintf(str, "Test strategie: 3 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			Robot_Position = _0_Get_Robot_Position();
 			GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 					Robot_Position.Position_X+500, Robot_Position.Position_Y,
-					Robot_Position.Position_X+500, Robot_Position.Position_Y+500,
-					Robot_Position.Position_X, Robot_Position.Position_Y+500,
+					Robot_Position.Position_X+800, Robot_Position.Position_Y+300,
+					Robot_Position.Position_X+1000, Robot_Position.Position_Y+300,
 					&_1_Obstacles_Create_Terrain_Border);
 		}else
 		{
 			sprintf(str, "Test strategie: 4 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			Robot_Position = _0_Get_Robot_Position();
 			GOTO_TO_SPLINE_ARRIERE_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 					Robot_Position.Position_X-100, Robot_Position.Position_Y-500,
 					Robot_Position.Position_X, Robot_Position.Position_Y-800,

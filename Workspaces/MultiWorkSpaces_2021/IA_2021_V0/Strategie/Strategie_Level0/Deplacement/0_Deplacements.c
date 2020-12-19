@@ -849,6 +849,17 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 	Control_Points_Modified_ter[5].X = parameters.destination.P1.X;
 	Control_Points_Modified_ter[5].Y = parameters.destination.P1.Y;
 
+	//Calcul la distance cumulée entre chaque segments depuis le point de depart
+	unsigned int Cumulated_Segments_Length[5];
+	for(int i = 0; i < 5; i++)
+	{
+		Cumulated_Segments_Length[i] = (unsigned int)Distance_Two_Points(Control_Points_Modified_ter[i].X, Control_Points_Modified_ter[i].Y, Control_Points_Modified_ter[i+1].X, Control_Points_Modified_ter[i+1].Y);
+		if(i>0)
+		{
+			Cumulated_Segments_Length[i] += Cumulated_Segments_Length[i-1];
+		}
+	}
+
 
 
 	struct st_COORDONNEES Final_Destination;
@@ -863,6 +874,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		 */
 		Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
 
+
 		/*
 		 * Step 2: Create obstacles according to the function passed
 		 */
@@ -876,11 +888,26 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		 */
 		struct Astar_Vector tested_vector;
 
-		for(int intermediate = 0; intermediate < 5; intermediate++)
+		int intermediate = 0;
+		/*
+		 * Cherche à partir de quel noeud intermediaire commencer la vérification d'intersection
+		 */
+		//Calcule la distance entre le robot et le point de départ
+		unsigned int Distance_Robot_P0 = (unsigned int)Distance_Two_Points(_0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Control_Points_Modified_ter[0].X, Control_Points_Modified_ter[0].Y);
+		for(; intermediate < 5; intermediate++)
+		{
+			if(Cumulated_Segments_Length[intermediate] > Distance_Robot_P0)
+				break;
+		}
+
+		for(; intermediate < 5; intermediate++)
 		{
 			//From P0 to Control_Points_Modified_M0ter
-			tested_vector.Start_Point.x = Control_Points_Modified_ter[intermediate].X;
-			tested_vector.Start_Point.y = Control_Points_Modified_ter[intermediate].Y;
+			//			tested_vector.Start_Point.x = Control_Points_Modified_ter[intermediate].X;
+			//			tested_vector.Start_Point.y = Control_Points_Modified_ter[intermediate].Y;
+
+			tested_vector.Start_Point.x = _0_Get_Robot_Position().Position_X;
+			tested_vector.Start_Point.y = _0_Get_Robot_Position().Position_Y;
 
 			tested_vector.End_Point.x = Control_Points_Modified_ter[intermediate+1].X;
 			tested_vector.End_Point.y = Control_Points_Modified_ter[intermediate+1].Y;

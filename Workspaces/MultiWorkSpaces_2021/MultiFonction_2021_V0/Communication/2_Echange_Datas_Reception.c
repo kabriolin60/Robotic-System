@@ -238,7 +238,7 @@ void _2_Communication_RX_Destination_Robot_SPLINE_CUBIQUE(struct Communication_T
 		_2_Asservissement_DestinationBuffer_Clear();
 
 	CubicSpline_Process(&dest);
-	_2_Comm_Send_ASTAR_Vectors(&vectors_spline, RS485_port);
+	//_2_Comm_Send_ASTAR_Vectors(&vectors_spline, RS485_port);
 }
 
 
