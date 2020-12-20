@@ -21,7 +21,7 @@
 #define MAJOR_RELEASE "5"
 #define MINOR_RELEASE "2a"
 
-#define LOG_Debug_Port Xbee_port//RS485_port
+#define LOG_Debug_Port RS485_port//Xbee_port//RS485_port
 
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
@@ -181,6 +181,10 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 //Pin demesure de la tension 'strategie'
 #define ADC_CHANNEL_7_PORT			0
 #define ADC_CHANNEL_7_BIT			2
+
+//Pin demesure de la tension 'Batterie'
+#define ADC_CHANNEL_5_PORT			1
+#define ADC_CHANNEL_5_BIT			31
 
 #else
 

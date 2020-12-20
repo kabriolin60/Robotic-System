@@ -340,6 +340,8 @@ struct Com_Reponse_Info_IA
 	byte Etat_Inputs; //0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green					 //1 octet
 
 	long Boards_Comm_Status;			//== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
+
+	unsigned short Tension_Batterie;							//Tension * 100		//2 octets
 };
 
 /*************************************************/

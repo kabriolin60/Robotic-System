@@ -881,7 +881,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		if(parameters.obstacle_creation_fct != NULL)
 			parameters.obstacle_creation_fct();
 
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
+		//_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 
 		/*
 		 * Step 3: Check if Spline Path is clear

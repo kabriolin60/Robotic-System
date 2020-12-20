@@ -605,6 +605,18 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 		return true;
 	}
 
+	//Pour renvoyer par Xbee les messages de Debug circulant sur le bus
+	if(received_trame->Slave_Adresse == PC && LOG_Debug_Port == Xbee_port)
+	{
+		received_trame->XBEE_DEST_ADDR = XBee_PC;
+
+		//Envoi avec attente d'ACK
+		_1_Communication_Create_Trame(received_trame, LOG_Debug_Port, eGROUP_SYNCH_TxTrameDispo,
+				pdFALSE, //Wait for ACK
+				0, //Type d'ACK attendu
+				0); //Cartes devant renvoyer un ACK
+	}
+
 	return pdFALSE;
 }
 

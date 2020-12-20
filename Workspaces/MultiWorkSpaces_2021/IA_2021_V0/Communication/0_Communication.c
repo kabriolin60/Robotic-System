@@ -465,19 +465,17 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 {
 	uint8_t ch;
 
-	//Set_Debug_Pin_0_High();
-
 	//Passe en TX
 	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		//for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
 
 		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
 		{
-			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+			//for(int i = 0; i < 8; i++)	__asm volatile( "nop" );
 		}
 	}
 
@@ -485,8 +483,6 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 
 	//Passe en RX
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
-
-	//Set_Debug_Pin_0_Low();
 }
 
 

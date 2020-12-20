@@ -10,6 +10,7 @@
 #include "stdio.h"
 #include "semphr.h"
 
+#include "0_ADC.h"
 
 #include "0_Infos.h"
 #include "0_Event_Group.h"
@@ -944,6 +945,11 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal)
 	Infos.Etat_Inputs |= _Strategie_Get_User_BP_Status() << 6;
 
 
+	float tension_Batterie;
+	tension_Batterie = _0_ADC_Read_Channel(5); //Lecture de la valeur analogique lue sur le selecteur de stratégie
+
+	tension_Batterie *= 0.00609F;
+	Infos.Tension_Batterie = tension_Batterie * 100;
 
 	//Envoi l'etat de présence des cartes sur le bus issues du dernier PING
 	Infos.Boards_Comm_Status = xEventGroupGetBits( _0_Status_EventGroup );
