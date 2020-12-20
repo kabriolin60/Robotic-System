@@ -643,8 +643,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	//While we didn't reach the destination point
 	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
-		//Set_Debug_Pin_0_High();
-
 		/*
 		 * Step 1: Init the Map
 		 */
@@ -691,21 +689,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 						Distance_Two_Points(tested_vector.Start_Point.x, tested_vector.Start_Point.y, tested_vector.End_Point.x, tested_vector.End_Point.y) < Map_Resolution / 10)
 				{
 					//Intersection or first point, or distance too short, don't keep the last sent destination as-it
-
-					/*
-					 * For the firsts deplacement, use a larger parameter
-					 */
-					/*if(found_destination.x != Final_Destination.X && found_destination.y != Final_Destination.Y)
-					{
-						//This is not the Final Destination
-						parameters.destination.coord.ptrParameters.Distance_Detection_Fin_Trajectoire = 150*100;
-						parameters.destination.coord.ptrParameters.Angle_Avant_Debut_Avance = (30*PI/180)*100;
-					}else
-					{
-						//Last point, use initials parameters
-						parameters.destination.coord.ptrParameters = Final_Destination.ptrParameters;
-					}*/
-
 					/*
 					 * Step 4: Send new destination to the Robot = new founded Pathfinding Result
 					 */
@@ -720,7 +703,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					/*
 					 * Step 5: Debug, display Pathfinding Map
 					 */
-					//_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
+					_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 					_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 				}else
 				{
@@ -758,7 +741,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 
 		//Astar_Debug_Display_Map(Astar_Get_Map());
-		//Set_Debug_Pin_0_Low();
 		/*
 		 * Step 6: Wait for the next Astar Loop
 		 */
@@ -881,7 +863,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		if(parameters.obstacle_creation_fct != NULL)
 			parameters.obstacle_creation_fct();
 
-		//_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 
 		/*
 		 * Step 3: Check if Spline Path is clear

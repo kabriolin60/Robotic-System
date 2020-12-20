@@ -707,6 +707,10 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 #include "Astar.h"
 void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communication canal)
 {
+#if Astar_Diplay_Contenu == 0
+	return;
+#endif
+
 	struct st_ASTAR_Data data_to_send;
 
 	for(int x = 0; x < Astar_Node_Nb_X; x+=2)
@@ -760,6 +764,10 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
  *****************************************************************************/
 void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enum_canal_communication canal)
 {
+#if Astar_Display_Vectors == 0
+	return;
+#endif
+
 	struct st_ASTAR_Vecteur loc_vector;
 	struct st_ASTAR_VECTEURS Vectors_to_Send;
 

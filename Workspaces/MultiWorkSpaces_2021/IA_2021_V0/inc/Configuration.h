@@ -19,10 +19,17 @@
 #include "task.h"
 
 #define MAJOR_RELEASE "5"
-#define MINOR_RELEASE "2a"
+#define MINOR_RELEASE "2b"
 
-#define LOG_Debug_Port RS485_port//Xbee_port//RS485_port
+/**************************************************
+Declaration des options de Debug
+ **************************************************/
+#define LOG_Debug_Port 				RS485_port//Xbee_port//RS485_port
 
+#define Astar_Display_Vectors		1
+#define Astar_Diplay_Contenu		0
+
+/*************************************************/
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
 

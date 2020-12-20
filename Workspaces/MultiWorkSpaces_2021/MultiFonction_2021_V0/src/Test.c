@@ -240,7 +240,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
