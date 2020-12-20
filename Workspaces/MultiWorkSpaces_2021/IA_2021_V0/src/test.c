@@ -162,7 +162,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 	//Task_Delay(3000);
 	Robot_Position = _0_Get_Robot_Position();
 	bool MOVE_RESULT;
-	sprintf(str, "Test strategie: 1 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+	sprintf(str, "Test strategie: 1 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 	MOVE_RESULT = GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 			Robot_Position.Position_X+500, Robot_Position.Position_Y,
 			Robot_Position.Position_X+500, Robot_Position.Position_Y+500,
@@ -170,7 +170,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 			&_1_Obstacles_Create_Terrain_Border);
 
 	if(MOVE_RESULT){
-		sprintf(str, "Test strategie: 2 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		sprintf(str, "Test strategie: 2 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 		Robot_Position = _0_Get_Robot_Position();
 		MOVE_RESULT = GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 				Robot_Position.Position_X+500, Robot_Position.Position_Y,
@@ -180,7 +180,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 
 		if(MOVE_RESULT)
 		{
-			sprintf(str, "Test strategie: 3 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			sprintf(str, "Test strategie: 3 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 			Robot_Position = _0_Get_Robot_Position();
 			GOTO_TO_SPLINE_AVANT_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 					Robot_Position.Position_X+500, Robot_Position.Position_Y,
@@ -189,7 +189,7 @@ void TEST_Deplacement_Reel(void * pvParameter)
 					&_1_Obstacles_Create_Terrain_Border);
 		}else
 		{
-			sprintf(str, "Test strategie: 4 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+			sprintf(str, "Test strategie: 4 OK\n");_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 			Robot_Position = _0_Get_Robot_Position();
 			GOTO_TO_SPLINE_ARRIERE_ASTAR_WAIT(Robot_Position.Position_X, Robot_Position.Position_Y,
 					Robot_Position.Position_X-100, Robot_Position.Position_Y-500,
@@ -427,41 +427,41 @@ void TEST_Deplacement(void * pvParameter)
 		GOTO_XY_AVANT_WAIT(500, 500);
 
 		sprintf(str, "Test strategie: 1 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		GOTO_XY_AVANT_ASTAR_WAIT(1722, 2585, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 2 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		_2_Comm_Send_Robot_Speed(1,1,1,1,1,1,RS485_port);
 
 		GOTO_XY_AVANT_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 3 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2380, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 4 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
 
 		GOTO_XY_AVANT_WAIT(1000, 2900);
 
 		sprintf(str, "Test strategie: 5 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		GOTO_XY_ARRIERE_WAIT(1000, 2380);
 
 		sprintf(str, "Test strategie: 6 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 7 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 	}/**/
 
 	Task_Delete_Current;

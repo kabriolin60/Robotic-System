@@ -47,7 +47,7 @@ void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum 
 	}
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, RS485_port);
+	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, LOG_Debug_Port);
 }
 
 
@@ -67,7 +67,7 @@ void _Strategie_Change_Action_Step(struct Action_Datas* action_to_change, byte n
 	action_to_change->Step = new_step;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, RS485_port);
+	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, LOG_Debug_Port);
 }
 
 

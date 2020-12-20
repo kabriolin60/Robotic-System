@@ -21,6 +21,8 @@
 #define MAJOR_RELEASE "5"
 #define MINOR_RELEASE "2a"
 
+#define LOG_Debug_Port Xbee_port//RS485_port
+
 
 //#define CARTE_LPCXPRESSO //Utilisation sur la Carte LPC_Xpresso
 

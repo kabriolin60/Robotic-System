@@ -303,7 +303,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 		static char str[70];
 		sprintf(str, "IA: ACK non recu: Instr= %d", Message_To_Send.Data[8]);
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, LOG_Debug_Port);
 
 		//Renvoi un échec
 		return pdFAIL;
@@ -317,91 +317,6 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 	//Le message n'a pas pu être mis en Queue d'envoie
 	return pdTRUE;
-
-
-	/******************************************************************************
-
-
-	byte tentatives_envoi = 0;
-	//Attente si une autre tache essaie d'envoyer elle aussi un message
-	if(!_1_Communication_Wait_To_Send(ms_to_tick(100), eGROUP_SYNCH_COMMUNICATION_TxDispo))
-	{
-		_1_Communication_CLEAR_ACK();
-		tentatives_envoi++;
-		return pdFALSE;
-	}
-
-
-
-	//Mise en forme des datas
-	(void)_1_Communication_Create_Message(pMessage_to_send);
-
-	//Ajoute au message le canal de communication à utilisre
-	Message_To_Send.canal_communication = canal;
-
-
-
-	if(WAIT_FOR_ACK)
-	{
-		_1_Communication_CLEAR_ACK();
-	}else
-	{
-		//Commence par mettre le message en Queue d'envoi
-		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
-		{
-			//Le message n'a pas pu être mis en Queue d'envoie
-			//Libère le bit de synchro pour pouvoir envoyer un autre message
-			_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
-			return pdFALSE;
-		}
-		//Le message n'a pas pu être mis en Queue d'envoie
-		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
-		return pdTRUE;
-	}
-
-	do
-	{
-		//Commence par mettre le message en Queue d'envoi
-		if(!xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(10)))
-		{
-			//Le message n'a pas pu être mis en Queue d'envoie
-			//Libère le bit de synchro pour pouvoir envoyer un autre message
-			_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
-			return pdFALSE;
-		}
-
-		//Sinon, le message a bien été mis en Queue d'envoie
-		//Incrémente le nombre de tentatives effectuée
-		tentatives_envoi++;
-
-		//Puis vérifie son ACK
-	}while(!_1_Communication_WAIT_ACK(WAIT_FOR_ACK, ACK_TYPE, Cartes_Devant_ACK) && tentatives_envoi < 10);
-
-
-
-	//Vérifie si on a atteint le nombre maximum de tentatives
-	if(tentatives_envoi >= 10)
-	{
-		//On a dépassé le nombre maximum d'envoi de messages
-		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
-
-		static char str[70];
-		sprintf(str, "IA: ACK non recu: Instr= %d!!", pMessage_to_send->Instruction);
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, RS485_port);
-
-		//Renvoi un échec
-		return pdFAIL;
-	}else
-	{
-		//Le message est bien parti, et son ACK tel que attentu est arrivé
-		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit(bit_to_check | eGROUP_SYNCH_COMMUNICATION_TxDispo);
-
-		//Renvoi un succes
-		return pdPASS;
-	}*/
 }
 
 
@@ -657,7 +572,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-			_2_Comm_Send_Communication_Status(RS485_port);
+			_2_Comm_Send_Communication_Status(LOG_Debug_Port);
 			return pdFAIL;
 		}
 	}else

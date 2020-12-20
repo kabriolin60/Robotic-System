@@ -120,7 +120,7 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 		break;
 	}
 
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, LOG_Debug_Port);
 }
 
 /*****************************************************************************
@@ -163,7 +163,7 @@ void _2_Comm_Send_Destination_Spline_CubiqueRobot(struct CubicSpline* destinatio
 			(short)destination->P1.X,
 			(short)destination->P1.Y);
 
-	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Deplacement, LOG_Debug_Port);
 }
 
 
@@ -179,14 +179,6 @@ void _2_Comm_Send_Destination_Spline_CubiqueRobot(struct CubicSpline* destinatio
  *****************************************************************************/
 void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communication canal)
 {
-	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	/*if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
-	{
-		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
-		//Abandon
-		return;
-	}*/
-
 	trame_echange.Instruction = DEMANDE_INFO;
 	trame_echange.Slave_Adresse = adresse_cible;
 
@@ -276,7 +268,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 				MINOR_RELEASE,
 				__DATE__,
 				__TIME__);
-		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, LOG_Debug_Port);
 		release_sent = 1;
 	}
 	_2_Comm_Send_Communication_Status(canal);
@@ -291,10 +283,10 @@ void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 
 	if(Nb_Erreurs_com < 5)
 	{
-		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Black, Channel_Debug_Divers, LOG_Debug_Port);
 	}else
 	{
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Divers, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Divers, LOG_Debug_Port);
 	}
 }
 
@@ -423,7 +415,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 		/*
 		 * Envoi l'état de la carte IA
 		 */
-		_2_Comm_Send_Info_Carte_IA(RS485_port);
+		_2_Comm_Send_Info_Carte_IA(LOG_Debug_Port);
 		Task_Delay_Until(delai_demande_info);
 
 
@@ -431,7 +423,14 @@ void _2_Communication_Boards_Status(void* pvParameters)
 		if(boucle % 50 == 0)
 		{
 			//Toutes les 1 secondes
-			_2_Comm_Send_Demande_Info(PC, RS485_port);
+			_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
+
+			//Si la communication de DEbug se fait par Xbee
+			if(LOG_Debug_Port == Xbee_port)
+			{
+				_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
+			}
+
 			Task_Delay_Until(delai_demande_info);
 		}
 
@@ -683,7 +682,7 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 			X,
 			Y,
 			Angle);
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
 
 	//delay pour s'assurer que l'info est bien partie à la carte et prise en compte
 	Task_Delay(25);
@@ -867,15 +866,45 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	//Envoi avec attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_VITESSE_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
-	/*static char str[70];
-	sprintf(str, "Robot speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
+	static char str[70];
+	sprintf(str, "Speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
 			Vitesse_avance,
 			Acceleration_Avance,
 			Decceleration_Avance,
 			Vitesse_Rotation,
 			Acceleration_Rotation,
 			Decceleration_Rotation);
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);*/
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_Infos
+ **
+ ** Descriptions:		Fonction d'envoi des infos d'une carte MultiFCT vers la carte PC
+ **
+ ** parameters:			Pointeur vers les infos à envoyer
+ ** 					Queue à la quelle ajouter le message
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communication canal)
+{
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = REPONSE_INFO_Multi_FCT;
+	trame_echange.Slave_Adresse = PC;
+
+	trame_echange.Length = COPYDATA(*Infos, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 

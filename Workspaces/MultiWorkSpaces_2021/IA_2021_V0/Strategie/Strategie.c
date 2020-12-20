@@ -33,7 +33,7 @@ void Task_MatchTime(void *pvparameter)
 
 	static char str[70];
 	sprintf(str, "Match Start!\n");
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Match, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Match, LOG_Debug_Port);
 
 	while(1)
 	{
@@ -272,7 +272,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
 
 
 
@@ -294,7 +294,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
 
 
 
@@ -316,7 +316,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], RS485_port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
 
 
 

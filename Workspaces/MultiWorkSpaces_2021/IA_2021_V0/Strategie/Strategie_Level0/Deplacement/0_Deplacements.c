@@ -208,7 +208,7 @@ bool _0_Deplacement_Check_Bloquage(void)
 	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
 	{
 		sprintf(str, "DEPLA: Bloquage detecte\n");
-		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, LOG_Debug_Port);
 		return pdTRUE;
 	}
 
@@ -354,7 +354,7 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 		sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
 				X,
 				Y);
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
 
 		//Delete the Astar task
 		vTaskDelete(Astar_Task_Handler);
@@ -392,7 +392,7 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 	}
 
 	sprintf(str, "DEPLA: Recalage Start\n");
-	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
 
 
 	struct st_DESTINATION_ROBOT dest = { 0 };
@@ -449,7 +449,7 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 		_0_Deplacement_STOP();
 
 		sprintf(str, "DEPLA: Recalage arrive\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
 		return pdTRUE;
 	}
 
@@ -459,7 +459,7 @@ bool _0_Deplacement_Recalage_Bordure(bool direction, short speed, short TIMEOUT)
 	_0_Deplacement_STOP();
 
 	sprintf(str, "DEPLA: Recalage TIMEOUT\n");
-	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, RS485_port);
+	_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, LOG_Debug_Port);
 	return pdFALSE;
 }
 
@@ -557,7 +557,7 @@ bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, bool use_Astar,
 			sprintf(str, "ASTAR SPLINE: Delete task to: X:%dmm Y:%dmm\n",
 					P1_X,
 					P1_Y);
-			_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, RS485_port);
+			_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
 
 			//Delete the Astar task
 			vTaskDelete(Astar_Task_Handler);
@@ -631,7 +631,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR: Creation task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 	//All new destination will be with replacement active
 	parameters.destination.Replace = true;
@@ -721,7 +721,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					 * Step 5: Debug, display Pathfinding Map
 					 */
 					//_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
-					_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), RS485_port);
+					_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 				}else
 				{
 					//No Intersection, the previous destination is still a good choose
@@ -748,7 +748,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					(short)_0_Get_Robot_Position().Position_Y,
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
-			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 			/*
 			 * Step 5: Debug, display Pathfinding Map
@@ -771,7 +771,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR: Self Delete task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
 	Task_Delete_Current;
 }
 
@@ -803,7 +803,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR SPLINE: Creation task to: X:%dmm Y:%dmm\n",
 			parameters.destination.P1.X,
 			parameters.destination.P1.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 
 
@@ -881,7 +881,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		if(parameters.obstacle_creation_fct != NULL)
 			parameters.obstacle_creation_fct();
 
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), RS485_port);
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 
 		/*
 		 * Step 3: Check if Spline Path is clear
@@ -928,7 +928,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 						(short)_0_Get_Robot_Position().Position_Y,
 						(short)Final_Destination.X,
 						(short)Final_Destination.Y);
-				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 				Task_Delay(5);
 				sprintf(str_ASTAR, "SPLINE Intersect, X= %d, Y= %d; to X= %d, Y= %d",
@@ -936,7 +936,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 						(short)tested_vector.Start_Point.y,
 						(short)tested_vector.End_Point.x,
 						(short)tested_vector.End_Point.y);
-				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, RS485_port);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 				/*
 				 * Step 4: No path possible, delete this task after stopping to Robot and informed the IA
@@ -944,7 +944,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 				sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
 						Final_Destination.X,
 						Final_Destination.Y);
-				_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+				_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 				//No path has been found
 				//Rise the corresponding Flag
@@ -970,7 +970,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 	sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
 			Final_Destination.X,
 			Final_Destination.Y);
-	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, RS485_port);
+	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
 	Task_Delete_Current;
 }
 

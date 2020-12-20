@@ -75,6 +75,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, float Acceleration_Avance, float Decceleration_Avance, float Acceleration_Rotation, float Decceleration_Rotation, enum enum_canal_communication canal);
 
 
+void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communication canal);
 
 void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal);
 
