@@ -142,6 +142,9 @@ public class Action_Strategie
         public byte ID;
 
         [MarshalAs(UnmanagedType.U1)]
+        public Infos_Carte.Com_Position_Robot_Identification Robot_ID;
+
+        [MarshalAs(UnmanagedType.U1)]
         public byte Name_Length;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 40)]
