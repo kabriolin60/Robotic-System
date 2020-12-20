@@ -33,10 +33,11 @@ public class Carte_IA_maj : MonoBehaviour
 		LED_Yellow.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00010000) > 0 ? true : false);
 		LED_Green.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b00100000) > 0 ? true : false);
 		User_BP.GetComponent<Toggle>().isOn = ((infos.Etat_Inputs & 0b01000000) > 0 ? true : false);
-		
 
-		float tension_batterie = Last_Infos.Robots_Last_Info[(int)(infos.Numero_Robot)].Get_Last_Infos(0).Tension_Batterie;
 
+		//float tension_batterie = Last_Infos.Robots_Last_Info[(int)(infos.Numero_Robot)].Get_Last_Infos(0).Tension_Batterie;
+
+		float tension_batterie = infos.Tension_Batterie;
 		tension_batterie /= 100;
 
 		Tension_Batterie.GetComponent<TextMeshProUGUI>().text = $"{tension_batterie}V";
@@ -46,9 +47,6 @@ public class Carte_IA_maj : MonoBehaviour
 		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT1").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000010) > 0;
 		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT2").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000100) > 0;
 		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT3").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00001000) > 0;
-
-
-
 	}
 
 

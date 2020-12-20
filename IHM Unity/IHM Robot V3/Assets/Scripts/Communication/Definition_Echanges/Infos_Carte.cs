@@ -145,6 +145,9 @@ public partial class Infos_Carte
 
 		[MarshalAs(UnmanagedType.U1)]
 		public long Boards_Comm_Status;         //== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
+
+		[MarshalAs(UnmanagedType.U2)]
+		public ushort Tension_Batterie;                             //Tension * 100		//2 octets
 	}
 
 	public Com_Reponse_Info_IA Trame_To_Data_IA(Communication.Communication_Trame input_trame)
