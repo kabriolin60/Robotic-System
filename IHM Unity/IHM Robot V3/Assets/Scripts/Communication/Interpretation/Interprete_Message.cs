@@ -269,7 +269,7 @@ public class Interprete_Message : MonoBehaviour
 			Action_History_go.GetComponent<Action_History>().Update_Action(data);
 
 		//Met à jour le tableau avec l'ensemble des actions
-		Action_Liste.Update_Action(data);
+		Action_Liste.Update_Action(data, data.Robot_ID);
 	}
 
 

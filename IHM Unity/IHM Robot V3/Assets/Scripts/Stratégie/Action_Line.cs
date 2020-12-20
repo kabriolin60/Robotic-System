@@ -48,7 +48,7 @@ public class Action_Line : MonoBehaviour
             Text_Action_Name.GetComponent<TextMeshProUGUI>().text = Action_Data.Name;
         }
 
-        Action_Line previous_values = Action_Liste.Get_Existing_Line(data.ID);
+        Action_Line previous_values = Action_Liste.Get_Existing_Line(data.ID, data.Robot_ID);
 
         if (previous_values != null && data.State != previous_values.Action_Data.Datas.State)
         {
