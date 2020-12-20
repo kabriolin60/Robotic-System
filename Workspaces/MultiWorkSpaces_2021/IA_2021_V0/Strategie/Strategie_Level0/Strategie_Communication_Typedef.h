@@ -17,6 +17,8 @@ struct Communication_Action_Datas
 {
 	byte ID;
 
+	byte Robot_ID;
+
 	byte Name_Length;
 
 	char Name[Max_Action_Name_Length];

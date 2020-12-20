@@ -6,6 +6,7 @@
  */
 
 #include "2_Echange_Data_Strategie.h"
+#include "Strategie.h"
 
 static TO_AHBS_RAM3 struct Communication_Trame trame_echange;// TO_AHBS_RAM0;
 
@@ -42,6 +43,8 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
 	struct Communication_Action_Datas data_to_send;
 
 	data_to_send.ID = data->ID;
+
+	data_to_send.Robot_ID = _Strategie_Get_Robot_ID();
 
 	data_to_send.Name_Length = COPYSTRING(data->Name, data_to_send.Name);
 	data_to_send.Name[data_to_send.Name_Length] = 0;
@@ -90,6 +93,8 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
 	struct Communication_Action_Datas data_to_send;
 
 	data_to_send.ID = data->ID;
+
+	data_to_send.Robot_ID = _Strategie_Get_Robot_ID();
 
 	data_to_send.Name_Length = COPYSTRING(commentaire, data_to_send.Name);
 	data_to_send.Name[data_to_send.Name_Length] = 0;
