@@ -28,8 +28,9 @@ public class Articulation : MonoBehaviour
     public bool use_automatic_parent_anchor = true;
     public Vector3 Connected_Anchor;
 
-    public float Rotation;
-    private float previous_Rotation = 0;
+    public float Valeur;
+    private float previous_Rotation;
+
 
 
     private HingeJoint hinge_joint;
@@ -43,11 +44,11 @@ public class Articulation : MonoBehaviour
             case Type_Joint.Free:
                 break;
 
-            case Type_Joint.Lineaire:            
-                Gizmos.color = Color.green;               
+            case Type_Joint.Lineaire:
+                Gizmos.color = Color.green;
                 direction = Connected_Body.TransformVector(Axis);
 
-                joint_ray = new Ray(this.transform.TransformPoint(Anchor), direction*3.0f);
+                joint_ray = new Ray(this.transform.TransformPoint(Anchor), direction * 1.0f);
                 Gizmos.DrawRay(joint_ray);
                 break;
 
@@ -55,11 +56,11 @@ public class Articulation : MonoBehaviour
                 Gizmos.color = Color.green;
                 direction = this.transform.TransformVector(Axis);
 
-                joint_ray = new Ray(this.transform.TransformPoint(Anchor), direction * 3.0f);
+                joint_ray = new Ray(this.transform.TransformPoint(Anchor), direction * 1.0f);
                 Gizmos.DrawRay(joint_ray);
                 break;
         }
-    }
+    } 
 
 
     // Start is called before the first frame update
@@ -93,9 +94,12 @@ public class Articulation : MonoBehaviour
         switch(type_Joint)
         {
             case Type_Joint.Rotation:
-                transform.RotateAround(this.transform.TransformPoint(Anchor), Connected_Body.TransformVector(Axis), Rotation - previous_Rotation);
-                previous_Rotation = Rotation;
-                //Joint_Articulations();
+                transform.RotateAround(this.transform.TransformPoint(Anchor), Connected_Body.TransformVector(Axis), Valeur - previous_Rotation);
+                previous_Rotation = Valeur;
+                break;
+
+            case Type_Joint.Lineaire:
+                this.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(Valeur * Axis.x, Valeur * Axis.y, Valeur * Axis.z), 1);
                 break;
 
             default:
