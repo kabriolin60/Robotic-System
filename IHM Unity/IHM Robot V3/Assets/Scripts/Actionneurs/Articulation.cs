@@ -19,7 +19,7 @@ public class Articulation : MonoBehaviour
     }
 
     public Type_Joint type_Joint;
-    public Repere_Joint repere_Joint;
+    //public Repere_Joint repere_Joint;
     public Transform Connected_Body;
 
     public Vector3 Anchor;
@@ -27,6 +27,9 @@ public class Articulation : MonoBehaviour
 
     public bool use_automatic_parent_anchor = true;
     public Vector3 Connected_Anchor;
+
+    public float Rotation;
+    private float previous_Rotation = 0;
 
 
     private HingeJoint hinge_joint;
@@ -80,13 +83,31 @@ public class Articulation : MonoBehaviour
                 }
 
                 this.GetComponent<Rigidbody>().useGravity = false;
+                this.GetComponent<Rigidbody>().isKinematic = true;
                 break;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        switch(type_Joint)
+        {
+            case Type_Joint.Rotation:
+                transform.RotateAround(this.transform.TransformPoint(Anchor), Connected_Body.TransformVector(Axis), Rotation - previous_Rotation);
+                previous_Rotation = Rotation;
+                Joint_Articulations();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void Joint_Articulations()
+    {
+        Vector3 distance_between_Anchors = new Vector3();
+        distance_between_Anchors = this.transform.TransformPoint(Anchor) - this.hinge_joint.connectedAnchor;
+
+        this.transform.Translate(distance_between_Anchors);
     }
 }
