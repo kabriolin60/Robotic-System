@@ -95,7 +95,7 @@ public class Articulation : MonoBehaviour
             case Type_Joint.Rotation:
                 transform.RotateAround(this.transform.TransformPoint(Anchor), Connected_Body.TransformVector(Axis), Rotation - previous_Rotation);
                 previous_Rotation = Rotation;
-                Joint_Articulations();
+                //Joint_Articulations();
                 break;
 
             default:

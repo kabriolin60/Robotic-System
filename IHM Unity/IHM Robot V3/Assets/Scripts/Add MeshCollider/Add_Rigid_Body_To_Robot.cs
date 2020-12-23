@@ -3,16 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Add_Rigid_Body_To_Robot : MonoBehaviour
+public class Add_MeshCollider_To_Terrain : MonoBehaviour
 {
-
-    private void Awake()
-    {
-        StartCoroutine(add_Rigid_Body());
-    }
-
     // Start is called before the first frame update
-    IEnumerator add_Rigid_Body()
+    [System.Obsolete]
+    IEnumerator Start()
     {
         yield return new WaitForSeconds(.01f);
 
@@ -22,16 +17,18 @@ public class Add_Rigid_Body_To_Robot : MonoBehaviour
     }
 
 
+    [System.Obsolete]
     private int ChildrenCount(Transform go)
     {
         int children;
-        children = go.childCount;
+        children = go.GetChildCount();
 
         return children;
     }
 
 
 
+    [System.Obsolete]
     private void ForEachChildren(Transform go, Transform parent)
     {
         //does this go have children?
@@ -43,7 +40,7 @@ public class Add_Rigid_Body_To_Robot : MonoBehaviour
             //This go doesn't have any children
             //This is the last element of hierarchy
             //Add a mesh Collider to him
-            //Add_MeshCollider(go);
+            Add_MeshCollider(go);
 
             //This add a rigidbody to it's parrent if it doesn't already have one
             Add_RigiBody_To_Parent(parent);
