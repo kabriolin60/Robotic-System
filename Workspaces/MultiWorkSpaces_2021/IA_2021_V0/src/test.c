@@ -86,8 +86,149 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	 */
 
 	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(TEST_Strategie_2021, (char *) "TEST_Strategie_2021 reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
+
+
+
+
+void TEST_Strategie_2021(void* pvParameter)
+{
+	static char str[70];
+	Task_Delay(520);
+
+	_2_Comm_Demande_Simulation(TRUE, RS485_port);
+	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
+
+	if(!_0_Deplacement_Get_Simulation())
+	{
+		//Set les 2 PIDs de vitesses des roues independantes
+		_2_Comm_Send_Robot_PID(PID_Id_vitesse_roues_independantes, 0.085f, 0, 0.55f, 50, 0, 1, 1, RS485_port);
+
+		//Set le PID de distance
+		_2_Comm_Send_Robot_PID(PID_Id_distance, 0.04f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
+
+		//Set le PID de rotation
+		_2_Comm_Send_Robot_PID(PID_Id_orientation, 0.006f, 0, 0.0f, 20, 0, 0, 1, RS485_port);
+	}
+
+	Task_Delay(300);
+
+	_2_Comm_Set_Robot_Position(650, 240, -90, RS485_port);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
+			500, true);
+
+	//Bras pliés
+	_0_Actionneurs_Move_2_Servo(11, 2000, 0,
+			12, 2000, 0,
+			300, true);
+
+	//Pinces fermées
+	_0_Actionneurs_Move_2_Servo(13, 0, 0,
+			14, 0, 0,
+			300, false);
+
+	Task_Delay(3000);
+
+	GOTO_TO_SPLINE_ARRIERE_WAIT(650, 240,
+			650, 800,
+			800, 850,
+			150, 850);
+
+	//Pinces ouvertes
+	_0_Actionneurs_Move_2_Servo(13, 1000, 0,
+			14, 1000, 0,
+			300, false);
+
+	//Bras dépliés
+	_0_Actionneurs_Move_2_Servo(11, 0, 0,
+			12, 0, 0,
+			300, false);
+
+
+
+	//Rampe arriere descendue
+	_0_Actionneurs_Move_1_Servo(10, 300, 0,
+			500, true);
+
+	GOTO_XY_ARRIERE_WAIT(65, 850);
+
+	Task_Delay(3000);
+
+	//Pinces fermées
+	_0_Actionneurs_Move_2_Servo(13, 0, 0,
+			14, 0, 0,
+			300, true);
+
+	Task_Delay(3000);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
+			1000, true);
+
+	//Bras pliés
+	_0_Actionneurs_Move_2_Servo(11, 2000, 0,
+			12, 2000, 0,
+			500, true);
+
+	GOTO_TO_SPLINE_AVANT_WAIT(65, 850,
+			200, 850,
+			300, 200,
+			670, 200);
+
+	//Bras dépliés
+	_0_Actionneurs_Move_2_Servo(11, 0, 0,
+			12, 0, 0,
+			300, false);
+
+	//Rampe arriere descendue
+	_0_Actionneurs_Move_1_Servo(10, 50, 0,
+			500, true);
+
+	//Pinces ouvertes
+	_0_Actionneurs_Move_1_Servo(14, 1000, 0,
+			300, true);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 300, 0,
+			1000, true);
+
+	GOTO_XY_AVANT_WAIT(1200, 200);
+
+	//Rampe arriere descendue
+	_0_Actionneurs_Move_1_Servo(10, 50, 0,
+			500, true);
+
+	//Pinces ouvertes
+	_0_Actionneurs_Move_1_Servo(13, 1000, 0,
+			300, true);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
+			500, true);
+
+	//Bras pliés
+	_0_Actionneurs_Move_2_Servo(11, 2000, 0,
+			12, 2000, 0,
+			300, true);
+
+	//Pinces fermées
+	_0_Actionneurs_Move_2_Servo(13, 0, 0,
+			14, 0, 0,
+			300, false);
+
+
+	Task_Delay(1000);
+	for(;;)
+	{
+		Task_Delay(1000);
+	}
+
+}
+
 
 
 

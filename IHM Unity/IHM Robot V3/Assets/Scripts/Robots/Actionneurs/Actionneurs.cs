@@ -7,6 +7,15 @@ public class Actionneurs : MonoBehaviour
     public Infos_Carte.Com_Position_Robot_Identification Robot;
     public int Actionneur_ID;
 
+    public enum Activate_Action
+    {
+        None,
+        On_Mini_value,
+        On_Maxi_Value
+    }; 
+    
+    public Activate_Action Active_Action;
+    
     public float valeur_mini;
     public float position_mini;
 
@@ -32,8 +41,42 @@ public class Actionneurs : MonoBehaviour
         try
         {
             Current_Value = last_position.Position_Servos.Position[Actionneur_ID % 10];
-            articulation.Valeur = Position(Current_Value);
-            Current_Position = articulation.Valeur;
+
+            if (Active_Action == Activate_Action.None)
+            {
+                articulation.Valeur = Position(Current_Value);
+                Current_Position = articulation.Valeur;
+            }
+        }
+        catch
+        {
+
+        }
+
+        try
+        {
+            if(Active_Action == Activate_Action.On_Mini_value)
+            {
+                if (Current_Value == valeur_mini)
+                {
+                    this.GetComponent<Pince>().Activate_Actionneur(true);
+                }else
+                {
+                    this.GetComponent<Pince>().Activate_Actionneur(false);
+                }
+            }
+
+            if (Active_Action == Activate_Action.On_Maxi_Value)
+            {
+                if (Current_Value == valeur_maxi)
+                {
+                    this.GetComponent<Pince>().Activate_Actionneur(true);
+                }
+                else
+                {
+                    this.GetComponent<Pince>().Activate_Actionneur(false);
+                }
+            }
         }
         catch
         {

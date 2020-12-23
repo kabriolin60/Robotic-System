@@ -10,6 +10,8 @@
 
 void TEST_init_parametres(void);
 
+void TEST_Strategie_2021(void* pvParameter);
+
 void TEST_Deplacement_Reel(void * pvParameter);
 
 void TEST_Deplacement(void * pvParameter);

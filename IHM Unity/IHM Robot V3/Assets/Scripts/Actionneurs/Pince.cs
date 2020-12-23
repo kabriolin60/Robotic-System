@@ -19,7 +19,7 @@ public class Pince : MonoBehaviour
         if (this.GetComponent<Rigidbody>() == null)
         {
             this.gameObject.AddComponent<Rigidbody>();
-            this.GetComponent<Rigidbody>().isKinematic = false;
+            this.GetComponent<Rigidbody>().isKinematic = true;
             this.GetComponent<Rigidbody>().useGravity = false;
             this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;            
         }
@@ -40,16 +40,6 @@ public class Pince : MonoBehaviour
         Gizmos.DrawLine(this.transform.TransformPoint(Anchor), this.transform.TransformPoint(Anchor) + direction.normalized * Raycast_Length);
     }
 
-    void OnDrawGizmosSelected2()
-    {
-        Vector3 direction = new Vector3();
-
-        Gizmos.color = Color.yellow;
-        direction = this.transform.TransformVector(Axis);
-
-        Gizmos.DrawRay(this.transform.TransformPoint(Anchor), direction * Raycast_Length);
-    }
-
     public void Activate_Actionneur(bool state)
     {
         Activate = state;
@@ -65,7 +55,7 @@ public class Pince : MonoBehaviour
     RaycastHit hit;
     void FixedUpdate()
     {
-        if (this.Activate)
+        if (this.Activate && grabed_Object == null)
         {
             //Does the ray intersect any object in the range, according to layer mask
             if (Physics.Raycast(new Ray(this.transform.TransformPoint(Anchor), this.transform.TransformVector(this.Axis)), out hit, this.Raycast_Length, this.target_layer))
@@ -81,10 +71,6 @@ public class Pince : MonoBehaviour
                     this.fixed_Joint.connectedBody = grabed_Object.GetComponent<Rigidbody>();
                 }
             }
-        }
-        else
-        {
-            grabed_Object = null;
         }
     }
 }
