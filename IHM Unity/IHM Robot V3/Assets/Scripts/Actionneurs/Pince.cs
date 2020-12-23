@@ -67,7 +67,9 @@ public class Pince : MonoBehaviour
                 if (grabed_Object == null)
                 {
                     grabed_Object = hit.transform;
-                    this.fixed_Joint = this.gameObject.AddComponent<FixedJoint>();
+                    if(this.gameObject.GetComponent<FixedJoint>() == null)
+                        this.fixed_Joint = this.gameObject.AddComponent<FixedJoint>();
+
                     this.fixed_Joint.connectedBody = grabed_Object.GetComponent<Rigidbody>();
                 }
             }

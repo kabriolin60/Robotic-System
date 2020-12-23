@@ -156,14 +156,12 @@ void TEST_Strategie_2021(void* pvParameter)
 
 	GOTO_XY_ARRIERE_WAIT(65, 850);
 
-	Task_Delay(3000);
+	Task_Delay(300);
 
 	//Pinces fermées
 	_0_Actionneurs_Move_2_Servo(13, 0, 0,
 			14, 0, 0,
 			300, true);
-
-	Task_Delay(3000);
 
 	//Rampe arriere remontée
 	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
@@ -204,6 +202,74 @@ void TEST_Strategie_2021(void* pvParameter)
 
 	//Pinces ouvertes
 	_0_Actionneurs_Move_1_Servo(13, 1000, 0,
+			300, true);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
+			500, true);
+
+	//Bras pliés
+	_0_Actionneurs_Move_2_Servo(11, 2000, 0,
+			12, 2000, 0,
+			300, true);
+
+	//Pinces fermées
+	_0_Actionneurs_Move_2_Servo(13, 0, 0,
+			14, 0, 0,
+			300, false);
+
+	GOTO_TO_SPLINE_AVANT_WAIT(1200, 200,
+			1400, 200,
+			1600, 200,
+			1600, 250);
+
+	//Pinces ouvertes
+	_0_Actionneurs_Move_2_Servo(13, 1000, 0,
+			14, 1000, 0,
+			300, false);
+
+	//Bras dépliés
+	_0_Actionneurs_Move_2_Servo(11, 0, 0,
+			12, 0, 0,
+			300, false);
+
+	//Rampe arriere descendue
+	_0_Actionneurs_Move_1_Servo(10, 300, 0,
+			500, false);
+
+	GOTO_XY_ARRIERE_WAIT(1600, 65);
+
+	//Pinces fermées
+	_0_Actionneurs_Move_2_Servo(13, 0, 0,
+			14, 0, 0,
+			300, true);
+
+	//Rampe arriere remontée
+	_0_Actionneurs_Move_1_Servo(10, 2000, 0,
+			1000, false);
+
+	//Bras pliés
+	_0_Actionneurs_Move_2_Servo(11, 2000, 0,
+			12, 2000, 0,
+			1500, true);
+
+	GOTO_TO_SPLINE_AVANT_WAIT(1600, 65,
+			1600, 200,
+			1400, 200,
+			1000, 200);
+
+	//Bras dépliés
+	_0_Actionneurs_Move_2_Servo(11, 0, 0,
+			12, 0, 0,
+			300, false);
+
+	//Rampe arriere descendue
+	_0_Actionneurs_Move_1_Servo(10, 50, 0,
+			500, true);
+
+	//Pinces ouvertes
+	_0_Actionneurs_Move_2_Servo(13, 1000, 0,
+			14, 1000, 0,
 			300, true);
 
 	//Rampe arriere remontée
