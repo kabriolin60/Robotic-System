@@ -49,7 +49,19 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 
 	switch(trame->Instruction)
 	{
-	case ACKNOWLEDGE:
+	case BOOTLOADER:
+	case BOOTLOADER_ACK:
+		_0_Communication_Give_Sending_Clearance();
+		break;
+
+	case DEMANDE_INFO:
+		if(trame->Slave_Adresse == INTERFACE_PC || trame->Slave_Adresse == PC)
+		{
+			_0_Communication_Give_Sending_Clearance();
+		}
+		break;
+
+	/*case ACKNOWLEDGE:
 		_2_Communication_RX_ACK(trame);
 		break;
 
@@ -61,7 +73,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		//Reception d'un Pong
 		Nb_PONG_recus++;
 		_2_Comm_RX_PONG(trame);
-		break;
+		break;*/
 
 	default:
 		break;

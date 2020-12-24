@@ -104,7 +104,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	//Send the revision of this board firmware
 	if(!release_sent)
 	{
-		sprintf(str, "IA release= %s.%s; %s; %s\n",
+		sprintf(str, "Interface PC= %s.%s; %s; %s\n",
 				MAJOR_RELEASE,
 				MINOR_RELEASE,
 				__DATE__,
@@ -119,7 +119,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 {
-	sprintf(str, "IA mess= %ld // erreurs= %ld\n",
+	sprintf(str, "Interface PC mess= %ld // erreurs= %ld\n",
 			Nb_Messages_recus,
 			Nb_Erreurs_com);
 

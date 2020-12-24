@@ -47,7 +47,7 @@ void _1_Communication_CLEAR_ACK(void);
 
 BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff);
 
-BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame);
+BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame, RINGBUFF_T *RingBuff);
 
 BaseType_t _1_Communication_Check_Priority_Messages(struct Communication_Trame *received_trame);
 

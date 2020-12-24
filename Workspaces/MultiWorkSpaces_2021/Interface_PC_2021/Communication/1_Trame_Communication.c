@@ -23,9 +23,6 @@ extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les message
 long Nb_Messages_recus = 0;
 long Nb_Erreurs_com = 0;
 
-//Canal de tracalyser
-traceString MyChannel_Recompo;
-extern traceString MyChannel_RX_RS485;
 
 /*****************************************************************************
  ** Function name:		_1_Communication_Init
@@ -411,6 +408,8 @@ static TO_AHBS_RAM3 struct Communication_Trame received_trame;
 static TO_AHBS_RAM3 byte Data_rx[COMMUNICATION_TRAME_MAX_DATA + 11];
 __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Buffer(RINGBUFF_T *RingBuff)
 {
+	//RINGBUFF_T *RingBuff = RingBuff_in;
+
 	if(RingBuff == NULL)
 		return pdFAIL;
 
@@ -566,7 +565,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			_1_Communication_Check_Rx_Adresse(&received_trame);
+			_1_Communication_Check_Rx_Adresse(&received_trame, RingBuff);
 			_1_Communication_Free_Receive_Bit();
 		}else
 		{
@@ -596,25 +595,26 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
  ** 					False: message non ajouté (non adressé à la carte ou Queeu pleine)
  **
  *****************************************************************************/
-BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame)
+BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *received_trame, RINGBUFF_T *RingBuff)
 {
-	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
+	_2_Communication_Interprete_message(received_trame);
+
+	if(RingBuff == &rxring_RS485)
 	{
-		//Interprete directement le message sans le mettre en Queue
-		_2_Communication_Interprete_message(received_trame);
-		return true;
-	}
-
-
-
-
-	//Pour renvoyer par Xbee les messages de Debug circulant sur le bus
-	if(received_trame->Slave_Adresse == PC && LOG_Debug_Port == Xbee_port)
-	{
-		received_trame->XBEE_DEST_ADDR = XBee_PC;
+		//Le message vient du bus principal, renvoie le vers le PC
 
 		//Envoi avec attente d'ACK
-		_1_Communication_Create_Trame(received_trame, LOG_Debug_Port, eGROUP_SYNCH_TxTrameDispo,
+		_1_Communication_Create_Trame(received_trame, RS485_2_port, eGROUP_SYNCH_TxTrameDispo,
+				pdFALSE, //Wait for ACK
+				0, //Type d'ACK attendu
+				0); //Cartes devant renvoyer un ACK
+	}
+
+	if(RingBuff == &rxring_RS485_2)
+	{
+		//Le message vient du PC, ajoute le à la queue des messages à envoyer vers les robots
+		//Envoi avec attente d'ACK
+		_1_Communication_Create_Trame(received_trame, RS485_port, eGROUP_SYNCH_TxTrameDispo,
 				pdFALSE, //Wait for ACK
 				0, //Type d'ACK attendu
 				0); //Cartes devant renvoyer un ACK

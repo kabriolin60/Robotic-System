@@ -103,7 +103,7 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_XBEE();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
-	_1_xQueue_Message_TO_Send = xQueueCreate( 10, sizeof( struct Communication_Message ));
+	_1_xQueue_Message_TO_Send = xQueueCreate( 50, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
 #if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
@@ -507,7 +507,10 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	while (1)
 	{
-		while( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
+		//Attente de l'autorisation d'envoyer un message par la Carte IA
+		_0_Communication_Wait_Sending_Clearance();
+
+		while( xQueueReceive( pvParameters, &Message, 0 ) == pdPASS )
 		{
 			//Un message est pret à être envoyé
 			//L'ajouter au Txring Buffer
@@ -537,11 +540,15 @@ void _0_Communication_Send_Data(void *pvParameters)
 #endif
 
 			case RS485_port:
-				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
+				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length, RS485_DIR_PORT, RS485_DIR_BIT);
 				if(Message.Data[8] == PING || Message.Data[8] == DEMANDE_INFO)
 				{
 					Task_Delay(2.5f);
 				}
+				break;
+
+			case RS485_2_port:
+				_0_Communication_Send_RS485(RS485_2_UART, &txring, (int)Message.length, RS485_2_DIR_PORT, RS485_2_DIR_BIT);
 				break;
 
 			case Xbee_port:
@@ -568,31 +575,37 @@ void _0_Communication_Send_Data(void *pvParameters)
  ** Returned value:		None
  **
  *****************************************************************************/
-__attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pUART, RINGBUFF_T *data, int length)
+__attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pUART, RINGBUFF_T *data, int length, uint8_t RS485_dir_port, uint8_t RS485_dir_bit)
 {
 	uint8_t ch;
 
 	//Passe en TX
-	_0_RS485_Master_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+	_0_RS485_Master_Mode(RS485_dir_port, RS485_dir_bit);
 
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		//for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-		{
-			//for(int i = 0; i < 8; i++)	__asm volatile( "nop" );
-		}
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
 
 	//Passe en RX
-	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+	_0_RS485_Slave_Mode(RS485_dir_port, RS485_dir_bit);
 }
 
 
+/*****************************************************************************
+ ** Function name:		_0_Communication_Send_XBEE
+ **
+ ** Descriptions:		Fonction d'envoi d'un message par XBEE
+ **
+ ** parameters:			Pointeur vers le ring buffer contenant les datas à envoyer
+ ** 					Nombre d'octets à envoyer
+ ** Returned value:		None
+ **
+ *****************************************************************************/
 __attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUART, RINGBUFF_T *data, int length)
 {
 	uint8_t ch;
@@ -629,4 +642,39 @@ void _0_Communication_Send_USB(uint8_t *data, uint8_t length)
 		vcom_write(data, length);
 		Task_Delay(1);
 	}
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Wait_Sending_Clearance
+ **
+ ** Descriptions:		Fonction d'attente de l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Wait_Sending_Clearance(void)
+{
+	xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
+			eGROUP_SYNCH_TxClearance, /* The bits within the event group to wait for. */
+			pdTRUE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			portMAX_DELAY/*ms_to_tick(30)*/ );/* Wait a maximum of xTicksToWait for either bit to be set. */
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Give_Sending_Clearance
+ **
+ ** Descriptions:		Fonction Donnant l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Give_Sending_Clearance(void)
+{
+	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
+			eGROUP_SYNCH_TxClearance );/* The bits being set. */
 }

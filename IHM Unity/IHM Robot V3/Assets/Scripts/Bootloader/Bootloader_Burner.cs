@@ -32,9 +32,6 @@ public class Bootloader_Burner : MonoBehaviour
     public string portName;
     public int portSpeed;
 
-
-    //private System.IO.Ports.SerialPort serialPort1;
-
     static string[] _lines;
     static int destination_board;
     static bool burn_ended = false;
@@ -259,15 +256,18 @@ public class Bootloader_Burner : MonoBehaviour
             //Cree une trame de communication
             line_number_position++;
 
-            while (decoder.Received_Messages.Count == 0)
+            
+            /*await Task.Delay(2);
+            if(page_length >= 4096)
             {
-                //await Task.Delay(1);
-            }
+                await Task.Delay(200);
+                page_length = 0;
+            }*/
 
-
+            while (decoder.Received_Messages.Count == 0) ;
             if (decoder.Received_Messages.Dequeue().Trame.Instruction == Communication.Com_Instruction.BOOTLOADER_ACK)
             {
-
+                await Task.Delay(1);
             }
             else
             {

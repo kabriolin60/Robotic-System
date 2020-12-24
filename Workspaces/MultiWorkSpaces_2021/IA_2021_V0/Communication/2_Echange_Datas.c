@@ -421,12 +421,12 @@ void _2_Communication_Boards_Status(void* pvParameters)
 
 
 		//Demande les infos du PC s'il a des trucs à envoyer
-		if(boucle % 50 == 0)
+		if(boucle % 5 == 0)
 		{
 			//Toutes les 1 secondes
 			_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
 
-			//Si la communication de DEbug se fait par Xbee
+			//Si la communication de Debug se fait par Xbee
 			if(LOG_Debug_Port == Xbee_port)
 			{
 				_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
