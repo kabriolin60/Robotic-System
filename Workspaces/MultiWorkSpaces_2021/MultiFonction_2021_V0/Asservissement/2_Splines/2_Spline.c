@@ -270,7 +270,7 @@ void CubicSpline_Process(struct CubicSpline *spline)
 
 
 	//Conversion des points de passage entre 0 et 1
-	P0_x = spline->P0.X ;
+	P0_x = spline->P0.X;
 	P0_x /= spline->Taille_Terrain.X;
 	P0_y = spline->P0.Y;
 	P0_y /= spline->Taille_Terrain.Y;
@@ -284,16 +284,16 @@ void CubicSpline_Process(struct CubicSpline *spline)
 
 
 	//Point d’arrivée
-	P1_x = spline->P1.X ;
+	P1_x = spline->P1.X;
 	P1_x /= spline->Taille_Terrain.X;
 	P1_y = spline->P1.Y;
 	P1_y /= spline->Taille_Terrain.Y;
 
 	//Tangente d’arrivée
-	M1_y = spline->M1.Y ;
-	M1_y /= spline->Taille_Terrain.Y;
-	M1_x = spline->M1.X ;
+	M1_x = spline->M1.X;
 	M1_x /= spline->Taille_Terrain.X;
+	M1_y = spline->M1.Y;
+	M1_y /= spline->Taille_Terrain.Y;
 
 	float pas = spline->Nombre_Points;
 	pas = 1/pas;

@@ -131,6 +131,41 @@ public class Spline_drawer : MonoBehaviour
 
 			Debug.DrawLine(start, end, color);
 		}
+
+		{
+			//Draw directors vectors
+			Vector3 start = new Vector3();
+			Vector3 end = new Vector3();
+
+			start.x = P0.y;
+			start.y = 0.05f;
+			start.z = -P0.x- 100;
+
+			end.x = M0.y;
+			end.y = 0.05f;
+			end.z = -M0.x - 100;
+
+			Debug.DrawLine(start, end, Color.white);
+
+			Gizmos.DrawIcon(start, "Light Gizmo.tiff", true);
+			Gizmos.DrawIcon(end, "Light Gizmo.tiff", true);
+
+			start = new Vector3();
+			end = new Vector3();
+
+			start.x = P1.y;
+			start.y = 0.05f;
+			start.z = -P1.x - 100;
+
+			end.x = M1.y;
+			end.y = 0.05f;
+			end.z = -M1.x - 100;
+
+			Debug.DrawLine(start, end, Color.white);
+
+			Gizmos.DrawIcon(start, "Light Gizmo.tiff", true);
+			Gizmos.DrawIcon(end, "Light Gizmo.tiff", true);
+		}
 	}
 
 	float CubicSpline_Point_Processing(float p0, float m0, float p1, float m1, float t)

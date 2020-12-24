@@ -146,7 +146,7 @@ void _1_AX12_MOVE_WITH_TIME(byte ID, unsigned short desti, unsigned short torque
 {	
 	//Convert local ID to AX-12 bus ID
 	//LocID @6 = bus @1
-	ID -= 5;
+	ID -= 6;
 	
 	//Calcule la nouvelle speed à appliquer a l'ax12
 	//Get it's current position

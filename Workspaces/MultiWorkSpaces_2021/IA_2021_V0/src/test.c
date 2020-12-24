@@ -156,8 +156,6 @@ void TEST_Strategie_2021(void* pvParameter)
 
 	GOTO_XY_ARRIERE_WAIT(65, 850);
 
-	Task_Delay(300);
-
 	//Pinces fermées
 	_0_Actionneurs_Move_2_Servo(13, 0, 0,
 			14, 0, 0,
@@ -173,7 +171,7 @@ void TEST_Strategie_2021(void* pvParameter)
 			500, true);
 
 	GOTO_TO_SPLINE_AVANT_WAIT(65, 850,
-			200, 850,
+			300, 850,
 			300, 200,
 			670, 200);
 
