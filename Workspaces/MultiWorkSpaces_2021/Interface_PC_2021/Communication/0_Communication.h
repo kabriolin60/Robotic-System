@@ -17,6 +17,9 @@ extern RINGBUFF_T rxring_RS485;
 /* Receive ring buffer for XBEE*/
 extern RINGBUFF_T rxring_XBEE;
 
+/* Receive ring buffer for RS485_2*/
+extern RINGBUFF_T rxring_RS485_2;
+
 /* Receive ring buffer for USB*/
 #ifdef USE_USB
 extern RINGBUFF_T rxring_USB;
@@ -27,6 +30,8 @@ void _0_Communication_Init(void);
 void _0_Communication_Init_USB(void);
 
 void _0_Communication_Init_RS485(void);
+
+void _0_Communication_Init_RS485_2(void);
 
 void _0_Communication_Init_XBEE(void);
 

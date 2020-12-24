@@ -45,6 +45,12 @@ RINGBUFF_T rxring_RS485;
 /* Receive buffer for RS485*/
 static TO_AHBS_RAM3 uint8_t rxbuff_RS485[RS485_RX_RB_SIZE];
 
+/* Receive ring buffer for RS485-2*/
+RINGBUFF_T rxring_RS485_2;
+/* Receive buffer for RS485*/
+static TO_AHBS_RAM3 uint8_t rxbuff_RS485_2[RS485_RX_RB_SIZE];
+
+
 /* Receive ring buffer for XBEE*/
 RINGBUFF_T rxring_XBEE;
 /* Receive buffer for XBEE*/
@@ -91,6 +97,8 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_USB();
 
 	_0_Communication_Init_RS485();
+
+	_0_Communication_Init_RS485_2();
 
 	_0_Communication_Init_XBEE();
 
@@ -185,6 +193,56 @@ void _0_Communication_Init_RS485(void)
 
 
 /*****************************************************************************
+ ** Function name:		_0_Communication_Init_RS485
+ **
+ ** Descriptions:		Fonction d'initialisation des actions de communication pour le RS485
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Init_RS485_2(void)
+{
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 25, IOCON_MODE_INACT, IOCON_FUNC3);	// P0.25 TXD3
+	Chip_IOCON_PinMux(LPC_IOCON, 0, 26, IOCON_MODE_INACT, IOCON_FUNC3); // P0.26 RXD3
+
+	//Init de la pin de direction du RS485
+	_0_RS485_Init(RS485_2_DIR_PORT, RS485_2_DIR_BIT);
+
+	NVIC_DisableIRQ(RS485_2_IRQ_SELECTION);
+
+	/* Setup UART for 115.2K8N1 */
+	Chip_UART_Init(RS485_2_UART);
+	Chip_UART_SetBaud(RS485_2_UART, BAUDRATE_RS485_2);
+	Chip_UART_ConfigData(RS485_2_UART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
+	Chip_UART_TXEnable(RS485_2_UART);
+
+	/* Before using the ring buffers, initialize them using the ring buffer init function */
+	/* RS485 RX ring buffer init */
+	RingBuffer_Init(&rxring_RS485_2, rxbuff_RS485_2, 1, RS485_RX_RB_SIZE);
+
+
+	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
+	Chip_UART_SetupFIFOS(RS485_2_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
+
+	/* Enable receive data and line status interrupt */
+	Chip_UART_IntEnable(RS485_2_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
+
+	/* Disable transmit status interrupt */
+	Chip_UART_IntDisable(RS485_2_UART, UART_IER_THREINT);
+
+#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
+	//Identifie l'interruption de RS485 pour FreeRTOS+Trace
+	Trace_Timer_RS485_Handle = xTraceSetISRProperties("ID_ISR_RX_RS485", RS485_IRQ_SELECTION);
+#endif
+
+	/* preemption = 1, sub-priority = 1 */
+	NVIC_ClearPendingIRQ(RS485_2_IRQ_SELECTION);
+	NVIC_SetPriority(RS485_2_IRQ_SELECTION, 6);
+}
+
+
+/*****************************************************************************
  ** Function name:		_0_Communication_Init_XBEE
  **
  ** Descriptions:		Fonction d'initialisation des actions de communication pour le RS485
@@ -271,6 +329,55 @@ void RS485_HANDLER_NAME(void)
 
 	//Clear ISR flag
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
+}
+
+
+/*****************************************************************************
+ ** Function name:		RS485_HANDLER_NAME
+ **
+ ** Descriptions:		Handler de reception RS485
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void RS485_2_HANDLER_NAME(void)
+{
+	static bool already_flaged = pdFALSE;
+	BaseType_t pxHigherPriorityTaskWoken = false;
+
+	if(RingBuffer_Count(&rxring_RS485_2) <= 10)
+	{
+		already_flaged = pdFALSE;
+	}
+
+	//Manage ISR, and read datas
+	Chip_UART_IRQRBHandler(RS485_2_UART, &rxring_RS485_2, &txring);
+
+	//If received data count > 10, notify the reception task
+	if(RingBuffer_Count(&rxring_RS485_2) > 10 && !already_flaged)
+	{
+		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
+				eGROUP_SYNCH_RS485_2_Rx_Data_Avail,		 /* The bits being set. */
+				&pxHigherPriorityTaskWoken);
+
+		already_flaged = pdTRUE;
+	}else if(RingBuffer_Count(&rxring_RS485_2) >= RS485_RX_RB_SIZE/2)
+	{
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true);
+
+
+		//Assure le coup en forçant un reset du Flag si la moitié du Buffer est atteinte
+		xEventGroupSetBitsFromISR(_0_Comm_EventGroup,    /* The event group being updated. */
+				eGROUP_SYNCH_RS485_2_Rx_Data_Avail,		 /* The bits being set. */
+				&pxHigherPriorityTaskWoken);
+	}
+
+	//Force un changement de tache
+	portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
+
+	//Clear ISR flag
+	NVIC_ClearPendingIRQ(RS485_2_IRQ_SELECTION);
 }
 
 

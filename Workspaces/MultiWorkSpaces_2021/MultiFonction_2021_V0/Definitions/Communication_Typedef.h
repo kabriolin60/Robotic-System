@@ -14,7 +14,9 @@
 #include "stdbool.h"
 
 
-#define BAUDRATE_RS485	2000000
+#define BAUDRATE_RS485		2000000
+
+#define	BAUDRATE_RS485_2	2000000
 
 
 
@@ -127,6 +129,7 @@ Definition des adresses des escalves
  **************************************************/
 enum Slave_Adresses
 {
+	INTERFACE_PC = -4,
 	BALISE_BOARD = -3,
 	PC = -2,
 	ALL_CARDS = -1,

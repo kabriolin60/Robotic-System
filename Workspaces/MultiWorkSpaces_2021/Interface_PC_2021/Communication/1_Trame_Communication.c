@@ -605,6 +605,9 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 		return true;
 	}
 
+
+
+
 	//Pour renvoyer par Xbee les messages de Debug circulant sur le bus
 	if(received_trame->Slave_Adresse == PC && LOG_Debug_Port == Xbee_port)
 	{
@@ -654,6 +657,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 	//Active les ISR du RS485 après l'initialisation des taches
 	NVIC_EnableIRQ(RS485_IRQ_SELECTION);
 	NVIC_EnableIRQ(XBEE_IRQ_SELECTION);
+	NVIC_EnableIRQ(RS485_2_IRQ_SELECTION);
 
 	EventBits_t uxBits;
 
@@ -662,7 +666,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		//Attente de l'info qu'une data est dispo dans un buffer
 		//Sans effacer le bit de Flag
 		uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
-				eGROUP_SYNCH_RS485_Rx_Data_Avail | eGROUP_SYNCH_USB_Rx_Data_Avail | eGROUP_SYNCH_XBEE_Rx_Data_Avail, /* The bits within the event group to wait for. */
+				eGROUP_SYNCH_RS485_Rx_Data_Avail | eGROUP_SYNCH_USB_Rx_Data_Avail | eGROUP_SYNCH_XBEE_Rx_Data_Avail | eGROUP_SYNCH_RS485_2_Rx_Data_Avail, /* The bits within the event group to wait for. */
 				pdTRUE,        /* Clear bits before returning. */
 				pdFALSE,        /* Wait for ALL bits to be set */
 				portMAX_DELAY );/* Wait a maximum of xTicksToWait for either bit to be set. */
@@ -683,6 +687,10 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 		{
 			//Un message est dispo dans le buffer XBEE
 			Falged_ringBuffer = &rxring_XBEE;
+		}else if(uxBits & (eGROUP_SYNCH_RS485_2_Rx_Data_Avail ))
+		{
+			//Un message est dispo dans le buffer XBEE
+			Falged_ringBuffer = &rxring_RS485_2;
 		}
 
 		//Temps qu'il y a des datas à lire dans le buffer en question

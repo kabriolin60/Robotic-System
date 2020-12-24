@@ -19,13 +19,7 @@ Output: None
  **************************************************/
 void _0_ADC_Init(void)
 {
-	Chip_ADC_Init(_LPC_ADC_ID, &ADCSetup);
 
-	//Tension Strategie
-	Chip_IOCON_PinMux(LPC_IOCON, ADC_CHANNEL_7_PORT, ADC_CHANNEL_7_BIT, IOCON_MODE_INACT, IOCON_FUNC2);
-
-	//Tension Batterie sur carte IA
-	Chip_IOCON_PinMux(LPC_IOCON, ADC_CHANNEL_5_PORT, ADC_CHANNEL_5_BIT, IOCON_MODE_INACT, IOCON_FUNC2);
 }
 
 
