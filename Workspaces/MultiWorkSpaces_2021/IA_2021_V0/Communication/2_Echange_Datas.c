@@ -436,8 +436,15 @@ void _2_Communication_Boards_Status(void* pvParameters)
 
 		if(boucle % 50 == 0 && LOG_Debug_Port == Xbee_port)
 		{
+			_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
+
 			//Si la communication de Debug se fait par Xbee
 			_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
+			/*
+			 * Envoi de la position de ce Robot à l'autre Robot
+			 */
+			_2_Comm_Envoi_Position_Autre_Robot(_Strategie_Get_Robot_ID(), _0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
+
 			Task_Delay_Until(delai_demande_info);
 		}
 
@@ -907,7 +914,6 @@ void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communic
 	if(Infos->Numero_Carte == 0)
 		return;
 
-
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
@@ -1025,7 +1031,6 @@ void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_
 }
 
 
-
 /*****************************************************************************
  ** Function name:		_2_Comm_Envoi_Position_Autre_Robot
  **
@@ -1053,7 +1058,7 @@ void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_R
 		return;
 	}
 
-	trame_echange.Instruction = REPONSE_AUTRE_ROBOT_POSITION;
+	trame_echange.Instruction = POSITION_AUTRE_ROBOT;
 	trame_echange.Slave_Adresse = 0; //La carte IA de l'autre Robot est destinataire
 
 	trame_echange.Length = COPYDATA(pos, trame_echange.Data);

@@ -82,6 +82,6 @@ void _2_Comm_Send_Info_Carte_IA(enum enum_canal_communication canal);
 
 void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_Max, short Cumul, byte Sommation, byte Enable, enum enum_canal_communication canal);
 
-void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_Robot PositionRobot, enum enum_canal_communication canal, byte adresse_Recepteur);											//0 = GR, 1 = PR)
+void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_Robot PositionRobot, enum enum_canal_communication canal, byte adresse_Recepteur);
 
 #endif /* 2_COMMUNICATION_2_ECHANGE_DATAS_H_ */
