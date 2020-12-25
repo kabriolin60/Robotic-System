@@ -606,7 +606,10 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 	}
 
 	//Pour renvoyer par Xbee les messages de Debug circulant sur le bus
-	if(received_trame->Slave_Adresse == PC && LOG_Debug_Port == Xbee_port)
+	if(received_trame->Slave_Adresse == PC &&
+			LOG_Debug_Port == Xbee_port &&
+			received_trame->Instruction != GRAPHIQUES_ADD_DATA &&
+			received_trame->Instruction != GRAPHIQUES_CLEAR)
 	{
 		received_trame->XBEE_DEST_ADDR = XBee_PC;
 

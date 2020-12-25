@@ -59,7 +59,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 		Nb_PONG_recus++;
 		break;
 
-	case REPONSE_AUTRE_ROBOT_POSITION:
+	case POSITION_AUTRE_ROBOT:
 		_2_Comm_RX_Position_Second_Robot(trame);
 		break;
 

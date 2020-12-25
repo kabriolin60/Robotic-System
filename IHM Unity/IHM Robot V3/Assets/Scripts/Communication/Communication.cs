@@ -18,7 +18,7 @@ public class Communication
 
 		//Position Robot
 		SET_ROBOT_POSITION = 20,
-		REPONSE_AUTRE_ROBOT_POSITION,
+		POSITION_AUTRE_ROBOT,
 
 		//Servos et AX12
 		DESTINATION_SERVOS_AND_AX12 = 30,
@@ -201,6 +201,7 @@ public class Communication
 
 	public enum Adress_Xbee : ushort
 	{
+		Dummy = 0x00,
 		Gros_Robot = 0x01,
 		Petit_Robot,
 		Balise_Gros_Robot,

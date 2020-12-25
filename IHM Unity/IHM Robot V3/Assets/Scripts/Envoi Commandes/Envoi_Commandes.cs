@@ -133,7 +133,7 @@ public class Envoi_Commandes : MonoBehaviour
         trame = Communication.GetTrameFromStruct<Infos_Carte.Com_Position_Robot_Data>(position); 
 
         trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD; //uniquement la carte IA qui gère l'évitement
-        trame.Instruction = Communication.Com_Instruction.REPONSE_AUTRE_ROBOT_POSITION;
+        trame.Instruction = Communication.Com_Instruction.POSITION_AUTRE_ROBOT;
         trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
         GameObject.FindWithTag("Communication port").GetComponent<Message_Sender>().Send_Trame(trame);

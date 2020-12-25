@@ -24,7 +24,7 @@
 /**************************************************
 Declaration des options de Debug
  **************************************************/
-#define LOG_Debug_Port 				RS485_port//Xbee_port//RS485_port
+#define LOG_Debug_Port 				Xbee_port//RS485_port
 
 #define Astar_Display_Vectors		1
 #define Astar_Diplay_Contenu		0
