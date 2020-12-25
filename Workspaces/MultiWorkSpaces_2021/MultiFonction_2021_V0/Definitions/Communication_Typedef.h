@@ -213,7 +213,7 @@ struct Communication_PONG
 /**************************************************
 Declaration de la definition de la Structure de communication permettant de faire remonter la position du Robot vers la carte IA ou vers le PC
  **************************************************/
-enum Communication_Ports
+/*enum Communication_Ports
 {
 	RS485_1,
 	RS485_2,
@@ -221,7 +221,7 @@ enum Communication_Ports
 	I2C_2,
 	USB,
 	XBEE
-};
+};*/
 
 
 
@@ -237,7 +237,17 @@ struct Com_Position_Robot
 	int16_t Position_Y;			//*10
 	int16_t Angle;				//*100 //Orientation du Robot (° *100)
 	byte Bloquage;
-	//byte Fin_Deplacement;
+};
+
+
+struct Com_Position_Robot_Inter_Robots
+{
+	//Instruction 10		//7 octets + alignement = 8
+	//Position du Robot
+
+	byte Robot_ID;
+
+	struct Com_Position_Robot Position;
 };
 
 /*************************************************/
@@ -300,7 +310,7 @@ struct Com_Reponse_Info
 {
 	//instruction 36		//58 + alignement = 60 octets
 
-	byte Numero_Robot;											//0 = PR, 1 = GR
+	byte Numero_Robot;											//0 = GR, 1 = PR
 
 	byte Numero_Carte;											//Numero de la carte emettant le message // 1 octet
 

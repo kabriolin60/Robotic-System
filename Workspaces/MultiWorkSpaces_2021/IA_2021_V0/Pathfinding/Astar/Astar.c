@@ -1214,11 +1214,8 @@ void Astar_Debug_Send_String(char* str)
  *****************************************************************************/
 void Astar_Debug_Send_char(char ch)
 {
-	while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-	{
-		__asm volatile( "nop" );
-	}
-	Chip_UART_SendByte(RS484_UART, ch);
+	while((Chip_UART_ReadLineStatus(RS485_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
+	Chip_UART_SendByte(RS485_UART, ch);
 }
 
 

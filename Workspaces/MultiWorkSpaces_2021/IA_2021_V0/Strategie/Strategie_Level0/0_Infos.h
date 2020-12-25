@@ -21,6 +21,8 @@ struct Com_Reponse_Info* _0_Get_Ptr_Card(byte number);
 
 struct st_POSITION_ROBOT _0_Get_Robot_Position(void);
 
+struct Com_Position_Robot _0_Get_Robot_Position_Communication(void);
+
 struct servo_destination _0_Get_Servo_Position(byte ID);
 
 void _0_Set_Position_SecondRobot(int16_t x, int16_t y);

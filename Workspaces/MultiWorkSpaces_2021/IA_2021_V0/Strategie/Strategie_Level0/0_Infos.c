@@ -103,6 +103,20 @@ struct st_POSITION_ROBOT _0_Get_Robot_Position(void)
 }
 
 
+struct Com_Position_Robot _0_Get_Robot_Position_Communication(void)
+{
+	struct Com_Position_Robot position;
+
+	if( xSemaphoreTake( xMutex_Protection, ms_to_tick(5) ) == pdTRUE )
+	{
+		position = Infos_Cartes[0].PositionRobot;
+	}
+
+	xSemaphoreGive( xMutex_Protection );
+	return position;
+}
+
+
 /*****************************************************************************
  ** Function name:		_0_Get_Servo_Position
  **

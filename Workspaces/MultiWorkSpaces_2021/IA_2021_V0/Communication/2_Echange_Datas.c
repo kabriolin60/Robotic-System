@@ -413,30 +413,35 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			Task_Delay_Until(delai_demande_info);
 		}
 
-		/*
-		 * Envoi l'état de la carte IA
-		 */
-		_2_Comm_Send_Info_Carte_IA(LOG_Debug_Port);
-		Task_Delay_Until(delai_demande_info);
+		if(boucle % 50 == 0)
+		{
+			/*
+			 * Envoi l'état de la carte IA
+			 */
+			_2_Comm_Send_Info_Carte_IA(LOG_Debug_Port);
+			Task_Delay_Until(delai_demande_info);
+
+			/*
+			 * Envoi de la position de ce Robot à l'autre Robot
+			 */
+			//_2_Comm_Envoi_Position_Autre_Robot(_Strategie_Get_Robot_ID(), _0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
+			//Task_Delay_Until(delai_demande_info);
+		}
 
 
 		//Demande les infos du PC s'il a des trucs à envoyer
-		if(boucle % 5 == 0)
+		_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
+		Task_Delay_Until(delai_demande_info);
+
+
+		if(boucle % 50 == 0 && LOG_Debug_Port == Xbee_port)
 		{
-			//Toutes les 1 secondes
-			_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
-
 			//Si la communication de Debug se fait par Xbee
-			if(LOG_Debug_Port == Xbee_port)
-			{
-				_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
-			}
-
+			_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
 			Task_Delay_Until(delai_demande_info);
 		}
 
 		boucle++;
-
 		if(boucle == 400)
 		{
 			/*
@@ -899,6 +904,10 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
  *****************************************************************************/
 void _2_Comm_Send_Infos(struct Com_Reponse_Info *Infos, enum enum_canal_communication canal)
 {
+	if(Infos->Numero_Carte == 0)
+		return;
+
+
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
@@ -1013,4 +1022,43 @@ void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_
 
 	//Envoi avec attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_PARAMETRES_PID, eGROUP_STATUS_CARTE_MultiFCT_1);
+}
+
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Envoi_Position_Autre_Robot
+ **
+ ** Descriptions:		Fonction d'envoi de la position au second Robot
+ **
+ ** parameters:			ID du Robot emetteur
+ ** 					ptr sur la position à envoyer
+ ** 					Canal de communication
+ ** 					@ de l'autre Robot
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_Robot PositionRobot, enum enum_canal_communication canal, byte adresse_Recepteur)
+{
+	struct Com_Position_Robot_Inter_Robots pos;
+	pos.Position = PositionRobot;
+	pos.Robot_ID = Numero_Robot;
+
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = REPONSE_AUTRE_ROBOT_POSITION;
+	trame_echange.Slave_Adresse = 0; //La carte IA de l'autre Robot est destinataire
+
+	trame_echange.Length = COPYDATA(pos, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;//adresse_Recepteur;
+
+	//Envoi sans attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 }

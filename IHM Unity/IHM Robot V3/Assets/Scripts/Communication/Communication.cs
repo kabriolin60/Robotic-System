@@ -201,12 +201,17 @@ public class Communication
 
 	public enum Adress_Xbee : ushort
 	{
-		XBee_PC,
+		Gros_Robot = 0x01,
+		Petit_Robot,
+		Balise_Gros_Robot,
+		Balise_Petit_Robot,
+		XBee_PC = 0x0A,
 		ALL_XBEE = 0xFFFF,
 	}
 
 	public enum Slave_Adresses : sbyte
 	{
+		Interface_PC = -4,
 		BALISE_BOARD = -3,
 		PC = -2,
 		ALL_CARDS = -1,

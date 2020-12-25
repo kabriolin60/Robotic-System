@@ -180,7 +180,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 	Message_To_Send->Data[2] = (byte)(length & 0xFF);                //length low
 
 	Message_To_Send->Data[3] = 0x01;                         //Frame type: Tx, 16 bits addr
-	Message_To_Send->Data[4] = 0x01;                         //Frame ID: 0x01 = demande d'ack
+	Message_To_Send->Data[4] = 0x00;                         //Frame ID: 0x01 = demande d'ack
 
 	Message_To_Send->Data[5] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR >> 8);        //add high
 	Message_To_Send->Data[6] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR & 0xFF);      //add low
@@ -572,7 +572,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-			_2_Comm_Send_Communication_Status(LOG_Debug_Port);
+			//_2_Comm_Send_Communication_Status(LOG_Debug_Port);
 			return pdFAIL;
 		}
 	}else

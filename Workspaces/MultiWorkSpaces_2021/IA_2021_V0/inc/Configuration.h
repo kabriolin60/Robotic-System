@@ -134,7 +134,7 @@ Déclaration des cannaux des Codeurs
 /**************************************************
 Declaration des Reglages liés à la Communication RS485
  **************************************************/
-#define RS484_UART					LPC_UART1
+#define RS485_UART					LPC_UART1
 
 #define BAUDRATE_XBEE				57600
 #define XBEE_UART					LPC_UART2
