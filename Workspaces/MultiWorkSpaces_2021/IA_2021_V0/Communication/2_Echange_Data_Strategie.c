@@ -38,7 +38,7 @@ void _2_Comm_Strategie_Init()
  ** Returned value:		None
  **
  *****************************************************************************/
-void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum_canal_communication canal)
+void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum_canal_communication canal, byte send_to_other_Robot)
 {
 	struct Communication_Action_Datas data_to_send;
 
@@ -48,6 +48,7 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
 
 	data_to_send.Name_Length = COPYSTRING(data->Name, data_to_send.Name);
 	data_to_send.Name[data_to_send.Name_Length] = 0;
+	data->Name_Length = data_to_send.Name_Length;
 
 	data_to_send.Points = data->Points;
 	data_to_send.Priority = data->Priority;
@@ -80,14 +81,12 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
 	}
 
 	//Pour la stratégie, pas d'attente d'ACK
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
-
-	if(LOG_Debug_Port == Xbee_port)
-	{
-		trame_echange.XBEE_DEST_ADDR = XBee_PC;
-		//Pour la stratégie, pas d'attente d'ACK
+	if(send_to_other_Robot)
 		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
-	}
+
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+	//Pour la stratégie, pas d'attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, LOG_Debug_Port, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 
@@ -102,25 +101,41 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
  ** Returned value:		None
  **
  *****************************************************************************/
-void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char* commentaire, enum enum_canal_communication canal)
+void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char* commentaire, enum enum_canal_communication canal, byte send_to_other_Robot)
 {
 	struct Communication_Action_Datas data_to_send;
+	struct Communication_Action_Datas_Light data_to_send_light;
 
 	data_to_send.ID = data->ID;
+	data_to_send_light.ID = data->ID;
 
 	data_to_send.Robot_ID = _Strategie_Get_Robot_ID();
+	data_to_send_light.Robot_ID = _Strategie_Get_Robot_ID();
 
 	data_to_send.Name_Length = COPYSTRING(commentaire, data_to_send.Name);
 	data_to_send.Name[data_to_send.Name_Length] = 0;
 
 	data_to_send.Points = data->Points;
+
 	data_to_send.Priority = data->Priority;
+
 	data_to_send.Qui_Fait = data->Qui_Fait;
+	data_to_send_light.Qui_Fait = data->Qui_Fait;
+
 	data_to_send.Qui_Peut = data->Qui_Peut;
+	data_to_send_light.Qui_Peut = data->Qui_Peut;
+
 	data_to_send.State = data->State;
+	data_to_send_light.State = data->State;
+
 	data_to_send.Step = data->Step;
+	data_to_send_light.Step = data->Step;
+
 	data_to_send.Temps_maxi = data->Temps_maxi / 10;
+	data_to_send_light.Temps_maxi = data_to_send.Temps_maxi;
+
 	data_to_send.Temps_mini = data->Temps_mini / 10;
+	data_to_send_light.Temps_mini = data_to_send.Temps_mini;
 
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_STRATEGIE_TxTrameDispo)== pdFAIL )
@@ -133,7 +148,7 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
 	trame_echange.Instruction = STRATEGIE_CHANGEMENT_ETAT;
 	trame_echange.Slave_Adresse = IA_BOARD;
 
-	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
+	trame_echange.Length = COPYDATA(data_to_send_light, trame_echange.Data);
 
 	if(_Strategie_Get_Robot_ID() == GROS_ROBOT)
 	{
@@ -144,14 +159,13 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
 	}
 
 	//Pour la stratégie, pas d'attente d'ACK
-	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
-
-	if(LOG_Debug_Port == Xbee_port)
-	{
-		trame_echange.XBEE_DEST_ADDR = XBee_PC;
-		//Pour la stratégie, pas d'attente d'ACK
+	if(send_to_other_Robot)
 		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
-	}
+
+	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+	//Pour la stratégie, pas d'attente d'ACK
+	_1_Communication_Create_Trame(&trame_echange, LOG_Debug_Port, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
 }
 
 
@@ -166,22 +180,21 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
  *****************************************************************************/
 void _2_Comm_Strategie_RX_Action_Update(struct Communication_Trame* data)
 {
-	struct Communication_Action_Datas data_rx;
+	struct Communication_Action_Datas_Light data_rx;
 	COPYDATA2(data->Data, data_rx);
 
 	struct Action_Datas* ptr_action = _Strategie_Get_Action_By_ID(data_rx.ID);
 
 	ptr_action->State = data_rx.State;
 	ptr_action->Step = data_rx.Step;
+	ptr_action->Qui_Peut = data_rx.Qui_Peut;
 	ptr_action->Qui_Fait = data_rx.Qui_Fait;
 	ptr_action->Temps_maxi = data_rx.Temps_maxi; ptr_action->Temps_maxi *= 10;
 	ptr_action->Temps_mini = data_rx.Temps_mini; ptr_action->Temps_mini *= 10;
-	ptr_action->Points = data_rx.Points;
-	ptr_action->Priority = data_rx.Priority;
 
 	//Envoie au PC cette action
 	if(LOG_Debug_Port != Xbee_port)
-		_2_Comm_Strategie_Send_Action_State_Update(ptr_action, "Inter Robots", LOG_Debug_Port);
+		_2_Comm_Strategie_Send_Action_State_Update(ptr_action, "Inter Robots", LOG_Debug_Port, pdFALSE);
 }
 
 

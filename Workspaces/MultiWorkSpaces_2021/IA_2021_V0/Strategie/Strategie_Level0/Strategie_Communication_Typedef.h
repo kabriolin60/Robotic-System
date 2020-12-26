@@ -40,6 +40,25 @@ struct Communication_Action_Datas
 	unsigned short Temps_maxi;
 };
 
+struct Communication_Action_Datas_Light
+{
+	byte ID;
+
+	byte Robot_ID;
+
+	enum Action_State State;
+
+	byte Step;
+
+	enum Qui Qui_Fait;
+
+	enum Qui Qui_Peut;
+
+	unsigned short Temps_mini;
+
+	unsigned short Temps_maxi;
+};
+
 
 
 #endif /* STRATEGIE_COMMUNICATION_TYPEDEF_H_ */

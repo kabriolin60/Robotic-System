@@ -6,6 +6,7 @@
  */
 
 #include "2_Echange_Datas.h"
+#include "2_Echange_Datas_Reception.h"
 #include "1_Trame_Communication.h"
 
 static TO_AHBS_RAM3 struct Communication_Trame trame_echange;
@@ -93,7 +94,8 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	//Send the revision of this board firmware
 	if(!relese_sent)
 	{
-		sprintf(str, "MultiFct @%c, release= %s.%s; %s; %s\n",
+		sprintf(str, "MultiFct, Robot: %d; @%c, release= %s.%s; %s; %s\n",
+				_2_Comm_Get_Robot_ID(),
 				ADRESSE_CARTE_CHAR,
 				MAJOR_RELEASE,
 				MINOR_RELEASE,
@@ -111,7 +113,8 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 {
-	sprintf(str, "Multi_Fct @%c mess= %ld // erreurs= %ld\n",
+	sprintf(str, "Multi_Fct, Robot: %d; @%c mess= %ld // erreurs= %ld\n",
+			_2_Comm_Get_Robot_ID(),
 			ADRESSE_CARTE_CHAR,
 			Nb_Messages_recus,
 			Nb_Erreurs_com);

@@ -264,7 +264,8 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 	//Send the revision of this board firmware
 	if(!release_sent)
 	{
-		sprintf(str, "IA release= %s.%s; %s; %s\n",
+		sprintf(str, "IA Robot: %d; release= %s.%s; %s; %s\n",
+				_Strategie_Get_Robot_ID(),
 				MAJOR_RELEASE,
 				MINOR_RELEASE,
 				__DATE__,
@@ -278,7 +279,8 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 {
-	sprintf(str, "IA mess= %ld // erreurs= %ld\n",
+	sprintf(str, "IA Robot: %d; mess= %ld // erreurs= %ld\n",
+			_Strategie_Get_Robot_ID(),
 			Nb_Messages_recus,
 			Nb_Erreurs_com);
 
@@ -426,7 +428,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			/*
 			 * Envoi de la position de ce Robot à l'autre Robot
 			 */
-			//_2_Comm_Envoi_Position_Autre_Robot(_0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
+			_2_Comm_Envoi_Position_Autre_Robot(_0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
 		}
 
 		//Demande les infos du PC s'il a des trucs à envoyer

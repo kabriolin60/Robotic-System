@@ -16,7 +16,7 @@ public class Logger_Debug
 		Color_Red
 	};
 
-	public const byte Max_Char_per_Log = 59;
+	public const byte Max_Char_per_Log = Communication.COMMUNICATION_TRAME_MAX_DATA - 5;
 	[StructLayout(LayoutKind.Sequential)]
 	public class Logger_Debug_Data
 	{

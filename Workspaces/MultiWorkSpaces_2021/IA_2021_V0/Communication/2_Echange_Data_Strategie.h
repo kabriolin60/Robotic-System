@@ -20,9 +20,9 @@
 
 void _2_Comm_Strategie_Init();
 
-void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum_canal_communication canal);
+void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum_canal_communication canal, byte send_to_other_Robot);
 
-void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char* commentaire, enum enum_canal_communication canal);
+void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char* commentaire, enum enum_canal_communication canal, byte send_to_other_Robot);
 
 void _2_Comm_Strategie_RX_Action_Update(struct Communication_Trame* data);
 

@@ -107,7 +107,7 @@ enum Com_Instruction
 /**************************************************
 Definition du nombre maximum de donnees dans une communication
  **************************************************/
-#define COMMUNICATION_TRAME_MAX_DATA  64
+#define COMMUNICATION_TRAME_MAX_DATA  80
 
 
 /**************************************************
@@ -382,7 +382,7 @@ enum Channel_Debug
 };
 
 
-#define Max_Char_per_Log 59
+#define Max_Char_per_Log COMMUNICATION_TRAME_MAX_DATA - 5
 struct Logger_Debug_Data
 {
 	byte Nombre_Carateres;								//Nombre d'octets de la chaine de commentaires à suivre						//1 octet

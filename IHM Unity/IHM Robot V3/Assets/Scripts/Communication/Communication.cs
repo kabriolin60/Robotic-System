@@ -197,7 +197,7 @@ public class Communication
 		TEST_COMMUNICATION = 255,
 	};
 
-	public const byte COMMUNICATION_TRAME_MAX_DATA = 64;
+	public const byte COMMUNICATION_TRAME_MAX_DATA = 80;
 
 	public enum Adress_Xbee : ushort
 	{

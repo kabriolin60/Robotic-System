@@ -288,7 +288,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port, pdFALSE);
 
 
 
@@ -310,7 +310,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port, pdFALSE);
 
 
 
@@ -332,7 +332,7 @@ void _Strategie_Init_Strategie_2021(void* pvparameters)
 	Actions_2021.Actions[Actions_2021.Nombre_Actions] = temp_action;
 
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port);
+	_2_Comm_Strategie_Send_Action_Creation(&Actions_2021.Actions[Actions_2021.Nombre_Actions++], LOG_Debug_Port, pdFALSE);
 
 
 
