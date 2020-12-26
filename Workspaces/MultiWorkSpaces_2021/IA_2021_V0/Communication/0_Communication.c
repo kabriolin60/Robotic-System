@@ -438,8 +438,8 @@ void _0_Communication_Send_Data(void *pvParameters)
 				break;
 
 			case Xbee_port:
+				Task_Delay(2.0f);
 				_0_Communication_Send_XBEE(XBEE_UART, &txring, (int)Message.length);
-				Task_Delay(1.0f);
 				break;
 
 			default:
@@ -494,11 +494,11 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUA
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		for(int i = 0; i < 8; i++)__asm volatile( "nop" );
+		//for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 
 		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
 		{
-			for(int i = 0; i < 8; i++)__asm volatile( "nop" );
+			//for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 		}
 	}
 
