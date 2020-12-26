@@ -34,7 +34,7 @@ void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum 
 
 	if(new_state == Action_En_cours)
 	{
-		if(Chip_GPIO_GetPinState(LPC_GPIO, GROS_PETIT_PIN_PORT, GROS_PETIT_PIN_BIT) == GROS_ROBOT)
+		if(_Strategie_Get_Robot_ID() == GROS_ROBOT)
 		{
 			action_to_change->Qui_Fait = Action_Gros_Robot;
 		}else
@@ -46,8 +46,12 @@ void _Strategie_Change_Action_State(struct Action_Datas* action_to_change, enum 
 		action_to_change->Qui_Fait = Action_Personne;
 	}
 
+	//Envoie au second robot cette action
+	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, Xbee_port);
+
 	//Envoie au PC cette action
-	_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, LOG_Debug_Port);
+	if(LOG_Debug_Port != Xbee_port)
+		_2_Comm_Strategie_Send_Action_State_Update(action_to_change, commentaire, LOG_Debug_Port);
 }
 
 

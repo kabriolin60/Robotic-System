@@ -14,6 +14,7 @@
 #include "2_Echange_Datas.h"
 #include "0_Infos.h"
 #include "0_Event_Group.h"
+#include "2_Echange_Data_Strategie.h"
 
 static long Nb_Messages_Interpretes = 0;
 
@@ -61,6 +62,10 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 
 	case POSITION_AUTRE_ROBOT:
 		_2_Comm_RX_Position_Second_Robot(trame);
+		break;
+
+	case STRATEGIE_CHANGEMENT_ETAT:
+		_2_Comm_Strategie_RX_Action_Update(trame);
 		break;
 
 	case PING:

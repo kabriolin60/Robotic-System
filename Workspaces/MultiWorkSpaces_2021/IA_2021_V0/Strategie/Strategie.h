@@ -43,6 +43,10 @@ void _Strategie_Set_External_LED_YELLOW_Status(byte value);
 byte _Strategie_Get_External_LED_GREEN_Status(void);
 void _Strategie_Set_External_LED_GREEN_Status(byte value);
 
+
+
+struct Action_Datas* _Strategie_Get_Action_By_ID(byte ID);
+
 void _Strategie_Init_Strategie_2021(void* pvparameters);
 
 #endif /* STRATEGIE_H_ */

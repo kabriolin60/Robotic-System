@@ -426,7 +426,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			/*
 			 * Envoi de la position de ce Robot à l'autre Robot
 			 */
-			_2_Comm_Envoi_Position_Autre_Robot(_0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
+			//_2_Comm_Envoi_Position_Autre_Robot(_0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
 		}
 
 		//Demande les infos du PC s'il a des trucs à envoyer
@@ -1050,7 +1050,7 @@ void _2_Comm_Envoi_Position_Autre_Robot(struct Com_Position_Robot PositionRobot,
 	}
 
 	trame_echange.Instruction = POSITION_AUTRE_ROBOT;
-	trame_echange.Slave_Adresse = 0; //La carte IA de l'autre Robot est destinataire
+	trame_echange.Slave_Adresse = IA_BOARD; //La carte IA de l'autre Robot est destinataire
 
 	trame_echange.Length = COPYDATA(PositionRobot, trame_echange.Data);
 	trame_echange.XBEE_DEST_ADDR = adresse_Recepteur;

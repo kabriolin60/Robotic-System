@@ -67,13 +67,27 @@ void _2_Comm_Strategie_Send_Action_Creation(struct Action_Datas* data, enum enum
 	}
 
 	trame_echange.Instruction = STRATEGIE_CHANGEMENT_ETAT;
-	trame_echange.Slave_Adresse = PC;
+	trame_echange.Slave_Adresse = IA_BOARD;
 
 	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
-	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
+
+	if(_Strategie_Get_Robot_ID() == GROS_ROBOT)
+	{
+		trame_echange.XBEE_DEST_ADDR = Xbee_address_Petit_Robot;
+	}else
+	{
+		trame_echange.XBEE_DEST_ADDR = Xbee_address_Gros_Robot;
+	}
 
 	//Pour la stratégie, pas d'attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
+
+	if(LOG_Debug_Port == Xbee_port)
+	{
+		trame_echange.XBEE_DEST_ADDR = XBee_PC;
+		//Pour la stratégie, pas d'attente d'ACK
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
+	}
 }
 
 
@@ -117,11 +131,57 @@ void _2_Comm_Strategie_Send_Action_State_Update(struct Action_Datas* data, char*
 	}
 
 	trame_echange.Instruction = STRATEGIE_CHANGEMENT_ETAT;
-	trame_echange.Slave_Adresse = PC;
+	trame_echange.Slave_Adresse = IA_BOARD;
 
 	trame_echange.Length = COPYDATA(data_to_send, trame_echange.Data);
-	trame_echange.XBEE_DEST_ADDR = ALL_XBEE;
 
-	//Pour la stratégie, pas d'ACK, pas d'attente d'ACK
+	if(_Strategie_Get_Robot_ID() == GROS_ROBOT)
+	{
+		trame_echange.XBEE_DEST_ADDR = Xbee_address_Petit_Robot;
+	}else
+	{
+		trame_echange.XBEE_DEST_ADDR = Xbee_address_Gros_Robot;
+	}
+
+	//Pour la stratégie, pas d'attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
+
+	if(LOG_Debug_Port == Xbee_port)
+	{
+		trame_echange.XBEE_DEST_ADDR = XBee_PC;
+		//Pour la stratégie, pas d'attente d'ACK
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_STRATEGIE_TxTrameDispo, pdFALSE, 0, 0);
+	}
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Strategie_RX_Action_Update
+ **
+ ** Descriptions:		Fonction de reception d'un changement de Strategie depuis un autre Robot
+ **
+ ** parameters:			datas
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Strategie_RX_Action_Update(struct Communication_Trame* data)
+{
+	struct Communication_Action_Datas data_rx;
+	COPYDATA2(data->Data, data_rx);
+
+	struct Action_Datas* ptr_action = _Strategie_Get_Action_By_ID(data_rx.ID);
+
+	ptr_action->State = data_rx.State;
+	ptr_action->Step = data_rx.Step;
+	ptr_action->Qui_Fait = data_rx.Qui_Fait;
+	ptr_action->Temps_maxi = data_rx.Temps_maxi; ptr_action->Temps_maxi *= 10;
+	ptr_action->Temps_mini = data_rx.Temps_mini; ptr_action->Temps_mini *= 10;
+	ptr_action->Points = data_rx.Points;
+	ptr_action->Priority = data_rx.Priority;
+
+	//Envoie au PC cette action
+	if(LOG_Debug_Port != Xbee_port)
+		_2_Comm_Strategie_Send_Action_State_Update(ptr_action, "Inter Robots", LOG_Debug_Port);
+}
+
+

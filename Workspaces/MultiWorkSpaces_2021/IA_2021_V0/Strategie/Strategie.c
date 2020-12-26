@@ -229,6 +229,22 @@ void _Strategie_Set_External_LED_GREEN_Status(byte value)
 
 
 /*****************************************************************************
+ ** Function name:		_Strategie_Get_Action_By_ID
+ **
+ ** Descriptions:		Lecture de la valeur de la led externe Vertye
+ **
+ ** parameters:			None
+ ** Returned value:		sortie led verte
+ **
+ *****************************************************************************/
+struct Action_Datas* _Strategie_Get_Action_By_ID(byte ID)
+{
+	return &Actions_2021.Actions[ID];
+}
+
+
+
+/*****************************************************************************
  ** Function name:		_Strategie_Init_Strategie_2021
  **
  ** Descriptions:		Init de la strategie
