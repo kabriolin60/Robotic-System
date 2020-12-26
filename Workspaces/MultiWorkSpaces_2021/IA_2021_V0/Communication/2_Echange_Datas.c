@@ -419,31 +419,25 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			 * Envoi l'état de la carte IA
 			 */
 			_2_Comm_Send_Info_Carte_IA(LOG_Debug_Port);
-			Task_Delay_Until(delai_demande_info);
+		}
 
+		if(boucle % 10 == 0)
+		{
 			/*
 			 * Envoi de la position de ce Robot à l'autre Robot
 			 */
-			//_2_Comm_Envoi_Position_Autre_Robot(_Strategie_Get_Robot_ID(), _0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
-			//Task_Delay_Until(delai_demande_info);
+			_2_Comm_Envoi_Position_Autre_Robot(_0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
 		}
-
 
 		//Demande les infos du PC s'il a des trucs à envoyer
 		_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
 		Task_Delay_Until(delai_demande_info);
 
 
-		if(boucle % 50 == 0 && LOG_Debug_Port == Xbee_port)
+		if(boucle % 20 == 0 && LOG_Debug_Port == Xbee_port)
 		{
-			_2_Comm_Send_Demande_Info(PC, LOG_Debug_Port);
-
 			//Si la communication de Debug se fait par Xbee
 			_2_Comm_Send_Infos(_0_Get_Ptr_Card(1), LOG_Debug_Port);
-			/*
-			 * Envoi de la position de ce Robot à l'autre Robot
-			 */
-			_2_Comm_Envoi_Position_Autre_Robot(_Strategie_Get_Robot_ID(), _0_Get_Robot_Position_Communication(), Xbee_port, _Strategie_Get_Robot_ID() == 0 ? Xbee_address_Petit_Robot : Xbee_address_Gros_Robot);
 
 			Task_Delay_Until(delai_demande_info);
 		}
@@ -784,7 +778,9 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 	struct st_ASTAR_VECTEURS Vectors_to_Send;
 
 	//Commence par demander un effacement des vecteurs déjà présents
-	Vectors_to_Send.Effacement = 1;
+	Vectors_to_Send.Effacement = 1 | (_Strategie_Get_Robot_ID() << 1);
+
+	//Vectors_to_Send.Robot_ID = _Strategie_Get_Robot_ID();
 
 	//Pour chacun des vecteurs dans la map
 	byte index_vecteur_to_send = 0;
@@ -821,7 +817,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			Task_Delay(2);
 
 			//Pour les prochains messages, il n'est plus utile de demander un effacement
-			Vectors_to_Send.Effacement = 0;
+			Vectors_to_Send.Effacement = 0 | (_Strategie_Get_Robot_ID() << 1);
 			index_vecteur_to_send = 0; //On recommence au début du tableau des infos à envoyer
 		}
 	}
@@ -888,7 +884,7 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_VITESSE_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	static char str[70];
-	sprintf(str, "Speed= %.1fm/s %.1fm/s² %.1m/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
+	sprintf(str, "Speed= %.1fm/s %.1fm/s² %.1fm/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
 			Vitesse_avance,
 			Acceleration_Avance,
 			Decceleration_Avance,
@@ -1043,13 +1039,8 @@ void _2_Comm_Send_Robot_PID(enum PID_Id ID, float P, float I, float D, byte Min_
  ** Returned value:		None
  **
  *****************************************************************************/
-void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_Robot PositionRobot, enum enum_canal_communication canal, byte adresse_Recepteur)
+void _2_Comm_Envoi_Position_Autre_Robot(struct Com_Position_Robot PositionRobot, enum enum_canal_communication canal, byte adresse_Recepteur)
 {
-	struct Com_Position_Robot_Inter_Robots pos;
-	pos.Position = PositionRobot;
-	pos.Robot_ID = Numero_Robot;
-
-
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
 	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
@@ -1061,8 +1052,8 @@ void _2_Comm_Envoi_Position_Autre_Robot(byte Numero_Robot, struct Com_Position_R
 	trame_echange.Instruction = POSITION_AUTRE_ROBOT;
 	trame_echange.Slave_Adresse = 0; //La carte IA de l'autre Robot est destinataire
 
-	trame_echange.Length = COPYDATA(pos, trame_echange.Data);
-	trame_echange.XBEE_DEST_ADDR = XBee_PC;//adresse_Recepteur;
+	trame_echange.Length = COPYDATA(PositionRobot, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = adresse_Recepteur;
 
 	//Envoi sans attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);

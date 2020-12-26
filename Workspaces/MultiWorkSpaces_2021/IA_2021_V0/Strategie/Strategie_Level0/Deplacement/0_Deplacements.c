@@ -672,7 +672,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			found_destination = Astar_Get_Map()->First_Destination;
 
 			//Send the new destination if != from the previous sent, with replacement
-			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
+			//if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
 			{
 				/*
 				 *Check if the previous sent destination is still an available path
@@ -684,9 +684,9 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 				tested_vector.End_Point.x = _0_Deplacement_Get_ptr_Current_Destination()->coord.X;
 				tested_vector.End_Point.y = _0_Deplacement_Get_ptr_Current_Destination()->coord.Y;
 
-				if(Dijkstra_Intersect_Any_Segment(&tested_vector, Astar_Get_Vector_Map()) ||
+				/*if(Dijkstra_Intersect_Any_Segment(&tested_vector, Astar_Get_Vector_Map()) ||
 						_0_Deplacement_Get_ptr_Current_Destination()->coord.X == -1 ||
-						Distance_Two_Points(tested_vector.Start_Point.x, tested_vector.Start_Point.y, tested_vector.End_Point.x, tested_vector.End_Point.y) < Map_Resolution / 10)
+						Distance_Two_Points(tested_vector.Start_Point.x, tested_vector.Start_Point.y, tested_vector.End_Point.x, tested_vector.End_Point.y) < Map_Resolution / 10)/**/
 				{
 					//Intersection or first point, or distance too short, don't keep the last sent destination as-it
 					/*
@@ -699,13 +699,8 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					//Set the new Current destination
 					_0_Deplacement_Get_ptr_Current_Destination()->coord = parameters.destination.coord;
 
-					//Astar_Debug_Display_Map(Astar_Get_Map());
-					/*
-					 * Step 5: Debug, display Pathfinding Map
-					 */
-					_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
-					_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
-				}else
+
+				}//else
 				{
 					//No Intersection, the previous destination is still a good choose
 				}
@@ -732,12 +727,14 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
 			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
-
-			/*
-			 * Step 5: Debug, display Pathfinding Map
-			 */
-			_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 		}
+
+		//Astar_Debug_Display_Map(Astar_Get_Map());
+		/*
+		 * Step 5: Debug, display Pathfinding Map
+		 */
+		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 
 
 		//Astar_Debug_Display_Map(Astar_Get_Map());

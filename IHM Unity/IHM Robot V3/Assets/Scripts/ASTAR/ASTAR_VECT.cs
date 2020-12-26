@@ -10,7 +10,8 @@ public class ASTAR_VECT : MonoBehaviour
     public GameObject Astar_Vector_Prefab;
     static private GameObject static_Astar_Vector_Prefab;
 
-    static private List<GameObject> Vector_List = new List<GameObject>();
+    static private List<GameObject> Vector_List_Gros_Robot = new List<GameObject>();
+    static private List<GameObject> Vector_List_Petit_Robot = new List<GameObject>();
 
     private void Start()
     {
@@ -31,14 +32,14 @@ public class ASTAR_VECT : MonoBehaviour
             //Si un effacement est demandé
             if(data.Effacement == 1)
             {
-                Clear_Vectors();
+                Clear_Vectors(data.Numero_Robot);
             }
 
 
             //Un message contient 8 vecteurs maximum
             foreach(ASTAR_VECTOR_COMMUNICATION.ASTAR_Vector vect in data.vectors)
             {
-                Create_New_Vector(vect.Color, vect.Start, vect.End);
+                Create_New_Vector(vect.Color, vect.Start, vect.End, data.Numero_Robot);
             }
         }
         catch
@@ -47,19 +48,46 @@ public class ASTAR_VECT : MonoBehaviour
         }
     }
 
-    static private void Clear_Vectors()
+    static private void Clear_Vectors(Infos_Carte.Com_Position_Robot_Identification Numero_Robot)
     {
-        foreach(GameObject vect in Vector_List)
+        switch (Numero_Robot)
         {
-            DestroyImmediate(vect);
+            case Infos_Carte.Com_Position_Robot_Identification.Gros_Robot:
+
+                foreach (GameObject vect in Vector_List_Gros_Robot)
+                {
+                    DestroyImmediate(vect);
+                }
+                Vector_List_Gros_Robot.Clear();
+                break;
+
+            case Infos_Carte.Com_Position_Robot_Identification.Petit_Robot:
+                foreach (GameObject vect in Vector_List_Petit_Robot)
+                {
+                    DestroyImmediate(vect);
+                }
+                Vector_List_Petit_Robot.Clear();
+                break;
         }
-        Vector_List.Clear();
     }
 
-    static private void Create_New_Vector(ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color, Vector2 Start, Vector2 End)
+    static private void Create_New_Vector(ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color, Vector2 Start, Vector2 End, Infos_Carte.Com_Position_Robot_Identification Numero_Robot)
     {
         UnityEngine.Color color = new Color();
-        
+        List<GameObject> Vector_List;
+
+        switch (Numero_Robot)
+        {
+            default:
+            case Infos_Carte.Com_Position_Robot_Identification.Gros_Robot:
+                Vector_List = Vector_List_Gros_Robot;
+                break;
+
+            case Infos_Carte.Com_Position_Robot_Identification.Petit_Robot:
+                Vector_List = Vector_List_Petit_Robot;
+                break;
+        }
+
         switch (Color)
         {
             default:
@@ -151,6 +179,8 @@ public class ASTAR_VECTOR_COMMUNICATION
     {
         public byte Effacement;
         public byte Nb_vecteurs;
+        public Infos_Carte.Com_Position_Robot_Identification Numero_Robot;
+
         public ASTAR_Vector[] vectors;
     }
 
@@ -164,8 +194,10 @@ public class ASTAR_VECTOR_COMMUNICATION
         output_temp = (Vectors_Values_array)Communication.GetClassFromArray<Vectors_Values_array>(input_trame.Data);
 
         Vectors_Values output = new Vectors_Values();
-        output.Effacement = (byte)(output_temp.Effacement);
+        output.Effacement = (byte)(output_temp.Effacement & 0b00000001);
         output.Nb_vecteurs = (byte)(output_temp.Nb_vecteurs);
+
+        output.Numero_Robot = (Infos_Carte.Com_Position_Robot_Identification)((output_temp.Effacement & 0b00000010) >> 1);
 
         output.vectors = new ASTAR_Vector[output.Nb_vecteurs];
 

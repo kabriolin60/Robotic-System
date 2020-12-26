@@ -17,6 +17,7 @@
 #include "0_Actionneurs.h"
 
 #include "1_Obstacles.h"
+#include "Strategie.h"
 
 
 long Nb_Ping_Envoyes = 0;
@@ -85,9 +86,15 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 	Astar_Debug_Display_Map(Astar_Get_Map());
 	 */
 
-	//xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	if(_Strategie_Get_Robot_ID() == 0)
+	{
+	xTaskCreate(TEST_Deplacement, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	}else
+	{
+		xTaskCreate(TEST_Deplacement2, (char *) "test_deplace", 240, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	}
 	//xTaskCreate(TEST_Deplacement_Reel, (char *) "test_deplace reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-	xTaskCreate(TEST_Strategie_2021, (char *) "TEST_Strategie_2021 reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Strategie_2021, (char *) "TEST_Strategie_2021 reel", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 }
 
 
@@ -564,7 +571,14 @@ void TEST_Deplacement(void * pvParameter)
 
 	Task_Delay(2000);
 
-	_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
+
+	if(_Strategie_Get_Robot_ID() == 0)
+	{
+		_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
+	}else
+	{
+		_2_Comm_Set_Robot_Position(900, 3000-250, -90, RS485_port);
+	}
 
 	/*
 	//while(1)
@@ -664,6 +678,73 @@ void TEST_Deplacement(void * pvParameter)
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
 		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 7 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+	}/**/
+
+	Task_Delete_Current;
+}
+
+
+void TEST_Deplacement2(void * pvParameter)
+{
+	static char str[70];
+
+	Task_Delay(520);
+
+
+	_2_Comm_Demande_Simulation(TRUE, RS485_port);
+	_2_Comm_Demande_Motor_Power(TRUE, RS485_port);
+
+	Task_Delay(2000);
+
+
+	if(_Strategie_Get_Robot_ID() == 0)
+	{
+		_2_Comm_Set_Robot_Position(900, 250, 90, RS485_port);
+	}else
+	{
+		_2_Comm_Set_Robot_Position(900, 3000-250, -90, RS485_port);
+	}
+
+	while(1)
+	{
+		GOTO_XY_AVANT_WAIT(500, 500);
+
+		sprintf(str, "Test strategie: 1 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		GOTO_XY_AVANT_ASTAR_WAIT(1722, 585, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 2 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		_2_Comm_Send_Robot_Speed(1,1,1,1,1,1,RS485_port);
+
+		GOTO_XY_AVANT_ASTAR_WAIT(1000, 2600, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 3 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		GOTO_XY_AVANT_ASTAR_WAIT(1000, 380, &_1_Obstacles_Create_Terrain_Border);
+
+		sprintf(str, "Test strategie: 4 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
+
+		GOTO_XY_AVANT_WAIT(1000, 900);
+
+		sprintf(str, "Test strategie: 5 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		GOTO_XY_ARRIERE_WAIT(1000, 380);
+
+		sprintf(str, "Test strategie: 6 OK\n");
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+
+		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 2600, &_1_Obstacles_Create_Terrain_Border);
 
 		sprintf(str, "Test strategie: 7 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);

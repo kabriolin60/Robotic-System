@@ -122,8 +122,6 @@ public class Envoi_Commandes : MonoBehaviour
     {
         Communication.Communication_Trame trame = new Communication.Communication_Trame();
 
-        byte[] arr = new byte[1];
-
         Infos_Carte.Com_Position_Robot_Data position = new Infos_Carte.Com_Position_Robot_Data();
         position.Position_X = (short)(_position.x * 10);
         position.Position_Y = (short)(_position.y * 10);

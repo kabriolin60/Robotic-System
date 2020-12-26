@@ -691,6 +691,7 @@ struct Astar_Vector_multiFCT
 	enum Astar_Vector_Color_multiFCT Color;
 };
 
+//Utilisé pour contrôler la disponibilité d'une trajectoire en Spline grace au Astar
 struct Astar_smoothing_vector_multiFCT
 {
 	//Smoothing vectors array

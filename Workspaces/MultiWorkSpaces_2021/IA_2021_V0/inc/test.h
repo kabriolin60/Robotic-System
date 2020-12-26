@@ -16,6 +16,8 @@ void TEST_Deplacement_Reel(void * pvParameter);
 
 void TEST_Deplacement(void * pvParameter);
 
+void TEST_Deplacement2(void * pvParameter);
+
 void TEST_envoi_Ping(void *pvParameters);
 
 #endif /* TEST_H_ */

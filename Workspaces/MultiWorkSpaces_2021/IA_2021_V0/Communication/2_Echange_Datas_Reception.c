@@ -161,4 +161,6 @@ void _2_Comm_RX_Position_Second_Robot(struct Communication_Trame* datas)
 
 	COPYDATA2(datas->Data, position);
 	_0_Set_Position_SecondRobot(position.Position_X, position.Position_Y);
+
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, !Chip_GPIO_ReadPortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT));
 }

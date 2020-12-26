@@ -211,7 +211,7 @@ void _0_Communication_Init_XBEE(void)
 	RingBuffer_Init(&rxring_XBEE, rxbuff_XBEE, 1, RS485_RX_RB_SIZE);
 
 	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
-	Chip_UART_SetupFIFOS(XBEE_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
+	Chip_UART_SetupFIFOS(XBEE_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV0));
 
 	/* Enable receive data and line status interrupt */
 	Chip_UART_IntEnable(XBEE_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
@@ -439,7 +439,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 			case Xbee_port:
 				_0_Communication_Send_XBEE(XBEE_UART, &txring, (int)Message.length);
-				Task_Delay(1.0f);
+				Task_Delay(0.5f);
 				break;
 
 			default:
@@ -472,8 +472,12 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
+		for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 8; i++)__asm volatile( "nop" );
+		}
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
@@ -490,8 +494,12 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUA
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
+		for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			for(int i = 0; i < 8; i++)__asm volatile( "nop" );
+		}
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
