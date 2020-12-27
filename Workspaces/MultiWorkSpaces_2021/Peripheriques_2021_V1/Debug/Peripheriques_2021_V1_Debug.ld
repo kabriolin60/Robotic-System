@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1347
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 27 déc. 2020 21:28:52
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 27 déc. 2020 21:33:29
  */
 
 INCLUDE "Peripheriques_2021_V1_Debug_library.ld"
