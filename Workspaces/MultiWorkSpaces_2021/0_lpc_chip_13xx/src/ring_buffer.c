@@ -136,7 +136,7 @@ int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 	uint8_t *ptr = RingBuff->data;
 	int cnt1, cnt2;
 
-	/* We cannot insert when queue is empty */
+	/* We cannot pop when queue is empty */
 	if (RingBuffer_IsEmpty(RingBuff))
 		return 0;
 
@@ -152,16 +152,27 @@ int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 	cnt2 = MIN(cnt2, num);
 	num -= cnt2;
 
-	/* Write segment 1 */
+	/* Read segment 1 */
 	ptr += RB_INDT(RingBuff) * RingBuff->itemSz;
 	memcpy(data, ptr, cnt1 * RingBuff->itemSz);
 	RingBuff->tail += cnt1;
 
-	/* Write segment 2 */
+	/* Read segment 2 */
 	ptr = (uint8_t *) RingBuff->data + RB_INDT(RingBuff) * RingBuff->itemSz;
 	data = (uint8_t *) data + cnt1 * RingBuff->itemSz;
 	memcpy(data, ptr, cnt2 * RingBuff->itemSz);
 	RingBuff->tail += cnt2;
 
 	return cnt1 + cnt2;
+}
+
+int RingBuffer_Count(RINGBUFF_T *RingBuff)
+{
+	return RingBuffer_GetCount(RingBuff);
+}
+
+
+void RingBuffer_Clear(RINGBUFF_T *RingBuff)
+{
+	RingBuffer_Flush(RingBuff);
 }

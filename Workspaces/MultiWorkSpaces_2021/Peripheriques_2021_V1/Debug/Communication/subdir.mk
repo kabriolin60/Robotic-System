@@ -4,44 +4,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../freertos/src/FreeRTOSCommonHooks.c \
-../freertos/src/croutine.c \
-../freertos/src/event_groups.c \
-../freertos/src/heap_3.c \
-../freertos/src/list.c \
-../freertos/src/port.c \
-../freertos/src/queue.c \
-../freertos/src/stream_buffer.c \
-../freertos/src/tasks.c \
-../freertos/src/timers.c 
+../Communication/0_Communication.c \
+../Communication/0_Event_Group.c \
+../Communication/1_Trame_Communication.c \
+../Communication/2_Echange_Datas.c 
 
 OBJS += \
-./freertos/src/FreeRTOSCommonHooks.o \
-./freertos/src/croutine.o \
-./freertos/src/event_groups.o \
-./freertos/src/heap_3.o \
-./freertos/src/list.o \
-./freertos/src/port.o \
-./freertos/src/queue.o \
-./freertos/src/stream_buffer.o \
-./freertos/src/tasks.o \
-./freertos/src/timers.o 
+./Communication/0_Communication.o \
+./Communication/0_Event_Group.o \
+./Communication/1_Trame_Communication.o \
+./Communication/2_Echange_Datas.o 
 
 C_DEPS += \
-./freertos/src/FreeRTOSCommonHooks.d \
-./freertos/src/croutine.d \
-./freertos/src/event_groups.d \
-./freertos/src/heap_3.d \
-./freertos/src/list.d \
-./freertos/src/port.d \
-./freertos/src/queue.d \
-./freertos/src/stream_buffer.d \
-./freertos/src/tasks.d \
-./freertos/src/timers.d 
+./Communication/0_Communication.d \
+./Communication/0_Event_Group.d \
+./Communication/1_Trame_Communication.d \
+./Communication/2_Echange_Datas.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-freertos/src/%.o: ../freertos/src/%.c
+Communication/%.o: ../Communication/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU C Compiler'
 	arm-none-eabi-gcc -D__REDLIB__ -DDEBUG -D__CODE_RED -D__USE_LPCOPEN -DCORE_M3 -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_13xx\inc" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1347\inc" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\example\inc" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\freertos\inc" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\freertos" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\Communication" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\Communication\RS485" -I"D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions" -O0 -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../$(@D)/"=. -mcpu=cortex-m3 -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
