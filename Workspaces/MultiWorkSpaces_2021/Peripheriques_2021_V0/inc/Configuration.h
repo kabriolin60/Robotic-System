@@ -65,7 +65,7 @@ Declaration des Entrees/Sorties TOR et parametres
 #define LED_1_BIT					15
 
 #define LED_2_PORT					0
-#define LED_2_BIT					22
+#define LED_2_BIT					7
 
 #else
 #define LED_0_PORT					1

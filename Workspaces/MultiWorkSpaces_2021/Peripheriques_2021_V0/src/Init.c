@@ -11,8 +11,8 @@
 void Init_Carte_Perpheriques(void)
 {
 	/* Init du Groupe d'event de synchronisation */
-	//_0_Communication_Init_Event_Group();
+	_0_Communication_Init_Event_Group();
 
 	/* Init de la communication Niveau 0 */
-	//_0_Communication_Init();
+	_0_Communication_Init();
 }
