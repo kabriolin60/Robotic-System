@@ -643,7 +643,7 @@ void TEST_Deplacement(void * pvParameter)
 	/**/
 	while(1)
 	{
-		GOTO_XY_AVANT_WAIT(500, 500);
+		//GOTO_XY_AVANT_WAIT(500, 500);
 
 		sprintf(str, "Test strategie: 1 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
@@ -665,17 +665,10 @@ void TEST_Deplacement(void * pvParameter)
 		sprintf(str, "Test strategie: 4 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
-		_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
-
-		GOTO_XY_AVANT_WAIT(1000, 2900);
-
-		sprintf(str, "Test strategie: 5 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
-
-		GOTO_XY_ARRIERE_WAIT(1000, 2380);
+		/*_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
 
 		sprintf(str, "Test strategie: 6 OK\n");
-		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
+		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);*/
 
 		GOTO_XY_ARRIERE_ASTAR_WAIT(1000, 600, &_1_Obstacles_Create_Terrain_Border);
 
@@ -710,7 +703,7 @@ void TEST_Deplacement2(void * pvParameter)
 
 	while(1)
 	{
-		GOTO_XY_AVANT_WAIT(500, 500);
+		//GOTO_XY_AVANT_WAIT(500, 500);
 
 		sprintf(str, "Test strategie: 1 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
@@ -734,12 +727,12 @@ void TEST_Deplacement2(void * pvParameter)
 
 		_2_Comm_Send_Robot_Speed(0.5f,1,1,1,1,1,RS485_port);
 
-		GOTO_XY_AVANT_WAIT(1000, 900);
+		//GOTO_XY_AVANT_WAIT(1000, 900);
 
 		sprintf(str, "Test strategie: 5 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);
 
-		GOTO_XY_ARRIERE_WAIT(1000, 380);
+		//GOTO_XY_ARRIERE_WAIT(1000, 380);
 
 		sprintf(str, "Test strategie: 6 OK\n");
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Test, LOG_Debug_Port);

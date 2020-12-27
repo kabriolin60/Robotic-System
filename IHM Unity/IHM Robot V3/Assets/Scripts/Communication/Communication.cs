@@ -248,6 +248,7 @@ public class Communication
 	{
 		public Communication_Trame Trame;
 		public DateTime Heure;
+		public int message_number;
 
 		public Communication_Message()
 		{

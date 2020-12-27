@@ -185,7 +185,7 @@ struct Communication_Message* _1_Communication_Create_Message(struct Communicati
 	Message_To_Send->Data[5] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR >> 8);        //add high
 	Message_To_Send->Data[6] = (byte)((int)pMessage_to_send->XBEE_DEST_ADDR & 0xFF);      //add low
 
-	Message_To_Send->Data[7] = 0x01;                         //Option
+	Message_To_Send->Data[7] = 0x00;                         //Option
 
 	byte index = 0;
 	//Datas

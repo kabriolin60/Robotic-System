@@ -472,12 +472,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-		{
-			for(int i = 0; i < 8; i++)__asm volatile( "nop" );
-		}
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
@@ -494,12 +490,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUA
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		//for(int i = 0; i < 8; i++)__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-		{
-			//for(int i = 0; i < 8; i++)__asm volatile( "nop" );
-		}
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );

@@ -9,7 +9,7 @@
 #include "Astar.h"
 
 #include "Configuration.h"
-
+#include "Strategie.h"
 
 
 static struct Astar_Map Map;
@@ -124,7 +124,11 @@ __attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* m, struc
 		//Starting node blocked
 		Already_Blocked = 1;
 		if(!Already_Blocked)
-			_2_Comm_Send_Log_Message("ASTAR: Start node Blocked!\n", Channel_Debug_ASTAR, Color_Red, RS485_port);
+		{
+			char str_ASTAR[70];
+			sprintf(str_ASTAR, "Robot: %d; ASTAR: Start node Blocked!\n", _Strategie_Get_Robot_ID());
+			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
+		}
 
 		map->Nodes[map->Start_Node_index.x][map->Start_Node_index.y].Astar_Node_Access = Walkable;
 		//return -2; //Le point de départ, le robot y est, donc il est considéré comme accessible

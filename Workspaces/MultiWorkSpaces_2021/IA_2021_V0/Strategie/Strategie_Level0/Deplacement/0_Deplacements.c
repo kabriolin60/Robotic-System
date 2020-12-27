@@ -207,7 +207,7 @@ bool _0_Deplacement_Check_Bloquage(void)
 	//Si un bloquage a ete detecté
 	if( ( uxBits & (eGROUP_DEPLA_BLOQUAGE ) ) == ( eGROUP_DEPLA_BLOQUAGE ) )
 	{
-		sprintf(str, "DEPLA: Bloquage detecte\n");
+		sprintf(str, "Robot: %d; DEPLA: Bloquage detecte\n", _Strategie_Get_Robot_ID());
 		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Deplacement, LOG_Debug_Port);
 		return pdTRUE;
 	}
@@ -351,7 +351,8 @@ bool _0_Deplacement_Tourne_Avance_ASTAR(short X, short Y, bool Attente, bool dir
 	eTaskState state = eTaskGetState( Astar_Task_Handler );
 	if(state != eDeleted)
 	{
-		sprintf(str, "ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+		sprintf(str, "Robot: %d; ASTAR: Delete task to: X:%dmm Y:%dmm\n",
+				_Strategie_Get_Robot_ID(),
 				X,
 				Y);
 		_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
@@ -554,7 +555,8 @@ bool _0_Deplacement_Spline_Cubique(bool direction, bool Attente, bool use_Astar,
 		if(state != eDeleted)
 		{
 			char str[70];
-			sprintf(str, "ASTAR SPLINE: Delete task to: X:%dmm Y:%dmm\n",
+			sprintf(str, "Robot: %d; ASTAR SPLINE: Delete task to: X:%dmm Y:%dmm\n",
+					_Strategie_Get_Robot_ID(),
 					P1_X,
 					P1_Y);
 			_2_Comm_Send_Log_Message(str, Color_Blue, Channel_Debug_Deplacement, LOG_Debug_Port);
@@ -628,7 +630,8 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	//Keep safe the real destination
 	struct st_COORDONNEES Final_Destination = parameters.destination.coord;
 
-	sprintf(str_ASTAR, "ASTAR: Creation task to: X:%dmm Y:%dmm\n",
+	sprintf(str_ASTAR, "Robot: %d; ASTAR: Creation task to: X:%dmm Y:%dmm\n",
+			_Strategie_Get_Robot_ID(),
 			Final_Destination.X,
 			Final_Destination.Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
@@ -672,7 +675,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			found_destination = Astar_Get_Map()->First_Destination;
 
 			//Send the new destination if != from the previous sent, with replacement
-			//if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
+			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
 			{
 				/*
 				 *Check if the previous sent destination is still an available path
@@ -684,7 +687,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 				tested_vector.End_Point.x = _0_Deplacement_Get_ptr_Current_Destination()->coord.X;
 				tested_vector.End_Point.y = _0_Deplacement_Get_ptr_Current_Destination()->coord.Y;
 
-				/*if(Dijkstra_Intersect_Any_Segment(&tested_vector, Astar_Get_Vector_Map()) ||
+				if(Dijkstra_Intersect_Any_Segment(&tested_vector, Astar_Get_Vector_Map()) ||
 						_0_Deplacement_Get_ptr_Current_Destination()->coord.X == -1 ||
 						Distance_Two_Points(tested_vector.Start_Point.x, tested_vector.Start_Point.y, tested_vector.End_Point.x, tested_vector.End_Point.y) < Map_Resolution / 10)/**/
 				{
@@ -700,7 +703,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					_0_Deplacement_Get_ptr_Current_Destination()->coord = parameters.destination.coord;
 
 
-				}//else
+				}else
 				{
 					//No Intersection, the previous destination is still a good choose
 				}
@@ -721,12 +724,16 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			parameters.destination.coord.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
 			_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
 
-			sprintf(str_ASTAR, "No path found, X= %d, Y= %d; to X= %d, Y= %d \n",
+			sprintf(str_ASTAR, "Robot: %d; No path found, X= %d, Y= %d; to X= %d, Y= %d \n",
+					_Strategie_Get_Robot_ID(),
 					(short)_0_Get_Robot_Position().Position_X,
 					(short)_0_Get_Robot_Position().Position_Y,
 					(short)Final_Destination.X,
 					(short)Final_Destination.Y);
 			_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
+
+			_0_Deplacement_Get_ptr_Current_Destination()->coord.X = -1;
+			_0_Deplacement_Get_ptr_Current_Destination()->coord.Y = -1;
 		}
 
 		//Astar_Debug_Display_Map(Astar_Get_Map());
@@ -736,8 +743,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
 		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
 
-
-		//Astar_Debug_Display_Map(Astar_Get_Map());
 		/*
 		 * Step 6: Wait for the next Astar Loop
 		 */
@@ -747,7 +752,8 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	/*
 	 * Step 7: When we reach the final destination, delete this task
 	 */
-	sprintf(str_ASTAR, "ASTAR: Self Delete task to: X:%dmm Y:%dmm\n",
+	sprintf(str_ASTAR, "Robot: %d; ASTAR: Self Delete task to: X:%dmm Y:%dmm\n",
+			_Strategie_Get_Robot_ID(),
 			Final_Destination.X,
 			Final_Destination.Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
@@ -779,7 +785,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 
 	struct Astar_SPLINE_deplacement parameters = *(struct Astar_SPLINE_deplacement*)pvParameter;
 
-	sprintf(str_ASTAR, "ASTAR SPLINE: Creation task to: X:%dmm Y:%dmm\n",
+	sprintf(str_ASTAR, "Robot: %d; ASTAR SPLINE: Creation task to: X:%dmm Y:%dmm\n",
+			_Strategie_Get_Robot_ID(),
 			parameters.destination.P1.X,
 			parameters.destination.P1.Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
@@ -902,7 +909,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 				coord.coord.Type_Deplacement = TYPE_MOVE_aucun_mouvement;
 				_2_Comm_Send_Destination_Robot(&coord, RS485_port);
 
-				sprintf(str_ASTAR, "SPLINE no path found, X= %d, Y= %d; to X= %d, Y= %d",
+				sprintf(str_ASTAR, "Robot: %d; SPLINE no path found, X= %d, Y= %d; to X= %d, Y= %d",
+						_Strategie_Get_Robot_ID(),
 						(short)_0_Get_Robot_Position().Position_X,
 						(short)_0_Get_Robot_Position().Position_Y,
 						(short)Final_Destination.X,
@@ -910,7 +918,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 				_2_Comm_Send_Log_Message(str_ASTAR, Color_Red, Channel_Debug_ASTAR, LOG_Debug_Port);
 
 				Task_Delay(5);
-				sprintf(str_ASTAR, "SPLINE Intersect, X= %d, Y= %d; to X= %d, Y= %d",
+				sprintf(str_ASTAR, "Robot: %d; SPLINE Intersect, X= %d, Y= %d; to X= %d, Y= %d",
+						_Strategie_Get_Robot_ID(),
 						(short)tested_vector.Start_Point.x,
 						(short)tested_vector.Start_Point.y,
 						(short)tested_vector.End_Point.x,
@@ -920,7 +929,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 				/*
 				 * Step 4: No path possible, delete this task after stopping to Robot and informed the IA
 				 */
-				sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
+				sprintf(str_ASTAR, "Robot: %d; ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
+						_Strategie_Get_Robot_ID(),
 						Final_Destination.X,
 						Final_Destination.Y);
 				_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);
@@ -946,7 +956,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 	/*
 	 * Step 5: We reached the destination
 	 */
-	sprintf(str_ASTAR, "ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
+	sprintf(str_ASTAR, "Robot: %d; ASTAR Spline: Self Delete task to: X:%dmm Y:%dmm\n",
+			_Strategie_Get_Robot_ID(),
 			Final_Destination.X,
 			Final_Destination.Y);
 	_2_Comm_Send_Log_Message(str_ASTAR, Color_Blue, Channel_Debug_ASTAR, LOG_Debug_Port);

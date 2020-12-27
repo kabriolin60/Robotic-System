@@ -196,13 +196,14 @@ public class File_Logger : MonoBehaviour
         Read_Logger_Data();
     }
 
+
     public void Write_Logging_Data(object DataToWrite)
     {
         if (Logger_File_Path == null)
         {
             //Aucun enregistrement demandé
             return;
-        }        
+        }
 
         //ajoute les infos à la liste des données reçues
         serialized_data.Add_Data((Communication.Communication_Message)DataToWrite);
@@ -239,7 +240,6 @@ public class File_Logger : MonoBehaviour
         if (Logger_File_Path != null)
         {
             this.Stop_Reading_Token = true;
-            //Is_Reading = false;
         }
     }
 
@@ -257,7 +257,6 @@ public class File_Logger : MonoBehaviour
         else
         {
             //On demande la lecture
-            //Is_Reading = true;
             Has_been_Reading = true;
             this.Pause_Reading_Token = false;
             Pause_Reading_Image.SetActive(true);
@@ -296,7 +295,8 @@ public class File_Logger : MonoBehaviour
             {
                 //Attend que l'heure de traiter ce message soit venue
                 delay = message.Heure.Subtract(last_hour);
-                await Task.Delay((int)(delay.TotalMilliseconds / Reading_Speed));
+
+                await Task.Delay(Math.Abs((int)(delay.TotalMilliseconds / Reading_Speed)));
 
                 //interprete ce message
                 try
@@ -305,6 +305,7 @@ public class File_Logger : MonoBehaviour
                 }
                 catch
                 {
+                    Logger_New_Line.Log("Exception while reading", 6, Color.red);
                 }
 
                 Nb_Lines_Read++;
@@ -314,7 +315,6 @@ public class File_Logger : MonoBehaviour
                 //si on demande l'arret de la lecture
                 if (Stop_Reading_Token)
                 {
-                    //Is_Reading = false;
                     throw new TaskCanceledException();
                 }
 
@@ -324,13 +324,11 @@ public class File_Logger : MonoBehaviour
                     await Task.Delay(100);
                 }
             }
-
-            //Is_Reading = false;
         }));
     }
 
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (Logger_File_Path != null)
         {

@@ -182,8 +182,10 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
+	int message_number = 0;
 	public void Save_Message(Communication.Communication_Message message)
 	{
+		message.message_number = message_number++;
 		file_Logger.Write_Logging_Data(message);
 	}
 

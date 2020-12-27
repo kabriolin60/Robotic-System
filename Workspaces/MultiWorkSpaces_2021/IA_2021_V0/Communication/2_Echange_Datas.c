@@ -78,7 +78,8 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 	{
 	case TYPE_MOVE_xy_tour_av_avant:
 		dir = "AV";
-		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+		sprintf(str, "Robot: %d; Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+				_Strategie_Get_Robot_ID(),
 				dir,
 				(short)_0_Get_Robot_Position().Position_X,
 				(short)_0_Get_Robot_Position().Position_Y,
@@ -88,7 +89,8 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 
 	case TYPE_MOVE_xy_tour_av_arriere:
 		dir = "AR";
-		sprintf(str, "Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+		sprintf(str, "Robot: %d; Dest= %s From X= %d, Y= %d to X= %d, Y= %d\n",
+				_Strategie_Get_Robot_ID(),
 				dir,
 				(short)_0_Get_Robot_Position().Position_X,
 				(short)_0_Get_Robot_Position().Position_Y,
@@ -98,7 +100,8 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 
 	case TYPE_MOVE_consigne_vitesse_independantes:
 		dir = "VITESSE";
-		sprintf(str, "Dest= %s Gauche= %d, Droite= %d\n",
+		sprintf(str, "Robot: %d; Dest= %s Gauche= %d, Droite= %d\n",
+				_Strategie_Get_Robot_ID(),
 				dir,
 				(short)destination->coord.Vitesse_Roue_Gauche,
 				(short)destination->coord.Vitesse_Roue_Droite);
@@ -106,13 +109,15 @@ void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, en
 
 	case TYPE_MOVE_aucun_mouvement:
 		dir = "AUCUN MOUVEMENT";
-		sprintf(str, "Dest= %s\n",
+		sprintf(str, "Robot: %d; Dest= %s\n",
+				_Strategie_Get_Robot_ID(),
 				dir);
 		break;
 
 	case TYPE_MOVE_tourne_vers_cap_rad:
 		dir = "Tourne cap";
-		sprintf(str, "Dest= %s Theta %d\n",
+		sprintf(str, "Robot: %d; Dest= %s Theta %d\n",
+				_Strategie_Get_Robot_ID(),
 				dir,
 				(short)destination->coord.Angle);
 		break;
@@ -158,7 +163,8 @@ void _2_Comm_Send_Destination_Spline_CubiqueRobot(struct CubicSpline* destinatio
 
 	static char str[80];
 
-	sprintf(str, "Dest SPLINE: From X= %d, Y= %d to X= %d, Y= %d\n",
+	sprintf(str, "Robot: %d; Dest SPLINE: From X= %d, Y= %d to X= %d, Y= %d\n",
+			_Strategie_Get_Robot_ID(),
 			(short)_0_Get_Robot_Position().Position_X,
 			(short)_0_Get_Robot_Position().Position_Y,
 			(short)destination->P1.X,
@@ -415,7 +421,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			Task_Delay_Until(delai_demande_info);
 		}
 
-		if(boucle % 50 == 0)
+		if(boucle % 20 == 0)
 		{
 			/*
 			 * Envoi l'état de la carte IA
@@ -687,7 +693,8 @@ void _2_Comm_Set_Robot_Position(float X, float Y, float Angle, enum enum_canal_c
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_POSITION_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	static char str[70];
-	sprintf(str, "Set Robot position= X=%.1fmm Y=%.1fmm A=%.2f°\n",
+	sprintf(str, "Robot: %d; Set Robot position= X=%.1fmm Y=%.1fmm A=%.2f°\n",
+			_Strategie_Get_Robot_ID(),
 			X,
 			Y,
 			Angle);
@@ -886,7 +893,8 @@ void _2_Comm_Send_Robot_Speed(float Vitesse_avance, float Vitesse_Rotation, floa
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdTRUE, ACK_VITESSE_ROBOT, eGROUP_STATUS_CARTE_MultiFCT_1);
 
 	static char str[70];
-	sprintf(str, "Speed= %.1fm/s %.1fm/s² %.1fm/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
+	sprintf(str, "Robot: %d; Speed= %.1fm/s %.1fm/s² %.1fm/s², %.1frad/s %.1frad/s² %.1frad/s²\n",
+			_Strategie_Get_Robot_ID(),
 			Vitesse_avance,
 			Acceleration_Avance,
 			Decceleration_Avance,
