@@ -75,7 +75,7 @@ void vApplicationIdleHook(void)
 	__WFI();
 }
 
-#include "Communication_Typedef.h"
+//#include "Communication_Typedef.h"
 /*#include "0_RS485.h"
 #include "1_Trame_Communication.h"
 #include "2_Echange_Datas.h"

@@ -96,11 +96,7 @@ int main(void)
 {
 	prvSetupHardware();
 
-	Init_Carte_MultiFonctions();
-
-#if configGENERATE_RUN_TIME_STATS == 1
-	xTaskCreate(vTask_Stats, (char *) "vTask_Stats", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
-#endif
+	Init_Carte_Perpheriques();
 
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);

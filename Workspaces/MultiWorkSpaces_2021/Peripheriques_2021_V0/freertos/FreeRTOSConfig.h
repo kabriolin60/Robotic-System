@@ -51,7 +51,7 @@ extern uint32_t SystemCoreClock;
 #define configCPU_CLOCK_HZ				( SystemCoreClock )
 #define configTICK_RATE_HZ				( ( TickType_t ) 1000 )
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 70 )
-#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 6500 ) )
+#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 3500 ) )
 #define configMAX_TASK_NAME_LEN			( 20 )
 
 #define configGENERATE_RUN_TIME_STATS	0
