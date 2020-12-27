@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-//#include "Type_Declaration.h"
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -109,15 +108,13 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
  **************************************************/
 #ifdef TYPE_CARTE_PERIPHERIQUES
 
-#define ADRESSE_0					IOCON_PIO0_8
 #define ADRESSE_0_port				0
 #define ADRESSE_0_bit				8
-#define ADRESSE_1					IOCON_PIO0_9
 #define ADRESSE_1_port				0
 #define ADRESSE_1_bit				9
 
-#define ADRESSE_CARTE 				4 + (!Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_0) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_1))
-#define ADRESSE_CARTE_CHAR 			'4' + (!Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_0) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_1))
+#define ADRESSE_CARTE 				5 + (!Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_0_port, ADRESSE_0_bit) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_1_port, ADRESSE_1_bit))
+#define ADRESSE_CARTE_CHAR 			'5' + (!Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_0_port, ADRESSE_0_bit) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO, ADRESSE_1_port, ADRESSE_1_bit))
 
 #endif
 
