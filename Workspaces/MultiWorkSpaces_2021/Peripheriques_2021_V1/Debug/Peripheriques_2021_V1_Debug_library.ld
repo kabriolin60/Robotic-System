@@ -6,12 +6,12 @@
  * Generated linker script file for LPC1347
  * Created from library.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 27 déc. 2020 21:33:29
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 27 déc. 2020 21:44:13
  */
 
 GROUP (
-  "libcr_nohost.a"
-  "libcr_c.a"
-  "libcr_eabihelpers.a"
   "libgcc.a"
+  "libc_nano.a"
+  "libm.a"
+  "libcr_newlib_none.a"
 )

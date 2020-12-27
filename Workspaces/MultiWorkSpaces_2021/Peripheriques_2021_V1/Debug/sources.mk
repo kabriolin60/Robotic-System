@@ -16,6 +16,6 @@ C_DEPS :=
 SUBDIRS := \
 Communication \
 Communication/RS485 \
-example/src \
 freertos/src \
+src \
 
