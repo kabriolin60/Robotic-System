@@ -1,4 +1,4 @@
-example/src/sysinit.o example/src/sysinit.d: ../example/src/sysinit.c \
+src/sysinit.o src/sysinit.d: ../src/sysinit.c \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpcxpresso_11c24_board_lib\inc/board.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_11cxx_lib\inc/chip.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_11cxx_lib\inc/lpc_types.h \

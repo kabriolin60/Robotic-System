@@ -181,6 +181,11 @@ int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data);
 int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num);
 
 
+int RingBuffer_Count(RINGBUFF_T *RingBuff);
+
+
+void RingBuffer_Clear(RINGBUFF_T *RingBuff);
+
 /**
  * @}
  */

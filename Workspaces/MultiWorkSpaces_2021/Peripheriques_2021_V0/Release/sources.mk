@@ -14,6 +14,8 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-example/src \
+Communication \
+Communication/RS485 \
 freertos/src \
+src \
 

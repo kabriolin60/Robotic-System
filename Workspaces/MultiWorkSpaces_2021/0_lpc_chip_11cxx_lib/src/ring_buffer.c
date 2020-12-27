@@ -165,3 +165,16 @@ int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 
 	return cnt1 + cnt2;
 }
+
+
+
+int RingBuffer_Count(RINGBUFF_T *RingBuff)
+{
+	return RingBuffer_GetCount(RingBuff);
+}
+
+
+void RingBuffer_Clear(RINGBUFF_T *RingBuff)
+{
+	RingBuffer_Flush(RingBuff);
+}

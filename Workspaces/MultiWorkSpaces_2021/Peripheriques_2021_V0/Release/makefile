@@ -8,8 +8,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/subdir.mk
 -include freertos/src/subdir.mk
--include example/src/subdir.mk
+-include Communication/RS485/subdir.mk
+-include Communication/subdir.mk
 -include subdir.mk
 -include objects.mk
 

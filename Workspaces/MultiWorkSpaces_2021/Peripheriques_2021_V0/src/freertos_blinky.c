@@ -33,6 +33,17 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#if defined (__USE_LPCOPEN)
+#include "chip.h"
+#endif
+
+#include "queue.h"
+#include "Configuration.h"
+#include "FreeRTOSConfig.h"
+
+#include <Init.h>
+
+
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
@@ -52,42 +63,30 @@ static void prvSetupHardware(void)
 	Board_Init();
 }
 
-/* LED0 toggle thread */
-static void vLEDTask0(void *pvParameters) {
-	bool LedState = false;
-	while (1) {
-		Board_LED_Set(0, LedState);
-		LedState = (bool) !LedState;
-
-		vTaskDelay(configTICK_RATE_HZ/2);
-	}
-}
-
-/* LED1 toggle thread */
-static void vLEDTask1(void *pvParameters) {
-	bool LedState = false;
-	while (1) {
-		Board_LED_Set(1, LedState);
-		LedState = (bool) !LedState;
-
-		vTaskDelay(configTICK_RATE_HZ*2);
-	}
-}
-
-/* LED2 toggle thread */
-static void vLEDTask2(void *pvParameters) {
-	bool LedState = false;
-	while (1) {
-		Board_LED_Set(2, LedState);
-		LedState = (bool) !LedState;
-
-		vTaskDelay(configTICK_RATE_HZ);
-	}
-}
-
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
+
+/* LED1 toggle thread */
+static void vTask_HartBeat(void *pvParameters) {
+	bool LedState = false;
+
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, true); //Led as Output
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, true); //Led as Output
+	Chip_GPIO_WriteDirBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, true); //Led as Output
+
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_0_PORT, LED_0_BIT, false);
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_1_PORT, LED_1_BIT, false);
+	Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, false);
+
+	while (1) {
+		Chip_GPIO_WritePortBit(LPC_GPIO, LED_2_PORT, LED_2_BIT, LedState);
+		LedState = (bool) !LedState;
+
+		/* About a 3Hz on/off toggle rate */
+		vTaskDelay(configTICK_RATE_HZ / 1);
+	}
+}
 
 /**
  * @brief	main routine for FreeRTOS blinky example
@@ -97,20 +96,15 @@ int main(void)
 {
 	prvSetupHardware();
 
+	Init_Carte_MultiFonctions();
+
+#if configGENERATE_RUN_TIME_STATS == 1
+	xTaskCreate(vTask_Stats, (char *) "vTask_Stats", 320, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+#endif
+
 	/* LED1 toggle thread */
-	xTaskCreate(vLEDTask1, (signed char *) "vTaskLed1",
-				configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-				(xTaskHandle *) NULL);
+	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
-	/* LED2 toggle thread */
-	xTaskCreate(vLEDTask2, (signed char *) "vTaskLed2",
-				configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-				(xTaskHandle *) NULL);
-
-	/* LED0 toggle thread */
-	xTaskCreate(vLEDTask0, (signed char *) "vTaskLed0",
-				configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-				(xTaskHandle *) NULL);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();
