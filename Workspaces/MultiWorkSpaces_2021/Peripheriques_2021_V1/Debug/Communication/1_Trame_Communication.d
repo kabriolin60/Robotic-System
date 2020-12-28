@@ -57,7 +57,9 @@ Communication/1_Trame_Communication.o \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\freertos\inc/event_groups.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\freertos\inc/timers.h \
  ../Communication/0_Event_Group.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\inc/Init.h
+ ../Communication/2_Echange_Datas_Reception.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\inc/Init.h \
+ ../Communication/2_Echange_Datas.h
 
 ../Communication/0_Communication.h:
 
@@ -171,4 +173,8 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peri
 
 ../Communication/0_Event_Group.h:
 
+../Communication/2_Echange_Datas_Reception.h:
+
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\Peripheriques_2021_V1\inc/Init.h:
+
+../Communication/2_Echange_Datas.h:

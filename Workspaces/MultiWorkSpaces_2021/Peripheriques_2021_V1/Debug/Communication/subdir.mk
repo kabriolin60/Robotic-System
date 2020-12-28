@@ -7,19 +7,22 @@ C_SRCS += \
 ../Communication/0_Communication.c \
 ../Communication/0_Event_Group.c \
 ../Communication/1_Trame_Communication.c \
-../Communication/2_Echange_Datas.c 
+../Communication/2_Echange_Datas.c \
+../Communication/2_Echange_Datas_Reception.c 
 
 OBJS += \
 ./Communication/0_Communication.o \
 ./Communication/0_Event_Group.o \
 ./Communication/1_Trame_Communication.o \
-./Communication/2_Echange_Datas.o 
+./Communication/2_Echange_Datas.o \
+./Communication/2_Echange_Datas_Reception.o 
 
 C_DEPS += \
 ./Communication/0_Communication.d \
 ./Communication/0_Event_Group.d \
 ./Communication/1_Trame_Communication.d \
-./Communication/2_Echange_Datas.d 
+./Communication/2_Echange_Datas.d \
+./Communication/2_Echange_Datas_Reception.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

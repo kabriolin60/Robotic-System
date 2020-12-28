@@ -198,9 +198,9 @@ Discarded input sections
                 0x00000000       0x22 ./src/test.o
  .bss.Nb_Ping_Envoyes
                 0x00000000        0x4 ./src/test.o
- .bss.str.10600
+ .bss.str.10602
                 0x00000000       0x46 ./src/test.o
- .bss.str.10605
+ .bss.str.10607
                 0x00000000       0x46 ./src/test.o
  .text          0x00000000        0x0 ./freertos/src/FreeRTOSCommonHooks.o
  .data          0x00000000        0x0 ./freertos/src/FreeRTOSCommonHooks.o
@@ -641,7 +641,7 @@ Discarded input sections
                 0x00000000       0x50 ./Communication/2_Echange_Datas.o
  .text._2_Comm_Send_Robot_PID
                 0x00000000       0x78 ./Communication/2_Echange_Datas.o
- .bss.str.10546
+ .bss.str.10548
                 0x00000000       0x50 ./Communication/2_Echange_Datas.o
  .rodata.delai_demande_info
                 0x00000000        0x4 ./Communication/2_Echange_Datas.o
@@ -2687,10 +2687,10 @@ END GROUP
                 [!provide]                PROVIDE (__start_bss_RAM = .)
                 [!provide]                PROVIDE (__start_bss_RamLoc32 = .)
  *(.bss*)
- .bss.str.10613
+ .bss.str.10615
                 0x100001ec       0x46 ./src/test.o
  *fill*         0x10000232        0x2 
- .bss.str.10618
+ .bss.str.10620
                 0x10000234       0x46 ./src/test.o
  *fill*         0x1000027a        0x2 
  .bss.pxEnd     0x1000027c        0x4 ./freertos/src/heap_5.o
@@ -2784,9 +2784,9 @@ END GROUP
  .bss.Temps_Match
                 0x10000680        0x4 ./Strategie/Strategie.o
                 0x10000680                Temps_Match
- .bss.str.10482
+ .bss.str.10484
                 0x10000684       0x46 ./Strategie/Strategie.o
- .bss.Already_Blocked.10484
+ .bss.Already_Blocked.10486
                 0x100006ca        0x1 ./Pathfinding/Astar/Astar.o
  *fill*         0x100006cb        0x1 
  .bss.Map       0x100006cc     0x4b12 ./Pathfinding/Astar/Astar.o
@@ -2795,18 +2795,18 @@ END GROUP
  .bss.Burst_Mode_Flag
                 0x100051e8        0x1 ./Level_0/Drivers/0_ADC/0_ADC.o
  *fill*         0x100051e9        0x3 
- .bss.Message.11429
+ .bss.Message.11431
                 0x100051ec       0x5d ./Communication/0_Communication.o
  *fill*         0x10005249        0x3 
  .bss._1_xQueue_Message_TO_Send
                 0x1000524c        0x4 ./Communication/0_Communication.o
                 0x1000524c                _1_xQueue_Message_TO_Send
- .bss.already_flaged.11339
+ .bss.already_flaged.11341
                 0x10005250        0x1 ./Communication/0_Communication.o
- .bss.already_flaged.11344
+ .bss.already_flaged.11346
                 0x10005251        0x1 ./Communication/0_Communication.o
  *fill*         0x10005252        0x2 
- .bss.g_txBuff.11430
+ .bss.g_txBuff.11432
                 0x10005254       0x80 ./Communication/0_Communication.o
  .bss.rxring_RS485
                 0x100052d4       0x14 ./Communication/0_Communication.o
@@ -2834,10 +2834,10 @@ END GROUP
  .bss.Nb_Messages_recus
                 0x10005324        0x4 ./Communication/1_Trame_Communication.o
                 0x10005324                Nb_Messages_recus
- .bss.str.10442
+ .bss.str.10444
                 0x10005328       0x46 ./Communication/1_Trame_Communication.o
  *fill*         0x1000536e        0x2 
- .bss.dir.10534
+ .bss.dir.10536
                 0x10005370        0x4 ./Communication/2_Echange_Datas.o
  .bss.release_sent
                 0x10005374        0x1 ./Communication/2_Echange_Datas.o
@@ -2845,12 +2845,12 @@ END GROUP
  *fill*         0x10005375        0x3 
  .bss.str       0x10005378       0x46 ./Communication/2_Echange_Datas.o
  *fill*         0x100053be        0x2 
- .bss.str.10533
+ .bss.str.10535
                 0x100053c0       0x50 ./Communication/2_Echange_Datas.o
- .bss.str.10620
+ .bss.str.10622
                 0x10005410       0x46 ./Communication/2_Echange_Datas.o
  *fill*         0x10005456        0x2 
- .bss.str.10659
+ .bss.str.10661
                 0x10005458       0x46 ./Communication/2_Echange_Datas.o
  *fill*         0x1000549e        0x2 
  .bss.Nb_Messages_Interpretes
@@ -2931,43 +2931,43 @@ END GROUP
                 0x0000a494                _image_size = (_image_end - _image_start)
 OUTPUT(IA_2021_V0.axf elf32-littlearm)
 
-.debug_info     0x00000000    0x311c1
+.debug_info     0x00000000    0x311e5
  .debug_info    0x00000000     0x28f8 ./src/IA_2021_V0.o
  .debug_info    0x000028f8     0x153c ./src/Init.o
  .debug_info    0x00003e34      0x2e9 ./src/cr_startup_lpc175x_6x.o
  .debug_info    0x0000411d       0x3c ./src/crp.o
  .debug_info    0x00004159      0x9d6 ./src/sysinit.o
  .debug_info    0x00004b2f     0x2620 ./src/test.o
- .debug_info    0x0000714f     0x1476 ./freertos/src/FreeRTOSCommonHooks.o
- .debug_info    0x000085c5     0x133d ./freertos/src/event_groups.o
- .debug_info    0x00009902      0xebb ./freertos/src/heap_5.o
- .debug_info    0x0000a7bd      0xbeb ./freertos/src/list.o
- .debug_info    0x0000b3a8      0xd07 ./freertos/src/port.o
- .debug_info    0x0000c0af     0x2528 ./freertos/src/queue.o
- .debug_info    0x0000e5d7     0x2f45 ./freertos/src/tasks.o
- .debug_info    0x0001151c     0x1c75 ./freertos/src/timers.o
- .debug_info    0x00013191     0x254b ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
- .debug_info    0x000156dc      0xdae ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
- .debug_info    0x0001648a      0xfda ./Strategie/Strategie_Level0/0_Infos.o
- .debug_info    0x00017464      0xd07 ./Strategie/Strategie_Level0/Strategie_Actions.o
- .debug_info    0x0001816b     0x17bd ./Strategie/Strategie.o
- .debug_info    0x00019928     0x2bb0 ./Pathfinding/Astar/Astar.o
- .debug_info    0x0001c4d8     0x10ba ./Level_0/Drivers/0_ADC/0_ADC.o
- .debug_info    0x0001d592     0x101c ./Communication/RS485/0_RS485.o
- .debug_info    0x0001e5ae     0x3920 ./Communication/0_Communication.o
- .debug_info    0x00021ece      0xb0d ./Communication/0_Event_Group.o
- .debug_info    0x000229db     0x1c28 ./Communication/1_Trame_Communication.o
- .debug_info    0x00024603     0x13f0 ./Communication/2_Echange_Data_Strategie.o
- .debug_info    0x000259f3     0x3026 ./Communication/2_Echange_Datas.o
- .debug_info    0x00028a19     0x14d4 ./Communication/2_Echange_Datas_Reception.o
- .debug_info    0x00029eed      0xb52 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_info    0x0002aa3f      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_info    0x0002b081      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_info    0x0002bf10      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_info    0x0002c54f      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_info    0x0002cded      0x501 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_info    0x0002d2ee     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_info    0x0002ea58     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_info    0x0000714f     0x147c ./freertos/src/FreeRTOSCommonHooks.o
+ .debug_info    0x000085cb     0x133d ./freertos/src/event_groups.o
+ .debug_info    0x00009908      0xebb ./freertos/src/heap_5.o
+ .debug_info    0x0000a7c3      0xbeb ./freertos/src/list.o
+ .debug_info    0x0000b3ae      0xd07 ./freertos/src/port.o
+ .debug_info    0x0000c0b5     0x2528 ./freertos/src/queue.o
+ .debug_info    0x0000e5dd     0x2f45 ./freertos/src/tasks.o
+ .debug_info    0x00011522     0x1c75 ./freertos/src/timers.o
+ .debug_info    0x00013197     0x254b ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
+ .debug_info    0x000156e2      0xdae ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
+ .debug_info    0x00016490      0xfda ./Strategie/Strategie_Level0/0_Infos.o
+ .debug_info    0x0001746a      0xd07 ./Strategie/Strategie_Level0/Strategie_Actions.o
+ .debug_info    0x00018171     0x17bd ./Strategie/Strategie.o
+ .debug_info    0x0001992e     0x2bb0 ./Pathfinding/Astar/Astar.o
+ .debug_info    0x0001c4de     0x10ba ./Level_0/Drivers/0_ADC/0_ADC.o
+ .debug_info    0x0001d598     0x101c ./Communication/RS485/0_RS485.o
+ .debug_info    0x0001e5b4     0x3926 ./Communication/0_Communication.o
+ .debug_info    0x00021eda      0xb0d ./Communication/0_Event_Group.o
+ .debug_info    0x000229e7     0x1c2e ./Communication/1_Trame_Communication.o
+ .debug_info    0x00024615     0x13f6 ./Communication/2_Echange_Data_Strategie.o
+ .debug_info    0x00025a0b     0x302c ./Communication/2_Echange_Datas.o
+ .debug_info    0x00028a37     0x14da ./Communication/2_Echange_Datas_Reception.o
+ .debug_info    0x00029f11      0xb52 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_info    0x0002aa63      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_info    0x0002b0a5      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_info    0x0002bf34      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_info    0x0002c573      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_info    0x0002ce11      0x501 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_info    0x0002d312     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_info    0x0002ea7c     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
 .debug_abbrev   0x00000000     0x70b6
  .debug_abbrev  0x00000000      0x38d ./src/IA_2021_V0.o
@@ -3189,7 +3189,7 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_line    0x000146c8      0xaef D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
  .debug_line    0x000151b7      0xd49 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_str      0x00000000     0x8b23
+.debug_str      0x00000000     0x8b3d
  .debug_str     0x00000000     0x1b80 ./src/IA_2021_V0.o
                                0x1d34 (size before relaxing)
  .debug_str     0x00001b80      0x2a8 ./src/Init.o
@@ -3202,65 +3202,65 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
                                 0x691 (size before relaxing)
  .debug_str     0x00001ff7      0x442 ./src/test.o
                                 0xed7 (size before relaxing)
- .debug_str     0x00002439      0x57b ./freertos/src/FreeRTOSCommonHooks.o
-                               0x10af (size before relaxing)
- .debug_str     0x000029b4      0x400 ./freertos/src/event_groups.o
+ .debug_str     0x00002439      0x595 ./freertos/src/FreeRTOSCommonHooks.o
+                               0x10c9 (size before relaxing)
+ .debug_str     0x000029ce      0x400 ./freertos/src/event_groups.o
                                 0xaf1 (size before relaxing)
- .debug_str     0x00002db4      0x2d6 ./freertos/src/heap_5.o
+ .debug_str     0x00002dce      0x2d6 ./freertos/src/heap_5.o
                                 0xa20 (size before relaxing)
- .debug_str     0x0000308a       0x89 ./freertos/src/list.o
+ .debug_str     0x000030a4       0x89 ./freertos/src/list.o
                                 0x7bf (size before relaxing)
- .debug_str     0x00003113      0x139 ./freertos/src/port.o
+ .debug_str     0x0000312d      0x139 ./freertos/src/port.o
                                 0x9cc (size before relaxing)
- .debug_str     0x0000324c      0x66e ./freertos/src/queue.o
+ .debug_str     0x00003266      0x66e ./freertos/src/queue.o
                                0x10ad (size before relaxing)
- .debug_str     0x000038ba      0x93d ./freertos/src/tasks.o
+ .debug_str     0x000038d4      0x93d ./freertos/src/tasks.o
                                0x16e5 (size before relaxing)
- .debug_str     0x000041f7      0x4da ./freertos/src/timers.o
+ .debug_str     0x00004211      0x4da ./freertos/src/timers.o
                                 0xfd1 (size before relaxing)
- .debug_str     0x000046d1      0x781 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
+ .debug_str     0x000046eb      0x781 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
                                0x1452 (size before relaxing)
- .debug_str     0x00004e52      0x121 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
+ .debug_str     0x00004e6c      0x121 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
                                 0x8e6 (size before relaxing)
- .debug_str     0x00004f73      0x1b3 ./Strategie/Strategie_Level0/0_Infos.o
+ .debug_str     0x00004f8d      0x1b3 ./Strategie/Strategie_Level0/0_Infos.o
                                 0xbe5 (size before relaxing)
- .debug_str     0x00005126      0x1b9 ./Strategie/Strategie_Level0/Strategie_Actions.o
+ .debug_str     0x00005140      0x1b9 ./Strategie/Strategie_Level0/Strategie_Actions.o
                                 0x9fb (size before relaxing)
- .debug_str     0x000052df      0x2ea ./Strategie/Strategie.o
+ .debug_str     0x000052f9      0x2ea ./Strategie/Strategie.o
                                 0xfdf (size before relaxing)
- .debug_str     0x000055c9      0x66c ./Pathfinding/Astar/Astar.o
+ .debug_str     0x000055e3      0x66c ./Pathfinding/Astar/Astar.o
                                0x1442 (size before relaxing)
- .debug_str     0x00005c35      0x2e7 ./Level_0/Drivers/0_ADC/0_ADC.o
+ .debug_str     0x00005c4f      0x2e7 ./Level_0/Drivers/0_ADC/0_ADC.o
                                 0xbd0 (size before relaxing)
- .debug_str     0x00005f1c       0x4c ./Communication/RS485/0_RS485.o
+ .debug_str     0x00005f36       0x4c ./Communication/RS485/0_RS485.o
                                 0x875 (size before relaxing)
- .debug_str     0x00005f68      0x5fc ./Communication/0_Communication.o
-                               0x271a (size before relaxing)
- .debug_str     0x00006564       0x21 ./Communication/0_Event_Group.o
+ .debug_str     0x00005f82      0x5fc ./Communication/0_Communication.o
+                               0x2734 (size before relaxing)
+ .debug_str     0x0000657e       0x21 ./Communication/0_Event_Group.o
                                 0x8c8 (size before relaxing)
- .debug_str     0x00006585      0x40e ./Communication/1_Trame_Communication.o
-                               0x1712 (size before relaxing)
- .debug_str     0x00006993       0xe0 ./Communication/2_Echange_Data_Strategie.o
-                               0x1082 (size before relaxing)
- .debug_str     0x00006a73      0x3f2 ./Communication/2_Echange_Datas.o
-                               0x1f09 (size before relaxing)
- .debug_str     0x00006e65      0x124 ./Communication/2_Echange_Datas_Reception.o
-                               0x1233 (size before relaxing)
- .debug_str     0x00006f89      0x7db D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_str     0x0000659f      0x40e ./Communication/1_Trame_Communication.o
+                               0x172c (size before relaxing)
+ .debug_str     0x000069ad       0xe0 ./Communication/2_Echange_Data_Strategie.o
+                               0x109c (size before relaxing)
+ .debug_str     0x00006a8d      0x3f2 ./Communication/2_Echange_Datas.o
+                               0x1f23 (size before relaxing)
+ .debug_str     0x00006e7f      0x124 ./Communication/2_Echange_Datas_Reception.o
+                               0x124d (size before relaxing)
+ .debug_str     0x00006fa3      0x7db D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
                                 0xb45 (size before relaxing)
- .debug_str     0x00007764      0x19c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_str     0x0000777e      0x19c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
                                 0x899 (size before relaxing)
- .debug_str     0x00007900      0x579 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_str     0x0000791a      0x579 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
                                 0xeb3 (size before relaxing)
- .debug_str     0x00007e79       0xaf D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_str     0x00007e93       0xaf D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
                                 0x340 (size before relaxing)
- .debug_str     0x00007f28       0xe5 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_str     0x00007f42       0xe5 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
                                 0x74c (size before relaxing)
- .debug_str     0x0000800d      0x12f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_str     0x00008027      0x12f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
                                 0x69c (size before relaxing)
- .debug_str     0x0000813c      0x2bd D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_str     0x00008156      0x2bd D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
                                 0xe9a (size before relaxing)
- .debug_str     0x000083f9      0x72a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_str     0x00008413      0x72a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
                                 0xfe6 (size before relaxing)
 
 .comment        0x00000000       0x79
