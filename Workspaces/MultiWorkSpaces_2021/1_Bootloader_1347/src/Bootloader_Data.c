@@ -60,7 +60,6 @@ void Traitement_Data(struct st_LineBootloader *line)
 {
 	unsigned int line_address, i;
 
-
 	//Fct du type de Data
 	switch(line->Type)
 	{

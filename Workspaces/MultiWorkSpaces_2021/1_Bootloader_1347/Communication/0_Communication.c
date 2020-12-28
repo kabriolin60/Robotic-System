@@ -254,7 +254,7 @@ void _0_Communication_Wait_Sending_Clearance(void)
 			eGROUP_SYNCH_TxClearance, /* The bits within the event group to wait for. */
 			pdTRUE,        /* Clear bits before returning. */
 			pdTRUE,        /* Wait for ALL bits to be set */
-			portMAX_DELAY/*ms_to_tick(30)*/ );/* Wait a maximum of xTicksToWait for either bit to be set. */
+			portMAX_DELAY );/* Wait a maximum of xTicksToWait for either bit to be set. */
 }
 
 

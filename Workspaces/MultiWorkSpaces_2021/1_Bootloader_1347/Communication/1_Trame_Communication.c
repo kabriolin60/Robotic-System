@@ -60,51 +60,6 @@ void _1_Communication_Create_Queues_Semaphores(void)
 
 
 /*****************************************************************************
- ** Function name:		_1_Communication_Wait_To_Send
- **
- ** Descriptions:		Fonction d'attente que la trame soit disponible pour envoyer un nouveau message
- ** 					Cette fonction se trouve en niveau 1, mais est appellée par le niveau 2
- ** 					Le bit de mise à disposition est activé par la mise en Queue de la trame finale, permettant de créer un nouveau message à envoyer
- **
- ** parameters:			Temps d'attente maximum
- ** Returned value:		None
- **
- *****************************************************************************/
-BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait)
-{
-	EventBits_t uxBits;
-	uxBits = xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
-			eGROUP_SYNCH_TxTrameDispo, /* The bits within the event group to wait for. */
-			pdTRUE,        /* Clear bits before returning. */
-			pdTRUE,        /* Wait for ALL bits to be set */
-			xTicksToWait );/* Wait a maximum of xTicksToWait for either bit to be set. */
-
-	if( ( uxBits & (eGROUP_SYNCH_TxTrameDispo ) ) == ( eGROUP_SYNCH_TxTrameDispo ) )
-	{
-		return pdTRUE;
-	}
-	//delay depassé
-	return pdFALSE;
-}
-
-
-/*****************************************************************************
- ** Function name:		_1_Communication_Free_Send_Bit
- **
- ** Descriptions:		Fonction de libération du Bit, indiquant qu'un message peut être envoyé
- **
- ** parameters:			None
- ** Returned value:		None
- **
- *****************************************************************************/
-void _1_Communication_Free_Send_Bit(void)
-{
-	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
-			eGROUP_SYNCH_TxTrameDispo );/* The bits being set. */
-}
-
-
-/*****************************************************************************
  ** Function name:		_1_Communication_Wait_To_Receive
  **
  ** Descriptions:		Fonction d'attente que la trame soit disponible pour recevoir un nouveau message
@@ -220,12 +175,9 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 	//Envoi de la trame
 	if(xQueueSend(_1_xQueue_Message_TO_Send, &Message_To_Send, ms_to_tick(50)))
 	{
-		//Libère le bit de synchro pour pouvoir envoyer un autre message
-		_1_Communication_Free_Send_Bit();
 		return pdPASS;
 	}
-	//Libère le bit de synchro pour pouvoir envoyer un autre message
-	_1_Communication_Free_Send_Bit();
+
 	return pdFAIL;
 }
 
@@ -473,6 +425,7 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 	NVIC_EnableIRQ(RS485_IRQ_SELECTION);
 
 	EventBits_t uxBits;
+
 	while (true)
 	{
 		//Attente de l'info qu'une data est dispo dans un buffer

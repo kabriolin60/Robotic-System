@@ -45,7 +45,7 @@
 
 #define USER_START_SECTOR 4
 
-#define MAX_USER_SECTOR 29
+#define MAX_USER_SECTOR 16
 
 
 
@@ -58,10 +58,8 @@
 #define USER_FLASH_START (sector_start_map[USER_START_SECTOR])
 #define USER_FLASH_END     (sector_end_map[MAX_USER_SECTOR])
 #define USER_FLASH_SIZE  ((USER_FLASH_END - USER_FLASH_START) + 1)
-#define MAX_FLASH_SECTOR 30
+#define MAX_FLASH_SECTOR 16
 
-#define BOOTLOADER_ENTRY_GPIO_PORT 1
-#define BOOTLOADER_ENTRY_GPIO_PIN 12
 
 /* Define start address of each Flash sector */
 
@@ -96,38 +94,6 @@
 #define SECTOR_14_START     0x0000E000
 
 #define SECTOR_15_START     0x0000F000
-
-#define SECTOR_16_START     0x00010000
-
-#define SECTOR_17_START     0x00018000
-
-#define SECTOR_18_START     0x00020000
-
-#define SECTOR_19_START     0x00028000
-
-#define SECTOR_20_START     0x00030000
-
-#define SECTOR_21_START     0x00038000
-
-#define SECTOR_22_START     0x00040000
-
-#define SECTOR_23_START     0x00048000
-
-#define SECTOR_24_START     0x00050000
-
-#define SECTOR_25_START     0x00058000
-
-#define SECTOR_26_START     0x00060000
-
-#define SECTOR_27_START     0x00068000
-
-#define SECTOR_28_START     0x00070000
-
-#define SECTOR_29_START     0x00078000
-
-
-
-
 
 
 
@@ -165,47 +131,18 @@
 
 #define SECTOR_15_END       0x0000FFFF
 
-#define SECTOR_16_END       0x00017FFF
-
-#define SECTOR_17_END       0x0001FFFF
-
-#define SECTOR_18_END       0x00027FFF
-
-#define SECTOR_19_END       0x0002FFFF
-
-#define SECTOR_20_END       0x00037FFF
-
-#define SECTOR_21_END       0x0003FFFF
-
-#define SECTOR_22_END       0x00047FFF
-
-#define SECTOR_23_END       0x0004FFFF
-
-#define SECTOR_24_END       0x00057FFF
-
-#define SECTOR_25_END       0x0005FFFF
-
-#define SECTOR_26_END       0x00067FFF
-
-#define SECTOR_27_END       0x0006FFFF
-
-#define SECTOR_28_END       0x00077FFF
-
-#define SECTOR_29_END       0x0007FFFF
-
-
 
 
 typedef enum
 {
-PREPARE_SECTOR_FOR_WRITE    =50,
-COPY_RAM_TO_FLASH            =51,
-ERASE_SECTOR                =52,
-BLANK_CHECK_SECTOR            =53,
-READ_PART_ID                =54,
-READ_BOOT_VER                =55,
-COMPARE                        =56,
-REINVOKE_ISP                =57
+	PREPARE_SECTOR_FOR_WRITE    =50,
+	COPY_RAM_TO_FLASH           =51,
+	ERASE_SECTOR                =52,
+	BLANK_CHECK_SECTOR          =53,
+	READ_PART_ID                =54,
+	READ_BOOT_VER               =55,
+	COMPARE                     =56,
+	REINVOKE_ISP                =57
 }IAP_Command_Code;
 
 

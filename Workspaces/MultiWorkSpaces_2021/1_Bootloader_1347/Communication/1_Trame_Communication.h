@@ -23,13 +23,6 @@ void _1_Communication_Init(void);
 void _1_Communication_Create_Queues_Semaphores(void);
 
 
-
-BaseType_t _1_Communication_Wait_To_Send(TickType_t xTicksToWait);
-
-void _1_Communication_Free_Send_Bit(void);
-
-
-
 BaseType_t _1_Communication_Wait_To_Receive(TickType_t xTicksToWait);
 
 void _1_Communication_Free_Receive_Bit(void);
