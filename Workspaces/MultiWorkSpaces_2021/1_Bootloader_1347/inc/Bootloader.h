@@ -56,7 +56,7 @@
 
 #define FLASH_BUF_SIZE 256
 #define USER_FLASH_START (sector_start_map[USER_START_SECTOR])
-#define USER_FLASH_END     (sector_end_map[MAX_USER_SECTOR])
+#define USER_FLASH_END   (sector_end_map[MAX_USER_SECTOR])
 #define USER_FLASH_SIZE  ((USER_FLASH_END - USER_FLASH_START) + 1)
 #define MAX_FLASH_SECTOR 16
 

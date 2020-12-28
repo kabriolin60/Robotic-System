@@ -62,7 +62,7 @@ void _0_Communication_Init(void)
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
 	//Tache d'envoi des messages pour tous les cannaux
-	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 100, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
+	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 120, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 
@@ -95,7 +95,6 @@ void _0_Communication_Init_RS485(void)
 	/* Before using the ring buffers, initialize them using the ring buffer init function */
 	/* RS485 RX ring buffer init */
 	RingBuffer_Init(&rxring_RS485, rxbuff_RS485, 1, RS485_RX_RB_SIZE);
-
 
 	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
 	Chip_UART_SetupFIFOS(RS485_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));

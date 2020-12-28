@@ -127,10 +127,10 @@ int main(void)
 	Init_Carte_Perpheriques();
 
 	/* LED1 toggle thread */
-	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 60, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	/* Bootloader Application Launcher */
-	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_App", 50, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_App", 60, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

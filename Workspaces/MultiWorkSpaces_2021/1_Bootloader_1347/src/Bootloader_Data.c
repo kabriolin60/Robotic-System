@@ -94,8 +94,8 @@ void Traitement_Data(struct st_LineBootloader *line)
 		//Force l'écriture du dernier bloc de flash
 		//Buffer is full
 		//One sector to write
-		block_start_address = block_start_address >> 12;
-		block_start_address = block_start_address << 12;
+		//block_start_address = block_start_address >> 12;
+		//block_start_address = block_start_address << 12;
 		Flash_Write_Block(block_start_address, (uint32_t*)&flash_buf, FLASH_BUF_SIZE);
 		break;
 

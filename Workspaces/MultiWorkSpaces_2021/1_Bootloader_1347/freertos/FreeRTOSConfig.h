@@ -49,11 +49,8 @@
 #define configMAX_TASK_NAME_LEN		( 20 )
 
 
-
-#define configGENERATE_RUN_TIME_STATS	0
+#define configGENERATE_RUN_TIME_STATS	1
 #define configUSE_TRACE_FACILITY		configGENERATE_RUN_TIME_STATS
-
-
 
 #define configUSE_16_BIT_TICKS		0
 #define configIDLE_SHOULD_YIELD		1
@@ -96,7 +93,7 @@ to exclude the API function. */
 format the raw data provided by the uxTaskGetSystemState() function in to human
 readable ASCII form.  See the notes in the implementation of vTaskList() within
 FreeRTOS/Source/tasks.c for limitations. */
-#define configUSE_STATS_FORMATTING_FUNCTIONS	0
+#define configUSE_STATS_FORMATTING_FUNCTIONS	1
 
 
 /* Use the system definition, if there is one */

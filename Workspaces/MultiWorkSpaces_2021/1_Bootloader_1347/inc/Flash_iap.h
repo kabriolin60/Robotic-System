@@ -11,10 +11,6 @@
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
-
-/* Size of each sector */
-//#define SECTOR_SIZE             1024
-
 void Flash_Write_Block(uint32_t destadrr, uint32_t *srcAdd, uint32_t byteswrt);
 
 #endif /* FLASH_IAP_H_ */
