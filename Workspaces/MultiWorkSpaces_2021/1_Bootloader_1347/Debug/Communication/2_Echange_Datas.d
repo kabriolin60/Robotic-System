@@ -51,7 +51,9 @@ Communication/2_Echange_Datas.o Communication/2_Echange_Datas.d: \
  ../Communication/2_Echange_Datas_Reception.h \
  ../Communication/1_Trame_Communication.h \
  D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1347\freertos\inc/semphr.h \
- D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1347\freertos\inc/queue.h
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1347\freertos\inc/queue.h \
+ ../Communication/0_Communication.h \
+ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_13xx\inc/ring_buffer.h
 
 ../Communication/2_Echange_Datas.h:
 
@@ -158,3 +160,7 @@ D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bo
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1347\freertos\inc/semphr.h:
 
 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1347\freertos\inc/queue.h:
+
+../Communication/0_Communication.h:
+
+D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_13xx\inc/ring_buffer.h:

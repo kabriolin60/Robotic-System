@@ -27,36 +27,6 @@
 extern EventGroupHandle_t _0_Comm_EventGroup;
 
 
-/*
- * EventGroupe de Flags de présence des cartes sur le bus
- */
-
-#define eGROUP_STATUS_CARTE_IA			( 1 << 0 )		//Flag indiquant la presence de la carte IA sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_1	( 1 << 1 )		//Flag indiquant la presence de la carte multiFCT 1 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_2	( 2 << 1 )		//Flag indiquant la presence de la carte multiFCT 2 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_3	( 3 << 1 )		//Flag indiquant la presence de la carte multiFCT 3 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_4	( 4 << 1 )		//Flag indiquant la presence de la carte multiFCT 4 sur le bus
-//A ajouter pour chaque carte possible
-
-#define eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES		eGROUP_STATUS_CARTE_MultiFCT_1
-#define eGROUP_STATUS_CARTES_AUTRES_ATTENDUES			0
-#define eGROUP_STATUS_CARTES_SERVO_ATTENDUES			eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES
-
-#define eGROUP_STATUS_CARTES_ATTENDUES /*eGROUP_STATUS_CARTE_IA |*/ eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES | eGROUP_STATUS_CARTES_AUTRES_ATTENDUES
-
-extern EventGroupHandle_t _0_Status_EventGroup;
-
-
-/*
- * EventGroup de flags des ACK de communication
- */
-/* Event_Group d'indication du type d'ACK de communication reçu */
-extern EventGroupHandle_t _0_ACK_Type_EventGroup;
-
-/* Event_Group d'indication des adresses des cartes ayant renvoyé un ACK */
-extern EventGroupHandle_t _0_ACK_Adresses;
-
-
 void _0_Communication_Init_Event_Group();
 
 

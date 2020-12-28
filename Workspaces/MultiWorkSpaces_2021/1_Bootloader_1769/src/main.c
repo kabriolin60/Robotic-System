@@ -28,6 +28,7 @@
 #include "2_Echange_Datas.h"
 #include "2_Echange_Datas_Reception.h"
 
+#include "Bootloader_Data.h"
 
 #include <cr_section_macros.h>
 

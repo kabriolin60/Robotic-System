@@ -54,6 +54,7 @@ extern uint8_t is_RunApplication_running;
  * Private functions
  ****************************************************************************/
 
+
 /* Sets up system hardware */
 static void prvSetupHardware(void)
 {
@@ -121,14 +122,15 @@ int main(void)
 {
 	prvSetupHardware();
 
+	Init_bootloader();
+
 	Init_Carte_Perpheriques();
 
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
-
 	/* Bootloader Application Launcher */
-	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 1000, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 100, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

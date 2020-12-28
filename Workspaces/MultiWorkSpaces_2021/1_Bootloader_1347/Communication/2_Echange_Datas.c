@@ -8,6 +8,7 @@
 #include "2_Echange_Datas.h"
 #include "2_Echange_Datas_Reception.h"
 #include "1_Trame_Communication.h"
+#include "0_Communication.h"
 
 
 struct Communication_Trame trame_echange;
@@ -25,8 +26,6 @@ void _2_Communication_Init()
 {
 
 }
-
-
 
 
 /*****************************************************************************
@@ -48,4 +47,6 @@ void _2_Comm_Send_Bootloader_ACK(enum enum_canal_communication canal)
 
 	//Envoi avec attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal);
+
+	_0_Communication_Give_Sending_Clearance();
 }

@@ -25,12 +25,6 @@ void Init_Carte_Perpheriques(void)
 
 	/* Init de la communication Niveau 1 */
 	_1_Communication_Init();
-
-	/* Init de la communication Niveau 2 */
-	_2_Communication_Init();
-
-	/* Init de la communication Niveau 2 Reception*/
-	_2_Communication_RX_Init();
 }
 
 

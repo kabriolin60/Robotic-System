@@ -23,7 +23,7 @@ void Flash_Write_Block(uint32_t destadrr, uint32_t *srcAdd, uint32_t byteswrt)
 {
 	uint8_t ret_code;
 
-	unsigned int sector_start = (destadrr - 0x10000) / 0x8000 + 16;
+	unsigned int sector_start = (destadrr) / 0x1000;
 
 	/* Disable interrupt mode so it doesn't fire during FLASH updates */
 	__disable_irq();

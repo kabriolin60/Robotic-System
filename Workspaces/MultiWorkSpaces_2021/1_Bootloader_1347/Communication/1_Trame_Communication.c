@@ -39,7 +39,7 @@ void _1_Communication_Init(void)
 	_1_Communication_Create_Queues_Semaphores();
 
 	//Tache de décodage des donnees recues par differentes FIFO
-	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 320, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 280, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
@@ -249,8 +249,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	if(RingBuff == NULL)
 		return pdFAIL;
 
-	_1_Communication_Wait_To_Receive(ms_to_tick(50));
-
 	byte API_start = 0;
 	static short API_LENGTH = 0;
 	short crc = 0;
@@ -269,13 +267,11 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			boucle++;
 			if(boucle > 5)
 			{
-				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
 		}else
 		{
-			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
@@ -290,7 +286,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 	if (API_LENGTH > COMMUNICATION_TRAME_MAX_DATA + 11)
 	{
-		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 		return pdFAIL;
 	}
@@ -318,7 +313,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		FIFO_READ_ELEMENT(Fifo, &rx_crc);*/
 		//Dummy Read 3 bytes
 
-		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 		return pdFAIL;
 	}
@@ -330,7 +324,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 		if (boucle > 5)
 		{
-			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
@@ -376,7 +369,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 			if (boucle > 5)
 			{
-				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
@@ -408,19 +400,16 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 				is_RunApplication_running = false;
 			}
 
-
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
 			_1_Communication_Check_Rx_Adresse(&received_trame);
 		}else
 		{
-			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
 	}else
 	{
-		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 	}
 	return pdFAIL;
@@ -443,7 +432,7 @@ BaseType_t _1_Communication_Check_Rx_Adresse(struct Communication_Trame *receive
 	if(received_trame->Slave_Adresse == ALL_CARDS || received_trame->Slave_Adresse == ADRESSE_CARTE)
 	{
 		_2_Communication_Interprete_message(received_trame);
-		return true;
+		return pdTRUE;
 	}
 
 	return pdFALSE;
@@ -484,7 +473,6 @@ void _1_Communication_Recomposition_Rx(void *pvParameters)
 	NVIC_EnableIRQ(RS485_IRQ_SELECTION);
 
 	EventBits_t uxBits;
-
 	while (true)
 	{
 		//Attente de l'info qu'une data est dispo dans un buffer

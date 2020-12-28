@@ -24,7 +24,7 @@
 
 /* Transmit and receive ring buffer sizes */
 #define TX_RB_SIZE 				128		/* Send */
-#define RS485_RX_RB_SIZE 		256		/* Receive RS485*/
+#define RS485_RX_RB_SIZE 		128		/* Receive RS485*/
 
 
 /* Receive ring buffer for RS485*/
@@ -58,11 +58,11 @@ void _0_Communication_Init(void)
 	_0_Communication_Init_RS485();
 
 	//Création de la Queue contenant les messages qui doivent être envoyés
-	_1_xQueue_Message_TO_Send = xQueueCreate( 5, sizeof( struct Communication_Message ));
+	_1_xQueue_Message_TO_Send = xQueueCreate( 2, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
 
 	//Tache d'envoi des messages pour tous les cannaux
-	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 130, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
+	xTaskCreate(_0_Communication_Send_Data, (char *) "_0_Com_Send_Data", 100, _1_xQueue_Message_TO_Send, (tskIDLE_PRIORITY + 3UL), (xTaskHandle *) NULL);
 }
 
 

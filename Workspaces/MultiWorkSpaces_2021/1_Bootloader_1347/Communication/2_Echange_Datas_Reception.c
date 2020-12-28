@@ -30,7 +30,6 @@ void _2_Communication_RX_Init()
 
 }
 
-struct Communication_Trame received_trame;
 void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 {
 	Nb_Messages_Interpretes++;
@@ -38,7 +37,7 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 	switch(trame->Instruction)
 	{
 	case BOOTLOADER:
-		Reception_Trame_Bootloader(&received_trame);
+		Reception_Trame_Bootloader(trame);
 		//Envoi de l'ACK
 		_2_Comm_Send_Bootloader_ACK(RS485_port);
 		break;

@@ -43,7 +43,7 @@
 
  */
 
-#define USER_START_SECTOR 16
+#define USER_START_SECTOR 4
 
 #define MAX_USER_SECTOR 29
 
@@ -54,7 +54,7 @@
  * size used by SCSI layer of LPCUSB
  */
 
-#define FLASH_BUF_SIZE 4096
+#define FLASH_BUF_SIZE 256
 #define USER_FLASH_START (sector_start_map[USER_START_SECTOR])
 #define USER_FLASH_END     (sector_end_map[MAX_USER_SECTOR])
 #define USER_FLASH_SIZE  ((USER_FLASH_END - USER_FLASH_START) + 1)
