@@ -10,11 +10,11 @@
 #include "semphr.h"
 #include "event_groups.h"
 #include "0_Event_Group.h"
-//#include "2_Echange_Datas_Reception.h"
+#include "2_Echange_Datas_Reception.h"
 
 #include <cr_section_macros.h>
 #include <Init.h>
-//#include "2_Echange_Datas.h"
+#include "2_Echange_Datas.h"
 
 extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les messages à envoyer pour TOUS les cannaux
 

@@ -35,6 +35,7 @@
 
 #include "Configuration.h"
 #include "Init.h"
+#include "TEST.h"
 
 /*****************************************************************************
  * Private types/enumerations/variables
@@ -89,6 +90,9 @@ int main(void)
 
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+
+	/* TEST*/
+	xTaskCreate(TEST_Send_Message, (char *) "vTask_test", 150, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 
 	/* Start the scheduler */

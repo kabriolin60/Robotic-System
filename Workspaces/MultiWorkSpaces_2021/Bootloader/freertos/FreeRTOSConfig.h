@@ -28,15 +28,6 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-/*
- * The following #error directive is to remind users that a batch file must be
- * executed prior to this project being built.  The batch file *cannot* be
- * executed from within the IDE!  Once it has been executed, re-open or refresh
- * the Eclipse project and remove the #error line below.
- */
-
-//#include "LPC17xx.h"
-
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -57,7 +48,7 @@
 #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 5 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 12 )
 
-#define configUSE_TRACE_FACILITY	1
+#define configUSE_TRACE_FACILITY	0//1
 #define configUSE_16_BIT_TICKS		0
 #define configIDLE_SHOULD_YIELD		0
 #define configUSE_CO_ROUTINES 		0
@@ -71,57 +62,34 @@
 /* Software timer definitions. */
 #define configUSE_TIMERS						1
 #define configTIMER_TASK_PRIORITY				( configMAX_PRIORITIES - 1 )
-#define configTIMER_QUEUE_LENGTH				5
+#define configTIMER_QUEUE_LENGTH				2//5
 #define configTIMER_TASK_STACK_DEPTH			( 100 )
 
 #define configUSE_COUNTING_SEMAPHORES 	0
 #define configUSE_ALTERNATIVE_API 		0
-#define configCHECK_FOR_STACK_OVERFLOW	2
-#define configUSE_RECURSIVE_MUTEXES		1
-#define configQUEUE_REGISTRY_SIZE		10
+#define configCHECK_FOR_STACK_OVERFLOW	0//2
+#define configUSE_RECURSIVE_MUTEXES		0//1
+#define configQUEUE_REGISTRY_SIZE		2//10
 #define configGENERATE_RUN_TIME_STATS	0
 
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
 
-#define INCLUDE_vTaskPrioritySet			1
-#define INCLUDE_uxTaskPriorityGet			1
+#define INCLUDE_vTaskPrioritySet			0//1
+#define INCLUDE_uxTaskPriorityGet			0//1
 #define INCLUDE_vTaskDelete					1
 #define INCLUDE_vTaskCleanUpResources		0
 #define INCLUDE_vTaskSuspend				1
 #define INCLUDE_vTaskDelayUntil				1
 #define INCLUDE_vTaskDelay					1
-#define INCLUDE_uxTaskGetStackHighWaterMark	1
+#define INCLUDE_uxTaskGetStackHighWaterMark	0//1
 
 /* This demo makes use of one or more example stats formatting functions.  These
 format the raw data provided by the uxTaskGetSystemState() function in to human
 readable ASCII form.  See the notes in the implementation of vTaskList() within
 FreeRTOS/Source/tasks.c for limitations. */
-#define configUSE_STATS_FORMATTING_FUNCTIONS	1
+#define configUSE_STATS_FORMATTING_FUNCTIONS	0//1
 
-/*-----------------------------------------------------------
- * Ethernet configuration.
- *-----------------------------------------------------------*/
-
-/* MAC address configuration. */
-#define configMAC_ADDR0	0x00
-#define configMAC_ADDR1	0x12
-#define configMAC_ADDR2	0x13
-#define configMAC_ADDR3	0x10
-#define configMAC_ADDR4	0x15
-#define configMAC_ADDR5	0x11
-
-/* IP address configuration. */
-#define configIP_ADDR0		192
-#define configIP_ADDR1		168
-#define configIP_ADDR2		0
-#define configIP_ADDR3		201
-
-/* Netmask configuration. */
-#define configNET_MASK0		255
-#define configNET_MASK1		255
-#define configNET_MASK2		255
-#define configNET_MASK3		0
 
 /* Use the system definition, if there is one */
 #ifdef __NVIC_PRIO_BITS
@@ -144,18 +112,6 @@ value needs to be equal to or greater than 5 (on the Cortex-M3 the lower the
 numeric value the higher the interrupt priority). */
 #define configEMAC_INTERRUPT_PRIORITY		5
 #define configUSB_INTERRUPT_PRIORITY		6
-
-
-
-/*-----------------------------------------------------------
- * Macros required to setup the timer for the run time stats.
- *-----------------------------------------------------------*/
-/*
-extern void vConfigureTimerForRunTimeStats( void );
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() vConfigureTimerForRunTimeStats()
-#define portGET_RUN_TIME_COUNTER_VALUE() LPC_TIM0->TC
-*/
-
 
 
 #endif /* FREERTOS_CONFIG_H */

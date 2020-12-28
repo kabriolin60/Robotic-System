@@ -194,3 +194,38 @@ void _2_Comm_Send_Infos(struct Com_Reponse_Info_Peripherique *Infos, enum enum_c
 
 	_1_Communication_Create_Trame(&trame_echange, canal);
 }
+
+
+/*****************************************************************************
+ ** Function name:		_2_Comm_Send_ACKNOWLEDGE
+ **
+ ** Descriptions:		Fonction de renvoi d'un ACK suite à reception d'un ordre
+ **
+ ** parameters:			Type d'ACK à envoyer
+ ** 					canal de communication
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _2_Comm_Send_ACKNOWLEDGE(enum enum_ACK_Types ACK_TYPE, enum enum_canal_communication canal)
+{
+	struct Communication_ACK ACK;
+
+	ACK.Adresse = ADRESSE_CARTE;		//Adresse de la carte envoyant l'ACK
+	ACK.ACK_TYPE = ACK_TYPE;	//Quel a été le type de message reçu auquel répondre
+
+	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
+	if (_1_Communication_Wait_To_Send(ms_to_tick(5)) == pdFAIL)
+	{
+		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
+		//Abandon
+		return;
+	}
+
+	trame_echange.Instruction = ACKNOWLEDGE;
+	trame_echange.Slave_Adresse = IA_BOARD;
+
+	trame_echange.Length = COPYDATA(ACK, trame_echange.Data);
+	trame_echange.XBEE_DEST_ADDR = XBee_PC;
+
+	_1_Communication_Create_Trame(&trame_echange, canal);
+}
