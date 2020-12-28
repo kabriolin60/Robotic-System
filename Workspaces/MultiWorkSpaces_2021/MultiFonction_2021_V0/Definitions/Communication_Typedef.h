@@ -47,6 +47,7 @@ enum Com_Instruction
 	DEMANDE_INFO,					//Demande les infos d'une carte
 	REPONSE_INFO_Multi_FCT,         //Toutes les infos d'une carte dans un seul message
 	REPONSE_INFO_IA,                //Toutes les infos de la carte IA
+	REPONSE_INFO_Peripherique,		//Toutes les infos d'une carte péripherique
 
 	//Power
 	DEMANDE_MOTEURS_POWER = 50,
@@ -294,9 +295,9 @@ Declaration de la definition de la Structure de communication permettant de déf
  **************************************************/
 struct Com_Def_Id_Robot
 {
-	//instruction 34		//58 + alignement = 60 octets
+	//instruction 41		//58 + alignement = 60 octets
 
-	byte Numero_Robot;											//0 = PR, 1 = GR
+	byte Numero_Robot;											//0 = GR, 1 = PR
 };
 
 /*************************************************/
@@ -308,7 +309,7 @@ Declaration de la definition de la Structure de communication permettant de fair
  **************************************************/
 struct Com_Reponse_Info
 {
-	//instruction 36		//58 + alignement = 60 octets
+	//instruction 42		//58 + alignement = 60 octets
 
 	byte Numero_Robot;											//0 = GR, 1 = PR
 
@@ -343,7 +344,7 @@ Declaration de la definition de la Structure de communication permettant de fair
 
 struct Com_Reponse_Info_IA
 {
-	//instruction 	37
+	//instruction 	43
 	byte Numero_Robot;
 
 	byte Strategie;
@@ -355,6 +356,18 @@ struct Com_Reponse_Info_IA
 	long Boards_Comm_Status;			//== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
 
 	unsigned short Tension_Batterie;							//Tension * 100		//2 octets
+};
+
+/*************************************************/
+
+
+/**************************************************
+Declaration de la definition de la Structure de communication permettant de faire remonter l'ensemble des infos d'une carte péripherique vers la carte IA
+ **************************************************/
+
+struct Com_Reponse_Info_Peripherique
+{
+
 };
 
 /*************************************************/

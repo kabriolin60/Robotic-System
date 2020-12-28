@@ -126,7 +126,7 @@ Déclaration des cannaux des Codeurs
 /**************************************************
 Declaration des Reglages liés à la Communication RS485
 **************************************************/
-#define RS484_UART					LPC_UART1
+#define RS485_UART					LPC_UART1
 
 #define RS485_IRQ_SELECTION 		UART1_IRQn
 #define RS485_HANDLER_NAME 			UART1_IRQHandler

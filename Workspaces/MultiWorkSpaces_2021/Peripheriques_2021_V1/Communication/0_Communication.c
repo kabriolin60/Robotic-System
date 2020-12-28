@@ -171,21 +171,20 @@ void RS485_HANDLER_NAME(void)
  ** Returned value:		None
  **
  *****************************************************************************/
-#include "2_Echange_Datas.h"
 void _0_Communication_Send_Data(void *pvParameters)
 {
-
 	static struct Communication_Message Message;
 	static uint8_t g_txBuff[TX_RB_SIZE];
-#ifdef USE_USB
-	byte length_remaining_to_send = 0;
-#endif
 
 	Task_Delay(5);
 
 	while (1)
 	{
-		while( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
+		//Attente de l'autorisation d'envoyer un message par la Carte IA
+		_0_Communication_Wait_Sending_Clearance();
+
+		//Une fois l'autorisation accordée, envoi tous les messages dans la pile
+		while( xQueueReceive( pvParameters, &Message, 0 ) == pdPASS )
 		{
 			//Un message est pret à être envoyé
 			//L'ajouter au Txring Buffer
@@ -196,10 +195,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 			{
 			case RS485_port:
 				_0_Communication_Send_RS485(RS485_UART, &txring, (int)Message.length);
-				if(Message.Data[8] == PING || Message.Data[8] == DEMANDE_INFO)
-				{
-					Task_Delay(2.5f);
-				}
+				Task_Delay(0.1f);
 				break;
 
 			default:
@@ -240,4 +236,39 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 
 	//Passe en RX
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Wait_Sending_Clearance
+ **
+ ** Descriptions:		Fonction d'attente de l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Wait_Sending_Clearance(void)
+{
+	xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
+			eGROUP_SYNCH_TxClearance, /* The bits within the event group to wait for. */
+			pdTRUE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			portMAX_DELAY/*ms_to_tick(30)*/ );/* Wait a maximum of xTicksToWait for either bit to be set. */
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Give_Sending_Clearance
+ **
+ ** Descriptions:		Fonction Donnant l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Give_Sending_Clearance(void)
+{
+	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
+			eGROUP_SYNCH_TxClearance );/* The bits being set. */
 }

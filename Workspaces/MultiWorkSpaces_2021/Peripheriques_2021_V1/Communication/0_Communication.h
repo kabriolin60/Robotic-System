@@ -26,4 +26,8 @@ void _0_Communication_Send_Data(void *pvParameters);
 
 void _0_Communication_Send_RS485(LPC_USART_T *pUART, RINGBUFF_T *data, int length);
 
+void _0_Communication_Wait_Sending_Clearance(void);
+
+void _0_Communication_Give_Sending_Clearance(void);
+
 #endif /* 0_COMMUNICATION_0_COMMUNICATION_H_ */

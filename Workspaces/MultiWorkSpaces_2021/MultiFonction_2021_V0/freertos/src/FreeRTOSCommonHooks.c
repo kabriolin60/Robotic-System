@@ -121,13 +121,9 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)
 
 	for(int j = 0; j < length; j++)
 	{
-		Chip_UART_SendByte(RS484_UART, txbuff[j]);
-		for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
+		Chip_UART_SendByte(RS485_UART, txbuff[j]);
 
-		while((Chip_UART_ReadLineStatus(RS484_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-		{
-			for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
-		}
+		while((Chip_UART_ReadLineStatus(RS485_UART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );

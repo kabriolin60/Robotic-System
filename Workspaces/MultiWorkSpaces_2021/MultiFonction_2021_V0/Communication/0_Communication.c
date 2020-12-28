@@ -100,10 +100,10 @@ void _0_Communication_Init_RS485(void)
 	_0_RS485_Init(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	/* Setup UART for 115.2K8N1 */
-	Chip_UART_Init(RS484_UART);
-	Chip_UART_SetBaud(RS484_UART, BAUDRATE_RS485);
-	Chip_UART_ConfigData(RS484_UART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
-	Chip_UART_TXEnable(RS484_UART);
+	Chip_UART_Init(RS485_UART);
+	Chip_UART_SetBaud(RS485_UART, BAUDRATE_RS485);
+	Chip_UART_ConfigData(RS485_UART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
+	Chip_UART_TXEnable(RS485_UART);
 
 	/* Before using the ring buffers, initialize them using the ring buffer init function */
 	/* RS485 RX ring buffer init */
@@ -111,13 +111,13 @@ void _0_Communication_Init_RS485(void)
 
 
 	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
-	Chip_UART_SetupFIFOS(RS484_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
+	Chip_UART_SetupFIFOS(RS485_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
 
 	/* Enable receive data and line status interrupt */
-	Chip_UART_IntEnable(RS484_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
+	Chip_UART_IntEnable(RS485_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
 
 	/* Disable transmit status interrupt */
-	Chip_UART_IntDisable(RS484_UART, UART_IER_THREINT);
+	Chip_UART_IntDisable(RS485_UART, UART_IER_THREINT);
 
 	/* preemption = 1, sub-priority = 1 */
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
@@ -150,7 +150,7 @@ void RS485_HANDLER_NAME(void)
 	}
 
 	//Manage ISR, and read datas
-	Chip_UART_IRQRBHandler(RS484_UART, &rxring_RS485, &txring);
+	Chip_UART_IRQRBHandler(RS485_UART, &rxring_RS485, &txring);
 
 	//If received data count > 10, notify the reception task
 	if(RingBuffer_Count(&rxring_RS485) > 10 && !already_flaged)
@@ -222,7 +222,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 			switch(Message.canal_communication)
 			{
 			case RS485_port:
-				_0_Communication_Send_RS485(RS484_UART, &txring, (int)Message.length);
+				_0_Communication_Send_RS485(RS485_UART, &txring, (int)Message.length);
 				Task_Delay(0.1f);
 				break;
 
@@ -258,12 +258,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-		//for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
 
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
-		{
-			//for(int i = 0; i < 16; i++)	__asm volatile( "nop" );
-		}
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
 	}
 
 	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
