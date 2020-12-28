@@ -49,7 +49,7 @@
  ****************************************************************************/
 
 /* Prepare sector for write operation */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_PreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_PreSectorForReadWrite(uint32_t strSector, uint32_t endSector)
 {
 	uint32_t command[5], result[4];
 
@@ -62,7 +62,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_PreSectorForReadWrite(uint32_t 
 }
 
 /* Copy RAM to flash */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_CopyRamToFlash(uint32_t dstAdd, uint32_t *srcAdd, uint32_t byteswrt)
 {
 	uint32_t command[5], result[4];
 
@@ -77,7 +77,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_CopyRamToFlash(uint32_t dstAdd,
 }
 
 /* Erase sector */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_EraseSector(uint32_t strSector, uint32_t endSector)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_EraseSector(uint32_t strSector, uint32_t endSector)
 {
 	uint32_t command[5], result[4];
 
@@ -91,7 +91,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_EraseSector(uint32_t strSector,
 }
 
 /* Blank check sector */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_BlankCheckSector(uint32_t strSector, uint32_t endSector)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_BlankCheckSector(uint32_t strSector, uint32_t endSector)
 {
 	uint32_t command[5], result[4];
 
@@ -104,7 +104,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_BlankCheckSector(uint32_t strSe
 }
 
 /* Read part identification number */
-__attribute__((optimize("O0"))) uint32_t Chip_IAP_ReadPID()
+__attribute__((optimize("O1"))) uint32_t Chip_IAP_ReadPID()
 {
 	uint32_t command[5], result[4];
 
@@ -115,7 +115,7 @@ __attribute__((optimize("O0"))) uint32_t Chip_IAP_ReadPID()
 }
 
 /* Read boot code version number */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_ReadBootCode()
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_ReadBootCode()
 {
 	uint32_t command[5], result[4];
 
@@ -126,7 +126,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_ReadBootCode()
 }
 
 /* IAP compare */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_Compare(uint32_t dstAdd, uint32_t srcAdd, uint32_t bytescmp)
 {
 	uint32_t command[5], result[4];
 
@@ -140,7 +140,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_Compare(uint32_t dstAdd, uint32
 }
 
 /* Reinvoke ISP */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_ReinvokeISP()
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_ReinvokeISP()
 {
 	uint32_t command[5], result[4];
 
@@ -151,7 +151,7 @@ __attribute__((optimize("O0"))) uint8_t Chip_IAP_ReinvokeISP()
 }
 
 /* Read the unique ID */
-__attribute__((optimize("O0"))) uint32_t Chip_IAP_ReadUID()
+__attribute__((optimize("O1"))) uint32_t Chip_IAP_ReadUID()
 {
 	uint32_t command[5], result[4];
 
@@ -162,7 +162,7 @@ __attribute__((optimize("O0"))) uint32_t Chip_IAP_ReadUID()
 }
 
 /* Erase page */
-__attribute__((optimize("O0"))) uint8_t Chip_IAP_ErasePage(uint32_t strPage, uint32_t endPage)
+__attribute__((optimize("O1"))) uint8_t Chip_IAP_ErasePage(uint32_t strPage, uint32_t endPage)
 {
 	uint32_t command[5], result[4];
 

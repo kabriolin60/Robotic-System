@@ -63,7 +63,7 @@ int RingBuffer_Init(RINGBUFF_T *RingBuff, void *buffer, int itemSize, int count)
 }
 
 /* Insert a single item into Ring Buffer */
-__attribute__((optimize("O0"))) int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
+__attribute__((optimize("O1"))) int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
 {
 	uint8_t *ptr = RingBuff->data;
 
@@ -79,7 +79,7 @@ __attribute__((optimize("O0"))) int RingBuffer_Insert(RINGBUFF_T *RingBuff, cons
 }
 
 /* Insert multiple items into Ring Buffer */
-__attribute__((optimize("O0"))) int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
+__attribute__((optimize("O1"))) int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
 {
 	uint8_t *ptr = RingBuff->data;
 	int cnt1, cnt2;
@@ -115,7 +115,7 @@ __attribute__((optimize("O0"))) int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, 
 }
 
 /* Pop single item from Ring Buffer */
-__attribute__((optimize("O0"))) int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
+__attribute__((optimize("O1"))) int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
 {
 	uint8_t *ptr = RingBuff->data;
 
@@ -131,7 +131,7 @@ __attribute__((optimize("O0"))) int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *d
 }
 
 /* Pop multiple items from Ring buffer */
-__attribute__((optimize("O0"))) int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
+__attribute__((optimize("O1"))) int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 {
 	uint8_t *ptr = RingBuff->data;
 	int cnt1, cnt2;
@@ -166,13 +166,13 @@ __attribute__((optimize("O0"))) int RingBuffer_PopMult(RINGBUFF_T *RingBuff, voi
 	return cnt1 + cnt2;
 }
 
-__attribute__((optimize("O0"))) int RingBuffer_Count(RINGBUFF_T *RingBuff)
+__attribute__((optimize("O1"))) int RingBuffer_Count(RINGBUFF_T *RingBuff)
 {
 	return RingBuffer_GetCount(RingBuff);
 }
 
 
-__attribute__((optimize("O0"))) void RingBuffer_Clear(RINGBUFF_T *RingBuff)
+__attribute__((optimize("O1"))) void RingBuffer_Clear(RINGBUFF_T *RingBuff)
 {
 	RingBuffer_Flush(RingBuff);
 }
