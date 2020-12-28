@@ -63,7 +63,7 @@ int RingBuffer_Init(RINGBUFF_T *RingBuff, void *buffer, int itemSize, int count)
 }
 
 /* Insert a single item into Ring Buffer */
-int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
+__attribute__((optimize("O0"))) int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
 {
 	uint8_t *ptr = RingBuff->data;
 
@@ -79,7 +79,7 @@ int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
 }
 
 /* Insert multiple items into Ring Buffer */
-int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
+__attribute__((optimize("O0"))) int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
 {
 	uint8_t *ptr = RingBuff->data;
 	int cnt1, cnt2;
@@ -115,7 +115,7 @@ int RingBuffer_InsertMult(RINGBUFF_T *RingBuff, const void *data, int num)
 }
 
 /* Pop single item from Ring Buffer */
-int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
+__attribute__((optimize("O0"))) int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
 {
 	uint8_t *ptr = RingBuff->data;
 
@@ -131,7 +131,7 @@ int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
 }
 
 /* Pop multiple items from Ring buffer */
-int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
+__attribute__((optimize("O0"))) int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 {
 	uint8_t *ptr = RingBuff->data;
 	int cnt1, cnt2;
@@ -166,13 +166,13 @@ int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
 	return cnt1 + cnt2;
 }
 
-int RingBuffer_Count(RINGBUFF_T *RingBuff)
+__attribute__((optimize("O0"))) int RingBuffer_Count(RINGBUFF_T *RingBuff)
 {
 	return RingBuffer_GetCount(RingBuff);
 }
 
 
-void RingBuffer_Clear(RINGBUFF_T *RingBuff)
+__attribute__((optimize("O0"))) void RingBuffer_Clear(RINGBUFF_T *RingBuff)
 {
 	RingBuffer_Flush(RingBuff);
 }
