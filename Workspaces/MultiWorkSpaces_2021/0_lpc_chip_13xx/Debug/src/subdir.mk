@@ -13,6 +13,7 @@ C_SRCS += \
 ../src/gpiogroup_13xx.c \
 ../src/i2c_13xx.c \
 ../src/i2cm_13xx.c \
+../src/iap.c \
 ../src/iocon_13xx.c \
 ../src/pinint_13xx.c \
 ../src/pmu_13xx.c \
@@ -36,6 +37,7 @@ OBJS += \
 ./src/gpiogroup_13xx.o \
 ./src/i2c_13xx.o \
 ./src/i2cm_13xx.o \
+./src/iap.o \
 ./src/iocon_13xx.o \
 ./src/pinint_13xx.o \
 ./src/pmu_13xx.o \
@@ -59,6 +61,7 @@ C_DEPS += \
 ./src/gpiogroup_13xx.d \
 ./src/i2c_13xx.d \
 ./src/i2cm_13xx.d \
+./src/iap.d \
 ./src/iocon_13xx.d \
 ./src/pinint_13xx.d \
 ./src/pmu_13xx.d \

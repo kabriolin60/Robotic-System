@@ -21,6 +21,9 @@ extern QueueHandle_t _1_xQueue_Message_TO_Send;					//Queue Recevant les message
 long Nb_Messages_recus = 0;
 long Nb_Erreurs_com = 0;
 
+extern TaskHandle_t Run_Application_Handler;
+uint8_t is_RunApplication_running = true;
+
 
 /*****************************************************************************
  ** Function name:		_1_Communication_Init
@@ -246,6 +249,8 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	if(RingBuff == NULL)
 		return pdFAIL;
 
+	_1_Communication_Wait_To_Receive(ms_to_tick(50));
+
 	byte API_start = 0;
 	static short API_LENGTH = 0;
 	short crc = 0;
@@ -264,11 +269,13 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			boucle++;
 			if(boucle > 5)
 			{
+				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
 		}else
 		{
+			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
@@ -283,6 +290,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 	if (API_LENGTH > COMMUNICATION_TRAME_MAX_DATA + 11)
 	{
+		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 		return pdFAIL;
 	}
@@ -310,6 +318,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		FIFO_READ_ELEMENT(Fifo, &rx_crc);*/
 		//Dummy Read 3 bytes
 
+		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 		return pdFAIL;
 	}
@@ -321,6 +330,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 		if (boucle > 5)
 		{
+			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
@@ -366,6 +376,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 			if (boucle > 5)
 			{
+				_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
@@ -390,18 +401,26 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		//Vérifie le CRC
 		if (crc == rx_crc)
 		{
+			//Pour le bootloader, dans tous les cas, arrete le lancement de l'application dès qu'un message arrive
+			if(is_RunApplication_running && Run_Application_Handler != NULL)
+			{
+				vTaskSuspend( Run_Application_Handler );
+				is_RunApplication_running = false;
+			}
+
+
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			//_1_Communication_Check_Rx_Adresse(&received_trame);
+			_1_Communication_Check_Rx_Adresse(&received_trame);
 		}else
 		{
-			//_1_Communication_Free_Receive_Bit();
+			_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
 	}else
 	{
-		//_1_Communication_Free_Receive_Bit();
+		_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 	}
 	return pdFAIL;

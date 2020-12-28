@@ -36,6 +36,7 @@
 #include "Configuration.h"
 #include "Init.h"
 #include "TEST.h"
+#include "Bootloader.h"
 
 /*****************************************************************************
  * Private types/enumerations/variables
@@ -44,6 +45,10 @@
 /*****************************************************************************
  * Public types/enumerations/variables
  ****************************************************************************/
+
+TaskHandle_t Run_Application_Handler = NULL;
+
+extern uint8_t is_RunApplication_running;
 
 /*****************************************************************************
  * Private functions
@@ -69,12 +74,42 @@ static void vTask_HartBeat(void *pvParameters) {
 	Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_1_PORT, LED_1_BIT, false);
 	Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_2_PORT, LED_2_BIT, false);
 
-	while (1) {
-		Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_2_PORT, LED_2_BIT, LedState);
+	while (1)
+	{
+		if(is_RunApplication_running)
+		{
+			Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_2_PORT, LED_2_BIT, LedState);
+			Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_1_PORT, LED_1_BIT, LedState);
+			Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_0_PORT, LED_0_BIT, LedState);
+		}else
+		{
+			Chip_GPIO_WritePortBit(LPC_GPIO_PORT, LED_2_PORT, LED_2_BIT, LedState);
+		}
 		LedState = (bool) !LedState;
 
-		/* About a 3Hz on/off toggle rate */
-		vTaskDelay(configTICK_RATE_HZ / 1);
+		/* About a 5Hz on/off toggle rate */
+		vTaskDelay(configTICK_RATE_HZ / 10);
+	}
+}
+
+
+static void vTask_LunchUser_Application(void *pvParameters) {
+	//Wait 5 seconds
+	vTaskDelay(9000);
+
+	//disable les receptions
+	NVIC_DisableIRQ(RS485_IRQ_SELECTION);
+#ifdef USE_USB
+	NVIC_DisableIRQ(USB_IRQn);
+#endif
+
+	vTaskDelay(1000);
+
+	//Si user code présent:
+	if(user_code_present())
+	{
+		//execute user code
+		execute_user_code();
 	}
 }
 
@@ -91,9 +126,9 @@ int main(void)
 	/* LED1 toggle thread */
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
-	/* TEST*/
-	xTaskCreate(TEST_Send_Message, (char *) "vTask_test", 150, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
+	/* Bootloader Application Launcher */
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 1000, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

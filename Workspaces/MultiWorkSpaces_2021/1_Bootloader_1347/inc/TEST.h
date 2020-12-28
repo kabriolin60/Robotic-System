@@ -13,7 +13,5 @@
 #include "Configuration.h"
 #include "2_Echange_Datas.h"
 
-void TEST_Send_Message(void * pvParameters);
-
 
 #endif /* TEST_H_ */
