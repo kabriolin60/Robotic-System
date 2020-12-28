@@ -205,32 +205,9 @@ public class Bootloader_Burner : MonoBehaviour
         Communication.Communication_Message trame = new Communication.Communication_Message();
 
         trame.Trame.Instruction = Communication.Com_Instruction.BOOTLOADER;
-        switch (destination_board)
-        {
-            case 0:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
-                break;
 
-            case 1:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_1;
-                break;
-
-            case 2:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_2;
-                break;
-
-            case 3:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_3;
-                break;
-
-            case 4:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.MultiFct_4;
-                break;
-
-            default:
-                trame.Trame.Slave_Adresse = Communication.Slave_Adresses.IA_BOARD;
-                break;
-        }
+        trame.Trame.Slave_Adresse = (Communication.Slave_Adresses)destination_board;
+        
         trame.Trame.XBEE_DEST_ADDR = Communication.Adress_Xbee.ALL_XBEE;
 
 
