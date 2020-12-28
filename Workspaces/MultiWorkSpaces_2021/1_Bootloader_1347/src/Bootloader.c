@@ -47,7 +47,7 @@ void execute_user_code(void)
 
 		// Load contents of second word of user flash - the reset handler address
 		// in the applications vector table
-		p = (unsigned *)(USER_FLASH_START +4);
+		p = (unsigned *)(USER_FLASH_START + 4);
 
 		// Set user_code_entry to be the address contained in that second word
 		// of user flash

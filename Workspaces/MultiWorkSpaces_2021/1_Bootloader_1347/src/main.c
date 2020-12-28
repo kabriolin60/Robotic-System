@@ -130,7 +130,7 @@ int main(void)
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	/* Bootloader Application Launcher */
-	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 100, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
+	xTaskCreate(vTask_LunchUser_Application, (char *) "vTask_LunchUser_Application", 50, NULL, (tskIDLE_PRIORITY + 1UL) | portPRIVILEGE_BIT, &Run_Application_Handler);
 
 	/* Start the scheduler */
 	vTaskStartScheduler();

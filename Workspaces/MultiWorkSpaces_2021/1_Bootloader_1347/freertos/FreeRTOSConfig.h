@@ -59,7 +59,7 @@
 
 
 
-#define configGENERATE_RUN_TIME_STATS	0
+#define configGENERATE_RUN_TIME_STATS	1
 #define configUSE_TRACE_FACILITY		configGENERATE_RUN_TIME_STATS
 
 
