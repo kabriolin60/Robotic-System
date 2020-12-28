@@ -86,7 +86,7 @@ void _2_Comm_Send_PONG(enum enum_canal_communication canal)
 
 void _2_Comm_Send_Communication_Status(enum enum_canal_communication canal)
 {
-	sprintf(str, "Multi_Fct, Robot: %d; @%c mess= %ld // erreurs= %ld\n",
+	sprintf(str, "Peripherique, Robot: %d; @%c mess= %ld // erreurs= %ld\n",
 			_2_Comm_Get_Robot_ID(),
 			ADRESSE_CARTE_CHAR,
 			Nb_Messages_recus,

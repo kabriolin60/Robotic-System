@@ -34,13 +34,15 @@ extern EventGroupHandle_t _0_Comm_EventGroup;
 #define eGROUP_STATUS_CARTE_MultiFCT_2	( 2 << 1 )		//Flag indiquant la presence de la carte multiFCT 2 sur le bus
 #define eGROUP_STATUS_CARTE_MultiFCT_3	( 3 << 1 )		//Flag indiquant la presence de la carte multiFCT 3 sur le bus
 #define eGROUP_STATUS_CARTE_MultiFCT_4	( 4 << 1 )		//Flag indiquant la presence de la carte multiFCT 4 sur le bus
+
+#define eGROUP_STATUS_CARTE_Peripherique_4	( 8 << 1 )	//Flag indiquant la presence de la carte multiFCT 4 sur le bus
 //A ajouter pour chaque carte possible
 
 #define eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES		eGROUP_STATUS_CARTE_MultiFCT_1
-#define eGROUP_STATUS_CARTES_AUTRES_ATTENDUES			0
+#define eGROUP_STATUS_CARTES_AUTRES_ATTENDUES			0 | eGROUP_STATUS_CARTE_Peripherique_4
 #define eGROUP_STATUS_CARTES_SERVO_ATTENDUES			eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES
 
-#define eGROUP_STATUS_CARTES_ATTENDUES /*eGROUP_STATUS_CARTE_IA |*/ eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES | eGROUP_STATUS_CARTES_AUTRES_ATTENDUES
+#define eGROUP_STATUS_CARTES_ATTENDUES 					eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES | eGROUP_STATUS_CARTES_AUTRES_ATTENDUES
 
 extern EventGroupHandle_t _0_Status_EventGroup;
 

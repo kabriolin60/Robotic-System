@@ -486,6 +486,9 @@ void _2_Comm_Check_Presence_Cartes(enum enum_canal_communication canal)
 		Task_Delay(4.0f); //Pas besoin d'attendre longtemps entre 2 pings
 	}
 
+	_2_Comm_Send_PING(8, canal);
+	Task_Delay(4.0f); //Pas besoin d'attendre longtemps entre 2 pings
+
 
 
 	long board_status = xEventGroupGetBits(_0_Status_EventGroup);    /* The event group being updated. */

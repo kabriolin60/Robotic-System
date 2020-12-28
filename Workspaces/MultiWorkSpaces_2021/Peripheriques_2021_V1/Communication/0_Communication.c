@@ -24,7 +24,7 @@
 
 /* Transmit and receive ring buffer sizes */
 #define TX_RB_SIZE 				128		/* Send */
-#define RS485_RX_RB_SIZE 		256		/* Receive RS485*/
+#define RS485_RX_RB_SIZE 		512		/* Receive RS485*/
 
 
 /* Receive ring buffer for RS485*/

@@ -392,7 +392,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			//_1_Communication_Check_Rx_Adresse(&received_trame);
+			_1_Communication_Check_Rx_Adresse(&received_trame);
 		}else
 		{
 			//_1_Communication_Free_Receive_Bit();

@@ -92,7 +92,7 @@ int main(void)
 	xTaskCreate(vTask_HartBeat, (char *) "vTask_HartBeat", 50, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	/* TEST*/
-	xTaskCreate(TEST_Send_Message, (char *) "vTask_test", 150, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	//xTaskCreate(TEST_Send_Message, (char *) "vTask_test", 150, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 
 	/* Start the scheduler */

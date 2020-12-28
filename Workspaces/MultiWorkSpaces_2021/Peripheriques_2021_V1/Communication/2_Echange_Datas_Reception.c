@@ -40,8 +40,6 @@ void _2_Communication_Interprete_message(struct Communication_Trame* trame)
 
 	switch(trame->Instruction)
 	{
-
-
 	case DEFINITION_ID_ROBOT:		//Permet à la carte ID de donner l'ID du robot sur les autres cartes
 		_2_Comm_RX_Id_Robot(trame);
 		/*
