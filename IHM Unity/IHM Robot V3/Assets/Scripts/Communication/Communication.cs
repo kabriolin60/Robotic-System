@@ -220,7 +220,11 @@ public class Communication
 		MultiFct_1 = 1,
 		MultiFct_2 = 2,
 		MultiFct_3 = 3,
-		MultiFct_4 = 4
+		MultiFct_4 = 4,
+		Peripheriques_5,
+		Peripheriques_6,
+		Peripheriques_7,
+		Peripheriques_8,
 	};
 
 	[Serializable]

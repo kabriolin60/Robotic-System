@@ -143,8 +143,8 @@ public partial class Infos_Carte
 		[MarshalAs(UnmanagedType.U1)]
 		public byte Etat_Inputs;				//0= Jack; 1 = Color; 2 = Switchs; 3 = LED Red; 4 = LED Yellow; 5 = LED Green; 6 = User_BP					 //1 octet
 
-		[MarshalAs(UnmanagedType.U1)]
-		public long Boards_Comm_Status;         //== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
+		[MarshalAs(UnmanagedType.U4)]
+		public int Boards_Comm_Status;         //== valeur _0_Status_EventGroup == présence des cartes sur le bus par leur adresses
 
 		[MarshalAs(UnmanagedType.U2)]
 		public ushort Tension_Batterie;                             //Tension * 100		//2 octets

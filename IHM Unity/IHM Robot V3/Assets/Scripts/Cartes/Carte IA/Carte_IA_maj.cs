@@ -43,10 +43,16 @@ public class Carte_IA_maj : MonoBehaviour
 		Tension_Batterie.GetComponent<TextMeshProUGUI>().text = $"{tension_batterie}V";
 
 		//Maj des status des cartes du bus
-		FindChildByRecursion(Communication_Board.transform, "Presence Carte IA").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000001) > 0;
-		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT1").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000010) > 0;
-		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT2").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000100) > 0;
-		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT3").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00001000) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte IA").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00000001) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT1").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00000010) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT2").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00000100) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT3").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00001000) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte MultiFCT4").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00010000) > 0;
+
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte Peripheriques1").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_00100000) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte Peripheriques2").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_01000000) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte Peripheriques3").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000000_10000000) > 0;
+		FindChildByRecursion(Communication_Board.transform, "Presence Carte Peripheriques4").GetComponent<Toggle>().isOn = (infos.Boards_Comm_Status & 0b00000001_00000000) > 0;
 	}
 
 
