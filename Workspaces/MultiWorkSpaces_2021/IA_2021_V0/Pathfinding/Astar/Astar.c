@@ -180,8 +180,8 @@ __attribute__((optimize("O0"))) short Astar_Find_Path(struct Astar_Map* m, struc
 		//We have found the End Node
 		Astar_Generate_Trajectory(map, vectors_map);
 
-		//Smooth the path
-		map->First_Destination = Astar_Smoothing(map, vectors_map);
+		//Smooth the path starting from the Current Robot Location
+		map->First_Destination = Astar_Smoothing(map, vectors_map, map->Start_End_Vector.Start_Point);
 
 		//we reached the End node
 		return map->Nodes[map->End_Node_index.x][map->End_Node_index.y].G_cost; //travel cost
@@ -507,11 +507,13 @@ __attribute__((optimize("O0"))) bool Astar_Compute_Node(struct Astar_Map* map, s
  ** Descriptions:		Trajectory smoothing
  **
  ** parameters:			Pointer to the Map
+ ** 					Pointer to the Vector Map
+ ** 					Starting_Point (for planned traj display)
  **
  ** Returned value:		Next destination
  **
  *****************************************************************************/
-struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map)
+struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, struct Point Start_Point)
 {
 	struct Astar_Vector tested_vector;
 	struct Astar_Node* tested_node;
@@ -520,7 +522,7 @@ struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vecto
 
 	//Check for the longest vector as possible from the (real) starting point
 	//start with the (real) destination
-	tested_vector.Start_Point = map->Start_End_Vector.Start_Point;
+	tested_vector.Start_Point = Start_Point;//map->Start_End_Vector.Start_Point;
 	tested_vector.End_Point = map->Start_End_Vector.End_Point;
 
 	tested_node = &map->Nodes[map->End_Node_index.x][map->End_Node_index.y];
@@ -545,7 +547,6 @@ struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vecto
 	}
 
 	//2 case: We've found the longuest vector possible OR the next point == the closest node
-	//The next possible node is the closest one
 	return tested_vector.End_Point;
 }
 
@@ -569,6 +570,13 @@ short Dijkstra_Intersect_Any_Segment(struct Astar_Vector* tested_vector, struct 
 	//for each vector in the map
 	for(Index_Liste_Vecteur = 0; Index_Liste_Vecteur < vectors_map->Nb_Vectors; Index_Liste_Vecteur++)
 	{
+		if(vectors_map->Vectors[Index_Liste_Vecteur].Color == Astar_Vector_Color_Green)
+		{
+			//Les vecteurs verts ne sont pas à prendre en compte dans les intersections
+			continue;
+		}
+
+
 		//Check if the tested vector intersect any other one in the map
 		if(Dijkstra_intersect_segment(&tested_vector->Start_Point,
 				&tested_vector->End_Point,

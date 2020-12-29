@@ -656,7 +656,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		parameters.obstacle_creation_fct();
 
 	//Affiche les obstacles fixes une seule fois au début de la trajectoire
-	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
+	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Map(), Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
 
 
 
@@ -692,8 +692,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			//Load the next destination
 			found_destination = Astar_Get_Map()->First_Destination;
 
-			//Affiche les obstacles mobiles à chaque itération
-			_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
+
 
 			//Send the new destination if != from the previous sent, with replacement
 			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
@@ -722,8 +721,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 					//Set the new Current destination
 					_0_Deplacement_Get_ptr_Current_Destination()->coord = parameters.destination.coord;
-
-
 				}else
 				{
 					//No Intersection, the previous destination is still a good choose
@@ -761,8 +758,10 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		/*
 		 * Step 5: Debug, display Pathfinding Map
 		 */
-		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
+		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), LOG_Debug_Port);
+
+		//Affiche les obstacles mobiles à chaque itération
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Map(), Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
 
 		/*
 		 * Step 6: Wait for the next Astar Loop
@@ -887,7 +886,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		parameters.obstacle_creation_fct();
 
 	//Affiche les obstacles fixes une seule fois
-	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
+	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Map(), Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
 
 
 
@@ -908,7 +907,7 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 			parameters.obstacle_creation_fct();
 
 		//Affiche les obstacles mobiles à chaque itération
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Map(), Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
 
 		/*
 		 * Step 3: Check if Spline Path is clear

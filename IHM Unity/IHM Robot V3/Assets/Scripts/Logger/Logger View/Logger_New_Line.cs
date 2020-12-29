@@ -15,7 +15,11 @@ public class Logger_New_Line : MonoBehaviour
 
     public GameObject Channel_Toggle;
 
+    public int Max_Logger_Lines = 100;
+
     private Dictionary<int, Toggle> Logger_Channel_Dictionnary = new Dictionary<int, Toggle>();
+
+    private List<GameObject> List_logger_lines = new List<GameObject>();
 
 
     public class Logger_Message
@@ -63,14 +67,21 @@ public class Logger_New_Line : MonoBehaviour
         GameObject go = Instantiate(Line_Prefab, Line_Contener.transform) as GameObject;
         go.GetComponent<Logger_Line>().SetNewLine(time, Channel, color, text);
 
+        List_logger_lines.Add(go);
 
-        if(Logger_Channel_Dictionnary.TryGetValue(Channel, out var _channel))
+
+        if (Logger_Channel_Dictionnary.TryGetValue(Channel, out var _channel))
         {
             if (_channel.isOn == false)
             {
-                //Debug.Log("Channel disabled");
                 go.SetActive(false);
             }
+        }
+
+        if(List_logger_lines.Count > this.Max_Logger_Lines)
+        {
+            DestroyImmediate(List_logger_lines[0]);
+            List_logger_lines.RemoveAt(0);
         }
     }
 

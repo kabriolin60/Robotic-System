@@ -84,7 +84,8 @@ public partial class Graphique
     /**************************************************
      Declaration de la definition de la Structure contenant les valeurs à afficher dans le graphique
     **************************************************/
-    const byte Nb_Max_Graph_Data = 7;
+    const byte Nb_Max_Graph_Data = (byte)((Communication.COMMUNICATION_TRAME_MAX_DATA - 1) / 8);
+
     [StructLayout(LayoutKind.Sequential)]
     public struct st_Graph_Data
     {

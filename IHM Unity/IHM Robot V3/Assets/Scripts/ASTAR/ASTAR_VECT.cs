@@ -175,7 +175,7 @@ public class ASTAR_VECT : MonoBehaviour
 
 public class ASTAR_VECTOR_COMMUNICATION
 {
-    private const byte NB_Vector_par_mess = 7;
+    private const byte NB_Vector_par_mess = (byte)((Communication.COMMUNICATION_TRAME_MAX_DATA - 2)/10);
 
     public enum Astar_Vector_Color : byte
     {

@@ -86,17 +86,7 @@ struct Astar_Index
 };
 
 
-/**************************************************
-Astar_Vector_Color : 1 octet
- **************************************************/
-enum Astar_Vector_Color
-{
-	Astar_Vector_Color_Black,
-	Astar_Vector_Color_Blue,
-	Astar_Vector_Color_Green,
-	Astar_Vector_Color_Red,
-	Astar_Vector_Color_White,
-};
+#include "Communication_Typedef.h"
 
 /**************************************************
 Astar_Vector : 4 octets de coordonn�es + 1 octet de couleur
@@ -162,7 +152,7 @@ bool Astar_Compute_Node(struct Astar_Map* map, struct Astar_Node* calling_node, 
 
 
 
-struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map);
+struct Point Astar_Smoothing(struct Astar_Map* map, struct Astar_smoothing_vector* vectors_map, struct Point Start_Point);
 
 short Dijkstra_Intersect_Any_Segment(struct Astar_Vector* tested_vector, struct Astar_smoothing_vector* vectors_map);
 

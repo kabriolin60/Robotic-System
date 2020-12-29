@@ -1806,15 +1806,15 @@ END GROUP
  .bss.xTimerTaskHandle
                 0x10001270        0x4 ./freertos/src/timers.o
  .bss.$RAM3     0x10001274      0x180 ./0_Communication/0_Communication.o
- .bss.Message.11130
+ .bss.Message.11136
                 0x100013f4       0x5d ./0_Communication/0_Communication.o
  *fill*         0x10001451        0x3 
  .bss._1_xQueue_Message_TO_Send
                 0x10001454        0x4 ./0_Communication/0_Communication.o
                 0x10001454                _1_xQueue_Message_TO_Send
- .bss.already_flaged.11121
+ .bss.already_flaged.11127
                 0x10001458        0x1 ./0_Communication/0_Communication.o
- .bss.g_txBuff.11131
+ .bss.g_txBuff.11137
                 0x10001459       0x80 ./0_Communication/0_Communication.o
  *fill*         0x100014d9        0x3 
  .bss.rxring_RS485
@@ -1906,34 +1906,34 @@ END GROUP
                 0x00002f68                _image_size = (_image_end - _image_start)
 OUTPUT(1_Bootloader_1769.axf elf32-littlearm)
 
-.debug_info     0x00000000    0x1dc69
+.debug_info     0x00000000    0x1dc81
  .debug_info    0x00000000      0xda3 ./src/Bootloader.o
  .debug_info    0x00000da3     0x10b5 ./src/Bootloader_Data.o
- .debug_info    0x00001e58      0xbfd ./src/Flash_iap.o
- .debug_info    0x00002a55      0x2f5 ./src/cr_startup_lpc175x_6x.o
- .debug_info    0x00002d4a       0x3c ./src/crp.o
- .debug_info    0x00002d86     0x2d31 ./src/main.o
- .debug_info    0x00005ab7      0x9d6 ./src/sysinit.o
- .debug_info    0x0000648d     0x130b ./freertos/src/event_groups.o
- .debug_info    0x00007798      0xa18 ./freertos/src/heap_3.o
- .debug_info    0x000081b0      0xb85 ./freertos/src/list.o
- .debug_info    0x00008d35      0x356 ./freertos/src/port.o
- .debug_info    0x0000908b     0x2429 ./freertos/src/queue.o
- .debug_info    0x0000b4b4     0x2b88 ./freertos/src/tasks.o
- .debug_info    0x0000e03c     0x1c46 ./freertos/src/timers.o
- .debug_info    0x0000fc82     0x1012 ./0_Communication/RS485/0_RS485.o
- .debug_info    0x00010c94     0x312c ./0_Communication/0_Communication.o
- .debug_info    0x00013dc0       0xd7 ./0_Communication/0_Event_Group.o
- .debug_info    0x00013e97     0x18e9 ./0_Communication/1_Trame_Communication.o
- .debug_info    0x00015780      0xd67 ./0_Communication/2_Echange_Datas.o
- .debug_info    0x000164e7      0xf1f ./0_Communication/2_Echange_Datas_Reception.o
- .debug_info    0x00017406      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_info    0x00017a48      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_info    0x000188d7      0x5e2 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(iap.o)
- .debug_info    0x00018eb9      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_info    0x000194f8      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_info    0x00019d96     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_info    0x0001b500     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_info    0x00001e58      0xc09 ./src/Flash_iap.o
+ .debug_info    0x00002a61      0x2f5 ./src/cr_startup_lpc175x_6x.o
+ .debug_info    0x00002d56       0x3c ./src/crp.o
+ .debug_info    0x00002d92     0x2d3d ./src/main.o
+ .debug_info    0x00005acf      0x9d6 ./src/sysinit.o
+ .debug_info    0x000064a5     0x130b ./freertos/src/event_groups.o
+ .debug_info    0x000077b0      0xa18 ./freertos/src/heap_3.o
+ .debug_info    0x000081c8      0xb85 ./freertos/src/list.o
+ .debug_info    0x00008d4d      0x356 ./freertos/src/port.o
+ .debug_info    0x000090a3     0x2429 ./freertos/src/queue.o
+ .debug_info    0x0000b4cc     0x2b88 ./freertos/src/tasks.o
+ .debug_info    0x0000e054     0x1c46 ./freertos/src/timers.o
+ .debug_info    0x0000fc9a     0x1012 ./0_Communication/RS485/0_RS485.o
+ .debug_info    0x00010cac     0x312c ./0_Communication/0_Communication.o
+ .debug_info    0x00013dd8       0xd7 ./0_Communication/0_Event_Group.o
+ .debug_info    0x00013eaf     0x18e9 ./0_Communication/1_Trame_Communication.o
+ .debug_info    0x00015798      0xd67 ./0_Communication/2_Echange_Datas.o
+ .debug_info    0x000164ff      0xf1f ./0_Communication/2_Echange_Datas_Reception.o
+ .debug_info    0x0001741e      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_info    0x00017a60      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_info    0x000188ef      0x5e2 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(iap.o)
+ .debug_info    0x00018ed1      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_info    0x00019510      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_info    0x00019dae     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_info    0x0001b518     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
 .debug_abbrev   0x00000000     0x4e01
  .debug_abbrev  0x00000000      0x273 ./src/Bootloader.o
@@ -2073,34 +2073,34 @@ OUTPUT(1_Bootloader_1769.axf elf32-littlearm)
  .debug_ranges  0x00001158      0x1b8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
  .debug_ranges  0x00001310      0x260 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_line     0x00000000     0xc16c
+.debug_line     0x00000000     0xc274
  .debug_line    0x00000000      0x38a ./src/Bootloader.o
  .debug_line    0x0000038a      0x5f9 ./src/Bootloader_Data.o
- .debug_line    0x00000983      0x425 ./src/Flash_iap.o
- .debug_line    0x00000da8      0x28e ./src/cr_startup_lpc175x_6x.o
- .debug_line    0x00001036       0x2d ./src/crp.o
- .debug_line    0x00001063      0xa53 ./src/main.o
- .debug_line    0x00001ab6      0x2a8 ./src/sysinit.o
- .debug_line    0x00001d5e      0x7c2 ./freertos/src/event_groups.o
- .debug_line    0x00002520      0x2d9 ./freertos/src/heap_3.o
- .debug_line    0x000027f9      0x4c3 ./freertos/src/list.o
- .debug_line    0x00002cbc      0x455 ./freertos/src/port.o
- .debug_line    0x00003111     0x11ea ./freertos/src/queue.o
- .debug_line    0x000042fb     0x1acc ./freertos/src/tasks.o
- .debug_line    0x00005dc7      0xac2 ./freertos/src/timers.o
- .debug_line    0x00006889      0x483 ./0_Communication/RS485/0_RS485.o
- .debug_line    0x00006d0c      0xb8e ./0_Communication/0_Communication.o
- .debug_line    0x0000789a       0xf4 ./0_Communication/0_Event_Group.o
- .debug_line    0x0000798e      0xbe3 ./0_Communication/1_Trame_Communication.o
- .debug_line    0x00008571      0x4fd ./0_Communication/2_Echange_Datas.o
- .debug_line    0x00008a6e      0x60f ./0_Communication/2_Echange_Datas_Reception.o
- .debug_line    0x0000907d      0x2f1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_line    0x0000936e      0x79e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_line    0x00009b0c      0x431 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(iap.o)
- .debug_line    0x00009f3d      0x513 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_line    0x0000a450      0x4e4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_line    0x0000a934      0xaef D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_line    0x0000b423      0xd49 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_line    0x00000983      0x4a9 ./src/Flash_iap.o
+ .debug_line    0x00000e2c      0x28e ./src/cr_startup_lpc175x_6x.o
+ .debug_line    0x000010ba       0x2d ./src/crp.o
+ .debug_line    0x000010e7      0xad7 ./src/main.o
+ .debug_line    0x00001bbe      0x2a8 ./src/sysinit.o
+ .debug_line    0x00001e66      0x7c2 ./freertos/src/event_groups.o
+ .debug_line    0x00002628      0x2d9 ./freertos/src/heap_3.o
+ .debug_line    0x00002901      0x4c3 ./freertos/src/list.o
+ .debug_line    0x00002dc4      0x455 ./freertos/src/port.o
+ .debug_line    0x00003219     0x11ea ./freertos/src/queue.o
+ .debug_line    0x00004403     0x1acc ./freertos/src/tasks.o
+ .debug_line    0x00005ecf      0xac2 ./freertos/src/timers.o
+ .debug_line    0x00006991      0x483 ./0_Communication/RS485/0_RS485.o
+ .debug_line    0x00006e14      0xb8e ./0_Communication/0_Communication.o
+ .debug_line    0x000079a2       0xf4 ./0_Communication/0_Event_Group.o
+ .debug_line    0x00007a96      0xbe3 ./0_Communication/1_Trame_Communication.o
+ .debug_line    0x00008679      0x4fd ./0_Communication/2_Echange_Datas.o
+ .debug_line    0x00008b76      0x60f ./0_Communication/2_Echange_Datas_Reception.o
+ .debug_line    0x00009185      0x2f1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_line    0x00009476      0x79e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_line    0x00009c14      0x431 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(iap.o)
+ .debug_line    0x0000a045      0x513 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_line    0x0000a558      0x4e4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_line    0x0000aa3c      0xaef D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_line    0x0000b52b      0xd49 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
 .debug_str      0x00000000     0x642a
  .debug_str     0x00000000      0x8c4 ./src/Bootloader.o
@@ -2108,13 +2108,13 @@ OUTPUT(1_Bootloader_1769.axf elf32-littlearm)
  .debug_str     0x000008c4      0x641 ./src/Bootloader_Data.o
                                 0xe9f (size before relaxing)
  .debug_str     0x00000f05       0xbc ./src/Flash_iap.o
-                                0x949 (size before relaxing)
+                                0x94e (size before relaxing)
  .debug_str     0x00000fc1      0x193 ./src/cr_startup_lpc175x_6x.o
                                 0x2f8 (size before relaxing)
  .debug_str     0x00001154       0x16 ./src/crp.o
                                 0x16a (size before relaxing)
  .debug_str     0x0000116a     0x166b ./src/main.o
-                               0x208d (size before relaxing)
+                               0x2092 (size before relaxing)
  .debug_str     0x000027d5       0x2b ./src/sysinit.o
                                 0x698 (size before relaxing)
  .debug_str     0x00002800      0x40d ./freertos/src/event_groups.o

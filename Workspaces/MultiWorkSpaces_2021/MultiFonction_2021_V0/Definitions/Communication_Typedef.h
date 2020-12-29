@@ -645,7 +645,7 @@ struct st_Graph_Data
 struct st_Graph_Datas
 {
 	byte nb_datas_to_send;
-	struct st_Graph_Data Datas[7];
+	struct st_Graph_Data Datas[(byte)((COMMUNICATION_TRAME_MAX_DATA-1)/8)];
 };
 
 
@@ -662,11 +662,23 @@ struct st_ASTAR_Data
 /**************************************************
 Declaration de la definition de la Structure contenant les valeurs des vecteurs du ASTAR
  **************************************************/
-#define NB_ASTAR_Vecteur_Par_Message 7
+#define NB_ASTAR_Vecteur_Par_Message (byte)((COMMUNICATION_TRAME_MAX_DATA-2)/10)
+
+/**************************************************
+Astar_Vector_Color : 1 octet
+ **************************************************/
+enum Astar_Vector_Color
+{
+	Astar_Vector_Color_Black,
+	Astar_Vector_Color_Blue,
+	Astar_Vector_Color_Green,
+	Astar_Vector_Color_Red,
+	Astar_Vector_Color_White,
+};
 
 struct st_ASTAR_Vecteur
 {
-	enum Logger_Debug_Color Color:8;
+	enum Astar_Vector_Color Color:8;
 	unsigned short Start_X;
 	unsigned short Start_Y;
 	unsigned short End_X;

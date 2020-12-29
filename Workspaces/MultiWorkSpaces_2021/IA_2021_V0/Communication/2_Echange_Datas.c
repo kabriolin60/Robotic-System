@@ -421,7 +421,7 @@ void _2_Communication_Boards_Status(void* pvParameters)
 			Task_Delay_Until(delai_demande_info);
 		}
 
-		if(boucle % 20 == 0)
+		if(boucle % 5 == 0)
 		{
 			/*
 			 * Envoi l'état de la carte IA
@@ -775,16 +775,45 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
  **
  ** Descriptions:		Fonction d'envoie du status des noeuds du ASTAR
  **
- ** parameters:			Pointeur vers la carte des vecteurs
+ ** parameters:			Pointeur vers la Map ASTAR
+ ** 					Pointeur vers la carte des vecteurs
  **						Canal de communication
  ** Returned value:		None
  **
  *****************************************************************************/
-void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enum_canal_communication canal, byte fixes)
+void _2_Comm_Send_ASTAR_Vectors(struct Astar_Map* map, struct Astar_smoothing_vector* vectors, enum enum_canal_communication canal, byte fixes)
 {
 #if Astar_Display_Vectors == 0
 	return;
 #endif
+
+	if(!fixes)
+	{
+		struct Point start_point, next_point;
+
+		start_point.x = map->Start_End_Vector.Start_Point.x;
+		start_point.y = map->Start_End_Vector.Start_Point.y;
+
+		next_point.x = 0;
+		next_point.y = 0;
+
+		struct Astar_Vector Vect;
+		while(next_point.x != map->Start_End_Vector.End_Point.x && next_point.y != map->Start_End_Vector.End_Point.y)
+		{
+			next_point = Astar_Smoothing(map, vectors, start_point);
+			//We've found a new vector, add it to the vector List in Green for display purpose
+			Vect.Color = Astar_Vector_Color_Green;
+
+			Vect.Start_Point.x = (uint16_t)start_point.x;
+			Vect.Start_Point.y = (uint16_t)start_point.y;
+			Vect.End_Point.x = (uint16_t)next_point.x;
+			Vect.End_Point.y = (uint16_t)next_point.y;
+			vectors->Vectors[vectors->Nb_Vectors++] = Vect;
+
+			start_point = next_point;
+		}
+	}
+
 
 	struct st_ASTAR_Vecteur loc_vector;
 	struct st_ASTAR_VECTEURS Vectors_to_Send;
@@ -800,7 +829,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 
 		if(fixes)
 		{
-			if(loc_vector.Color == Color_Black || loc_vector.Color == Color_Blue)
+			if(loc_vector.Color == Astar_Vector_Color_Black || loc_vector.Color == Astar_Vector_Color_Blue)
 			{
 				loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
 				loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
@@ -811,7 +840,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			}
 		}else
 		{
-			if(loc_vector.Color == Color_Red || loc_vector.Color == Color_Green)
+			if(loc_vector.Color == Astar_Vector_Color_Red || loc_vector.Color == Astar_Vector_Color_Green)
 			{
 				loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
 				loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
@@ -848,7 +877,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			//Envoi sans attente d'ACK
 			_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
 
-			Task_Delay(2);
+			//Task_Delay(2);
 
 			//Pour les prochains messages, il n'est plus utile de demander un effacement
 			Vectors_to_Send.Effacement = 0 | (_Strategie_Get_Robot_ID() << 1);
