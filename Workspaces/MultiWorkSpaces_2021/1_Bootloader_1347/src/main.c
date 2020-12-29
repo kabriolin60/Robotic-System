@@ -96,7 +96,7 @@ static void vTask_HartBeat(void *pvParameters) {
 
 static void vTask_LunchUser_Application(void *pvParameters) {
 	//Wait 5 seconds
-	vTaskDelay(9000);
+	Task_Delay(9000);
 
 	//disable les receptions
 	NVIC_DisableIRQ(RS485_IRQ_SELECTION);
@@ -104,7 +104,7 @@ static void vTask_LunchUser_Application(void *pvParameters) {
 	NVIC_DisableIRQ(USB_IRQn);
 #endif
 
-	vTaskDelay(1000);
+	Task_Delay(1000);
 
 	//Si user code présent:
 	if(user_code_present())

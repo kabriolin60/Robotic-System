@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1347
  * Created from library.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 29 déc. 2020 11:08:06
+ * MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07] on 29 déc. 2020 12:17:48
  */
 
 GROUP (

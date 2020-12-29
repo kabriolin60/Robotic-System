@@ -233,13 +233,15 @@ public class Bootloader_Burner : MonoBehaviour
             //Cree une trame de communication
             line_number_position++;
 
-            
+
             /*await Task.Delay(2);
             if(page_length >= 4096)
             {
                 await Task.Delay(200);
                 page_length = 0;
             }*/
+
+            await Task.Delay(1);
 
             while (decoder.Received_Messages.Count == 0) ;
             if (decoder.Received_Messages.Dequeue().Trame.Instruction == Communication.Com_Instruction.BOOTLOADER_ACK)

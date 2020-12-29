@@ -39,7 +39,7 @@ void _1_Communication_Init(void)
 	_1_Communication_Create_Queues_Semaphores();
 
 	//Tache de décodage des donnees recues par differentes FIFO
-	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 260, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
+	xTaskCreate(_1_Communication_Recomposition_Rx, (char *) "1_Com_Recompo_Rx", 380, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 }
 
 
@@ -182,7 +182,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 }
 
 
-struct Communication_Trame received_trame;
+static struct Communication_Trame received_trame;
 /*****************************************************************************
  ** Function name:		_1_Communication_Create_Trame_From_Buffer
  **
@@ -279,7 +279,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
-		Task_Delay(1);
+		Task_Delay(0.1f);
 	}
 
 	RingBuffer_PopMult(RingBuff, &Data_rx, 6);
@@ -324,7 +324,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
-			Task_Delay(1);
+			Task_Delay(0.1f);
 		}
 
 		RingBuffer_PopMult(RingBuff, &received_trame.Data, received_trame.Length);
