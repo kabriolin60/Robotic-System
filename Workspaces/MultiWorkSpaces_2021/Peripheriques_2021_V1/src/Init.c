@@ -17,6 +17,12 @@
 
 void Init_Carte_Perpheriques(void)
 {
+	Chip_IOCON_PinMux(LPC_IOCON, ADRESSE_0_port, ADRESSE_0_bit, IOCON_MODE_PULLUP, IOCON_FUNC0);	// GPIO
+	Chip_IOCON_PinMux(LPC_IOCON, ADRESSE_1_port, ADRESSE_1_bit, IOCON_MODE_PULLUP, IOCON_FUNC0);	// GPIO
+	Chip_GPIO_WriteDirBit(LPC_GPIO_PORT, LED_2_PORT, LED_2_BIT, false); //@pin as input
+	Chip_GPIO_WriteDirBit(LPC_GPIO_PORT, LED_1_PORT, LED_1_BIT, false); //@pin as input
+
+
 	/* Init du Groupe d'event de synchronisation */
 	_0_Communication_Init_Event_Group();
 

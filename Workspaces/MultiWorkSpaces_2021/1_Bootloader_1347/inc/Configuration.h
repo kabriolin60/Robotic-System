@@ -113,8 +113,8 @@ Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'a
 #define ADRESSE_1_port				0
 #define ADRESSE_1_bit				9
 
-#define ADRESSE_CARTE 				5 + (!Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_0_port, ADRESSE_0_bit) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_1_port, ADRESSE_1_bit))
-#define ADRESSE_CARTE_CHAR 			'5' + (!Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_0_port, ADRESSE_0_bit) << 1 | !Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_1_port, ADRESSE_1_bit))
+#define ADRESSE_CARTE 				5 + (Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_0_port, ADRESSE_0_bit) << 1 | Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_1_port, ADRESSE_1_bit))
+#define ADRESSE_CARTE_CHAR 			'5' + (Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_0_port, ADRESSE_0_bit) << 1 | Chip_GPIO_GetPinState(LPC_GPIO_PORT, ADRESSE_1_port, ADRESSE_1_bit))
 
 #endif
 

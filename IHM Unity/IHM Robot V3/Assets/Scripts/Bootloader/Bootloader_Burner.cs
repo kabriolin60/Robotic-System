@@ -241,7 +241,7 @@ public class Bootloader_Burner : MonoBehaviour
                 page_length = 0;
             }*/
 
-            await Task.Delay(1);
+            //await Task.Delay(1);
 
             while (decoder.Received_Messages.Count == 0) ;
             if (decoder.Received_Messages.Dequeue().Trame.Instruction == Communication.Com_Instruction.BOOTLOADER_ACK)

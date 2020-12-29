@@ -69,7 +69,7 @@ void Chip_SetupXtalClocking(void)
 	MSEL = 5 (this is pre-decremented), PSEL = 1 (for P = 2)
 	FCLKOUT = FCLKIN * (MSEL + 1) = 12MHz * 6 = 72MHz
 	FCCO = FCLKOUT * 2 * P = 72MHz * 2 * 2 = 288MHz (within FCCO range) */
-	Chip_Clock_SetupSystemPLL(7, 2); //Chip_Clock_SetupSystemPLL(5, 1);
+	Chip_Clock_SetupSystemPLL(3, 2); //Chip_Clock_SetupSystemPLL(5, 1);
 
 	/* Powerup system PLL */
 	Chip_SYSCTL_PowerUp(SYSCTL_POWERDOWN_SYSPLL_PD);

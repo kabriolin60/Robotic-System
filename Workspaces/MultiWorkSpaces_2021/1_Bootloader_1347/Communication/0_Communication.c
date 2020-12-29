@@ -24,7 +24,7 @@
 
 /* Transmit and receive ring buffer sizes */
 #define TX_RB_SIZE 				128		/* Send */
-#define RS485_RX_RB_SIZE 		128		/* Receive RS485*/
+#define RS485_RX_RB_SIZE 		256		/* Receive RS485*/
 
 
 /* Receive ring buffer for RS485*/
@@ -179,11 +179,7 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	while (1)
 	{
-		//Attente de l'autorisation d'envoyer un message par la Carte IA
-		_0_Communication_Wait_Sending_Clearance();
-
-		//Une fois l'autorisation accordée, envoi tous les messages dans la pile
-		while( xQueueReceive( pvParameters, &Message, 0 ) == pdPASS )
+		if( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
 		{
 			//Un message est pret à être envoyé
 			//L'ajouter au Txring Buffer
@@ -194,7 +190,6 @@ void _0_Communication_Send_Data(void *pvParameters)
 			{
 			case RS485_port:
 				_0_Communication_Send_RS485(RS485_UART, &txring, (int)Message.length);
-				Task_Delay(0.1f);
 				break;
 
 			default:
@@ -227,11 +222,14 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	while (RingBuffer_Pop(data, &ch))
 	{
 		Chip_UART_SendByte(pUART, ch);
-
-		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
+		__asm volatile( "nop" );
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0)
+		{
+			__asm volatile( "nop" );
+		}
 	}
 
-	for(int i = 0; i < 100; i++)__asm volatile( "nop" );
+	for(int i =0; i < 100; i++);
 
 	//Passe en RX
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);

@@ -47,6 +47,4 @@ void _2_Comm_Send_Bootloader_ACK(enum enum_canal_communication canal)
 
 	//Envoi avec attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal);
-
-	_0_Communication_Give_Sending_Clearance();
 }
