@@ -10,8 +10,11 @@ public class ASTAR_VECT : MonoBehaviour
     public GameObject Astar_Vector_Prefab;
     static private GameObject static_Astar_Vector_Prefab;
 
-    static private List<GameObject> Vector_List_Gros_Robot = new List<GameObject>();
-    static private List<GameObject> Vector_List_Petit_Robot = new List<GameObject>();
+    static private List<GameObject> Vector_Fixes_List_Gros_Robot = new List<GameObject>();
+    static private List<GameObject> Vector_Fixes_List_Petit_Robot = new List<GameObject>();
+
+    static private List<GameObject> Vector_Mobiles_List_Gros_Robot = new List<GameObject>();
+    static private List<GameObject> Vector_Mobiles_List_Petit_Robot = new List<GameObject>();
 
     private void Start()
     {
@@ -20,7 +23,7 @@ public class ASTAR_VECT : MonoBehaviour
     }
 
 
-    static public void Reception_Message_Astar_Vector(Communication.Communication_Trame trame)
+    static public void Reception_Message_Astar_Vector(Communication.Communication_Trame trame, bool fixes)
     {
         ASTAR_VECTOR_COMMUNICATION comm = new ASTAR_VECTOR_COMMUNICATION();
         //Commence par transformer la trame en un message utilisable
@@ -32,14 +35,14 @@ public class ASTAR_VECT : MonoBehaviour
             //Si un effacement est demandé
             if(data.Effacement == 1)
             {
-                Clear_Vectors(data.Numero_Robot);
+                Clear_Vectors(data.Numero_Robot, fixes);
             }
 
 
             //Un message contient 8 vecteurs maximum
             foreach(ASTAR_VECTOR_COMMUNICATION.ASTAR_Vector vect in data.vectors)
             {
-                Create_New_Vector(vect.Color, vect.Start, vect.End, data.Numero_Robot);
+                Create_New_Vector(vect.Color, vect.Start, vect.End, data.Numero_Robot, fixes);
             }
         }
         catch
@@ -48,30 +51,51 @@ public class ASTAR_VECT : MonoBehaviour
         }
     }
 
-    static private void Clear_Vectors(Infos_Carte.Com_Position_Robot_Identification Numero_Robot)
+    static private void Clear_Vectors(Infos_Carte.Com_Position_Robot_Identification Numero_Robot, bool fixes)
     {
         switch (Numero_Robot)
         {
             case Infos_Carte.Com_Position_Robot_Identification.Gros_Robot:
-
-                foreach (GameObject vect in Vector_List_Gros_Robot)
+                if (fixes)
                 {
-                    DestroyImmediate(vect);
+                    foreach (GameObject vect in Vector_Fixes_List_Gros_Robot)
+                    {
+                        DestroyImmediate(vect);
+                    }
+                    Vector_Fixes_List_Gros_Robot.Clear();
                 }
-                Vector_List_Gros_Robot.Clear();
+                else
+                {
+                    foreach (GameObject vect in Vector_Mobiles_List_Gros_Robot)
+                    {
+                        DestroyImmediate(vect);
+                    }
+                    Vector_Mobiles_List_Gros_Robot.Clear();
+                }
                 break;
 
             case Infos_Carte.Com_Position_Robot_Identification.Petit_Robot:
-                foreach (GameObject vect in Vector_List_Petit_Robot)
+                if (fixes)
                 {
-                    DestroyImmediate(vect);
+                    foreach (GameObject vect in Vector_Fixes_List_Petit_Robot)
+                    {
+                        DestroyImmediate(vect);
+                    }
+                    Vector_Fixes_List_Petit_Robot.Clear();
                 }
-                Vector_List_Petit_Robot.Clear();
+                else
+                {
+                    foreach (GameObject vect in Vector_Mobiles_List_Petit_Robot)
+                    {
+                        DestroyImmediate(vect);
+                    }
+                    Vector_Mobiles_List_Petit_Robot.Clear();
+                }
                 break;
         }
     }
 
-    static private void Create_New_Vector(ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color, Vector2 Start, Vector2 End, Infos_Carte.Com_Position_Robot_Identification Numero_Robot)
+    static private void Create_New_Vector(ASTAR_VECTOR_COMMUNICATION.Astar_Vector_Color Color, Vector2 Start, Vector2 End, Infos_Carte.Com_Position_Robot_Identification Numero_Robot, bool fixes)
     {
         UnityEngine.Color color = new Color();
         List<GameObject> Vector_List;
@@ -80,11 +104,24 @@ public class ASTAR_VECT : MonoBehaviour
         {
             default:
             case Infos_Carte.Com_Position_Robot_Identification.Gros_Robot:
-                Vector_List = Vector_List_Gros_Robot;
+                if (fixes)
+                {
+                    Vector_List = Vector_Fixes_List_Gros_Robot;
+                }else
+                {
+                    Vector_List = Vector_Mobiles_List_Gros_Robot;
+                }
                 break;
 
             case Infos_Carte.Com_Position_Robot_Identification.Petit_Robot:
-                Vector_List = Vector_List_Petit_Robot;
+                if (fixes)
+                {
+                    Vector_List = Vector_Fixes_List_Petit_Robot;
+                }
+                else
+                {
+                    Vector_List = Vector_Mobiles_List_Petit_Robot;
+                }
                 break;
         }
 
@@ -138,7 +175,7 @@ public class ASTAR_VECT : MonoBehaviour
 
 public class ASTAR_VECTOR_COMMUNICATION
 {
-    private const byte NB_Vector_par_mess = 6;
+    private const byte NB_Vector_par_mess = 7;
 
     public enum Astar_Vector_Color : byte
     {

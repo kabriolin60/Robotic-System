@@ -321,7 +321,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors,
 	struct st_ASTAR_VECTEURS Vectors_to_Send;
 
 	//Commence par demander un effacement des vecteurs déjà présents
-	Vectors_to_Send.Effacement = 0;
+	Vectors_to_Send.Effacement = 0  | (_2_Comm_Get_Robot_ID() << 1);
 
 	//Pour chacun des vecteurs dans la map
 	byte index_vecteur_to_send = 0;
@@ -346,7 +346,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors,
 				return;
 			}
 
-			trame_echange.Instruction = ASTAR_VECTEURS;
+			trame_echange.Instruction = ASTAR_VECTEURS_Fixes;
 			trame_echange.Slave_Adresse = PC;
 			trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
@@ -358,7 +358,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors,
 			Task_Delay(2);
 
 			//Pour les prochains messages, il n'est plus utile de demander un effacement
-			Vectors_to_Send.Effacement = 0;
+			Vectors_to_Send.Effacement = 0 | (_2_Comm_Get_Robot_ID() << 1);
 			index_vecteur_to_send = 0; //On recommence au début du tableau des infos à envoyer
 		}
 	}
@@ -374,7 +374,7 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector_multiFCT* vectors,
 			return;
 		}
 
-		trame_echange.Instruction = ASTAR_VECTEURS;
+		trame_echange.Instruction = ASTAR_VECTEURS_Fixes;
 		trame_echange.Slave_Adresse = PC;
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 

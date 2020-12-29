@@ -643,6 +643,24 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 	_0_Deplacement_Get_ptr_Current_Destination()->coord.X = -1;
 	_0_Deplacement_Get_ptr_Current_Destination()->coord.Y = -1;
 
+
+	/*
+	 * Step 1: Init the Map
+	 */
+	Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
+
+	/*
+	 * Step 2: Create obstacles according to the function passed
+	 */
+	if(parameters.obstacle_creation_fct != NULL)
+		parameters.obstacle_creation_fct();
+
+	//Affiche les obstacles fixes une seule fois au début de la trajectoire
+	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
+
+
+
+
 	//While we didn't reach the destination point
 	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > Final_Destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
@@ -673,6 +691,9 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			//A path as been found
 			//Load the next destination
 			found_destination = Astar_Get_Map()->First_Destination;
+
+			//Affiche les obstacles mobiles à chaque itération
+			_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
 
 			//Send the new destination if != from the previous sent, with replacement
 			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
@@ -741,7 +762,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		 * Step 5: Debug, display Pathfinding Map
 		 */
 		_2_Comm_Send_ASTAR_Contenu(Astar_Get_Map(), Xbee_port);
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
 
 		/*
 		 * Step 6: Wait for the next Astar Loop
@@ -852,6 +873,25 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 	Final_Destination.X = parameters.destination.P1.X;
 	Final_Destination.Y = parameters.destination.P1.Y;
 
+
+	/*
+	 * Step 1: Init the Map
+	 */
+	Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
+
+
+	/*
+	 * Step 2: Create obstacles according to the function passed
+	 */
+	if(parameters.obstacle_creation_fct != NULL)
+		parameters.obstacle_creation_fct();
+
+	//Affiche les obstacles fixes une seule fois
+	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
+
+
+
+
 	//While we didn't reach the destination point
 	while(Distance_To_Destination(_0_Get_Robot_Position(), &Final_Destination) * 100 > parameters.destination.ptrParameters.Distance_Detection_Fin_Trajectoire)
 	{
@@ -867,7 +907,8 @@ void _0_Deplacement_ASTAR_SPLINE(void* pvParameter)
 		if(parameters.obstacle_creation_fct != NULL)
 			parameters.obstacle_creation_fct();
 
-		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port);
+		//Affiche les obstacles mobiles à chaque itération
+		_2_Comm_Send_ASTAR_Vectors(Astar_Get_Vector_Map(), LOG_Debug_Port, OFF);
 
 		/*
 		 * Step 3: Check if Spline Path is clear

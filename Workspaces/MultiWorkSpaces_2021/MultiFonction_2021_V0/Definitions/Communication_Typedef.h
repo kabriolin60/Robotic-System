@@ -76,7 +76,8 @@ enum Com_Instruction
 
 	//ASTAR
 	ASTAR_CONTENU = 100,
-	ASTAR_VECTEURS,
+	ASTAR_VECTEURS_Fixes,
+	ASTAR_VECTEURS_Mobiles,
 
 	//Graphiques
 	GRAPHIQUES_ADD_DATA = 110,
@@ -380,7 +381,8 @@ enum Logger_Debug_Color
 {
 	Color_Black,
 	Color_Blue,
-	Color_Red
+	Color_Red,
+	Color_Green
 };
 
 enum Channel_Debug
@@ -660,11 +662,11 @@ struct st_ASTAR_Data
 /**************************************************
 Declaration de la definition de la Structure contenant les valeurs des vecteurs du ASTAR
  **************************************************/
-#define NB_ASTAR_Vecteur_Par_Message 6
+#define NB_ASTAR_Vecteur_Par_Message 7
 
 struct st_ASTAR_Vecteur
 {
-	byte Color:8;
+	enum Logger_Debug_Color Color:8;
 	unsigned short Start_X;
 	unsigned short Start_Y;
 	unsigned short End_X;

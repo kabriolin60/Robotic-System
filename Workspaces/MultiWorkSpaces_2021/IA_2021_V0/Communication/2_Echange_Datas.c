@@ -780,7 +780,7 @@ void _2_Comm_Send_ASTAR_Contenu(struct Astar_Map* map, enum enum_canal_communica
  ** Returned value:		None
  **
  *****************************************************************************/
-void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enum_canal_communication canal)
+void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enum_canal_communication canal, byte fixes)
 {
 #if Astar_Display_Vectors == 0
 	return;
@@ -792,19 +792,35 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 	//Commence par demander un effacement des vecteurs déjà présents
 	Vectors_to_Send.Effacement = 1 | (_Strategie_Get_Robot_ID() << 1);
 
-	//Vectors_to_Send.Robot_ID = _Strategie_Get_Robot_ID();
-
 	//Pour chacun des vecteurs dans la map
 	byte index_vecteur_to_send = 0;
 	for (int index_vecteur = 0; index_vecteur < vectors->Nb_Vectors; index_vecteur++)
 	{
 		loc_vector.Color = vectors->Vectors[index_vecteur].Color;
-		loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
-		loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
-		loc_vector.End_X = vectors->Vectors[index_vecteur].End_Point.x;
-		loc_vector.End_Y = vectors->Vectors[index_vecteur].End_Point.y;
 
-		Vectors_to_Send.Vecteurs[index_vecteur_to_send++] = loc_vector;
+		if(fixes)
+		{
+			if(loc_vector.Color == Color_Black || loc_vector.Color == Color_Blue)
+			{
+				loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
+				loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
+				loc_vector.End_X = vectors->Vectors[index_vecteur].End_Point.x;
+				loc_vector.End_Y = vectors->Vectors[index_vecteur].End_Point.y;
+
+				Vectors_to_Send.Vecteurs[index_vecteur_to_send++] = loc_vector;
+			}
+		}else
+		{
+			if(loc_vector.Color == Color_Red || loc_vector.Color == Color_Green)
+			{
+				loc_vector.Start_X = vectors->Vectors[index_vecteur].Start_Point.x;
+				loc_vector.Start_Y = vectors->Vectors[index_vecteur].Start_Point.y;
+				loc_vector.End_X = vectors->Vectors[index_vecteur].End_Point.x;
+				loc_vector.End_Y = vectors->Vectors[index_vecteur].End_Point.y;
+
+				Vectors_to_Send.Vecteurs[index_vecteur_to_send++] = loc_vector;
+			}
+		}
 
 		if (index_vecteur_to_send == NB_ASTAR_Vecteur_Par_Message)
 		{
@@ -817,7 +833,13 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 				return;
 			}
 
-			trame_echange.Instruction = ASTAR_VECTEURS;
+			if(fixes == 1)
+			{
+				trame_echange.Instruction = ASTAR_VECTEURS_Fixes;
+			}else
+			{
+				trame_echange.Instruction = ASTAR_VECTEURS_Mobiles;
+			}
 			trame_echange.Slave_Adresse = PC;
 			trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
@@ -845,14 +867,21 @@ void _2_Comm_Send_ASTAR_Vectors(struct Astar_smoothing_vector* vectors, enum enu
 			return;
 		}
 
-		trame_echange.Instruction = ASTAR_VECTEURS;
+		if(fixes == 1)
+		{
+			trame_echange.Instruction = ASTAR_VECTEURS_Fixes;
+		}else
+		{
+			trame_echange.Instruction = ASTAR_VECTEURS_Mobiles;
+		}
 		trame_echange.Slave_Adresse = PC;
 		trame_echange.XBEE_DEST_ADDR = XBee_PC;
 
 		trame_echange.Length = COPYDATA(Vectors_to_Send, trame_echange.Data);
 
 		//Envoi sans attente d'ACK
-		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);	}
+		_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
+	}
 }
 
 

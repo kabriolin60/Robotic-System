@@ -160,8 +160,12 @@ public class Interprete_Message : MonoBehaviour
 				Decode_ASTAR_Contenu(message);
 				break;
 
-			case Communication.Com_Instruction.ASTAR_VECTEURS:
-				Decode_ASTAR_Vector(message);
+			case Communication.Com_Instruction.ASTAR_VECTEURS_Fixes:
+				Decode_ASTAR_Vector(message, true);
+				break;
+
+			case Communication.Com_Instruction.ASTAR_VECTEURS_Mobiles:
+				Decode_ASTAR_Vector(message, false);
 				break;
 
 			case Communication.Com_Instruction.STRATEGIE_CHANGEMENT_ETAT:
@@ -253,10 +257,11 @@ public class Interprete_Message : MonoBehaviour
 	}
 
 
-	private void Decode_ASTAR_Vector(Communication.Communication_Message message)
+	private void Decode_ASTAR_Vector(Communication.Communication_Message message, bool fixes)
 	{
-		ASTAR_VECT.Reception_Message_Astar_Vector(message.Trame);
+		ASTAR_VECT.Reception_Message_Astar_Vector(message.Trame, fixes);
 	}
+
 
 
 	private void Decode_Strategie_Changement_Etat(Communication.Communication_Message message)

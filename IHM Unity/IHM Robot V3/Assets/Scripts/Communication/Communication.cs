@@ -53,7 +53,8 @@ public class Communication
 
 		//ASTAR
 		ASTAR_CONTENU = 100,
-		ASTAR_VECTEURS,
+		ASTAR_VECTEURS_Fixes,
+		ASTAR_VECTEURS_Mobiles,
 
 		//Graphiques
 		GRAPHIQUES_ADD_DATA = 110,
