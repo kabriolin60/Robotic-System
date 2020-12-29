@@ -29,17 +29,19 @@ extern EventGroupHandle_t _0_Comm_EventGroup;
  * EventGroupe de Flags de présence des cartes sur le bus
  */
 
-#define eGROUP_STATUS_CARTE_IA			( 1 << 0 )		//Flag indiquant la presence de la carte IA sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_1	( 1 << 1 )		//Flag indiquant la presence de la carte multiFCT 1 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_2	( 2 << 1 )		//Flag indiquant la presence de la carte multiFCT 2 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_3	( 3 << 1 )		//Flag indiquant la presence de la carte multiFCT 3 sur le bus
-#define eGROUP_STATUS_CARTE_MultiFCT_4	( 4 << 1 )		//Flag indiquant la presence de la carte multiFCT 4 sur le bus
+#define eGROUP_STATUS_CARTE_IA				( 1 << 0 )		//Flag indiquant la presence de la carte IA sur le bus
+#define eGROUP_STATUS_CARTE_MultiFCT_1		( 1 << 1 )		//Flag indiquant la presence de la carte multiFCT 1 sur le bus
+#define eGROUP_STATUS_CARTE_MultiFCT_2		( 1 << 2 )		//Flag indiquant la presence de la carte multiFCT 2 sur le bus
+#define eGROUP_STATUS_CARTE_MultiFCT_3		( 1 << 3 )		//Flag indiquant la presence de la carte multiFCT 3 sur le bus
+#define eGROUP_STATUS_CARTE_MultiFCT_4		( 1 << 4 )		//Flag indiquant la presence de la carte multiFCT 4 sur le bus
 
-#define eGROUP_STATUS_CARTE_Peripherique_4	( 8 << 1 )	//Flag indiquant la presence de la carte multiFCT 4 sur le bus
+#define eGROUP_STATUS_CARTE_Peripherique_4	( 1 << 8 )		//Flag indiquant la presence de la carte multiFCT 4 sur le bus
 //A ajouter pour chaque carte possible
 
 #define eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES		eGROUP_STATUS_CARTE_MultiFCT_1
 #define eGROUP_STATUS_CARTES_AUTRES_ATTENDUES			0 | eGROUP_STATUS_CARTE_Peripherique_4
+
+//Liste des cartes pilotant des servos (pour les ACK des demandes de mouvements des servos)
 #define eGROUP_STATUS_CARTES_SERVO_ATTENDUES			eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES
 
 #define eGROUP_STATUS_CARTES_ATTENDUES 					eGROUP_STATUS_CARTES_MULTI_FCT_ATTENDUES | eGROUP_STATUS_CARTES_AUTRES_ATTENDUES
