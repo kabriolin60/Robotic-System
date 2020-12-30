@@ -641,7 +641,7 @@ Discarded input sections
                 0x00000000       0x50 ./Communication/2_Echange_Datas.o
  .text._2_Comm_Send_Robot_PID
                 0x00000000       0x78 ./Communication/2_Echange_Datas.o
- .bss.str.10553
+ .bss.str.10586
                 0x00000000       0x50 ./Communication/2_Echange_Datas.o
  .rodata.delai_demande_info
                 0x00000000        0x4 ./Communication/2_Echange_Datas.o
@@ -1434,7 +1434,7 @@ END GROUP
                 0x20084000                __top_RAM3 = 0x20084000
                 0x20084000                __top_RAM3 = 0x20084000
 
-.text           0x00010000     0xa460
+.text           0x00010000     0xa4a8
  FILL mask 0xff
                 0x00010000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -1443,19 +1443,19 @@ END GROUP
                 0x000100cc                . = ALIGN (0x4)
                 0x000100cc                __section_table_start = .
                 0x000100cc                __data_section_table = .
-                0x000100cc        0x4 LONG 0x1a460 LOADADDR (.data)
+                0x000100cc        0x4 LONG 0x1a4a8 LOADADDR (.data)
                 0x000100d0        0x4 LONG 0x10000000 ADDR (.data)
                 0x000100d4        0x4 LONG 0x1ec SIZEOF (.data)
-                0x000100d8        0x4 LONG 0x1a460 LOADADDR (.data_RAM2)
+                0x000100d8        0x4 LONG 0x1a4a8 LOADADDR (.data_RAM2)
                 0x000100dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
                 0x000100e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
-                0x000100e4        0x4 LONG 0x1a460 LOADADDR (.data_RAM3)
+                0x000100e4        0x4 LONG 0x1a4a8 LOADADDR (.data_RAM3)
                 0x000100e8        0x4 LONG 0x2007c800 ADDR (.data_RAM3)
                 0x000100ec        0x4 LONG 0x0 SIZEOF (.data_RAM3)
                 0x000100f0                __data_section_table_end = .
                 0x000100f0                __bss_section_table = .
                 0x000100f0        0x4 LONG 0x100001ec ADDR (.bss)
-                0x000100f4        0x4 LONG 0x52e0 SIZEOF (.bss)
+                0x000100f4        0x4 LONG 0x52b8 SIZEOF (.bss)
                 0x000100f8        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
                 0x000100fc        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
                 0x00010100        0x4 LONG 0x2007c800 ADDR (.bss_RAM3)
@@ -1828,752 +1828,758 @@ END GROUP
                 0x0001276c       0x68 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
                 0x0001276c                _0_Deplacement_STOP
  .text._0_Deplacement_ASTAR
-                0x000127d4      0x310 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
+                0x000127d4      0x314 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
                 0x000127d4                _0_Deplacement_ASTAR
  .text._1_TEST_Obstacle_Second_Robot
-                0x00012ae4       0x4c ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
-                0x00012ae4                _1_TEST_Obstacle_Second_Robot
+                0x00012ae8       0x4c ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
+                0x00012ae8                _1_TEST_Obstacle_Second_Robot
  .text._1_Obstacles_Create_Terrain_Border
-                0x00012b30      0x110 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
-                0x00012b30                _1_Obstacles_Create_Terrain_Border
+                0x00012b34      0x110 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
+                0x00012b34                _1_Obstacles_Create_Terrain_Border
  .text._0_Infos_Init
-                0x00012c40       0x30 ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012c40                _0_Infos_Init
+                0x00012c44       0x30 ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012c44                _0_Infos_Init
  .text._0_Update_Card_Datas
-                0x00012c70       0x54 ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012c70                _0_Update_Card_Datas
+                0x00012c74       0x54 ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012c74                _0_Update_Card_Datas
  .text._0_Get_Robot_Position
-                0x00012cc4       0x6c ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012cc4                _0_Get_Robot_Position
+                0x00012cc8       0x6c ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012cc8                _0_Get_Robot_Position
  .text._0_Get_Robot_Position_Communication
-                0x00012d30       0x3c ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012d30                _0_Get_Robot_Position_Communication
+                0x00012d34       0x3c ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012d34                _0_Get_Robot_Position_Communication
  .text._0_Set_Position_SecondRobot
-                0x00012d6c       0x30 ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012d6c                _0_Set_Position_SecondRobot
+                0x00012d70       0x30 ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012d70                _0_Set_Position_SecondRobot
  .text._0_Get_Position_SecondRobot
-                0x00012d9c       0x14 ./Strategie/Strategie_Level0/0_Infos.o
-                0x00012d9c                _0_Get_Position_SecondRobot
+                0x00012da0       0x14 ./Strategie/Strategie_Level0/0_Infos.o
+                0x00012da0                _0_Get_Position_SecondRobot
  .text._Strategie_Change_Action_State
-                0x00012db0       0x30 ./Strategie/Strategie_Level0/Strategie_Actions.o
-                0x00012db0                _Strategie_Change_Action_State
+                0x00012db4       0x30 ./Strategie/Strategie_Level0/Strategie_Actions.o
+                0x00012db4                _Strategie_Change_Action_State
  .text._Strategie_Change_Action_Step
-                0x00012de0       0x12 ./Strategie/Strategie_Level0/Strategie_Actions.o
-                0x00012de0                _Strategie_Change_Action_Step
- *fill*         0x00012df2        0x2 ff
+                0x00012de4       0x12 ./Strategie/Strategie_Level0/Strategie_Actions.o
+                0x00012de4                _Strategie_Change_Action_Step
+ *fill*         0x00012df6        0x2 ff
  .text.Task_MatchTime
-                0x00012df4       0x40 ./Strategie/Strategie.o
-                0x00012df4                Task_MatchTime
+                0x00012df8       0x40 ./Strategie/Strategie.o
+                0x00012df8                Task_MatchTime
  .text._Strategie_Get_Robot_ID
-                0x00012e34       0x10 ./Strategie/Strategie.o
-                0x00012e34                _Strategie_Get_Robot_ID
+                0x00012e38       0x10 ./Strategie/Strategie.o
+                0x00012e38                _Strategie_Get_Robot_ID
  .text._Strategie_Get_Input_Strategie_Selector
-                0x00012e44       0x28 ./Strategie/Strategie.o
-                0x00012e44                _Strategie_Get_Input_Strategie_Selector
+                0x00012e48       0x28 ./Strategie/Strategie.o
+                0x00012e48                _Strategie_Get_Input_Strategie_Selector
  .text._Strategie_Get_Choosen_Strategie
-                0x00012e6c        0xc ./Strategie/Strategie.o
-                0x00012e6c                _Strategie_Get_Choosen_Strategie
+                0x00012e70        0xc ./Strategie/Strategie.o
+                0x00012e70                _Strategie_Get_Choosen_Strategie
  .text._Strategie_Get_Temps_Match
-                0x00012e78        0xc ./Strategie/Strategie.o
-                0x00012e78                _Strategie_Get_Temps_Match
+                0x00012e7c        0xc ./Strategie/Strategie.o
+                0x00012e7c                _Strategie_Get_Temps_Match
  .text._Strategie_Get_Jack_Status
-                0x00012e84       0x10 ./Strategie/Strategie.o
-                0x00012e84                _Strategie_Get_Jack_Status
+                0x00012e88       0x10 ./Strategie/Strategie.o
+                0x00012e88                _Strategie_Get_Jack_Status
  .text._Strategie_Get_Color_Status
-                0x00012e94       0x10 ./Strategie/Strategie.o
-                0x00012e94                _Strategie_Get_Color_Status
+                0x00012e98       0x10 ./Strategie/Strategie.o
+                0x00012e98                _Strategie_Get_Color_Status
  .text._Strategie_Get_Switch_Status
-                0x00012ea4       0x10 ./Strategie/Strategie.o
-                0x00012ea4                _Strategie_Get_Switch_Status
+                0x00012ea8       0x10 ./Strategie/Strategie.o
+                0x00012ea8                _Strategie_Get_Switch_Status
  .text._Strategie_Get_User_BP_Status
-                0x00012eb4       0x10 ./Strategie/Strategie.o
-                0x00012eb4                _Strategie_Get_User_BP_Status
+                0x00012eb8       0x10 ./Strategie/Strategie.o
+                0x00012eb8                _Strategie_Get_User_BP_Status
  .text._Strategie_Get_External_LED_RED_Status
-                0x00012ec4       0x10 ./Strategie/Strategie.o
-                0x00012ec4                _Strategie_Get_External_LED_RED_Status
+                0x00012ec8       0x10 ./Strategie/Strategie.o
+                0x00012ec8                _Strategie_Get_External_LED_RED_Status
  .text._Strategie_Set_External_LED_RED_Status
-                0x00012ed4       0x20 ./Strategie/Strategie.o
-                0x00012ed4                _Strategie_Set_External_LED_RED_Status
+                0x00012ed8       0x20 ./Strategie/Strategie.o
+                0x00012ed8                _Strategie_Set_External_LED_RED_Status
  .text._Strategie_Get_External_LED_YELLOW_Status
-                0x00012ef4       0x10 ./Strategie/Strategie.o
-                0x00012ef4                _Strategie_Get_External_LED_YELLOW_Status
+                0x00012ef8       0x10 ./Strategie/Strategie.o
+                0x00012ef8                _Strategie_Get_External_LED_YELLOW_Status
  .text._Strategie_Get_External_LED_GREEN_Status
-                0x00012f04       0x10 ./Strategie/Strategie.o
-                0x00012f04                _Strategie_Get_External_LED_GREEN_Status
+                0x00012f08       0x10 ./Strategie/Strategie.o
+                0x00012f08                _Strategie_Get_External_LED_GREEN_Status
  .text._Strategie_Get_Action_By_ID
-                0x00012f14       0x10 ./Strategie/Strategie.o
-                0x00012f14                _Strategie_Get_Action_By_ID
+                0x00012f18       0x10 ./Strategie/Strategie.o
+                0x00012f18                _Strategie_Get_Action_By_ID
  .text._Strategie_Init_Strategie_2021
-                0x00012f24      0x25c ./Strategie/Strategie.o
-                0x00012f24                _Strategie_Init_Strategie_2021
+                0x00012f28      0x25c ./Strategie/Strategie.o
+                0x00012f28                _Strategie_Init_Strategie_2021
  .text.Astar_Set_Node_as_Blocked
-                0x00013180       0x2a ./Pathfinding/Astar/Astar.o
+                0x00013184       0x2a ./Pathfinding/Astar/Astar.o
  .text.Astar_Set_Node_as_Closed
-                0x000131aa       0x1e ./Pathfinding/Astar/Astar.o
+                0x000131ae       0x1e ./Pathfinding/Astar/Astar.o
  .text.Astar_Set_Node_as_Opened
-                0x000131c8       0x1e ./Pathfinding/Astar/Astar.o
- *fill*         0x000131e6        0x2 ff
+                0x000131cc       0x1e ./Pathfinding/Astar/Astar.o
+ *fill*         0x000131ea        0x2 ff
  .text.Astar_Compute_H_cost
-                0x000131e8       0x34 ./Pathfinding/Astar/Astar.o
+                0x000131ec       0x34 ./Pathfinding/Astar/Astar.o
  .text.Astar_Map_Init
-                0x0001321c      0x174 ./Pathfinding/Astar/Astar.o
-                0x0001321c                Astar_Map_Init
+                0x00013220      0x174 ./Pathfinding/Astar/Astar.o
+                0x00013220                Astar_Map_Init
  .text.Astar_Get_Map
-                0x00013390        0x8 ./Pathfinding/Astar/Astar.o
-                0x00013390                Astar_Get_Map
+                0x00013394        0x8 ./Pathfinding/Astar/Astar.o
+                0x00013394                Astar_Get_Map
  .text.Astar_Get_Vector_Map
-                0x00013398        0x8 ./Pathfinding/Astar/Astar.o
-                0x00013398                Astar_Get_Vector_Map
+                0x0001339c        0x8 ./Pathfinding/Astar/Astar.o
+                0x0001339c                Astar_Get_Vector_Map
  .text.Astar_Find_Path
-                0x000133a0      0x270 ./Pathfinding/Astar/Astar.o
-                0x000133a0                Astar_Find_Path
+                0x000133a4      0x270 ./Pathfinding/Astar/Astar.o
+                0x000133a4                Astar_Find_Path
  .text.Astar_Generate_Trajectory
-                0x00013610       0x6a ./Pathfinding/Astar/Astar.o
-                0x00013610                Astar_Generate_Trajectory
+                0x00013614       0x6a ./Pathfinding/Astar/Astar.o
+                0x00013614                Astar_Generate_Trajectory
  .text.Astar_Find_Best_Node_To_Compute
-                0x0001367a      0x126 ./Pathfinding/Astar/Astar.o
-                0x0001367a                Astar_Find_Best_Node_To_Compute
+                0x0001367e      0x126 ./Pathfinding/Astar/Astar.o
+                0x0001367e                Astar_Find_Best_Node_To_Compute
  .text.Astar_Compute_Surronding_Nodes
-                0x000137a0      0x3da ./Pathfinding/Astar/Astar.o
-                0x000137a0                Astar_Compute_Surronding_Nodes
+                0x000137a4      0x3da ./Pathfinding/Astar/Astar.o
+                0x000137a4                Astar_Compute_Surronding_Nodes
  .text.Astar_Compute_Node
-                0x00013b7a      0x102 ./Pathfinding/Astar/Astar.o
-                0x00013b7a                Astar_Compute_Node
+                0x00013b7e      0x102 ./Pathfinding/Astar/Astar.o
+                0x00013b7e                Astar_Compute_Node
  .text.Astar_Smoothing
-                0x00013c7c       0xb8 ./Pathfinding/Astar/Astar.o
-                0x00013c7c                Astar_Smoothing
+                0x00013c80       0xb8 ./Pathfinding/Astar/Astar.o
+                0x00013c80                Astar_Smoothing
  .text.Dijkstra_Intersect_Any_Segment
-                0x00013d34       0x54 ./Pathfinding/Astar/Astar.o
-                0x00013d34                Dijkstra_Intersect_Any_Segment
+                0x00013d38       0x54 ./Pathfinding/Astar/Astar.o
+                0x00013d38                Dijkstra_Intersect_Any_Segment
  .text.Dijkstra_Vector_Length
-                0x00013d88       0x1c ./Pathfinding/Astar/Astar.o
-                0x00013d88                Dijkstra_Vector_Length
+                0x00013d8c       0x1c ./Pathfinding/Astar/Astar.o
+                0x00013d8c                Dijkstra_Vector_Length
  .text.Dijkstra_intersect_segment
-                0x00013da4      0x38c ./Pathfinding/Astar/Astar.o
-                0x00013da4                Dijkstra_intersect_segment
+                0x00013da8      0x38c ./Pathfinding/Astar/Astar.o
+                0x00013da8                Dijkstra_intersect_segment
  .text.Astar_Add_Rectangular_Obstacle
-                0x00014130      0x124 ./Pathfinding/Astar/Astar.o
-                0x00014130                Astar_Add_Rectangular_Obstacle
+                0x00014134      0x124 ./Pathfinding/Astar/Astar.o
+                0x00014134                Astar_Add_Rectangular_Obstacle
  .text.Astar_Add_Obstacle_Vector
-                0x00014254       0xd8 ./Pathfinding/Astar/Astar.o
-                0x00014254                Astar_Add_Obstacle_Vector
+                0x00014258       0xd8 ./Pathfinding/Astar/Astar.o
+                0x00014258                Astar_Add_Obstacle_Vector
  .text._0_ADC_Init
-                0x0001432c       0x48 ./Level_0/Drivers/0_ADC/0_ADC.o
-                0x0001432c                _0_ADC_Init
+                0x00014330       0x48 ./Level_0/Drivers/0_ADC/0_ADC.o
+                0x00014330                _0_ADC_Init
  .text._0_ADC_Read_Channel
-                0x00014374       0x94 ./Level_0/Drivers/0_ADC/0_ADC.o
-                0x00014374                _0_ADC_Read_Channel
+                0x00014378       0x94 ./Level_0/Drivers/0_ADC/0_ADC.o
+                0x00014378                _0_ADC_Read_Channel
  .text._0_RS485_Master_Mode
-                0x00014408       0x16 ./Communication/RS485/0_RS485.o
-                0x00014408                _0_RS485_Master_Mode
+                0x0001440c       0x16 ./Communication/RS485/0_RS485.o
+                0x0001440c                _0_RS485_Master_Mode
  .text._0_RS485_Slave_Mode
-                0x0001441e       0x16 ./Communication/RS485/0_RS485.o
-                0x0001441e                _0_RS485_Slave_Mode
+                0x00014422       0x16 ./Communication/RS485/0_RS485.o
+                0x00014422                _0_RS485_Slave_Mode
  .text._0_RS485_Init
-                0x00014434       0x60 ./Communication/RS485/0_RS485.o
-                0x00014434                _0_RS485_Init
+                0x00014438       0x60 ./Communication/RS485/0_RS485.o
+                0x00014438                _0_RS485_Init
  .text._0_Communication_Init
-                0x00014494       0x5c ./Communication/0_Communication.o
-                0x00014494                _0_Communication_Init
+                0x00014498       0x5c ./Communication/0_Communication.o
+                0x00014498                _0_Communication_Init
  .text._0_Communication_Init_RS485
-                0x000144f0       0xa0 ./Communication/0_Communication.o
-                0x000144f0                _0_Communication_Init_RS485
+                0x000144f4       0xa0 ./Communication/0_Communication.o
+                0x000144f4                _0_Communication_Init_RS485
  .text._0_Communication_Init_XBEE
-                0x00014590       0x9c ./Communication/0_Communication.o
-                0x00014590                _0_Communication_Init_XBEE
+                0x00014594       0x9c ./Communication/0_Communication.o
+                0x00014594                _0_Communication_Init_XBEE
  .text.UART1_IRQHandler
-                0x0001462c       0xb4 ./Communication/0_Communication.o
-                0x0001462c                UART1_IRQHandler
+                0x00014630       0xb4 ./Communication/0_Communication.o
+                0x00014630                UART1_IRQHandler
  .text.UART2_IRQHandler
-                0x000146e0       0xa4 ./Communication/0_Communication.o
-                0x000146e0                UART2_IRQHandler
+                0x000146e4       0xa4 ./Communication/0_Communication.o
+                0x000146e4                UART2_IRQHandler
  .text.USB_IRQHandler
-                0x00014784        0x2 ./Communication/0_Communication.o
-                0x00014784                USB_IRQHandler
- *fill*         0x00014786        0x2 ff
+                0x00014788        0x2 ./Communication/0_Communication.o
+                0x00014788                USB_IRQHandler
+ *fill*         0x0001478a        0x2 ff
  .text._0_Communication_Send_Data
-                0x00014788       0x90 ./Communication/0_Communication.o
-                0x00014788                _0_Communication_Send_Data
+                0x0001478c       0x90 ./Communication/0_Communication.o
+                0x0001478c                _0_Communication_Send_Data
  .text._0_Communication_Send_RS485
-                0x00014818       0x68 ./Communication/0_Communication.o
-                0x00014818                _0_Communication_Send_RS485
+                0x0001481c       0x68 ./Communication/0_Communication.o
+                0x0001481c                _0_Communication_Send_RS485
  .text._0_Communication_Send_XBEE
-                0x00014880       0x5a ./Communication/0_Communication.o
-                0x00014880                _0_Communication_Send_XBEE
+                0x00014884       0x5a ./Communication/0_Communication.o
+                0x00014884                _0_Communication_Send_XBEE
+ *fill*         0x000148de        0x2 ff
+ .text._0_Communication_Wait_Sending_Clearance
+                0x000148e0       0x24 ./Communication/0_Communication.o
+                0x000148e0                _0_Communication_Wait_Sending_Clearance
+ .text._0_Communication_Give_Sending_Clearance
+                0x00014904       0x14 ./Communication/0_Communication.o
+                0x00014904                _0_Communication_Give_Sending_Clearance
  .text.Chip_UART_SendByte
-                0x000148da        0x4 ./Communication/0_Communication.o
+                0x00014918        0x4 ./Communication/0_Communication.o
  .text.Chip_UART_ReadLineStatus
-                0x000148de        0x4 ./Communication/0_Communication.o
- *fill*         0x000148e2        0x2 ff
+                0x0001491c        0x4 ./Communication/0_Communication.o
  .text._0_Communication_Init_Event_Group
-                0x000148e4       0x34 ./Communication/0_Event_Group.o
-                0x000148e4                _0_Communication_Init_Event_Group
+                0x00014920       0x34 ./Communication/0_Event_Group.o
+                0x00014920                _0_Communication_Init_Event_Group
  .text._1_Communication_Init
-                0x00014918       0x28 ./Communication/1_Trame_Communication.o
-                0x00014918                _1_Communication_Init
- .text._1_Communication_Create_Queues_Semaphores
-                0x00014940       0x14 ./Communication/1_Trame_Communication.o
-                0x00014940                _1_Communication_Create_Queues_Semaphores
- .text._1_Communication_Wait_To_Send
                 0x00014954       0x28 ./Communication/1_Trame_Communication.o
-                0x00014954                _1_Communication_Wait_To_Send
- .text._1_Communication_Free_Send_Bit
+                0x00014954                _1_Communication_Init
+ .text._1_Communication_Create_Queues_Semaphores
                 0x0001497c       0x14 ./Communication/1_Trame_Communication.o
-                0x0001497c                _1_Communication_Free_Send_Bit
+                0x0001497c                _1_Communication_Create_Queues_Semaphores
+ .text._1_Communication_Wait_To_Send
+                0x00014990       0x28 ./Communication/1_Trame_Communication.o
+                0x00014990                _1_Communication_Wait_To_Send
+ .text._1_Communication_Free_Send_Bit
+                0x000149b8       0x14 ./Communication/1_Trame_Communication.o
+                0x000149b8                _1_Communication_Free_Send_Bit
  .text._1_Communication_Wait_To_Receive
-                0x00014990       0x2c ./Communication/1_Trame_Communication.o
-                0x00014990                _1_Communication_Wait_To_Receive
+                0x000149cc       0x2c ./Communication/1_Trame_Communication.o
+                0x000149cc                _1_Communication_Wait_To_Receive
  .text._1_Communication_Free_Receive_Bit
-                0x000149bc       0x14 ./Communication/1_Trame_Communication.o
-                0x000149bc                _1_Communication_Free_Receive_Bit
+                0x000149f8       0x14 ./Communication/1_Trame_Communication.o
+                0x000149f8                _1_Communication_Free_Receive_Bit
  .text._1_Communication_Create_Message
-                0x000149d0       0x74 ./Communication/1_Trame_Communication.o
-                0x000149d0                _1_Communication_Create_Message
+                0x00014a0c       0x74 ./Communication/1_Trame_Communication.o
+                0x00014a0c                _1_Communication_Create_Message
  .text._1_Communication_Create_Trame
-                0x00014a44       0xdc ./Communication/1_Trame_Communication.o
-                0x00014a44                _1_Communication_Create_Trame
+                0x00014a80       0xe0 ./Communication/1_Trame_Communication.o
+                0x00014a80                _1_Communication_Create_Trame
  .text._1_Communication_WAIT_ACK
-                0x00014b20       0x58 ./Communication/1_Trame_Communication.o
-                0x00014b20                _1_Communication_WAIT_ACK
+                0x00014b60       0x58 ./Communication/1_Trame_Communication.o
+                0x00014b60                _1_Communication_WAIT_ACK
  .text._1_Communication_CLEAR_ACK
-                0x00014b78       0x24 ./Communication/1_Trame_Communication.o
-                0x00014b78                _1_Communication_CLEAR_ACK
+                0x00014bb8       0x24 ./Communication/1_Trame_Communication.o
+                0x00014bb8                _1_Communication_CLEAR_ACK
  .text._1_Communication_Create_Trame_From_Buffer
-                0x00014b9c      0x28c ./Communication/1_Trame_Communication.o
-                0x00014b9c                _1_Communication_Create_Trame_From_Buffer
+                0x00014bdc      0x28c ./Communication/1_Trame_Communication.o
+                0x00014bdc                _1_Communication_Create_Trame_From_Buffer
  .text._1_Communication_Check_Rx_Adresse
-                0x00014e28       0x1a ./Communication/1_Trame_Communication.o
-                0x00014e28                _1_Communication_Check_Rx_Adresse
- *fill*         0x00014e42        0x2 ff
+                0x00014e68       0x1a ./Communication/1_Trame_Communication.o
+                0x00014e68                _1_Communication_Check_Rx_Adresse
+ *fill*         0x00014e82        0x2 ff
  .text._1_Communication_Recomposition_Rx
-                0x00014e44       0x68 ./Communication/1_Trame_Communication.o
-                0x00014e44                _1_Communication_Recomposition_Rx
+                0x00014e84       0x68 ./Communication/1_Trame_Communication.o
+                0x00014e84                _1_Communication_Recomposition_Rx
  .text._2_Comm_Strategie_Init
-                0x00014eac       0x14 ./Communication/2_Echange_Data_Strategie.o
-                0x00014eac                _2_Comm_Strategie_Init
+                0x00014eec       0x14 ./Communication/2_Echange_Data_Strategie.o
+                0x00014eec                _2_Comm_Strategie_Init
  .text._2_Comm_Strategie_Send_Action_Creation
-                0x00014ec0      0x11c ./Communication/2_Echange_Data_Strategie.o
-                0x00014ec0                _2_Comm_Strategie_Send_Action_Creation
+                0x00014f00      0x11c ./Communication/2_Echange_Data_Strategie.o
+                0x00014f00                _2_Comm_Strategie_Send_Action_Creation
  .text._2_Comm_Strategie_Send_Action_State_Update
-                0x00014fdc      0x150 ./Communication/2_Echange_Data_Strategie.o
-                0x00014fdc                _2_Comm_Strategie_Send_Action_State_Update
+                0x0001501c      0x150 ./Communication/2_Echange_Data_Strategie.o
+                0x0001501c                _2_Comm_Strategie_Send_Action_State_Update
  .text._2_Comm_Strategie_RX_Action_Update
-                0x0001512c       0x5c ./Communication/2_Echange_Data_Strategie.o
-                0x0001512c                _2_Comm_Strategie_RX_Action_Update
+                0x0001516c       0x5c ./Communication/2_Echange_Data_Strategie.o
+                0x0001516c                _2_Comm_Strategie_RX_Action_Update
  .text._2_Communication_Init
-                0x00015188       0x14 ./Communication/2_Echange_Datas.o
-                0x00015188                _2_Communication_Init
+                0x000151c8       0x14 ./Communication/2_Echange_Datas.o
+                0x000151c8                _2_Communication_Init
  .text._2_Comm_Send_Destination_Robot
-                0x0001519c      0x180 ./Communication/2_Echange_Datas.o
-                0x0001519c                _2_Comm_Send_Destination_Robot
+                0x000151dc      0x180 ./Communication/2_Echange_Datas.o
+                0x000151dc                _2_Comm_Send_Destination_Robot
  .text._2_Comm_Send_Demande_Info
-                0x0001531c       0x30 ./Communication/2_Echange_Datas.o
-                0x0001531c                _2_Comm_Send_Demande_Info
+                0x0001535c       0x34 ./Communication/2_Echange_Datas.o
+                0x0001535c                _2_Comm_Send_Demande_Info
  .text._2_Comm_Send_PING
-                0x0001534c       0x58 ./Communication/2_Echange_Datas.o
-                0x0001534c                _2_Comm_Send_PING
+                0x00015390       0x5c ./Communication/2_Echange_Datas.o
+                0x00015390                _2_Comm_Send_PING
  .text._2_Comm_Send_PONG
-                0x000153a4       0x94 ./Communication/2_Echange_Datas.o
-                0x000153a4                _2_Comm_Send_PONG
+                0x000153ec       0x94 ./Communication/2_Echange_Datas.o
+                0x000153ec                _2_Comm_Send_PONG
  .text._2_Comm_Send_Communication_Status
-                0x00015438       0x50 ./Communication/2_Echange_Datas.o
-                0x00015438                _2_Comm_Send_Communication_Status
+                0x00015480       0x50 ./Communication/2_Echange_Datas.o
+                0x00015480                _2_Comm_Send_Communication_Status
  .text._2_Comm_Send_Log_Message
-                0x00015488      0x10c ./Communication/2_Echange_Datas.o
-                0x00015488                _2_Comm_Send_Log_Message
+                0x000154d0      0x10c ./Communication/2_Echange_Datas.o
+                0x000154d0                _2_Comm_Send_Log_Message
  .text._2_Communication_Boards_Status
-                0x00015594       0xc8 ./Communication/2_Echange_Datas.o
-                0x00015594                _2_Communication_Boards_Status
+                0x000155dc       0xc8 ./Communication/2_Echange_Datas.o
+                0x000155dc                _2_Communication_Boards_Status
  .text._2_Comm_Check_Presence_Cartes
-                0x0001565c       0x5c ./Communication/2_Echange_Datas.o
-                0x0001565c                _2_Comm_Check_Presence_Cartes
+                0x000156a4       0x5c ./Communication/2_Echange_Datas.o
+                0x000156a4                _2_Comm_Check_Presence_Cartes
  .text._2_Comm_Robot_ID
-                0x000156b8       0x48 ./Communication/2_Echange_Datas.o
-                0x000156b8                _2_Comm_Robot_ID
+                0x00015700       0x48 ./Communication/2_Echange_Datas.o
+                0x00015700                _2_Comm_Robot_ID
  .text._2_Comm_Demande_Simulation
-                0x00015700       0x6c ./Communication/2_Echange_Datas.o
-                0x00015700                _2_Comm_Demande_Simulation
+                0x00015748       0x6c ./Communication/2_Echange_Datas.o
+                0x00015748                _2_Comm_Demande_Simulation
  .text._2_Comm_Demande_Motor_Power
-                0x0001576c       0x54 ./Communication/2_Echange_Datas.o
-                0x0001576c                _2_Comm_Demande_Motor_Power
+                0x000157b4       0x54 ./Communication/2_Echange_Datas.o
+                0x000157b4                _2_Comm_Demande_Motor_Power
  .text._2_Comm_Set_Robot_Position
-                0x000157c0       0xcc ./Communication/2_Echange_Datas.o
-                0x000157c0                _2_Comm_Set_Robot_Position
+                0x00015808       0xcc ./Communication/2_Echange_Datas.o
+                0x00015808                _2_Comm_Set_Robot_Position
  .text._2_Comm_Send_ASTAR_Contenu
-                0x0001588c        0x2 ./Communication/2_Echange_Datas.o
-                0x0001588c                _2_Comm_Send_ASTAR_Contenu
- *fill*         0x0001588e        0x2 ff
+                0x000158d4        0x2 ./Communication/2_Echange_Datas.o
+                0x000158d4                _2_Comm_Send_ASTAR_Contenu
+ *fill*         0x000158d6        0x2 ff
  .text._2_Comm_Send_ASTAR_Vectors
-                0x00015890      0x23c ./Communication/2_Echange_Datas.o
-                0x00015890                _2_Comm_Send_ASTAR_Vectors
+                0x000158d8      0x23c ./Communication/2_Echange_Datas.o
+                0x000158d8                _2_Comm_Send_ASTAR_Vectors
  .text._2_Comm_Send_Robot_Speed
-                0x00015acc      0x130 ./Communication/2_Echange_Datas.o
-                0x00015acc                _2_Comm_Send_Robot_Speed
+                0x00015b14      0x130 ./Communication/2_Echange_Datas.o
+                0x00015b14                _2_Comm_Send_Robot_Speed
  .text._2_Comm_Send_Info_Carte_IA
-                0x00015bfc      0x110 ./Communication/2_Echange_Datas.o
-                0x00015bfc                _2_Comm_Send_Info_Carte_IA
+                0x00015c44      0x110 ./Communication/2_Echange_Datas.o
+                0x00015c44                _2_Comm_Send_Info_Carte_IA
  .text._2_Comm_Envoi_Position_Autre_Robot
-                0x00015d0c       0x50 ./Communication/2_Echange_Datas.o
-                0x00015d0c                _2_Comm_Envoi_Position_Autre_Robot
+                0x00015d54       0x50 ./Communication/2_Echange_Datas.o
+                0x00015d54                _2_Comm_Envoi_Position_Autre_Robot
  .text._2_Communication_RX_Init
-                0x00015d5c        0x2 ./Communication/2_Echange_Datas_Reception.o
-                0x00015d5c                _2_Communication_RX_Init
- *fill*         0x00015d5e        0x2 ff
+                0x00015da4        0x2 ./Communication/2_Echange_Datas_Reception.o
+                0x00015da4                _2_Communication_RX_Init
+ *fill*         0x00015da6        0x2 ff
  .text._2_Communication_Interprete_message
-                0x00015d60       0x68 ./Communication/2_Echange_Datas_Reception.o
-                0x00015d60                _2_Communication_Interprete_message
+                0x00015da8       0x68 ./Communication/2_Echange_Datas_Reception.o
+                0x00015da8                _2_Communication_Interprete_message
  .text._2_Communication_RX_ACK
-                0x00015dc8       0x3c ./Communication/2_Echange_Datas_Reception.o
-                0x00015dc8                _2_Communication_RX_ACK
+                0x00015e10       0x3c ./Communication/2_Echange_Datas_Reception.o
+                0x00015e10                _2_Communication_RX_ACK
  .text._2_Communication_RX_Reponse_Infos
-                0x00015e04       0x1a ./Communication/2_Echange_Datas_Reception.o
-                0x00015e04                _2_Communication_RX_Reponse_Infos
- *fill*         0x00015e1e        0x2 ff
+                0x00015e4c       0x1a ./Communication/2_Echange_Datas_Reception.o
+                0x00015e4c                _2_Communication_RX_Reponse_Infos
+ *fill*         0x00015e66        0x2 ff
  .text._2_Comm_RX_PONG
-                0x00015e20       0x28 ./Communication/2_Echange_Datas_Reception.o
-                0x00015e20                _2_Comm_RX_PONG
+                0x00015e68       0x28 ./Communication/2_Echange_Datas_Reception.o
+                0x00015e68                _2_Comm_RX_PONG
  .text._2_Comm_RX_Position_Second_Robot
-                0x00015e48       0x44 ./Communication/2_Echange_Datas_Reception.o
-                0x00015e48                _2_Comm_RX_Position_Second_Robot
+                0x00015e90       0x44 ./Communication/2_Echange_Datas_Reception.o
+                0x00015e90                _2_Comm_RX_Position_Second_Robot
  .text.setStartMode
-                0x00015e8c        0xe D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015e8c                setStartMode
- *fill*         0x00015e9a        0x2 ff
+                0x00015ed4        0xe D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015ed4                setStartMode
+ *fill*         0x00015ee2        0x2 ff
  .text.Chip_ADC_Init
-                0x00015e9c       0x48 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015e9c                Chip_ADC_Init
+                0x00015ee4       0x48 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015ee4                Chip_ADC_Init
  .text.Chip_ADC_ReadValue
-                0x00015ee4       0x16 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015ee4                Chip_ADC_ReadValue
+                0x00015f2c       0x16 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015f2c                Chip_ADC_ReadValue
  .text.Chip_ADC_ReadStatus
-                0x00015efa       0x2c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015efa                Chip_ADC_ReadStatus
+                0x00015f42       0x2c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015f42                Chip_ADC_ReadStatus
  .text.Chip_ADC_SetStartMode
-                0x00015f26       0x18 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015f26                Chip_ADC_SetStartMode
+                0x00015f6e       0x18 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015f6e                Chip_ADC_SetStartMode
  .text.Chip_ADC_EnableChannel
-                0x00015f3e       0x20 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015f3e                Chip_ADC_EnableChannel
+                0x00015f86       0x20 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015f86                Chip_ADC_EnableChannel
  .text.Chip_ADC_SetBurstCmd
-                0x00015f5e       0x1a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
-                0x00015f5e                Chip_ADC_SetBurstCmd
+                0x00015fa6       0x1a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00015fa6                Chip_ADC_SetBurstCmd
  .text.SystemCoreClockUpdate
-                0x00015f78       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
-                0x00015f78                SystemCoreClockUpdate
+                0x00015fc0       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+                0x00015fc0                SystemCoreClockUpdate
  .text.Chip_Clock_EnablePLL
-                0x00015f88       0x24 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00015f88                Chip_Clock_EnablePLL
+                0x00015fd0       0x24 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00015fd0                Chip_Clock_EnablePLL
  .text.Chip_Clock_DisablePLL
-                0x00015fac       0x26 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00015fac                Chip_Clock_DisablePLL
+                0x00015ff4       0x26 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00015ff4                Chip_Clock_DisablePLL
  .text.Chip_Clock_SetupPLL
-                0x00015fd2       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00015fd2                Chip_Clock_SetupPLL
- *fill*         0x00016002        0x2 ff
+                0x0001601a       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x0001601a                Chip_Clock_SetupPLL
+ *fill*         0x0001604a        0x2 ff
  .text.Chip_Clock_EnablePeriphClock
-                0x00016004       0x18 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016004                Chip_Clock_EnablePeriphClock
+                0x0001604c       0x18 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x0001604c                Chip_Clock_EnablePeriphClock
  .text.Chip_Clock_GetCPUClockSource
-                0x0001601c       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001601c                Chip_Clock_GetCPUClockSource
+                0x00016064       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016064                Chip_Clock_GetCPUClockSource
  .text.Chip_Clock_SetCPUClockDiv
-                0x0001602c        0xc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001602c                Chip_Clock_SetCPUClockDiv
+                0x00016074        0xc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016074                Chip_Clock_SetCPUClockDiv
  .text.Chip_Clock_GetCPUClockDiv
-                0x00016038       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016038                Chip_Clock_GetCPUClockDiv
+                0x00016080       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016080                Chip_Clock_GetCPUClockDiv
  .text.Chip_Clock_SetPCLKDiv
-                0x00016048       0x2a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016048                Chip_Clock_SetPCLKDiv
- *fill*         0x00016072        0x2 ff
+                0x00016090       0x2a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016090                Chip_Clock_SetPCLKDiv
+ *fill*         0x000160ba        0x2 ff
  .text.Chip_Clock_GetPCLKDiv
-                0x00016074       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016074                Chip_Clock_GetPCLKDiv
+                0x000160bc       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000160bc                Chip_Clock_GetPCLKDiv
  .text.Chip_Clock_GetSYSCLKRate
-                0x000160ac       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000160ac                Chip_Clock_GetSYSCLKRate
+                0x000160f4       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x000160f4                Chip_Clock_GetSYSCLKRate
  .text.Chip_Clock_GetMainPLLOutClockRate
-                0x000160e4       0x34 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x000160e4                Chip_Clock_GetMainPLLOutClockRate
+                0x0001612c       0x34 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x0001612c                Chip_Clock_GetMainPLLOutClockRate
  .text.Chip_Clock_GetMainClockRate
-                0x00016118       0x20 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016118                Chip_Clock_GetMainClockRate
+                0x00016160       0x20 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016160                Chip_Clock_GetMainClockRate
  .text.Chip_Clock_GetSystemClockRate
-                0x00016138       0x12 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x00016138                Chip_Clock_GetSystemClockRate
+                0x00016180       0x12 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016180                Chip_Clock_GetSystemClockRate
  .text.Chip_Clock_GetPeripheralClockRate
-                0x0001614a       0x16 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
-                0x0001614a                Chip_Clock_GetPeripheralClockRate
+                0x00016192       0x16 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00016192                Chip_Clock_GetPeripheralClockRate
  .text.RingBuffer_Init
-                0x00016160       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00016160                RingBuffer_Init
+                0x000161a8       0x10 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000161a8                RingBuffer_Init
  .text.RingBuffer_Insert
-                0x00016170       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00016170                RingBuffer_Insert
+                0x000161b8       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000161b8                RingBuffer_Insert
  .text.RingBuffer_InsertMult
-                0x000161a0       0x88 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x000161a0                RingBuffer_InsertMult
+                0x000161e8       0x88 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000161e8                RingBuffer_InsertMult
  .text.RingBuffer_Pop
-                0x00016228       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00016228                RingBuffer_Pop
+                0x00016270       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x00016270                RingBuffer_Pop
  .text.RingBuffer_PopMult
-                0x00016258       0x7c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x00016258                RingBuffer_PopMult
+                0x000162a0       0x7c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x000162a0                RingBuffer_PopMult
  .text.RingBuffer_Count
-                0x000162d4        0x8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
-                0x000162d4                RingBuffer_Count
+                0x0001631c        0x8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x0001631c                RingBuffer_Count
  .text.Chip_SetupIrcClocking
-                0x000162dc       0x64 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x000162dc                Chip_SetupIrcClocking
+                0x00016324       0x64 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00016324                Chip_SetupIrcClocking
  .text.Chip_SetupXtalClocking
-                0x00016340       0xdc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x00016340                Chip_SetupXtalClocking
+                0x00016388       0xdc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00016388                Chip_SetupXtalClocking
  .text.Chip_SystemInit
-                0x0001641c        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
-                0x0001641c                Chip_SystemInit
+                0x00016464        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00016464                Chip_SystemInit
  .text.Chip_TIMER_Init
-                0x00016420       0x2c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
-                0x00016420                Chip_TIMER_Init
+                0x00016468       0x2c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+                0x00016468                Chip_TIMER_Init
  .text.Chip_UART_GetClockIndex
-                0x0001644c       0x28 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00016494       0x28 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
  .text.Chip_UART_Init
-                0x00016474       0x44 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00016474                Chip_UART_Init
+                0x000164bc       0x44 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x000164bc                Chip_UART_Init
  .text.Chip_UART_TXEnable
-                0x000164b8        0x6 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x000164b8                Chip_UART_TXEnable
+                0x00016500        0x6 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00016500                Chip_UART_TXEnable
  .text.Chip_UART_SetBaud
-                0x000164be       0x34 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x000164be                Chip_UART_SetBaud
+                0x00016506       0x34 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00016506                Chip_UART_SetBaud
  .text.Chip_UART_RXIntHandlerRB
-                0x000164f2       0x22 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x000164f2                Chip_UART_RXIntHandlerRB
+                0x0001653a       0x22 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x0001653a                Chip_UART_RXIntHandlerRB
  .text.Chip_UART_TXIntHandlerRB
-                0x00016514       0x24 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00016514                Chip_UART_TXIntHandlerRB
+                0x0001655c       0x24 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x0001655c                Chip_UART_TXIntHandlerRB
  .text.Chip_UART_IRQRBHandler
-                0x00016538       0x68 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
-                0x00016538                Chip_UART_IRQRBHandler
+                0x00016580       0x68 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00016580                Chip_UART_IRQRBHandler
  .text.Set_Clock_in
-                0x000165a0        0xc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x000165a0                Set_Clock_in
+                0x000165e8        0xc D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x000165e8                Set_Clock_in
  .text.Board_Init
-                0x000165ac       0x12 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x000165ac                Board_Init
- *fill*         0x000165be        0x2 ff
- .text          0x000165c0      0x378 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubdf3.o)
-                0x000165c0                __aeabi_drsub
-                0x000165c8                __aeabi_dsub
-                0x000165c8                __subdf3
-                0x000165cc                __aeabi_dadd
-                0x000165cc                __adddf3
-                0x00016844                __floatunsidf
-                0x00016844                __aeabi_ui2d
-                0x00016864                __floatsidf
-                0x00016864                __aeabi_i2d
-                0x00016888                __aeabi_f2d
-                0x00016888                __extendsfdf2
-                0x000168cc                __floatundidf
-                0x000168cc                __aeabi_ul2d
-                0x000168dc                __floatdidf
-                0x000168dc                __aeabi_l2d
- .text          0x00016938      0x21c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubsf3.o)
-                0x00016938                __aeabi_frsub
-                0x00016940                __subsf3
-                0x00016940                __aeabi_fsub
-                0x00016944                __aeabi_fadd
-                0x00016944                __addsf3
-                0x00016aa4                __aeabi_ui2f
-                0x00016aa4                __floatunsisf
-                0x00016aac                __aeabi_i2f
-                0x00016aac                __floatsisf
-                0x00016ac8                __aeabi_ul2f
-                0x00016ac8                __floatundisf
-                0x00016ad8                __aeabi_l2f
-                0x00016ad8                __floatdisf
- .text          0x00016b54      0x2a0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivsf3.o)
-                0x00016b54                __mulsf3
-                0x00016b54                __aeabi_fmul
-                0x00016cbc                __aeabi_fdiv
-                0x00016cbc                __divsf3
- .text          0x00016df4       0xec c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpsf2.o)
-                0x00016df4                __gesf2
-                0x00016df4                __gtsf2
-                0x00016dfc                __lesf2
-                0x00016dfc                __ltsf2
-                0x00016e04                __nesf2
-                0x00016e04                __eqsf2
-                0x00016e04                __cmpsf2
-                0x00016e64                __aeabi_cfrcmple
-                0x00016e6c                __aeabi_cfcmpeq
-                0x00016e6c                __aeabi_cfcmple
-                0x00016e7c                __aeabi_fcmpeq
-                0x00016e90                __aeabi_fcmplt
-                0x00016ea4                __aeabi_fcmple
-                0x00016eb8                __aeabi_fcmpge
-                0x00016ecc                __aeabi_fcmpgt
- .text          0x00016ee0       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixsfsi.o)
-                0x00016ee0                __aeabi_f2iz
-                0x00016ee0                __fixsfsi
- .text          0x00016f2c       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixunssfsi.o)
-                0x00016f2c                __fixunssfsi
-                0x00016f2c                __aeabi_f2uiz
- .text.memcpy   0x00016f6c       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
-                0x00016f6c                memcpy
- .text.memset   0x00016f88       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
-                0x00016f88                memset
- .text.__cvt    0x00016f98       0xbe c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x00016f98                __cvt
+                0x000165f4       0x12 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x000165f4                Board_Init
+ *fill*         0x00016606        0x2 ff
+ .text          0x00016608      0x378 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubdf3.o)
+                0x00016608                __aeabi_drsub
+                0x00016610                __aeabi_dsub
+                0x00016610                __subdf3
+                0x00016614                __aeabi_dadd
+                0x00016614                __adddf3
+                0x0001688c                __floatunsidf
+                0x0001688c                __aeabi_ui2d
+                0x000168ac                __floatsidf
+                0x000168ac                __aeabi_i2d
+                0x000168d0                __aeabi_f2d
+                0x000168d0                __extendsfdf2
+                0x00016914                __floatundidf
+                0x00016914                __aeabi_ul2d
+                0x00016924                __floatdidf
+                0x00016924                __aeabi_l2d
+ .text          0x00016980      0x21c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubsf3.o)
+                0x00016980                __aeabi_frsub
+                0x00016988                __subsf3
+                0x00016988                __aeabi_fsub
+                0x0001698c                __aeabi_fadd
+                0x0001698c                __addsf3
+                0x00016aec                __aeabi_ui2f
+                0x00016aec                __floatunsisf
+                0x00016af4                __aeabi_i2f
+                0x00016af4                __floatsisf
+                0x00016b10                __aeabi_ul2f
+                0x00016b10                __floatundisf
+                0x00016b20                __aeabi_l2f
+                0x00016b20                __floatdisf
+ .text          0x00016b9c      0x2a0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivsf3.o)
+                0x00016b9c                __mulsf3
+                0x00016b9c                __aeabi_fmul
+                0x00016d04                __aeabi_fdiv
+                0x00016d04                __divsf3
+ .text          0x00016e3c       0xec c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpsf2.o)
+                0x00016e3c                __gesf2
+                0x00016e3c                __gtsf2
+                0x00016e44                __lesf2
+                0x00016e44                __ltsf2
+                0x00016e4c                __nesf2
+                0x00016e4c                __eqsf2
+                0x00016e4c                __cmpsf2
+                0x00016eac                __aeabi_cfrcmple
+                0x00016eb4                __aeabi_cfcmpeq
+                0x00016eb4                __aeabi_cfcmple
+                0x00016ec4                __aeabi_fcmpeq
+                0x00016ed8                __aeabi_fcmplt
+                0x00016eec                __aeabi_fcmple
+                0x00016f00                __aeabi_fcmpge
+                0x00016f14                __aeabi_fcmpgt
+ .text          0x00016f28       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixsfsi.o)
+                0x00016f28                __aeabi_f2iz
+                0x00016f28                __fixsfsi
+ .text          0x00016f74       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixunssfsi.o)
+                0x00016f74                __fixunssfsi
+                0x00016f74                __aeabi_f2uiz
+ .text.memcpy   0x00016fb4       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
+                0x00016fb4                memcpy
+ .text.memset   0x00016fd0       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
+                0x00016fd0                memset
+ .text.__cvt    0x00016fe0       0xbe c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x00016fe0                __cvt
  .text.__exponent
-                0x00017056       0x7c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x00017056                __exponent
- *fill*         0x000170d2        0x2 ff
+                0x0001709e       0x7c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0001709e                __exponent
+ *fill*         0x0001711a        0x2 ff
  .text._printf_float
-                0x000170d4      0x458 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
-                0x000170d4                _printf_float
+                0x0001711c      0x458 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0001711c                _printf_float
  .text._printf_common
-                0x0001752c       0xde c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0001752c                _printf_common
- *fill*         0x0001760a        0x2 ff
+                0x00017574       0xde c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00017574                _printf_common
+ *fill*         0x00017652        0x2 ff
  .text._printf_i
-                0x0001760c      0x24c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0001760c                _printf_i
- .text.sprintf  0x00017858       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
-                0x00017858                siprintf
-                0x00017858                sprintf
- .text          0x00017898       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen.o)
-                0x00017898                strlen
- .text.quorem   0x000178a8      0x11a c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
- *fill*         0x000179c2        0x6 ff
- .text._dtoa_r  0x000179c8      0xba4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
-                0x000179c8                _dtoa_r
+                0x00017654      0x24c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x00017654                _printf_i
+ .text.sprintf  0x000178a0       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
+                0x000178a0                siprintf
+                0x000178a0                sprintf
+ .text          0x000178e0       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen.o)
+                0x000178e0                strlen
+ .text.quorem   0x000178f0      0x11a c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
+ *fill*         0x00017a0a        0x6 ff
+ .text._dtoa_r  0x00017a10      0xba4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
+                0x00017a10                _dtoa_r
  .text._localeconv_r
-                0x0001856c        0x8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-localeconv.o)
-                0x0001856c                _localeconv_r
- .text.malloc   0x00018574       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-malloc.o)
-                0x00018574                malloc
- .text.memchr   0x00018584       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
-                0x00018584                memchr
- .text._Balloc  0x000185a0       0x68 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x000185a0                _Balloc
- .text._Bfree   0x00018608       0x2e c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018608                _Bfree
+                0x000185b4        0x8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-localeconv.o)
+                0x000185b4                _localeconv_r
+ .text.malloc   0x000185bc       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-malloc.o)
+                0x000185bc                malloc
+ .text.memchr   0x000185cc       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
+                0x000185cc                memchr
+ .text._Balloc  0x000185e8       0x68 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x000185e8                _Balloc
+ .text._Bfree   0x00018650       0x2e c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x00018650                _Bfree
  .text.__multadd
-                0x00018636       0x7c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018636                __multadd
+                0x0001867e       0x7c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001867e                __multadd
  .text.__hi0bits
-                0x000186b2       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x000186b2                __hi0bits
+                0x000186fa       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x000186fa                __hi0bits
  .text.__lo0bits
-                0x000186f2       0x5c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x000186f2                __lo0bits
- .text.__i2b    0x0001874e       0x12 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x0001874e                __i2b
+                0x0001873a       0x5c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001873a                __lo0bits
+ .text.__i2b    0x00018796       0x12 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x00018796                __i2b
  .text.__multiply
-                0x00018760      0x136 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018760                __multiply
- *fill*         0x00018896        0x2 ff
+                0x000187a8      0x136 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x000187a8                __multiply
+ *fill*         0x000188de        0x2 ff
  .text.__pow5mult
-                0x00018898       0x9c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018898                __pow5mult
+                0x000188e0       0x9c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x000188e0                __pow5mult
  .text.__lshift
-                0x00018934       0xbe c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018934                __lshift
- .text.__mcmp   0x000189f2       0x36 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x000189f2                __mcmp
- .text.__mdiff  0x00018a28       0xf8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018a28                __mdiff
- .text.__d2b    0x00018b20       0x9e c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x00018b20                __d2b
+                0x0001897c       0xbe c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001897c                __lshift
+ .text.__mcmp   0x00018a3a       0x36 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x00018a3a                __mcmp
+ .text.__mdiff  0x00018a70       0xf8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x00018a70                __mdiff
+ .text.__d2b    0x00018b68       0x9e c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x00018b68                __d2b
  .text._calloc_r
-                0x00018bbe       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-callocr.o)
-                0x00018bbe                _calloc_r
- *fill*         0x00018bda        0x2 ff
- .text._free_r  0x00018bdc       0x98 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
-                0x00018bdc                _free_r
+                0x00018c06       0x1c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-callocr.o)
+                0x00018c06                _calloc_r
+ *fill*         0x00018c22        0x2 ff
+ .text._free_r  0x00018c24       0x98 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
+                0x00018c24                _free_r
  .text._malloc_r
-                0x00018c74       0xb4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00018c74                _malloc_r
+                0x00018cbc       0xb4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00018cbc                _malloc_r
  .text.__ssputs_r
-                0x00018d28       0xb6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x00018d28                __ssputs_r
- *fill*         0x00018dde        0x2 ff
+                0x00018d70       0xb6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00018d70                __ssputs_r
+ *fill*         0x00018e26        0x2 ff
  .text._svfprintf_r
-                0x00018de0      0x200 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x00018de0                _svfiprintf_r
-                0x00018de0                _svfprintf_r
- .text._sbrk_r  0x00018fe0       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
-                0x00018fe0                _sbrk_r
+                0x00018e28      0x200 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x00018e28                _svfiprintf_r
+                0x00018e28                _svfprintf_r
+ .text._sbrk_r  0x00019028       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
+                0x00019028                _sbrk_r
  .text.__ascii_mbtowc
-                0x00019000       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mbtowc_r.o)
-                0x00019000                __ascii_mbtowc
- .text.memmove  0x00019024       0x34 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
-                0x00019024                memmove
+                0x00019048       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mbtowc_r.o)
+                0x00019048                __ascii_mbtowc
+ .text.memmove  0x0001906c       0x34 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
+                0x0001906c                memmove
  .text.__malloc_lock
-                0x00019058        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
-                0x00019058                __malloc_lock
+                0x000190a0        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
+                0x000190a0                __malloc_lock
  .text.__malloc_unlock
-                0x00019064        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
-                0x00019064                __malloc_unlock
+                0x000190ac        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
+                0x000190ac                __malloc_unlock
  .text._realloc_r
-                0x00019070       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
-                0x00019070                _realloc_r
+                0x000190b8       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
+                0x000190b8                _realloc_r
  .text.__ascii_wctomb
-                0x000190bc       0x1a c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-wctomb_r.o)
-                0x000190bc                __ascii_wctomb
+                0x00019104       0x1a c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-wctomb_r.o)
+                0x00019104                __ascii_wctomb
  .text.__retarget_lock_acquire_recursive
-                0x000190d6        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
-                0x000190d6                __retarget_lock_acquire_recursive
+                0x0001911e        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+                0x0001911e                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x000190d8        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
-                0x000190d8                __retarget_lock_release_recursive
+                0x00019120        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+                0x00019120                __retarget_lock_release_recursive
  .text._malloc_usable_size_r
-                0x000190da       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
-                0x000190da                _malloc_usable_size_r
- *fill*         0x000190ea        0x2 ff
- .text.sqrtf    0x000190ec       0xa4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
-                0x000190ec                sqrtf
+                0x00019122       0x10 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
+                0x00019122                _malloc_usable_size_r
+ *fill*         0x00019132        0x2 ff
+ .text.sqrtf    0x00019134       0xa4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
+                0x00019134                sqrtf
  .text.__ieee754_sqrtf
-                0x00019190       0xa8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-ef_sqrt.o)
-                0x00019190                __ieee754_sqrtf
- .text.matherr  0x00019238        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-s_matherr.o)
-                0x00019238                matherr
- .text._sbrk    0x0001923c       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
-                0x0001923c                _sbrk
+                0x000191d8       0xa8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-ef_sqrt.o)
+                0x000191d8                __ieee754_sqrtf
+ .text.matherr  0x00019280        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-s_matherr.o)
+                0x00019280                matherr
+ .text._sbrk    0x00019284       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
+                0x00019284                _sbrk
  .text.__check_heap_overflow
-                0x00019278       0x14 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_check_heap.o)
-                0x00019278                __check_heap_overflow
- .text          0x0001928c      0x424 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivdf3.o)
-                0x0001928c                __aeabi_dmul
-                0x0001928c                __muldf3
-                0x000194e0                __divdf3
-                0x000194e0                __aeabi_ddiv
- .text          0x000196b0      0x110 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpdf2.o)
-                0x000196b0                __gtdf2
-                0x000196b0                __gedf2
-                0x000196b8                __ltdf2
-                0x000196b8                __ledf2
-                0x000196c0                __nedf2
-                0x000196c0                __eqdf2
-                0x000196c0                __cmpdf2
-                0x0001973c                __aeabi_cdrcmple
-                0x0001974c                __aeabi_cdcmpeq
-                0x0001974c                __aeabi_cdcmple
-                0x0001975c                __aeabi_dcmpeq
-                0x00019770                __aeabi_dcmplt
-                0x00019784                __aeabi_dcmple
-                0x00019798                __aeabi_dcmpge
-                0x000197ac                __aeabi_dcmpgt
- .text          0x000197c0       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unorddf2.o)
-                0x000197c0                __unorddf2
-                0x000197c0                __aeabi_dcmpun
- .text          0x000197ec       0x50 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixdfsi.o)
-                0x000197ec                __aeabi_d2iz
-                0x000197ec                __fixdfsi
- .text          0x0001983c       0xa0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_truncdfsf2.o)
-                0x0001983c                __truncdfsf2
-                0x0001983c                __aeabi_d2f
- .text          0x000198dc       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unordsf2.o)
-                0x000198dc                __unordsf2
-                0x000198dc                __aeabi_fcmpun
- .text.__errno  0x00019908        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
-                0x00019908                __errno
+                0x000192c0       0x14 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_check_heap.o)
+                0x000192c0                __check_heap_overflow
+ .text          0x000192d4      0x424 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivdf3.o)
+                0x000192d4                __aeabi_dmul
+                0x000192d4                __muldf3
+                0x00019528                __divdf3
+                0x00019528                __aeabi_ddiv
+ .text          0x000196f8      0x110 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpdf2.o)
+                0x000196f8                __gtdf2
+                0x000196f8                __gedf2
+                0x00019700                __ltdf2
+                0x00019700                __ledf2
+                0x00019708                __nedf2
+                0x00019708                __eqdf2
+                0x00019708                __cmpdf2
+                0x00019784                __aeabi_cdrcmple
+                0x00019794                __aeabi_cdcmpeq
+                0x00019794                __aeabi_cdcmple
+                0x000197a4                __aeabi_dcmpeq
+                0x000197b8                __aeabi_dcmplt
+                0x000197cc                __aeabi_dcmple
+                0x000197e0                __aeabi_dcmpge
+                0x000197f4                __aeabi_dcmpgt
+ .text          0x00019808       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unorddf2.o)
+                0x00019808                __unorddf2
+                0x00019808                __aeabi_dcmpun
+ .text          0x00019834       0x50 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixdfsi.o)
+                0x00019834                __aeabi_d2iz
+                0x00019834                __fixdfsi
+ .text          0x00019884       0xa0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_truncdfsf2.o)
+                0x00019884                __truncdfsf2
+                0x00019884                __aeabi_d2f
+ .text          0x00019924       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unordsf2.o)
+                0x00019924                __unordsf2
+                0x00019924                __aeabi_fcmpun
+ .text.__errno  0x00019950        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
+                0x00019950                __errno
  *(.rodata .rodata.* .constdata .constdata.*)
- .rodata        0x00019914        0xf ./src/IA_2021_V0.o
- *fill*         0x00019923        0x1 ff
- .rodata        0x00019924       0x1f ./src/Init.o
- *fill*         0x00019943        0x1 ff
- .rodata        0x00019944       0xb6 ./src/test.o
- *fill*         0x000199fa        0x2 ff
- .rodata        0x000199fc       0x29 ./freertos/src/FreeRTOSCommonHooks.o
- *fill*         0x00019a25        0x3 ff
+ .rodata        0x0001995c        0xf ./src/IA_2021_V0.o
+ *fill*         0x0001996b        0x1 ff
+ .rodata        0x0001996c       0x1f ./src/Init.o
+ *fill*         0x0001998b        0x1 ff
+ .rodata        0x0001998c       0xb6 ./src/test.o
+ *fill*         0x00019a42        0x2 ff
+ .rodata        0x00019a44       0x29 ./freertos/src/FreeRTOSCommonHooks.o
+ *fill*         0x00019a6d        0x3 ff
  .rodata.vTaskStartScheduler.str1.4
-                0x00019a28        0x5 ./freertos/src/tasks.o
- *fill*         0x00019a2d        0x3 ff
+                0x00019a70        0x5 ./freertos/src/tasks.o
+ *fill*         0x00019a75        0x3 ff
  .rodata.prvCheckForValidListAndQueue.str1.4
-                0x00019a30        0x5 ./freertos/src/timers.o
- *fill*         0x00019a35        0x3 ff
+                0x00019a78        0x5 ./freertos/src/timers.o
+ *fill*         0x00019a7d        0x3 ff
  .rodata.xTimerCreateTimerTask.str1.4
-                0x00019a38        0x8 ./freertos/src/timers.o
- .rodata        0x00019a40      0x299 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
- *fill*         0x00019cd9        0x3 ff
- .rodata        0x00019cdc       0x9b ./Strategie/Strategie.o
- *fill*         0x00019d77        0x1 ff
- .rodata        0x00019d78       0x6b ./Pathfinding/Astar/Astar.o
- *fill*         0x00019de3        0x1 ff
- .rodata        0x00019de4       0x25 ./Communication/0_Communication.o
- *fill*         0x00019e09        0x3 ff
- .rodata        0x00019e0c       0x30 ./Communication/1_Trame_Communication.o
- .rodata        0x00019e3c        0xd ./Communication/2_Echange_Data_Strategie.o
- *fill*         0x00019e49        0x3 ff
- .rodata        0x00019e4c      0x206 ./Communication/2_Echange_Datas.o
- *fill*         0x0001a052        0x2 ff
+                0x00019a80        0x8 ./freertos/src/timers.o
+ .rodata        0x00019a88      0x299 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
+ *fill*         0x00019d21        0x3 ff
+ .rodata        0x00019d24       0x9b ./Strategie/Strategie.o
+ *fill*         0x00019dbf        0x1 ff
+ .rodata        0x00019dc0       0x6b ./Pathfinding/Astar/Astar.o
+ *fill*         0x00019e2b        0x1 ff
+ .rodata        0x00019e2c       0x25 ./Communication/0_Communication.o
+ *fill*         0x00019e51        0x3 ff
+ .rodata        0x00019e54       0x30 ./Communication/1_Trame_Communication.o
+ .rodata        0x00019e84        0xd ./Communication/2_Echange_Data_Strategie.o
+ *fill*         0x00019e91        0x3 ff
+ .rodata        0x00019e94      0x206 ./Communication/2_Echange_Datas.o
+ *fill*         0x0001a09a        0x2 ff
  .rodata.MainOscPLL0conf_12
-                0x0001a054       0xf0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x0001a09c       0xf0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .rodata.MainOscPLL0conf_16
-                0x0001a144       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x0001a18c       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .rodata.RTCOscRateIn
-                0x0001a1f4        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
-                0x0001a1f4                RTCOscRateIn
+                0x0001a23c        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x0001a23c                RTCOscRateIn
  .rodata._printf_float.str1.1
-                0x0001a1f8       0x12 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+                0x0001a240       0x12 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
  .rodata._printf_i.str1.1
-                0x0001a20a       0x22 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0001a252       0x22 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._dtoa_r.str1.1
-                0x0001a22c        0xd c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
+                0x0001a274        0xd c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
                                   0xf (size before relaxing)
- *fill*         0x0001a239        0x7 ff
+ *fill*         0x0001a281        0x7 ff
  .rodata.__mprec_bigtens
-                0x0001a240       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x0001a240                __mprec_bigtens
+                0x0001a288       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001a288                __mprec_bigtens
  .rodata.__mprec_tens
-                0x0001a268       0xc8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
-                0x0001a268                __mprec_tens
+                0x0001a2b0       0xc8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001a2b0                __mprec_tens
  .rodata.p05.6127
-                0x0001a330        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+                0x0001a378        0xc c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
  .rodata._svfprintf_r.str1.1
-                0x0001a33c       0x11 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0001a384       0x11 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._setlocale_r.str1.1
-                0x0001a34d        0x8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
+                0x0001a395        0x8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
                                   0x9 (size before relaxing)
  .rodata.str1.1
-                0x0001a355        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
+                0x0001a39d        0x2 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
  .rodata._ctype_
-                0x0001a357      0x101 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-ctype_.o)
-                0x0001a357                _ctype_
+                0x0001a39f      0x101 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-ctype_.o)
+                0x0001a39f                _ctype_
  .rodata.sqrtf.str1.4
-                0x0001a458        0x6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
-                0x0001a460                . = ALIGN (0x4)
- *fill*         0x0001a45e        0x2 ff
+                0x0001a4a0        0x6 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
+                0x0001a4a8                . = ALIGN (0x4)
+ *fill*         0x0001a4a6        0x2 ff
 
-.glue_7         0x0001a460        0x0
- .glue_7        0x0001a460        0x0 linker stubs
+.glue_7         0x0001a4a8        0x0
+ .glue_7        0x0001a4a8        0x0 linker stubs
 
-.glue_7t        0x0001a460        0x0
- .glue_7t       0x0001a460        0x0 linker stubs
+.glue_7t        0x0001a4a8        0x0
+ .glue_7t       0x0001a4a8        0x0 linker stubs
 
-.vfp11_veneer   0x0001a460        0x0
- .vfp11_veneer  0x0001a460        0x0 linker stubs
+.vfp11_veneer   0x0001a4a8        0x0
+ .vfp11_veneer  0x0001a4a8        0x0 linker stubs
 
-.v4_bx          0x0001a460        0x0
- .v4_bx         0x0001a460        0x0 linker stubs
+.v4_bx          0x0001a4a8        0x0
+ .v4_bx         0x0001a4a8        0x0 linker stubs
 
-.iplt           0x0001a460        0x0
- .iplt          0x0001a460        0x0 ./src/IA_2021_V0.o
+.iplt           0x0001a4a8        0x0
+ .iplt          0x0001a4a8        0x0 ./src/IA_2021_V0.o
 
-.rel.dyn        0x0001a460        0x0
- .rel.iplt      0x0001a460        0x0 ./src/IA_2021_V0.o
+.rel.dyn        0x0001a4a8        0x0
+ .rel.iplt      0x0001a4a8        0x0 ./src/IA_2021_V0.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x0001a460        0x0
-                0x0001a460                __exidx_start = .
+.ARM.exidx      0x0001a4a8        0x0
+                0x0001a4a8                __exidx_start = .
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0001a460                __exidx_end = .
-                0x0001a460                _etext = .
+                0x0001a4a8                __exidx_end = .
+                0x0001a4a8                _etext = .
 
-.data_RAM2      0x2007c000        0x0 load address 0x0001a460
+.data_RAM2      0x2007c000        0x0 load address 0x0001a4a8
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM2 = .)
                 [!provide]                PROVIDE (__start_data_Ram_USB = .)
@@ -2587,7 +2593,7 @@ END GROUP
                 [!provide]                PROVIDE (__end_data_RAM2 = .)
                 [!provide]                PROVIDE (__end_data_Ram_USB = .)
 
-.data_RAM3      0x2007c800        0x0 load address 0x0001a460
+.data_RAM3      0x2007c800        0x0 load address 0x0001a4a8
  FILL mask 0xff
                 [!provide]                PROVIDE (__start_data_RAM3 = .)
                 [!provide]                PROVIDE (__start_data_RAM3 = .)
@@ -2608,7 +2614,7 @@ END GROUP
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _end_uninit_RESERVED = .
 
-.data           0x10000000      0x1ec load address 0x0001a460
+.data           0x10000000      0x1ec load address 0x0001a4a8
  FILL mask 0xff
                 0x10000000                _data = .
                 [!provide]                PROVIDE (__start_data_RAM = .)
@@ -2643,7 +2649,7 @@ END GROUP
                 [!provide]                PROVIDE (__end_data_RAM = .)
                 [!provide]                PROVIDE (__end_data_RamLoc32 = .)
 
-.igot.plt       0x100001ec        0x0 load address 0x0001a64c
+.igot.plt       0x100001ec        0x0 load address 0x0001a694
  .igot.plt      0x100001ec        0x0 ./src/IA_2021_V0.o
 
 .bss_RAM2       0x2007c000        0x0
@@ -2681,7 +2687,7 @@ END GROUP
                 [!provide]                PROVIDE (__end_bss_RAM3 = .)
                 [!provide]                PROVIDE (__end_bss_RAM3 = .)
 
-.bss            0x100001ec     0x52e0
+.bss            0x100001ec     0x52b8
                 0x100001ec                _bss = .
                 [!provide]                PROVIDE (__start_bss_RAM = .)
                 [!provide]                PROVIDE (__start_bss_RamLoc32 = .)
@@ -2794,18 +2800,18 @@ END GROUP
  .bss.Burst_Mode_Flag
                 0x100051e8        0x1 ./Level_0/Drivers/0_ADC/0_ADC.o
  *fill*         0x100051e9        0x3 
- .bss.Message.11436
+ .bss.Message.11440
                 0x100051ec       0x5d ./Communication/0_Communication.o
  *fill*         0x10005249        0x3 
  .bss._1_xQueue_Message_TO_Send
                 0x1000524c        0x4 ./Communication/0_Communication.o
                 0x1000524c                _1_xQueue_Message_TO_Send
- .bss.already_flaged.11344
+ .bss.already_flaged.11348
                 0x10005250        0x1 ./Communication/0_Communication.o
- .bss.already_flaged.11349
+ .bss.already_flaged.11353
                 0x10005251        0x1 ./Communication/0_Communication.o
  *fill*         0x10005252        0x2 
- .bss.g_txBuff.11437
+ .bss.g_txBuff.11441
                 0x10005254       0x80 ./Communication/0_Communication.o
  .bss.rxring_RS485
                 0x100052d4       0x14 ./Communication/0_Communication.o
@@ -2833,60 +2839,60 @@ END GROUP
  .bss.Nb_Messages_recus
                 0x10005324        0x4 ./Communication/1_Trame_Communication.o
                 0x10005324                Nb_Messages_recus
- .bss.str.10449
-                0x10005328       0x46 ./Communication/1_Trame_Communication.o
- *fill*         0x1000536e        0x2 
- .bss.dir.10541
-                0x10005370        0x4 ./Communication/2_Echange_Datas.o
+ .bss.str.10454
+                0x10005328       0x1e ./Communication/1_Trame_Communication.o
+ *fill*         0x10005346        0x2 
+ .bss.dir.10574
+                0x10005348        0x4 ./Communication/2_Echange_Datas.o
  .bss.release_sent
-                0x10005374        0x1 ./Communication/2_Echange_Datas.o
-                0x10005374                release_sent
- *fill*         0x10005375        0x3 
- .bss.str       0x10005378       0x46 ./Communication/2_Echange_Datas.o
- *fill*         0x100053be        0x2 
- .bss.str.10540
-                0x100053c0       0x50 ./Communication/2_Echange_Datas.o
- .bss.str.10627
-                0x10005410       0x46 ./Communication/2_Echange_Datas.o
- *fill*         0x10005456        0x2 
- .bss.str.10674
-                0x10005458       0x46 ./Communication/2_Echange_Datas.o
- *fill*         0x1000549e        0x2 
+                0x1000534c        0x1 ./Communication/2_Echange_Datas.o
+                0x1000534c                release_sent
+ *fill*         0x1000534d        0x3 
+ .bss.str       0x10005350       0x46 ./Communication/2_Echange_Datas.o
+ *fill*         0x10005396        0x2 
+ .bss.str.10573
+                0x10005398       0x50 ./Communication/2_Echange_Datas.o
+ .bss.str.10660
+                0x100053e8       0x46 ./Communication/2_Echange_Datas.o
+ *fill*         0x1000542e        0x2 
+ .bss.str.10707
+                0x10005430       0x46 ./Communication/2_Echange_Datas.o
+ *fill*         0x10005476        0x2 
  .bss.Nb_Messages_Interpretes
-                0x100054a0        0x4 ./Communication/2_Echange_Datas_Reception.o
+                0x10005478        0x4 ./Communication/2_Echange_Datas_Reception.o
  .bss.Nb_PONG_recus
-                0x100054a4        0x4 ./Communication/2_Echange_Datas_Reception.o
-                0x100054a4                Nb_PONG_recus
+                0x1000547c        0x4 ./Communication/2_Echange_Datas_Reception.o
+                0x1000547c                Nb_PONG_recus
  .bss.ABsyncSts
-                0x100054a8        0x1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- *fill*         0x100054a9        0x3 
+                0x10005480        0x1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ *fill*         0x10005481        0x3 
  .bss.__malloc_free_list
-                0x100054ac        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x100054ac                __malloc_free_list
+                0x10005484        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x10005484                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x100054b0        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
-                0x100054b0                __malloc_sbrk_start
+                0x10005488        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
+                0x10005488                __malloc_sbrk_start
  .bss.__end_of_heap
-                0x100054b4        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
-                0x100054b4                __end_of_heap
+                0x1000548c        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libcr_newlib_none.a(_cr_sbrk.o)
+                0x1000548c                __end_of_heap
  *(COMMON)
- COMMON         0x100054b8        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
-                0x100054b8                SystemCoreClock
- COMMON         0x100054bc        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-reent.o)
-                0x100054bc                errno
- COMMON         0x100054c0        0x9 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
-                0x100054c0                __lock___atexit_recursive_mutex
-                0x100054c1                __lock___arc4random_mutex
-                0x100054c2                __lock___env_recursive_mutex
-                0x100054c3                __lock___sinit_recursive_mutex
-                0x100054c4                __lock___malloc_recursive_mutex
-                0x100054c5                __lock___at_quick_exit_mutex
-                0x100054c6                __lock___dd_hash_mutex
-                0x100054c7                __lock___tz_mutex
-                0x100054c8                __lock___sfp_recursive_mutex
-                0x100054cc                . = ALIGN (0x4)
- *fill*         0x100054c9        0x3 
-                0x100054cc                _ebss = .
+ COMMON         0x10005490        0x4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+                0x10005490                SystemCoreClock
+ COMMON         0x10005494        0x4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-reent.o)
+                0x10005494                errno
+ COMMON         0x10005498        0x9 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+                0x10005498                __lock___atexit_recursive_mutex
+                0x10005499                __lock___arc4random_mutex
+                0x1000549a                __lock___env_recursive_mutex
+                0x1000549b                __lock___sinit_recursive_mutex
+                0x1000549c                __lock___malloc_recursive_mutex
+                0x1000549d                __lock___at_quick_exit_mutex
+                0x1000549e                __lock___dd_hash_mutex
+                0x1000549f                __lock___tz_mutex
+                0x100054a0                __lock___sfp_recursive_mutex
+                0x100054a4                . = ALIGN (0x4)
+ *fill*         0x100054a1        0x3 
+                0x100054a4                _ebss = .
                 [!provide]                PROVIDE (__end_bss_RAM = .)
                 [!provide]                PROVIDE (__end_bss_RamLoc32 = .)
                 [!provide]                PROVIDE (end = .)
@@ -2913,24 +2919,24 @@ END GROUP
                 [!provide]                PROVIDE (__end_noinit_RAM3 = .)
                 [!provide]                PROVIDE (__end_noinit_RAM3 = .)
 
-.noinit         0x100054cc        0x0
-                0x100054cc                _noinit = .
+.noinit         0x100054a4        0x0
+                0x100054a4                _noinit = .
                 [!provide]                PROVIDE (__start_noinit_RAM = .)
                 [!provide]                PROVIDE (__start_noinit_RamLoc32 = .)
  *(.noinit*)
-                0x100054cc                . = ALIGN (0x4)
-                0x100054cc                _end_noinit = .
+                0x100054a4                . = ALIGN (0x4)
+                0x100054a4                _end_noinit = .
                 [!provide]                PROVIDE (__end_noinit_RAM = .)
                 [!provide]                PROVIDE (__end_noinit_RamLoc32 = .)
-                0x100054cc                PROVIDE (_pvHeapStart = DEFINED (__user_heap_base)?__user_heap_base:.)
+                0x100054a4                PROVIDE (_pvHeapStart = DEFINED (__user_heap_base)?__user_heap_base:.)
                 0x10008000                PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
                 [!provide]                PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
                 0x00010000                _image_start = LOADADDR (.text)
-                0x0001a64c                _image_end = (LOADADDR (.data) + SIZEOF (.data))
-                0x0000a64c                _image_size = (_image_end - _image_start)
+                0x0001a694                _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x0000a694                _image_size = (_image_end - _image_start)
 OUTPUT(IA_2021_V0.axf elf32-littlearm)
 
-.debug_info     0x00000000    0x3143b
+.debug_info     0x00000000    0x31564
  .debug_info    0x00000000     0x2904 ./src/IA_2021_V0.o
  .debug_info    0x00002904     0x153c ./src/Init.o
  .debug_info    0x00003e40      0x2e9 ./src/cr_startup_lpc175x_6x.o
@@ -2953,20 +2959,20 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_info    0x00019a98     0x2bc4 ./Pathfinding/Astar/Astar.o
  .debug_info    0x0001c65c     0x10ba ./Level_0/Drivers/0_ADC/0_ADC.o
  .debug_info    0x0001d716     0x101c ./Communication/RS485/0_RS485.o
- .debug_info    0x0001e732     0x392c ./Communication/0_Communication.o
- .debug_info    0x0002205e      0xb0d ./Communication/0_Event_Group.o
- .debug_info    0x00022b6b     0x1c3a ./Communication/1_Trame_Communication.o
- .debug_info    0x000247a5     0x13fc ./Communication/2_Echange_Data_Strategie.o
- .debug_info    0x00025ba1     0x30e6 ./Communication/2_Echange_Datas.o
- .debug_info    0x00028c87     0x14e0 ./Communication/2_Echange_Datas_Reception.o
- .debug_info    0x0002a167      0xb52 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_info    0x0002acb9      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_info    0x0002b2fb      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_info    0x0002c18a      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_info    0x0002c7c9      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_info    0x0002d067      0x501 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_info    0x0002d568     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_info    0x0002ecd2     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_info    0x0001e732     0x39af ./Communication/0_Communication.o
+ .debug_info    0x000220e1      0xb0d ./Communication/0_Event_Group.o
+ .debug_info    0x00022bee     0x1c47 ./Communication/1_Trame_Communication.o
+ .debug_info    0x00024835     0x13fc ./Communication/2_Echange_Data_Strategie.o
+ .debug_info    0x00025c31     0x317f ./Communication/2_Echange_Datas.o
+ .debug_info    0x00028db0     0x14e0 ./Communication/2_Echange_Datas_Reception.o
+ .debug_info    0x0002a290      0xb52 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_info    0x0002ade2      0x642 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_info    0x0002b424      0xe8f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_info    0x0002c2b3      0x63f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_info    0x0002c8f2      0x89e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_info    0x0002d190      0x501 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_info    0x0002d691     0x176a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_info    0x0002edfb     0x2769 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
 .debug_abbrev   0x00000000     0x70c5
  .debug_abbrev  0x00000000      0x38d ./src/IA_2021_V0.o
@@ -3006,7 +3012,7 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_abbrev  0x000066bf      0x4e5 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
  .debug_abbrev  0x00006ba4      0x521 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_loc      0x00000000     0xeeae
+.debug_loc      0x00000000     0xeec0
  .debug_loc     0x00000000      0x612 ./src/IA_2021_V0.o
  .debug_loc     0x00000612      0x7aa ./src/Init.o
  .debug_loc     0x00000dbc      0x245 ./src/cr_startup_lpc175x_6x.o
@@ -3027,19 +3033,19 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_loc     0x00008c1f      0x1d1 ./Level_0/Drivers/0_ADC/0_ADC.o
  .debug_loc     0x00008df0      0x405 ./Communication/RS485/0_RS485.o
  .debug_loc     0x000091f5      0x825 ./Communication/0_Communication.o
- .debug_loc     0x00009a1a      0x823 ./Communication/1_Trame_Communication.o
- .debug_loc     0x0000a23d      0x1aa ./Communication/2_Echange_Data_Strategie.o
- .debug_loc     0x0000a3e7      0xa1a ./Communication/2_Echange_Datas.o
- .debug_loc     0x0000ae01      0x350 ./Communication/2_Echange_Datas_Reception.o
- .debug_loc     0x0000b151      0x581 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_loc     0x0000b6d2      0x57c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_loc     0x0000bc4e      0x592 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_loc     0x0000c1e0      0x110 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_loc     0x0000c2f0      0x25b D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_loc     0x0000c54b      0xdc4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_loc     0x0000d30f     0x1b9f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_loc     0x00009a1a      0x835 ./Communication/1_Trame_Communication.o
+ .debug_loc     0x0000a24f      0x1aa ./Communication/2_Echange_Data_Strategie.o
+ .debug_loc     0x0000a3f9      0xa1a ./Communication/2_Echange_Datas.o
+ .debug_loc     0x0000ae13      0x350 ./Communication/2_Echange_Datas_Reception.o
+ .debug_loc     0x0000b163      0x581 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_loc     0x0000b6e4      0x57c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_loc     0x0000bc60      0x592 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_loc     0x0000c1f2      0x110 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_loc     0x0000c302      0x25b D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_loc     0x0000c55d      0xdc4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_loc     0x0000d321     0x1b9f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_aranges  0x00000000     0x1000
+.debug_aranges  0x00000000     0x1010
  .debug_aranges
                 0x00000000       0x38 ./src/IA_2021_V0.o
  .debug_aranges
@@ -3085,35 +3091,35 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_aranges
                 0x000009d0       0x30 ./Communication/RS485/0_RS485.o
  .debug_aranges
-                0x00000a00       0x80 ./Communication/0_Communication.o
+                0x00000a00       0x90 ./Communication/0_Communication.o
  .debug_aranges
-                0x00000a80       0x20 ./Communication/0_Event_Group.o
+                0x00000a90       0x20 ./Communication/0_Event_Group.o
  .debug_aranges
-                0x00000aa0       0x88 ./Communication/1_Trame_Communication.o
+                0x00000ab0       0x88 ./Communication/1_Trame_Communication.o
  .debug_aranges
-                0x00000b28       0x38 ./Communication/2_Echange_Data_Strategie.o
+                0x00000b38       0x38 ./Communication/2_Echange_Data_Strategie.o
  .debug_aranges
-                0x00000b60       0xc8 ./Communication/2_Echange_Datas.o
+                0x00000b70       0xc8 ./Communication/2_Echange_Datas.o
  .debug_aranges
-                0x00000c28       0x48 ./Communication/2_Echange_Datas_Reception.o
+                0x00000c38       0x48 ./Communication/2_Echange_Datas_Reception.o
  .debug_aranges
-                0x00000c70       0x70 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+                0x00000c80       0x70 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
  .debug_aranges
-                0x00000ce0       0x28 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+                0x00000cf0       0x28 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
  .debug_aranges
-                0x00000d08       0xc8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+                0x00000d18       0xc8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
  .debug_aranges
-                0x00000dd0       0x50 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+                0x00000de0       0x50 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
  .debug_aranges
-                0x00000e20       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+                0x00000e30       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
  .debug_aranges
-                0x00000e50       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+                0x00000e60       0x38 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
  .debug_aranges
-                0x00000e88       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+                0x00000e98       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
  .debug_aranges
-                0x00000f38       0xc8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+                0x00000f48       0xc8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_ranges   0x00000000     0x1b28
+.debug_ranges   0x00000000     0x1b38
  .debug_ranges  0x00000000      0x108 ./src/IA_2021_V0.o
  .debug_ranges  0x00000108      0x140 ./src/Init.o
  .debug_ranges  0x00000248       0x70 ./src/cr_startup_lpc175x_6x.o
@@ -3135,22 +3141,22 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_ranges  0x00000b78      0x3b0 ./Pathfinding/Astar/Astar.o
  .debug_ranges  0x00000f28       0x18 ./Level_0/Drivers/0_ADC/0_ADC.o
  .debug_ranges  0x00000f40       0x70 ./Communication/RS485/0_RS485.o
- .debug_ranges  0x00000fb0       0x88 ./Communication/0_Communication.o
- .debug_ranges  0x00001038       0x10 ./Communication/0_Event_Group.o
- .debug_ranges  0x00001048       0x90 ./Communication/1_Trame_Communication.o
- .debug_ranges  0x000010d8       0x28 ./Communication/2_Echange_Data_Strategie.o
- .debug_ranges  0x00001100       0xe8 ./Communication/2_Echange_Datas.o
- .debug_ranges  0x000011e8       0x70 ./Communication/2_Echange_Datas_Reception.o
- .debug_ranges  0x00001258       0xd0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_ranges  0x00001328       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_ranges  0x00001358      0x198 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_ranges  0x000014f0      0x138 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_ranges  0x00001628       0x90 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_ranges  0x000016b8       0x58 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_ranges  0x00001710      0x1b8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_ranges  0x000018c8      0x260 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_ranges  0x00000fb0       0x98 ./Communication/0_Communication.o
+ .debug_ranges  0x00001048       0x10 ./Communication/0_Event_Group.o
+ .debug_ranges  0x00001058       0x90 ./Communication/1_Trame_Communication.o
+ .debug_ranges  0x000010e8       0x28 ./Communication/2_Echange_Data_Strategie.o
+ .debug_ranges  0x00001110       0xe8 ./Communication/2_Echange_Datas.o
+ .debug_ranges  0x000011f8       0x70 ./Communication/2_Echange_Datas_Reception.o
+ .debug_ranges  0x00001268       0xd0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_ranges  0x00001338       0x30 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_ranges  0x00001368      0x198 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_ranges  0x00001500      0x138 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_ranges  0x00001638       0x90 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_ranges  0x000016c8       0x58 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_ranges  0x00001720      0x1b8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_ranges  0x000018d8      0x260 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_line     0x00000000    0x160ef
+.debug_line     0x00000000    0x1616d
  .debug_line    0x00000000      0x978 ./src/IA_2021_V0.o
  .debug_line    0x00000978      0x9c3 ./src/Init.o
  .debug_line    0x0000133b      0x27f ./src/cr_startup_lpc175x_6x.o
@@ -3165,30 +3171,30 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_line    0x00004b7e     0x140e ./freertos/src/queue.o
  .debug_line    0x00005f8c     0x205a ./freertos/src/tasks.o
  .debug_line    0x00007fe6      0xc5c ./freertos/src/timers.o
- .debug_line    0x00008c42     0x1154 ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
- .debug_line    0x00009d96      0x5c9 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
- .debug_line    0x0000a35f      0x71b ./Strategie/Strategie_Level0/0_Infos.o
- .debug_line    0x0000aa7a      0x714 ./Strategie/Strategie_Level0/Strategie_Actions.o
- .debug_line    0x0000b18e      0xc0f ./Strategie/Strategie.o
- .debug_line    0x0000bd9d     0x1b83 ./Pathfinding/Astar/Astar.o
- .debug_line    0x0000d920      0x5cd ./Level_0/Drivers/0_ADC/0_ADC.o
- .debug_line    0x0000deed      0x4f3 ./Communication/RS485/0_RS485.o
- .debug_line    0x0000e3e0      0xe66 ./Communication/0_Communication.o
- .debug_line    0x0000f246      0x4a6 ./Communication/0_Event_Group.o
- .debug_line    0x0000f6ec      0xd59 ./Communication/1_Trame_Communication.o
- .debug_line    0x00010445      0xb20 ./Communication/2_Echange_Data_Strategie.o
- .debug_line    0x00010f65     0x14a7 ./Communication/2_Echange_Datas.o
- .debug_line    0x0001240c      0x7c4 ./Communication/2_Echange_Datas_Reception.o
- .debug_line    0x00012bd0      0x542 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_line    0x00013112      0x2f1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_line    0x00013403      0x79e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_line    0x00013ba1      0x513 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_line    0x000140b4      0x4e4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_line    0x00014598      0x31f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_line    0x000148b7      0xaef D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_line    0x000153a6      0xd49 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_line    0x00008c42     0x115c ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
+ .debug_line    0x00009d9e      0x5c9 ./Strategie/Strategie_Level0/Deplacement/1_Obstacles.o
+ .debug_line    0x0000a367      0x71b ./Strategie/Strategie_Level0/0_Infos.o
+ .debug_line    0x0000aa82      0x714 ./Strategie/Strategie_Level0/Strategie_Actions.o
+ .debug_line    0x0000b196      0xc0f ./Strategie/Strategie.o
+ .debug_line    0x0000bda5     0x1b83 ./Pathfinding/Astar/Astar.o
+ .debug_line    0x0000d928      0x5cd ./Level_0/Drivers/0_ADC/0_ADC.o
+ .debug_line    0x0000def5      0x4f3 ./Communication/RS485/0_RS485.o
+ .debug_line    0x0000e3e8      0xeae ./Communication/0_Communication.o
+ .debug_line    0x0000f296      0x4a6 ./Communication/0_Event_Group.o
+ .debug_line    0x0000f73c      0xd5f ./Communication/1_Trame_Communication.o
+ .debug_line    0x0001049b      0xb20 ./Communication/2_Echange_Data_Strategie.o
+ .debug_line    0x00010fbb     0x14cf ./Communication/2_Echange_Datas.o
+ .debug_line    0x0001248a      0x7c4 ./Communication/2_Echange_Datas_Reception.o
+ .debug_line    0x00012c4e      0x542 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_line    0x00013190      0x2f1 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_line    0x00013481      0x79e D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_line    0x00013c1f      0x513 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_line    0x00014132      0x4e4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_line    0x00014616      0x31f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_line    0x00014935      0xaef D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_line    0x00015424      0xd49 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
 
-.debug_str      0x00000000     0x8b86
+.debug_str      0x00000000     0x8be7
  .debug_str     0x00000000     0x1b85 ./src/IA_2021_V0.o
                                0x1d39 (size before relaxing)
  .debug_str     0x00001b85      0x2a8 ./src/Init.o
@@ -3233,33 +3239,33 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
                                 0xbd0 (size before relaxing)
  .debug_str     0x00005f62       0x4c ./Communication/RS485/0_RS485.o
                                 0x875 (size before relaxing)
- .debug_str     0x00005fae      0x5fc ./Communication/0_Communication.o
-                               0x2751 (size before relaxing)
- .debug_str     0x000065aa       0x21 ./Communication/0_Event_Group.o
+ .debug_str     0x00005fae      0x64c ./Communication/0_Communication.o
+                               0x27c8 (size before relaxing)
+ .debug_str     0x000065fa       0x21 ./Communication/0_Event_Group.o
                                 0x8c8 (size before relaxing)
- .debug_str     0x000065cb      0x40e ./Communication/1_Trame_Communication.o
-                               0x1755 (size before relaxing)
- .debug_str     0x000069d9       0xe0 ./Communication/2_Echange_Data_Strategie.o
+ .debug_str     0x0000661b      0x41f ./Communication/1_Trame_Communication.o
+                               0x1766 (size before relaxing)
+ .debug_str     0x00006a3a       0xe0 ./Communication/2_Echange_Data_Strategie.o
                                0x10b9 (size before relaxing)
- .debug_str     0x00006ab9      0x40f ./Communication/2_Echange_Datas.o
-                               0x1f7e (size before relaxing)
- .debug_str     0x00006ec8      0x124 ./Communication/2_Echange_Datas_Reception.o
+ .debug_str     0x00006b1a      0x40f ./Communication/2_Echange_Datas.o
+                               0x1fe6 (size before relaxing)
+ .debug_str     0x00006f29      0x124 ./Communication/2_Echange_Datas_Reception.o
                                0x126a (size before relaxing)
- .debug_str     0x00006fec      0x7db D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_str     0x0000704d      0x7db D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
                                 0xb45 (size before relaxing)
- .debug_str     0x000077c7      0x19c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_str     0x00007828      0x19c D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
                                 0x899 (size before relaxing)
- .debug_str     0x00007963      0x579 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_str     0x000079c4      0x579 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
                                 0xeb3 (size before relaxing)
- .debug_str     0x00007edc       0xaf D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_str     0x00007f3d       0xaf D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
                                 0x340 (size before relaxing)
- .debug_str     0x00007f8b       0xe5 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_str     0x00007fec       0xe5 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
                                 0x74c (size before relaxing)
- .debug_str     0x00008070      0x12f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_str     0x000080d1      0x12f D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
                                 0x69c (size before relaxing)
- .debug_str     0x0000819f      0x2bd D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_str     0x00008200      0x2bd D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
                                 0xe9a (size before relaxing)
- .debug_str     0x0000845c      0x72a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_str     0x000084bd      0x72a D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
                                 0xfe6 (size before relaxing)
 
 .comment        0x00000000       0x79
@@ -3470,7 +3476,7 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .ARM.attributes
                 0x00000d6d       0x2d c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
 
-.debug_frame    0x00000000     0x37d8
+.debug_frame    0x00000000     0x3810
  .debug_frame   0x00000000       0x78 ./src/IA_2021_V0.o
  .debug_frame   0x00000078       0x98 ./src/Init.o
  .debug_frame   0x00000110       0xf4 ./src/cr_startup_lpc175x_6x.o
@@ -3492,60 +3498,60 @@ OUTPUT(IA_2021_V0.axf elf32-littlearm)
  .debug_frame   0x000016f0      0x330 ./Pathfinding/Astar/Astar.o
  .debug_frame   0x00001a20       0x48 ./Level_0/Drivers/0_ADC/0_ADC.o
  .debug_frame   0x00001a68       0x50 ./Communication/RS485/0_RS485.o
- .debug_frame   0x00001ab8      0x160 ./Communication/0_Communication.o
- .debug_frame   0x00001c18       0x28 ./Communication/0_Event_Group.o
- .debug_frame   0x00001c40      0x1a4 ./Communication/1_Trame_Communication.o
- .debug_frame   0x00001de4       0x94 ./Communication/2_Echange_Data_Strategie.o
- .debug_frame   0x00001e78      0x324 ./Communication/2_Echange_Datas.o
- .debug_frame   0x0000219c       0xb0 ./Communication/2_Echange_Datas_Reception.o
- .debug_frame   0x0000224c       0xe8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
- .debug_frame   0x00002334       0x44 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
- .debug_frame   0x00002378      0x1b4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
- .debug_frame   0x0000252c       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
- .debug_frame   0x000025dc       0x70 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
- .debug_frame   0x0000264c       0x60 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
- .debug_frame   0x000026ac      0x1f0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
- .debug_frame   0x0000289c      0x1d4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
- .debug_frame   0x00002a70       0xac c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x00002b1c       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubsf3.o)
- .debug_frame   0x00002b68       0x38 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivsf3.o)
- .debug_frame   0x00002ba0       0xc8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpsf2.o)
- .debug_frame   0x00002c68       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixsfsi.o)
- .debug_frame   0x00002c8c       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixunssfsi.o)
- .debug_frame   0x00002cb0       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x00002cd8       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
- .debug_frame   0x00002cf8       0x94 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
- .debug_frame   0x00002d8c       0x60 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x00002dec       0x6c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
- .debug_frame   0x00002e58       0x6c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
- .debug_frame   0x00002ec4       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-localeconv.o)
- .debug_frame   0x00002f04       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-malloc.o)
- .debug_frame   0x00002f34       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
- .debug_frame   0x00002f5c      0x254 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
- .debug_frame   0x000031b0       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-callocr.o)
- .debug_frame   0x000031dc       0x38 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x00003214       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00003244       0x90 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x000032d4       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x00003300       0x48 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
- .debug_frame   0x00003348       0x48 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mbtowc_r.o)
- .debug_frame   0x00003390       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
- .debug_frame   0x000033b8       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
- .debug_frame   0x000033e8       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x00003424       0x5c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-reent.o)
- .debug_frame   0x00003480       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-wctomb_r.o)
- .debug_frame   0x000034bc       0xb0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
- .debug_frame   0x0000356c       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x0000358c       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
- .debug_frame   0x000035c8       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-ef_sqrt.o)
- .debug_frame   0x000035f8       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-s_matherr.o)
- .debug_frame   0x00003618       0x50 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivdf3.o)
- .debug_frame   0x00003668       0xc4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpdf2.o)
- .debug_frame   0x0000372c       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unorddf2.o)
- .debug_frame   0x0000374c       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixdfsi.o)
- .debug_frame   0x00003770       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_truncdfsf2.o)
- .debug_frame   0x00003794       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unordsf2.o)
- .debug_frame   0x000037b8       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
+ .debug_frame   0x00001ab8      0x194 ./Communication/0_Communication.o
+ .debug_frame   0x00001c4c       0x28 ./Communication/0_Event_Group.o
+ .debug_frame   0x00001c74      0x1a8 ./Communication/1_Trame_Communication.o
+ .debug_frame   0x00001e1c       0x94 ./Communication/2_Echange_Data_Strategie.o
+ .debug_frame   0x00001eb0      0x324 ./Communication/2_Echange_Datas.o
+ .debug_frame   0x000021d4       0xb0 ./Communication/2_Echange_Datas_Reception.o
+ .debug_frame   0x00002284       0xe8 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(adc_17xx_40xx.o)
+ .debug_frame   0x0000236c       0x44 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(chip_17xx_40xx.o)
+ .debug_frame   0x000023b0      0x1b4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(clock_17xx_40xx.o)
+ .debug_frame   0x00002564       0xb0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(ring_buffer.o)
+ .debug_frame   0x00002614       0x70 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(sysinit_17xx_40xx.o)
+ .debug_frame   0x00002684       0x60 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(timer_17xx_40xx.o)
+ .debug_frame   0x000026e4      0x1f0 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\Release\lib0_lpc_chip_175x_6x.a(uart_17xx_40xx.o)
+ .debug_frame   0x000028d4      0x1d4 D:\Developpement_Robot\Robotic-System\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\Release\lib0_lpc_board_nxp_lpcxpresso_1769.a(board.o)
+ .debug_frame   0x00002aa8       0xac c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x00002b54       0x4c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_addsubsf3.o)
+ .debug_frame   0x00002ba0       0x38 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivsf3.o)
+ .debug_frame   0x00002bd8       0xc8 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpsf2.o)
+ .debug_frame   0x00002ca0       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixsfsi.o)
+ .debug_frame   0x00002cc4       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixunssfsi.o)
+ .debug_frame   0x00002ce8       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00002d10       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x00002d30       0x94 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_float.o)
+ .debug_frame   0x00002dc4       0x60 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x00002e24       0x6c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x00002e90       0x6c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-dtoa.o)
+ .debug_frame   0x00002efc       0x40 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-localeconv.o)
+ .debug_frame   0x00002f3c       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00002f6c       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memchr-stub.o)
+ .debug_frame   0x00002f94      0x254 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mprec.o)
+ .debug_frame   0x000031e8       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-callocr.o)
+ .debug_frame   0x00003214       0x38 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000324c       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x0000327c       0x90 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x0000330c       0x2c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x00003338       0x48 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-locale.o)
+ .debug_frame   0x00003380       0x48 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mbtowc_r.o)
+ .debug_frame   0x000033c8       0x28 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memmove.o)
+ .debug_frame   0x000033f0       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-mlock.o)
+ .debug_frame   0x00003420       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x0000345c       0x5c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-reent.o)
+ .debug_frame   0x000034b8       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-wctomb_r.o)
+ .debug_frame   0x000034f4       0xb0 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-lock.o)
+ .debug_frame   0x000035a4       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x000035c4       0x3c c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-wf_sqrt.o)
+ .debug_frame   0x00003600       0x30 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-ef_sqrt.o)
+ .debug_frame   0x00003630       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a(lib_a-s_matherr.o)
+ .debug_frame   0x00003650       0x50 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x000036a0       0xc4 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_cmpdf2.o)
+ .debug_frame   0x00003764       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unorddf2.o)
+ .debug_frame   0x00003784       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_fixdfsi.o)
+ .debug_frame   0x000037a8       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x000037cc       0x24 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/thumb/v7-m/nofp\libgcc.a(_arm_unordsf2.o)
+ .debug_frame   0x000037f0       0x20 c:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-errno.o)
 
 Cross Reference Table
 
@@ -3865,6 +3871,8 @@ _0_Comm_EventGroup                                ./Communication/0_Event_Group.
                                                   ./Communication/2_Echange_Data_Strategie.o
                                                   ./Communication/1_Trame_Communication.o
                                                   ./Communication/0_Communication.o
+_0_Communication_Give_Sending_Clearance           ./Communication/0_Communication.o
+                                                  ./Communication/2_Echange_Datas.o
 _0_Communication_Init                             ./Communication/0_Communication.o
                                                   ./src/Init.o
 _0_Communication_Init_Event_Group                 ./Communication/0_Event_Group.o
@@ -3876,6 +3884,7 @@ _0_Communication_Send_Data                        ./Communication/0_Communicatio
 _0_Communication_Send_RS485                       ./Communication/0_Communication.o
 _0_Communication_Send_USB                         ./Communication/0_Communication.o
 _0_Communication_Send_XBEE                        ./Communication/0_Communication.o
+_0_Communication_Wait_Sending_Clearance           ./Communication/0_Communication.o
 _0_Deplacement_ASTAR                              ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
 _0_Deplacement_ASTAR_SPLINE                       ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
 _0_Deplacement_Check_Bloquage                     ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
@@ -4774,10 +4783,12 @@ xEventGroupSetBits                                ./freertos/src/event_groups.o
                                                   ./Communication/2_Echange_Datas.o
                                                   ./Communication/2_Echange_Data_Strategie.o
                                                   ./Communication/1_Trame_Communication.o
+                                                  ./Communication/0_Communication.o
                                                   ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
 xEventGroupSync                                   ./freertos/src/event_groups.o
 xEventGroupWaitBits                               ./freertos/src/event_groups.o
                                                   ./Communication/1_Trame_Communication.o
+                                                  ./Communication/0_Communication.o
                                                   ./Strategie/Strategie_Level0/Deplacement/0_Deplacements.o
 xMutex_Protection                                 ./Strategie/Strategie_Level0/0_Infos.o
 xPortGetFreeHeapSize                              ./freertos/src/heap_5.o

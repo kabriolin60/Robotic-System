@@ -400,7 +400,12 @@ void _0_Communication_Send_Data(void *pvParameters)
 
 	while (1)
 	{
-		while( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
+		//Attente de l'autorisation d'envoyer un message par la Carte IA
+		_0_Communication_Wait_Sending_Clearance();
+
+		//Une fois l'autorisation accordée, envoi tous les messages dans la pile
+		//while( xQueueReceive( pvParameters, &Message, portMAX_DELAY ) == pdPASS )
+		while( xQueueReceive( pvParameters, &Message, 0 ) == pdPASS )
 		{
 			//Un message est pret à être envoyé
 			//L'ajouter au Txring Buffer
@@ -515,4 +520,39 @@ void _0_Communication_Send_USB(uint8_t *data, uint8_t length)
 		vcom_write(data, length);
 		Task_Delay(1);
 	}
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Wait_Sending_Clearance
+ **
+ ** Descriptions:		Fonction d'attente de l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Wait_Sending_Clearance(void)
+{
+	xEventGroupWaitBits(_0_Comm_EventGroup,   /* The event group being tested. */
+			eGROUP_SYNCH_TxClearance, /* The bits within the event group to wait for. */
+			pdTRUE,        /* Clear bits before returning. */
+			pdTRUE,        /* Wait for ALL bits to be set */
+			portMAX_DELAY/*ms_to_tick(30)*/ );/* Wait a maximum of xTicksToWait for either bit to be set. */
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Give_Sending_Clearance
+ **
+ ** Descriptions:		Fonction Donnant l'autorisation d'envoyer des messages
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Give_Sending_Clearance(void)
+{
+	xEventGroupSetBits(_0_Comm_EventGroup,    /* The event group being updated. */
+			eGROUP_SYNCH_TxClearance );/* The bits being set. */
 }

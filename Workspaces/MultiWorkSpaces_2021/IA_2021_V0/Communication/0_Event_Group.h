@@ -21,6 +21,8 @@
 
 #define eGROUP_SYNCH_COMMUNICATION_TxDispo 	( 1 << 6 ) 	//Flag indiquant que la fonction d'envoi un message est disponible
 
+#define eGROUP_SYNCH_TxClearance			( 1 << 7 ) //Flag indiquant que la carte a reçu l'autorisation d'envoyer un message
+
 
 extern EventGroupHandle_t _0_Comm_EventGroup;
 

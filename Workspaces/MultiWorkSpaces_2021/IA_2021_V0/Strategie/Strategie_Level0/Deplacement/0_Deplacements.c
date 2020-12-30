@@ -185,7 +185,7 @@ void _0_Deplacement_Clear_Flags(void)
 /*****************************************************************************
  ** Function name:		_0_Deplacement_Check_Bloquage
  **
- ** Descriptions:		EDetecte le flag de bloquage lors d'un deplacement
+ ** Descriptions:		Detecte le flag de bloquage lors d'un deplacement
  **
  ** parameters:			None
  **
@@ -645,17 +645,19 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 
 
 	/*
-	 * Step 1: Init the Map
+	 * Step 0-1: Init the Map
 	 */
 	Astar_Map_Init(Astar_Get_Map(), Astar_Get_Vector_Map(), _0_Get_Robot_Position().Position_X, _0_Get_Robot_Position().Position_Y, Final_Destination.X, Final_Destination.Y);
 
 	/*
-	 * Step 2: Create obstacles according to the function passed
+	 * Step 0-2: Create obstacles according to the function passed
 	 */
 	if(parameters.obstacle_creation_fct != NULL)
 		parameters.obstacle_creation_fct();
 
-	//Affiche les obstacles fixes une seule fois au début de la trajectoire
+	/*
+	 * Step 0-3: Affiche les obstacles fixes une seule fois au début de la trajectoire
+	 */
 	_2_Comm_Send_ASTAR_Vectors(Astar_Get_Map(), Astar_Get_Vector_Map(), LOG_Debug_Port, ON);
 
 
@@ -692,8 +694,6 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 			//Load the next destination
 			found_destination = Astar_Get_Map()->First_Destination;
 
-
-
 			//Send the new destination if != from the previous sent, with replacement
 			if(_0_Deplacement_Get_ptr_Current_Destination()->coord.X != found_destination.x || _0_Deplacement_Get_ptr_Current_Destination()->coord.Y != found_destination.y)
 			{
@@ -715,6 +715,7 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 					/*
 					 * Step 4: Send new destination to the Robot = new founded Pathfinding Result
 					 */
+					parameters.destination.Replace = true;
 					parameters.destination.coord.X = found_destination.x;
 					parameters.destination.coord.Y = found_destination.y;
 					_2_Comm_Send_Destination_Robot(&parameters.destination, RS485_port);
@@ -729,13 +730,14 @@ void _0_Deplacement_ASTAR(void* pvParameter)
 		}else
 		{
 			//No path has been found
+			//Clear the Flag of Path Found
+			xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
+					eGROUP_DEPLA_pathFOUND );/* The bits being set. */
+
 			//Rise the corresponding Flag
 			xEventGroupSetBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
 					eGROUP_DEPLA_path_NOT_FOUND );/* The bits being set. */
 
-			//Clear the Flag of Path Found
-			xEventGroupClearBits(_0_Deplacement_EventGroup,    /* The event group being updated. */
-					eGROUP_DEPLA_pathFOUND );/* The bits being set. */
 
 			//Send a no mouvement order to the Robot, with replacement to flush all existing deplacement, and stop the Robot
 			parameters.destination.Replace = true;

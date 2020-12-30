@@ -249,8 +249,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 	if(RingBuff == NULL)
 		return pdFAIL;
 
-	//_1_Communication_Wait_To_Receive(ms_to_tick(50));
-
 	byte API_start = 0;
 	static short API_LENGTH = 0;
 	short crc = 0;
@@ -269,19 +267,11 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 			boucle++;
 			if(boucle > 5)
 			{
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-				vTracePrint(MyChannel_Recompo, "Start not Rx");
-#endif
-				//_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
 		}else
 		{
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "Start not Rx2");
-#endif
-			//_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
 			return pdFAIL;
 		}
@@ -296,11 +286,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 	if (API_LENGTH > COMMUNICATION_TRAME_MAX_DATA + 11)
 	{
-		//_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-		vTracePrint(MyChannel_Recompo, "API LENGTH ERROR");
-#endif
 		return pdFAIL;
 	}
 
@@ -327,11 +313,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		FIFO_READ_ELEMENT(Fifo, &rx_crc);*/
 		//Dummy Read 3 bytes
 
-		//_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-		vTracePrint(MyChannel_Recompo, "Packet 0x89");
-#endif
 		return pdFAIL;
 	}
 
@@ -342,11 +324,7 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 		if (boucle > 5)
 		{
-			//_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-#if(config_debug_Trace_ISR_AND_Buffer_Level == 1)
-			vTracePrint(MyChannel_Recompo, "Data missing");
-#endif
 			return pdFAIL;
 		}
 		Task_Delay(0.1F);
@@ -391,7 +369,6 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 
 			if (boucle > 5)
 			{
-				//_1_Communication_Free_Receive_Bit();
 				Nb_Erreurs_com++;
 				return pdFAIL;
 			}
@@ -418,18 +395,14 @@ __attribute__((optimize("O0"))) BaseType_t _1_Communication_Create_Trame_From_Bu
 		{
 			Nb_Messages_recus++;
 			//Vérifie l'adressage du message
-			//_1_Communication_Free_Receive_Bit();
 			_1_Communication_Check_Rx_Adresse(&received_trame);
 		}else
 		{
-			//_1_Communication_Free_Receive_Bit();
 			Nb_Erreurs_com++;
-			_2_Comm_Send_Communication_Status(RS485_port);
 			return pdFAIL;
 		}
 	}else
 	{
-		//_1_Communication_Free_Receive_Bit();
 		Nb_Erreurs_com++;
 	}
 	return pdFAIL;

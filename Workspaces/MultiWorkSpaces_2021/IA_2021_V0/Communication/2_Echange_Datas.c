@@ -5,6 +5,7 @@
  *      Author: kabri
  */
 
+#include "0_Communication.h"
 #include "2_Echange_Datas.h"
 #include "1_Trame_Communication.h"
 #include "stdio.h"
@@ -51,7 +52,7 @@ void _2_Communication_Init()
 void _2_Comm_Send_Destination_Robot(struct st_DESTINATION_ROBOT* destination, enum enum_canal_communication canal)
 {
 	//Attente du Bit de synchro donnant l'autorisation d'envoyer un nouveau message vers la Queue
-	if(_1_Communication_Wait_To_Send(ms_to_tick(5), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
+	if(_1_Communication_Wait_To_Send(ms_to_tick(15), eGROUP_SYNCH_TxTrameDispo)== pdFAIL )
 	{
 		//Le bit n'est pas dispo, délai dépassé, le message n'est pas envoyé
 		//Abandon
@@ -194,6 +195,9 @@ void _2_Comm_Send_Demande_Info(uint8_t adresse_cible, enum enum_canal_communicat
 
 	//Envoi sans attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
+
+	//Donne l'autorisation d'envoyer sur le bus
+	_0_Communication_Give_Sending_Clearance();
 }
 
 
@@ -232,6 +236,9 @@ void _2_Comm_Send_PING(uint8_t adresse_cible, enum enum_canal_communication cana
 
 	//Envoi sans attente d'ACK
 	_1_Communication_Create_Trame(&trame_echange, canal, eGROUP_SYNCH_TxTrameDispo, pdFALSE, 0, 0);
+
+	//Donne l'autorisation d'envoyer sur le bus
+	_0_Communication_Give_Sending_Clearance();
 }
 
 

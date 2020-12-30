@@ -267,9 +267,10 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 	struct Communication_Message Message_To_Send;
 
+	enum Com_Instruction hold_Instruction = pMessage_to_send->Instruction;
+
 	//Mise en forme des datas
 	(void)_1_Communication_Create_Message(pMessage_to_send, &Message_To_Send);
-	_1_Communication_Free_Send_Bit(bit_to_check);
 
 	//Ajoute au message le canal de communication à utilisre
 	Message_To_Send.canal_communication = canal;
@@ -285,7 +286,7 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 		{
 			//Le message n'a pas pu être mis en Queue d'envoie
 			//Libère l'accès a cette fonction
-			_1_Communication_Free_Send_Bit(eGROUP_SYNCH_COMMUNICATION_TxDispo);
+			_1_Communication_Free_Send_Bit(eGROUP_SYNCH_COMMUNICATION_TxDispo | bit_to_check);
 			return pdFALSE;
 		}
 		Task_Delay(5);
@@ -293,16 +294,16 @@ BaseType_t _1_Communication_Create_Trame(struct Communication_Trame *pMessage_to
 
 
 	//Libère l'accès à cette fonction
-	_1_Communication_Free_Send_Bit(eGROUP_SYNCH_COMMUNICATION_TxDispo);
+	_1_Communication_Free_Send_Bit(eGROUP_SYNCH_COMMUNICATION_TxDispo | bit_to_check);
 
 
 	//Vérifie si on a atteint le nombre maximum de tentatives
-	if(tentatives_envoi >= 5)
+	if(tentatives_envoi >= 10)
 	{
 		//On a dépassé le nombre maximum d'envoi de messages
 
-		static char str[70];
-		sprintf(str, "IA: ACK non recu: Instr= %d", Message_To_Send.Data[8]);
+		static char str[30];
+		sprintf(str, "IA: ACK non recu: Instr= %d", hold_Instruction);
 		_2_Comm_Send_Log_Message(str, Color_Red, Channel_Debug_Communication, LOG_Debug_Port);
 
 		//Renvoi un échec

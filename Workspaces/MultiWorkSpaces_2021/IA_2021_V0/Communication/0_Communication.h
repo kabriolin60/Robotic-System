@@ -44,4 +44,8 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_XBEE(LPC_USART_T *pUA
 
 void _0_Communication_Send_USB(uint8_t *data, uint8_t length);
 
+void _0_Communication_Wait_Sending_Clearance(void);
+
+void _0_Communication_Give_Sending_Clearance(void);
+
 #endif /* 0_COMMUNICATION_0_COMMUNICATION_H_ */

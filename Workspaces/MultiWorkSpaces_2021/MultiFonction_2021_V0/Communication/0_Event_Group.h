@@ -21,7 +21,7 @@
 #define eGROUP_SYNCH_AX12_ERROR 			( 1 << 6 ) //Flag indiquant une erreur sur la COM des AX12
 
 
-#define eGROUP_SYNCH_TxClearance			(1 << 7 ) //Flag indiquant que la carte a reçu l'autorisation d'envoyer un message
+#define eGROUP_SYNCH_TxClearance			( 1 << 7 ) //Flag indiquant que la carte a reçu l'autorisation d'envoyer un message
 
 //#define BIT_4 ( 1 << 4 )
 

@@ -372,7 +372,7 @@ BaseType_t _1_Communication_Create_Trame_From_Buffer(void)
   }else
   {
     Nb_Erreurs_com++;
-    Serial.print("Erreur_Step 8/ ");
+    Serial.print("Erreur_Step 8 ");
     Serial.print(crc, DEC);  // print as an ASCII-encoded decimal
     Serial.print("/");
     Serial.print(rx_crc, DEC);  // print as an ASCII-encoded decimal
