@@ -5,20 +5,30 @@
 	Trajectoire en cercle
 
 #Bootloader
+	Adaptation bootloader sur LPC1347 (OK sauf lancement application)
+	Pas testé sur LPC1114
 
 #Stratégie
 	Créer une stratégie de test
 	Commencer le selecteur d'action
 
 #Electronique
-	Check tension maxi d'alimentation
+	Check tension maxi d'alimentation -> 25V
 	Regarder création d'un autre type 
+
+#Autres Cartes
+	Utilité d'une carte carte? Quel type? Quel besoin?
+
+	Test FreeRTOS sur LPC1347 -> OK
+	Test Communication 2MBits LPC1347 -> OK à 64MHz. Capable de tourner à 96MHz
+
+	Test LPC1114. Théoriquement max 50MHz -> non compatible 2Mbits. Voir ce que ça donne à 64MHz? 96MHz?	
 
 #Actionneurs
 	Retravailler la boucle d'attente des actionneurs en fin de deplacement
 
 #Communication
-	Tester des vitesses de communication > 2MBaud => OK sauf côté PC
+	Tester des vitesses de communication > 2MBaud => OK jusque 8Mbit sur LPC1769 sauf côté PC
 	Tester avec une seconde carte multifct (3ème carte)
 
 #IHM
