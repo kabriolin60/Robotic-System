@@ -29,6 +29,7 @@
 							<tool id="com.crt.advproject.cpp.lib.debug.449530115" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.debug">
 								<option id="com.crt.advproject.cpp.hdrlib.95183825" name="Library headers" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.61048024" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.fpu.714260983" superClass="com.crt.advproject.cpp.fpu"/>
 							</tool>
 							<tool id="com.crt.advproject.gcc.lib.debug.1623980226" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.debug">
 								<option id="com.crt.advproject.gcc.arch.389138896" name="Architecture" superClass="com.crt.advproject.gcc.arch" useByScannerDiscovery="true" value="com.crt.advproject.gcc.target.cm3" valueType="enumerated"/>
@@ -137,7 +138,10 @@
 						<toolChain id="com.crt.advproject.toolchain.lib.release.746798763" name="Code Red MCU Tools" superClass="com.crt.advproject.toolchain.lib.release">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.lib.release.1300324823" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.lib.release"/>
 							<builder buildPath="${workspace_loc:/lpc_chip_13xx}/Release" id="com.crt.advproject.builder.lib.release.1753777091" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.lib.release"/>
-							<tool id="com.crt.advproject.cpp.lib.release.471884019" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release"/>
+							<tool id="com.crt.advproject.cpp.lib.release.471884019" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release">
+								<option id="com.crt.advproject.cpp.hdrlib.512197938" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.fpu.903446783" superClass="com.crt.advproject.cpp.fpu" useByScannerDiscovery="true"/>
+							</tool>
 							<tool id="com.crt.advproject.gcc.lib.release.362523454" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.release">
 								<option id="com.crt.advproject.gcc.arch.302225597" name="Architecture" superClass="com.crt.advproject.gcc.arch" useByScannerDiscovery="true" value="com.crt.advproject.gcc.target.cm3" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.thumb.337603171" name="Thumb mode" superClass="com.crt.advproject.gcc.thumb" useByScannerDiscovery="false" value="true" valueType="boolean"/>

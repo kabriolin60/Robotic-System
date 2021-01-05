@@ -160,7 +160,8 @@ enum enum_canal_communication
 	USB_port,
 	RS485_port,
 	RS485_2_port,
-	Xbee_port
+	Xbee_port,
+	DEBUG_UART_port
 };
 
 

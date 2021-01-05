@@ -29,6 +29,7 @@
 							<tool id="com.crt.advproject.cpp.lib.debug.275160424" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.debug">
 								<option id="com.crt.advproject.cpp.hdrlib.1809837256" name="Library headers" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.276523734" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.fpu.861654449" name="Floating point" superClass="com.crt.advproject.cpp.fpu" useByScannerDiscovery="true"/>
 							</tool>
 							<tool id="com.crt.advproject.gcc.lib.debug.1938240778" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.debug">
 								<option id="com.crt.advproject.gcc.arch.992827905" name="Architecture" superClass="com.crt.advproject.gcc.arch" useByScannerDiscovery="true" value="com.crt.advproject.gcc.target.cm3" valueType="enumerated"/>
@@ -137,7 +138,10 @@
 						<toolChain id="com.crt.advproject.toolchain.lib.release.1589203459" name="Code Red MCU Tools" superClass="com.crt.advproject.toolchain.lib.release">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.lib.release.238866996" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.lib.release"/>
 							<builder buildPath="${workspace_loc:/lpc_board_nxp_lpcxpresso_1347}/Release" id="com.crt.advproject.builder.lib.release.1889782054" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.lib.release"/>
-							<tool id="com.crt.advproject.cpp.lib.release.1429755692" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release"/>
+							<tool id="com.crt.advproject.cpp.lib.release.1429755692" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.lib.release">
+								<option id="com.crt.advproject.cpp.hdrlib.1798470520" name="Library headers" superClass="com.crt.advproject.cpp.hdrlib" useByScannerDiscovery="false"/>
+								<option id="com.crt.advproject.cpp.fpu.1957548882" name="Floating point" superClass="com.crt.advproject.cpp.fpu" useByScannerDiscovery="true"/>
+							</tool>
 							<tool id="com.crt.advproject.gcc.lib.release.1507649024" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.release">
 								<option id="com.crt.advproject.gcc.arch.190139507" name="Architecture" superClass="com.crt.advproject.gcc.arch" useByScannerDiscovery="true" value="com.crt.advproject.gcc.target.cm3" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.thumb.95365974" name="Thumb mode" superClass="com.crt.advproject.gcc.thumb" useByScannerDiscovery="false" value="true" valueType="boolean"/>
@@ -151,7 +155,7 @@
 								<option id="gnu.c.compiler.option.misc.other.1298501663" name="Other flags" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections" valueType="string"/>
 								<option id="com.crt.advproject.gcc.lib.release.option.optimization.level.683825491" name="Optimization Level" superClass="com.crt.advproject.gcc.lib.release.option.optimization.level" useByScannerDiscovery="true" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1312884826" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lpc_chip_13xx/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/0_lpc_chip_13xx/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 								</option>
 								<option id="com.crt.advproject.c.misc.dialect.470159736" name="Language standard" superClass="com.crt.advproject.c.misc.dialect" useByScannerDiscovery="true"/>

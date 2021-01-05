@@ -134,6 +134,12 @@ Declaration des Reglages liés à la Communication RS485
 #define RS485_DIR_PORT 				2
 #define RS485_DIR_BIT  				3
 
+#define DEBUG_UART					LPC_UART3
+#define DEBUG_UART_BAUDRATE			2000000
+
+#define DEBUG_UART_IRQ_SELECTION 	UART3_IRQn
+
+
 
 /**************************************************
 Declaration de l'adresse de la carte, en fonction de son Type ou de ses bits d'adressages

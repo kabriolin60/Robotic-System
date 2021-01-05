@@ -42,24 +42,24 @@ src/main.o src/main.d: ../src/main.c \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/lpc_types.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/lpc_phy.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/FreeRTOS.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos/FreeRTOSConfig.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/projdefs.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/portable.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/deprecated_definitions.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/portmacro.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/mpu_wrappers.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/list.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/cdc_usb_main.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/cdc_vcom.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/app_usbd_cfg.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/FreeRTOS.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos/FreeRTOSConfig.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/projdefs.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/portable.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/deprecated_definitions.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/portmacro.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/mpu_wrappers.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/task.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/list.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/cdc_usb_main.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/cdc_vcom.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/app_usbd_cfg.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/error.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_rom_api.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_hw.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_core.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/app_usbd_cfg.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/app_usbd_cfg.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_mscuser.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_msc.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_dfuuser.h \
@@ -73,20 +73,21 @@ src/main.o src/main.d: ../src/main.c \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Type_Declaration.h \
  ../src/Bootloader.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Event_Group.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/event_groups.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/timers.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Communication.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/0_Event_Group.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/event_groups.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/timers.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/task.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/0_Communication.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Configuration.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\src/Configuration.h \
  C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/ring_buffer.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/1_Trame_Communication.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/semphr.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/2_Echange_Datas.h \
- C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/2_Echange_Datas_Reception.h
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/1_Trame_Communication.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/queue.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/semphr.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/queue.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/2_Echange_Datas.h \
+ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/2_Echange_Datas_Reception.h \
+ ../src/Bootloader_Data.h
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/chip.h:
 
@@ -174,29 +175,29 @@ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nx
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_board_nxp_lpcxpresso_1769\inc/board.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/FreeRTOS.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/FreeRTOS.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos/FreeRTOSConfig.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos/FreeRTOSConfig.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/projdefs.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/projdefs.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/portable.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/portable.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/deprecated_definitions.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/deprecated_definitions.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/portmacro.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/portmacro.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/mpu_wrappers.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/mpu_wrappers.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/task.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/list.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/list.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/cdc_usb_main.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/cdc_usb_main.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/cdc_vcom.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/cdc_vcom.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/app_usbd_cfg.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/app_usbd_cfg.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/error.h:
 
@@ -208,7 +209,7 @@ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_core.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication\USB\inc/app_usbd_cfg.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication\USB\inc/app_usbd_cfg.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc\usbd/usbd_mscuser.h:
 
@@ -236,30 +237,32 @@ C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_
 
 ../src/Bootloader.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Event_Group.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/0_Event_Group.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/event_groups.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/event_groups.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/timers.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/timers.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/task.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/task.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/0_Communication.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/0_Communication.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\MultiFonction_2021_V0\Definitions/Communication_Typedef.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\src/Configuration.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\src/Configuration.h:
 
 C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\0_lpc_chip_175x_6x\inc/ring_buffer.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/1_Trame_Communication.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/1_Trame_Communication.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/queue.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/semphr.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/semphr.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\freertos\inc/queue.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\freertos\inc/queue.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/2_Echange_Datas.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/2_Echange_Datas.h:
 
-C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\Bootloader\0_Communication/2_Echange_Datas_Reception.h:
+C:\Robot\Robotic-System.git\trunk\Workspaces\MultiWorkSpaces_2021\1_Bootloader_1769\0_Communication/2_Echange_Datas_Reception.h:
+
+../src/Bootloader_Data.h:

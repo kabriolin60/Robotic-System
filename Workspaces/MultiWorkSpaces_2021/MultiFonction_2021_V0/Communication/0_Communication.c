@@ -72,6 +72,8 @@ void _0_Communication_Init(void)
 
 	_0_Communication_Init_RS485();
 
+	_0_Communication_Init_Debug_UART();
+
 	//Création de la Queue contenant les messages qui doivent être envoyés
 	_1_xQueue_Message_TO_Send = xQueueCreate( 10, sizeof( struct Communication_Message ));
 	vQueueAddToRegistry( _1_xQueue_Message_TO_Send, "_1_xQue_Mess_Send");
@@ -122,7 +124,42 @@ void _0_Communication_Init_RS485(void)
 	/* preemption = 1, sub-priority = 1 */
 	NVIC_ClearPendingIRQ(RS485_IRQ_SELECTION);
 	NVIC_SetPriority(RS485_IRQ_SELECTION, 6);
+}
 
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Init_Debug_UART
+ **
+ ** Descriptions:		Fonction d'initialisation des actions de communication pour le port de Debug UART 3
+ **
+ ** parameters:			None
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+void _0_Communication_Init_Debug_UART(void)
+{
+	Chip_IOCON_PinMux(LPC_IOCON, 1, 0, IOCON_MODE_INACT, IOCON_FUNC2);	// P1.0 TXD3
+	Chip_IOCON_PinMux(LPC_IOCON, 1, 1, IOCON_MODE_INACT, IOCON_FUNC2); // P1.1 RXD3
+
+	/* Setup UART for 115.2K8N1 */
+	Chip_UART_Init(DEBUG_UART);
+	Chip_UART_SetBaud(DEBUG_UART, DEBUG_UART_BAUDRATE);
+	Chip_UART_ConfigData(DEBUG_UART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
+	Chip_UART_TXEnable(DEBUG_UART);
+
+
+	/* Reset and enable FIFOs, FIFO trigger level 2 (8 chars) */
+	Chip_UART_SetupFIFOS(DEBUG_UART, (UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV2));
+
+	/* Enable receive data and line status interrupt */
+	Chip_UART_IntEnable(DEBUG_UART, (UART_IER_RBRINT | UART_IER_RLSINT));
+
+	/* Disable transmit status interrupt */
+	Chip_UART_IntDisable(DEBUG_UART, UART_IER_THREINT);
+
+	/* preemption = 1, sub-priority = 1 */
+	NVIC_ClearPendingIRQ(DEBUG_UART_IRQ_SELECTION);
+	NVIC_SetPriority(DEBUG_UART_IRQ_SELECTION, 6);
 }
 
 
@@ -226,6 +263,11 @@ void _0_Communication_Send_Data(void *pvParameters)
 				Task_Delay(0.1f);
 				break;
 
+			case DEBUG_UART_port:
+				_0_Communication_Send_Debug_UART(DEBUG_UART, &txring, (int)Message.length);
+				Task_Delay(0.1f);
+				break;
+
 			default:
 				//Dans le doute, vide le buffer de TX de tout ce qu'il contient
 				RingBuffer_PopMult(&txring, &g_txBuff[0], RingBuffer_Count(&txring));
@@ -268,6 +310,29 @@ __attribute__((optimize("O0"))) void _0_Communication_Send_RS485(LPC_USART_T *pU
 	_0_RS485_Slave_Mode(RS485_DIR_PORT, RS485_DIR_BIT);
 
 	Set_Debug_Pin_0_Low();
+}
+
+
+/*****************************************************************************
+ ** Function name:		_0_Communication_Send_Debug_UART
+ **
+ ** Descriptions:		Fonction d'envoi d'un message par UART
+ **
+ ** parameters:			Pointeur vers le ring buffer contenant les datas à envoyer
+ ** 					Nombre d'octets à envoyer
+ ** Returned value:		None
+ **
+ *****************************************************************************/
+__attribute__((optimize("O0"))) void _0_Communication_Send_Debug_UART(LPC_USART_T *pUART, RINGBUFF_T *data, int length)
+{
+	uint8_t ch;
+
+	while (RingBuffer_Pop(data, &ch))
+	{
+		Chip_UART_SendByte(pUART, ch);
+
+		while((Chip_UART_ReadLineStatus(pUART) & (UART_LSR_THRE | UART_LSR_OE | UART_LSR_PE)) == 0);
+	}
 }
 
 
