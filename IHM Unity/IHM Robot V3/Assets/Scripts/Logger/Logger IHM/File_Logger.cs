@@ -23,7 +23,6 @@ public class File_Logger : MonoBehaviour
 
     private bool Pause_Reading_Token = true;
     private bool Stop_Reading_Token = false;
-    //private bool Is_Reading = false;
     private bool Has_been_Reading = false;
 
     public GameObject Button_Save;
@@ -177,23 +176,19 @@ public class File_Logger : MonoBehaviour
             extension = "xml";
         }
 
-        var multipath = StandaloneFileBrowser.OpenFilePanel("Save File", "", extension, false);
+        var multipath = StandaloneFileBrowser.OpenFilePanel("Save File", "", extension, true);
 
-
-        if (multipath != null)
+        if (multipath == null)
         {
-            if (multipath.Length > 0)
-            {
-                Logger_File_Path = multipath[0];
-            }
+            return;
         }
 
-        if (Logger_File_Path != null)
+        Logger_File_Path = multipath[0]; //utilisé pour la modif de la vitesse de lecture et la mise en pause
+        foreach (var file in multipath)
         {
-            Debug.Log($"Logger file path = {Logger_File_Path}");
+            Debug.Log($"Logger file path = {file}");
+            Read_Logger_Data(file);
         }
-
-        Read_Logger_Data();
     }
 
 
@@ -210,9 +205,9 @@ public class File_Logger : MonoBehaviour
     }
 
     
-    public bool Read_Logger_Data()
+    public bool Read_Logger_Data(string file)
     {
-        if (File.Exists(Logger_File_Path) == false)
+        if (File.Exists(file) == false)
         {
             //Le fichier n'existe pas
             return false;
@@ -229,7 +224,7 @@ public class File_Logger : MonoBehaviour
         
         
         //crée une tache asynchrone qui va lire les infos en temps réel
-        Reading_Task();
+        Reading_Task(file);
 
         return true;
     }
@@ -265,7 +260,7 @@ public class File_Logger : MonoBehaviour
     }
 
 
-    private void Reading_Task()
+    private void Reading_Task(string file)
     {
         //vérifie qu'il y a bien des données à lire
         if (deserialized_data.messages.Count == 0)
@@ -276,7 +271,7 @@ public class File_Logger : MonoBehaviour
         //start asynchronous data sending
         tasks.Add(Task.Factory.StartNew(async () =>
         {
-            Logger_New_Line.Log($"Start Reading logged data: {System.IO.Path.GetFileName(Logger_File_Path)}", 6, Color.black);
+            Logger_New_Line.Log($"Start Reading logged data: {System.IO.Path.GetFileName(file)}", 6, Color.black);
             Communication.Communication_Message message_output = new Communication.Communication_Message();
 
             DateTime heure_premier_enregistrement = deserialized_data.messages[0].Heure;
