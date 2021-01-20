@@ -240,7 +240,7 @@ __attribute__((optimize("O0"))) void TEST_init_parametres(void)
 
 	//xTaskCreate(TEST_Test_Deplacement, (char *) "Deplacements", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
-	//xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
+	xTaskCreate(Test_Task_Graphique, (char *) "Graph", 100, NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
 
 	//xTaskCreate(TEST_PID_Tunning, (char *) "PID Tunning", 80, NULL, (tskIDLE_PRIORITY + 2UL), (xTaskHandle *) NULL);
 
@@ -300,7 +300,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 	for (;;)
 	{
-		Task_Delay_Until(10.0f);
+		Task_Delay_Until(5.0f);
 		channel = 0;
 
 		Datas_To_Plot.Datas[channel].Channel = channel;
@@ -334,7 +334,7 @@ void Test_Task_Graphique(void* pvParameter)
 
 
 		Datas_To_Plot.nb_datas_to_send = channel;
-		_2_Comm_Send_Graph(&Datas_To_Plot, RS485_port);
+		_2_Comm_Send_Graph(&Datas_To_Plot, DEBUG_UART_port);
 	}
 }
 

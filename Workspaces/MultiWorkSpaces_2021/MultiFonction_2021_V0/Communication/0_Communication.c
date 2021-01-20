@@ -139,7 +139,7 @@ void _0_Communication_Init_RS485(void)
 void _0_Communication_Init_Debug_UART(void)
 {
 	Chip_IOCON_PinMux(LPC_IOCON, 1, 0, IOCON_MODE_INACT, IOCON_FUNC2);	// P1.0 TXD3
-	Chip_IOCON_PinMux(LPC_IOCON, 1, 1, IOCON_MODE_INACT, IOCON_FUNC2); // P1.1 RXD3
+	Chip_IOCON_PinMux(LPC_IOCON, 1, 1, IOCON_MODE_INACT, IOCON_FUNC2);  // P1.1 RXD3
 
 	/* Setup UART for 115.2K8N1 */
 	Chip_UART_Init(DEBUG_UART);
