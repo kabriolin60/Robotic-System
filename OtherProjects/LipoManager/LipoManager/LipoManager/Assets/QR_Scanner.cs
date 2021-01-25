@@ -20,12 +20,14 @@ public class QR_Scanner : MonoBehaviour
     public RawImage Image;
 	public TextMeshProUGUI Date_Picker;
 
+
 	public GameObject Element_Container;
 
 
 	public GameObject Element_Type_Operation;
 	public GameObject Element_Appareil;
 	public GameObject Element_Programme;
+	public TMP_InputField Tps_Vol;
 
 	public List<GameObject> Elements_Batteries = new List<GameObject>();
 
@@ -246,6 +248,22 @@ public class QR_Scanner : MonoBehaviour
 
 	public void Validate_New_Ope()
     {
+		foreach(QRCode_Data element in new_operation.Elements_Presents_List)
+        {
+			if(element.Type == QRCode_Data.Element_Type.Programme)
+            {
+				element.Temps_Vol = float.Parse(Tps_Vol.text, CultureInfo.CreateSpecificCulture("fr-FR"));
+            }
+
+			if(element.Type == QRCode_Data.Element_Type.Batterie)
+            {
+				element.Restant = int.Parse(FindChildByRecursion(element.gameobj.transform, "InputField (%restant)").GetComponentInChildren<TMP_InputField>().text);
+
+				element.DeltaV = int.Parse(FindChildByRecursion(element.gameobj.transform, "InputField (dV)").GetComponentInChildren<TMP_InputField>().text);
+			}
+        }
+
+
 		this.GetComponent<XML_Data_Manager>().Add_New_Operation(new_operation);
 
 		this.GetComponent<XML_Data_Manager>().Save_XML_File();
@@ -293,6 +311,9 @@ public class QR_Scanner : MonoBehaviour
 			Programme
         }
 
+		[XmlIgnore]
+		public GameObject gameobj;
+
 		public Element_Type Type = new Element_Type();
 		public string Name;
 
@@ -329,4 +350,23 @@ public class QR_Scanner : MonoBehaviour
 
 
 	#endregion
+
+
+	internal static Transform FindChildByRecursion(Transform aParent, string aName)
+	{
+		if (aParent == null) return null;
+
+		var result = aParent.transform.Find(aName);
+
+		if (result != null)
+			return result;
+
+		foreach (Transform child in aParent)
+		{
+			result = FindChildByRecursion(child, aName);
+			if (result != null)
+				return result;
+		}
+		return null;
+	}
 }

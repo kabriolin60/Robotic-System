@@ -42,8 +42,20 @@ public class XML_Data_Manager : MonoBehaviour
             Liste_Operations = (List<QR_Scanner.Operation>)obj;
 
             reader.Close();
+
+            foreach(QR_Scanner.Operation ope in Liste_Operations)
+            {
+                foreach(QR_Scanner.QRCode_Data element in ope.Elements_Presents_List)
+                {
+                    ope.Elements_Presents.Add(element.Name, element);
+                }                
+            }
+
+            this.GetComponent<Main_Display>().Display_All_Ope(Liste_Operations);
         }
     }
+
+
 
 
     public void Save_XML_File()
