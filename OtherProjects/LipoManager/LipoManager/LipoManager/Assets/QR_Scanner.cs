@@ -10,6 +10,7 @@ using Wizcorp.Utils.Logger;
 using System.Xml.Serialization;
 using System.IO;
 using TMPro;
+using System.Globalization;
 
 public class QR_Scanner : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class QR_Scanner : MonoBehaviour
 	public TextMeshProUGUI Date_Picker;
 
 	public GameObject Element_Container;
+
+
 	public GameObject Element_Type_Operation;
 	public GameObject Element_Appareil;
 	public GameObject Element_Programme;
@@ -81,7 +84,7 @@ public class QR_Scanner : MonoBehaviour
 
 	public void Set_New_Date(DateTime date)
 	{
-		Date_Picker.text = date.ToShortDateString();
+		Date_Picker.text = date.ToString("dd/MM/yyyy");
 
 		new_operation.date = date;
 	}
@@ -102,15 +105,15 @@ public class QR_Scanner : MonoBehaviour
 
 		switch (data.Type)
 		{
-			case QRCode_Data.QRType.Avion:
+			case QRCode_Data.Element_Type.Avion:
 				Add_Avion(data);
 				break;
 
-			case QRCode_Data.QRType.Batterie:
+			case QRCode_Data.Element_Type.Batterie:
 				Add_Batterie(data);
 				break;
 
-			case QRCode_Data.QRType.Programme:
+			case QRCode_Data.Element_Type.Programme:
 				Add_Programme(data);
 				break;
 		}
@@ -129,6 +132,7 @@ public class QR_Scanner : MonoBehaviour
 			Debug.Log("Add Avion");
 
 			new_operation.Elements_Presents.Add(data.Name, data);
+			new_operation.Elements_Presents_List.Add(data);
 		}
 	}
 
@@ -145,6 +149,7 @@ public class QR_Scanner : MonoBehaviour
 			Debug.Log("Add Programme");
 
 			new_operation.Elements_Presents.Add(data.Name, data);
+			new_operation.Elements_Presents_List.Add(data);
 		}
 	}
 
@@ -163,6 +168,7 @@ public class QR_Scanner : MonoBehaviour
 			//Si cet element n'est pas déjà présent
 			//Ajoute le dans la liste des objets de cet evenement
 			new_operation.Elements_Presents.Add(data.Name, data);
+			new_operation.Elements_Presents_List.Add(data);
 		}
 	}
     #endregion
@@ -223,6 +229,32 @@ public class QR_Scanner : MonoBehaviour
 	#endregion
 
 
+	#region Cancel Validate
+	public void Cancel_New_Ope()
+    {
+		Element_Appareil.SetActive(false);
+		Element_Programme.SetActive(false);
+
+		foreach (GameObject batt_to_destroy in Elements_Batteries)
+			DestroyImmediate(batt_to_destroy);
+
+		Elements_Batteries.Clear();
+		new_operation.Elements_Presents.Clear();
+		new_operation.Elements_Presents_List.Clear();
+	}
+
+
+	public void Validate_New_Ope()
+    {
+		this.GetComponent<XML_Data_Manager>().Add_New_Operation(new_operation);
+
+		this.GetComponent<XML_Data_Manager>().Save_XML_File();
+
+		Cancel_New_Ope();
+	}
+
+	#endregion
+
 	#region Operation
 	[Serializable]
 	public class Operation
@@ -240,7 +272,11 @@ public class QR_Scanner : MonoBehaviour
 
 		public DateTime date;
 
+		[XmlIgnore]
 		public Dictionary<string, QRCode_Data> Elements_Presents = new Dictionary<string, QRCode_Data>();
+		public List<QRCode_Data> Elements_Presents_List = new List<QRCode_Data>();
+
+		public string Commentaire;
 	}
 
 	#endregion
@@ -250,15 +286,21 @@ public class QR_Scanner : MonoBehaviour
 	[Serializable]
 	public class QRCode_Data
     {
-		public enum QRType
+		public enum Element_Type
         {
 			Batterie,
 			Avion,
 			Programme
         }
 
-		public QRType Type = new QRType();
+		public Element_Type Type = new Element_Type();
 		public string Name;
+
+		public int Courant;
+		public int Capacite;
+		public int Restant;
+		public int DeltaV;
+		public float Temps_Vol;
 	}
 
     private void Serialize(object data, string path)
