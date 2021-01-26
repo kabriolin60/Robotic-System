@@ -317,7 +317,7 @@ public class QR_Scanner : MonoBehaviour
 		public Element_Type Type = new Element_Type();
 		public string Name;
 
-		public int Courant;
+		public float Courant;
 		public int Capacite;
 		public int Restant;
 		public int DeltaV;

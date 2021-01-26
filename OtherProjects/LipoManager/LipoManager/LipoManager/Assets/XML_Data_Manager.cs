@@ -47,7 +47,10 @@ public class XML_Data_Manager : MonoBehaviour
             {
                 foreach(QR_Scanner.QRCode_Data element in ope.Elements_Presents_List)
                 {
-                    ope.Elements_Presents.Add(element.Name, element);
+                    if (!ope.Elements_Presents.ContainsKey(element.Name))
+                    {
+                        ope.Elements_Presents.Add(element.Name, element);
+                    }
                 }                
             }
 
