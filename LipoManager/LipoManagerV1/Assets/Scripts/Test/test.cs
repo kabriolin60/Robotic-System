@@ -75,7 +75,7 @@ public class test : MonoBehaviour
 
 
         
-        XML_Datas test_read_data = new XML_Datas();
+        /*XML_Datas test_read_data = new XML_Datas();
         test_read_data = this.GetComponent<File_Manager>().Load_XML<XML_Datas>("/test3 - Copie.xml");
         if (test_read_data != null)
         {
@@ -92,6 +92,6 @@ public class test : MonoBehaviour
         {
             //Echec de chargement du fichier
             Debugger.text += ("Failed to load the File\n");
-        }
+        }*/
     }
 }

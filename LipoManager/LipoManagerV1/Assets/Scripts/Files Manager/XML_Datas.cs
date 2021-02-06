@@ -52,6 +52,7 @@ public class Appareil
 
 	[XmlElement(IsNullable = true)]
 	public string Modele;		
+
 	public DateTime Buy_Date;
 
 	public float Price;		
@@ -76,6 +77,7 @@ public class Batterie
 
 	[XmlElement(IsNullable = true)]
 	public string Modele;
+
 	public int Capacity;
 
 	public int C_Rate;
